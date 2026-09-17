@@ -15,8 +15,11 @@
     "test": "turbo run test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:up": "docker compose -f deploy/docker-compose.yml up -d",
-    "db:down": "docker compose -f deploy/docker-compose.yml down"
+    "db:up": "docker compose --env-file .env -f deploy/docker-compose.yml up -d",
+    "db:down": "docker compose --env-file .env -f deploy/docker-compose.yml down",
+    "db:generate": "turbo run build --filter=@logsy/core && pnpm --filter @logsy/db db:generate",
+    "db:migrate": "turbo run build --filter=@logsy/db && pnpm --filter @logsy/db db:migrate",
+    "dev:server": "turbo run build --filter=@logsy/server^... && pnpm --filter @logsy/server dev"
   },
   "devDependencies": {
     "@logsy/config": "workspace:*",
