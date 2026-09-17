@@ -217,7 +217,7 @@ Select the provider with `LLM_PROVIDER` and the model with `LLM_MODEL` (never ha
 Tables (add indexes and foreign keys as appropriate):
 
 - `installations` — id, github_installation_id (unique), account_login, account_type, created_at, suspended_at
-- `repositories` — id, installation_id, github_repo_id (unique), full_name, private, settings (jsonb: enabled, comment_mode, llm_enabled), created_at
+- `repositories` — id, installation_id, github_repo_id (unique), full_name, private, settings (jsonb: `{ enabled: boolean, commentMode: "single" | "off", llmEnabled: boolean }`), created_at
 - `webhook_deliveries` — delivery_id (PK), event, action, received_at, processed_at, status
 - `workflow_runs` — id, repository_id, github_run_id, run_attempt, workflow_name, head_sha, head_branch, event, conclusion, pr_number, html_url, created_at; unique(github_run_id, run_attempt)
 - `failures` — id, workflow_run_id, github_job_id, job_name, step_name, category, fingerprint, error_excerpt (redacted), log_chars_original, log_chars_trimmed, created_at
