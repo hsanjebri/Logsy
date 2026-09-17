@@ -30,7 +30,16 @@ export const githubAppEnvSchema = z.object({
     .refine((key) => key.includes('-----BEGIN') && key.includes('PRIVATE KEY-----'), {
       error: 'must be a PEM private key',
     }),
+});
+
+/** Only the webhook receiver needs this; API calls use {@link githubAppEnvSchema}. */
+export const githubWebhookEnvSchema = z.object({
   GITHUB_WEBHOOK_SECRET: z.string().min(16, { error: 'must be at least 16 characters' }),
+});
+
+export const serverEnvSchema = z.object({
+  HOST: z.string().min(1).default('0.0.0.0'),
+  PORT: z.coerce.number().int().min(1).max(65535).default(3000),
 });
 
 export const llmEnvSchema = z

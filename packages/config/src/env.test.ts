@@ -4,9 +4,11 @@ import {
   baseEnvSchema,
   databaseEnvSchema,
   githubAppEnvSchema,
+  githubWebhookEnvSchema,
   llmEnvSchema,
   loadEnv,
   redisEnvSchema,
+  serverEnvSchema,
 } from './env.js';
 
 const PEM = '-----BEGIN RSA PRIVATE KEY-----\\nMIIEabc\\n-----END RSA PRIVATE KEY-----';
@@ -62,12 +64,11 @@ describe('loadEnv', () => {
   });
 });
 
-describe('githubAppEnvSchema', () => {
+describe('GitHub env schemas', () => {
   it('coerces the app id and unescapes the private key', () => {
     const env = loadEnv([githubAppEnvSchema], {
       GITHUB_APP_ID: '123456',
       GITHUB_PRIVATE_KEY: PEM,
-      GITHUB_WEBHOOK_SECRET: 'a-very-long-webhook-secret',
     });
     expect(env.GITHUB_APP_ID).toBe(123456);
     expect(env.GITHUB_PRIVATE_KEY.split('\n')).toHaveLength(3);
@@ -75,7 +76,7 @@ describe('githubAppEnvSchema', () => {
 
   it('rejects a non-PEM key and a short webhook secret', () => {
     const error = captureError(() =>
-      loadEnv([githubAppEnvSchema], {
+      loadEnv([githubAppEnvSchema, githubWebhookEnvSchema], {
         GITHUB_APP_ID: '1',
         GITHUB_PRIVATE_KEY: 'not-a-key',
         GITHUB_WEBHOOK_SECRET: 'short',
@@ -107,5 +108,17 @@ describe('llmEnvSchema', () => {
   it('does not need a key for ollama', () => {
     const env = loadEnv([llmEnvSchema], { LLM_PROVIDER: 'ollama', LLM_MODEL: 'llama3' });
     expect(env.OLLAMA_BASE_URL).toBe('http://localhost:11434');
+  });
+});
+
+describe('serverEnvSchema', () => {
+  it('defaults host and port and coerces PORT', () => {
+    expect(loadEnv([serverEnvSchema], {})).toEqual({ HOST: '0.0.0.0', PORT: 3000 });
+    expect(loadEnv([serverEnvSchema], { PORT: '8080' }).PORT).toBe(8080);
+  });
+
+  it('rejects an out-of-range port', () => {
+    const error = captureError(() => loadEnv([serverEnvSchema], { PORT: '70000' }));
+    expect(error.issues[0]?.variable).toBe('PORT');
   });
 });
