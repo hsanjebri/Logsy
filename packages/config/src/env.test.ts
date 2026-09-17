@@ -1,0 +1,111 @@
+import { describe, expect, it } from 'vitest';
+import {
+  EnvValidationError,
+  baseEnvSchema,
+  databaseEnvSchema,
+  githubAppEnvSchema,
+  llmEnvSchema,
+  loadEnv,
+  redisEnvSchema,
+} from './env.js';
+
+const PEM = '-----BEGIN RSA PRIVATE KEY-----\\nMIIEabc\\n-----END RSA PRIVATE KEY-----';
+
+function captureError(fn: () => unknown): EnvValidationError {
+  try {
+    fn();
+  } catch (error) {
+    if (error instanceof EnvValidationError) return error;
+    throw error;
+  }
+  throw new Error('expected loadEnv to throw');
+}
+
+describe('loadEnv', () => {
+  it('applies defaults', () => {
+    const env = loadEnv([baseEnvSchema], {});
+    expect(env).toEqual({ NODE_ENV: 'development', LOG_LEVEL: 'info' });
+  });
+
+  it('merges multiple schemas into one typed object', () => {
+    const env = loadEnv([baseEnvSchema, databaseEnvSchema, redisEnvSchema], {
+      NODE_ENV: 'production',
+      DATABASE_URL: 'postgres://logsy:logsy@localhost:5432/logsy',
+      REDIS_URL: 'redis://localhost:6379',
+    });
+    expect(env.NODE_ENV).toBe('production');
+    expect(env.DATABASE_URL).toBe('postgres://logsy:logsy@localhost:5432/logsy');
+    expect(env.REDIS_URL).toBe('redis://localhost:6379');
+  });
+
+  it('reports every missing variable at once', () => {
+    const error = captureError(() => loadEnv([databaseEnvSchema, redisEnvSchema], {}));
+    expect(error.issues).toEqual([
+      { variable: 'DATABASE_URL', message: 'missing' },
+      { variable: 'REDIS_URL', message: 'missing' },
+    ]);
+    expect(error.message).toContain('DATABASE_URL: missing');
+    expect(error.message).toContain('.env.example');
+  });
+
+  it('treats empty strings as missing', () => {
+    const error = captureError(() => loadEnv([databaseEnvSchema], { DATABASE_URL: '  ' }));
+    expect(error.issues).toEqual([{ variable: 'DATABASE_URL', message: 'missing' }]);
+  });
+
+  it('rejects invalid values without leaking them into the message', () => {
+    const error = captureError(() =>
+      loadEnv([databaseEnvSchema], { DATABASE_URL: 'mysql://root:hunter2@db/app' }),
+    );
+    expect(error.issues[0]?.variable).toBe('DATABASE_URL');
+    expect(error.message).not.toContain('hunter2');
+  });
+});
+
+describe('githubAppEnvSchema', () => {
+  it('coerces the app id and unescapes the private key', () => {
+    const env = loadEnv([githubAppEnvSchema], {
+      GITHUB_APP_ID: '123456',
+      GITHUB_PRIVATE_KEY: PEM,
+      GITHUB_WEBHOOK_SECRET: 'a-very-long-webhook-secret',
+    });
+    expect(env.GITHUB_APP_ID).toBe(123456);
+    expect(env.GITHUB_PRIVATE_KEY.split('\n')).toHaveLength(3);
+  });
+
+  it('rejects a non-PEM key and a short webhook secret', () => {
+    const error = captureError(() =>
+      loadEnv([githubAppEnvSchema], {
+        GITHUB_APP_ID: '1',
+        GITHUB_PRIVATE_KEY: 'not-a-key',
+        GITHUB_WEBHOOK_SECRET: 'short',
+      }),
+    );
+    expect(error.issues.map((issue) => issue.variable)).toEqual([
+      'GITHUB_PRIVATE_KEY',
+      'GITHUB_WEBHOOK_SECRET',
+    ]);
+    expect(error.message).not.toContain('not-a-key');
+  });
+});
+
+describe('llmEnvSchema', () => {
+  it('requires the API key of the selected provider', () => {
+    const error = captureError(() =>
+      loadEnv([llmEnvSchema], { LLM_PROVIDER: 'openai', LLM_MODEL: 'some-model' }),
+    );
+    expect(error.issues).toEqual([
+      { variable: 'OPENAI_API_KEY', message: 'required when LLM_PROVIDER=openai' },
+    ]);
+  });
+
+  it('defaults to anthropic', () => {
+    const env = loadEnv([llmEnvSchema], { LLM_MODEL: 'some-model', ANTHROPIC_API_KEY: 'sk-test' });
+    expect(env.LLM_PROVIDER).toBe('anthropic');
+  });
+
+  it('does not need a key for ollama', () => {
+    const env = loadEnv([llmEnvSchema], { LLM_PROVIDER: 'ollama', LLM_MODEL: 'llama3' });
+    expect(env.OLLAMA_BASE_URL).toBe('http://localhost:11434');
+  });
+});
