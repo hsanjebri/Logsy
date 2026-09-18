@@ -100,7 +100,7 @@ On the app's settings page:
    GITHUB_PRIVATE_KEY=-----BEGIN RSA PRIVATE KEY-----\nMIIE...\n-----END RSA PRIVATE KEY-----\n
    ```
 
-The server only needs `GITHUB_WEBHOOK_SECRET`. The App ID and private key are used by the worker from Phase 2 on.
+The server only needs `GITHUB_WEBHOOK_SECRET`. The worker needs the App ID and private key to call the API.
 
 ## 5. Run the server and the webhook relay
 
@@ -114,6 +114,11 @@ pnpm dev:server
 ```bash
 # Terminal 2: forward smee deliveries to the local server
 pnpm dlx smee-client --url https://smee.io/<your-channel> --target http://localhost:3000/webhooks/github
+```
+
+```bash
+# Terminal 3: the worker that fetches logs for failed runs
+pnpm dev:worker
 ```
 
 Check that the server is up:
@@ -148,6 +153,38 @@ Also try these:
 | Uninstall                                                   | The installation and all of its data are deleted                                |
 | App settings → Advanced → Recent Deliveries → **Redeliver** | The server responds `200 {"status":"duplicate"}` and nothing is processed twice |
 
+## 8. Trigger a failing run
+
+Add a workflow to the test repository that always fails, push it, and watch the three terminals:
+
+```yaml
+# .github/workflows/always-fails.yml
+name: Always fails
+on: [push, pull_request]
+jobs:
+  boom:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running tests"
+      - run: exit 1
+```
+
+The server logs `queued analyze-run` and the worker logs `stored failure` with the size of the log it fetched. Then:
+
+```bash
+docker exec -it logsy-postgres-1 psql -U logsy -d logsy -c "select w.workflow_name, w.github_run_id, f.job_name, f.step_name, f.log_chars_original from failures f join workflow_runs w on w.id = f.workflow_run_id order by f.created_at desc limit 5;"
+```
+
+The stored excerpt is redacted, and the category and fingerprint stay as placeholders until Phase 3 and 4 fill them in.
+
+## 9. Save a log as a test fixture (optional)
+
+```bash
+pnpm fixture hsanjebri/<test-repo> <runId> <installationId>
+```
+
+The logs of that run's failed jobs are redacted and written to `evals/fixtures/`. The command refuses to write a file if anything that looks like a secret survives redaction. The installation id appears in the URL of the app's installation settings page.
+
 ## Troubleshooting
 
 | Symptom                                        | Cause and fix                                                                                                                                                     |
@@ -157,3 +194,5 @@ Also try these:
 | `password authentication failed`               | Another Postgres is answering on the same port (see the note in step 0), or the password in `DATABASE_URL` differs from the one the data volume was created with. |
 | `Invalid environment configuration` on startup | The message lists every missing or invalid variable. Values are never printed.                                                                                    |
 | A delivery failed (`422` or `500`)             | Fix the cause, then click **Redeliver**. Failed deliveries are processed again; successful ones are not.                                                          |
+| The worker exits at startup                    | It needs `GITHUB_APP_ID` and `GITHUB_PRIVATE_KEY`. The error names what is missing.                                                                               |
+| A run is queued but nothing happens            | The worker isn't running, or Redis is unreachable. Check `docker compose ps` and the worker output.                                                               |

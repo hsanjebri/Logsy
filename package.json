@@ -19,7 +19,9 @@
     "db:down": "docker compose --env-file .env -f deploy/docker-compose.yml down",
     "db:generate": "turbo run build --filter=@logsy/core && pnpm --filter @logsy/db db:generate",
     "db:migrate": "turbo run build --filter=@logsy/db && pnpm --filter @logsy/db db:migrate",
-    "dev:server": "turbo run build --filter=@logsy/server^... && pnpm --filter @logsy/server dev"
+    "dev:server": "turbo run build --filter=@logsy/server^... && pnpm --filter @logsy/server dev",
+    "dev:worker": "turbo run build --filter=@logsy/worker^... && pnpm --filter @logsy/worker dev",
+    "fixture": "turbo run build --filter=@logsy/worker && pnpm --filter @logsy/worker fixture"
   },
   "devDependencies": {
     "@logsy/config": "workspace:*",

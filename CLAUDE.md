@@ -220,7 +220,7 @@ Tables (add indexes and foreign keys as appropriate):
 - `repositories` — id, installation_id, github_repo_id (unique), full_name, private, settings (jsonb: `{ enabled: boolean, commentMode: "single" | "off", llmEnabled: boolean }`), created_at
 - `webhook_deliveries` — delivery_id (PK), event, action, received_at, processed_at, status
 - `workflow_runs` — id, repository_id, github_run_id, run_attempt, workflow_name, head_sha, head_branch, event, conclusion, pr_number, html_url, created_at; unique(github_run_id, run_attempt)
-- `failures` — id, workflow_run_id, github_job_id, job_name, step_name, category, fingerprint, error_excerpt (redacted), log_chars_original, log_chars_trimmed, created_at
+- `failures` — unique(workflow_run_id, github_job_id); id, workflow_run_id, github_job_id, job_name, step_name, category, fingerprint, error_excerpt (redacted), log_chars_original, log_chars_trimmed, created_at
 - `analyses` — id, failure_id, fingerprint, source (`rule` | `llm` | `cache`), rule_id, provider, model, prompt_version, result (jsonb), confidence, input_tokens, output_tokens, cost_usd, latency_ms, created_at
 - `pr_comments` — id, repository_id, pr_number, github_comment_id, last_run_id, updated_at; unique(repository_id, pr_number)
 - `test_results` — id, repository_id, workflow_run_id, head_sha, suite, test_name, status (`passed` | `failed` | `skipped`), duration_ms, created_at
