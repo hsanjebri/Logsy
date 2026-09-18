@@ -1,0 +1,37 @@
+{
+  "name": "@logsy/github",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Octokit app client and typed GitHub API helpers",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@octokit/app": "^16.1.4",
+    "@octokit/core": "^7.0.8",
+    "@octokit/plugin-retry": "^8.1.1",
+    "@octokit/plugin-throttling": "^11.0.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@logsy/config": "workspace:*",
+    "@types/node": "^22",
+    "eslint": "^10.10.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
+  }
+}
