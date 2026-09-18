@@ -1,0 +1,34 @@
+{
+  "name": "@logsy/worker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "BullMQ workers: fetch logs, analyze failures, comment",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "node --env-file-if-exists=../../.env --watch --import tsx src/main.ts",
+    "start": "node --env-file-if-exists=../../.env dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "fixture": "node --env-file-if-exists=../../.env dist/scripts/save-fixture.js"
+  },
+  "dependencies": {
+    "@logsy/config": "workspace:*",
+    "@logsy/core": "workspace:*",
+    "@logsy/db": "workspace:*",
+    "@logsy/github": "workspace:*",
+    "@logsy/queue": "workspace:*",
+    "bullmq": "^6.3.7",
+    "pino": "^10.3.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "eslint": "^10.10.0",
+    "tsx": "^4.23.13",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
+  }
+}
