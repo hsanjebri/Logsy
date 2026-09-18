@@ -1,10 +1,9 @@
-import type { Database } from '@logsy/db';
 import Fastify, { type FastifyInstance, type FastifyServerOptions } from 'fastify';
 import { healthRoutes } from './routes/health.js';
 import { webhookRoutes } from './routes/webhooks.js';
+import type { WebhookDeps } from './webhooks/handlers.js';
 
-export interface AppOptions {
-  db: Database;
+export interface AppOptions extends WebhookDeps {
   webhookSecret: string;
   logger?: FastifyServerOptions['logger'];
 }
@@ -12,7 +11,12 @@ export interface AppOptions {
 /** GitHub caps webhook payloads at 25 MB. */
 const MAX_BODY_BYTES = 25 * 1024 * 1024;
 
-export function buildApp({ db, webhookSecret, logger = false }: AppOptions): FastifyInstance {
+export function buildApp({
+  db,
+  queue,
+  webhookSecret,
+  logger = false,
+}: AppOptions): FastifyInstance {
   const app = Fastify({ logger, bodyLimit: MAX_BODY_BYTES });
 
   app.setErrorHandler((error, request, reply) => {
@@ -32,7 +36,7 @@ export function buildApp({ db, webhookSecret, logger = false }: AppOptions): Fas
   });
 
   void app.register(healthRoutes, { db });
-  void app.register(webhookRoutes, { db, webhookSecret });
+  void app.register(webhookRoutes, { db, queue, webhookSecret });
 
   return app;
 }

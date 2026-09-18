@@ -1,5 +1,6 @@
 import { createDatabase, installations, repositories, webhookDeliveries } from '@logsy/db';
 import { truncateAll } from '@logsy/db/testing';
+import type { AnalyzeRunJob } from '@logsy/queue';
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeEach, describe, expect, inject, it } from 'vitest';
 import { buildApp } from './app.js';
@@ -9,18 +10,31 @@ import {
   installationAction,
   installationCreated,
   installationRepositories,
+  REPO_ID,
+  RUN_ID,
+  workflowRunCompleted,
 } from './test/fixtures.js';
 
 const SECRET = 'test-webhook-secret-0123456789';
 
 const { db, pool } = createDatabase(inject('databaseUrl'));
-const app = buildApp({ db, webhookSecret: SECRET });
+const enqueued: AnalyzeRunJob[] = [];
+const queue = {
+  enqueueAnalyzeRun: (job: AnalyzeRunJob) => {
+    enqueued.push(job);
+    return Promise.resolve();
+  },
+};
+const app = buildApp({ db, queue, webhookSecret: SECRET });
 
 afterAll(async () => {
   await app.close();
   await pool.end();
 });
-beforeEach(() => truncateAll(db));
+beforeEach(async () => {
+  enqueued.length = 0;
+  await truncateAll(db);
+});
 
 interface SendOptions {
   deliveryId?: string;
@@ -221,5 +235,67 @@ describe('POST /webhooks/github — installation events', () => {
     expect(response.statusCode).toBe(202);
     expect(await db.select().from(installations)).toHaveLength(1);
     expect(await db.select().from(repositories)).toHaveLength(1);
+  });
+});
+
+describe('POST /webhooks/github — workflow_run events', () => {
+  it('queues an analysis for a failed run and records the repository', async () => {
+    const response = await send('workflow_run', workflowRunCompleted());
+
+    expect(response.statusCode).toBe(202);
+    expect(response.json()).toEqual({ status: 'processed' });
+    expect(enqueued).toEqual([
+      {
+        installationId: INSTALLATION_ID,
+        githubRepoId: REPO_ID,
+        owner: 'hsanjebri',
+        repo: 'api',
+        runId: RUN_ID,
+        runAttempt: 1,
+        workflowName: 'CI',
+        headSha: '9f2c1ab5d4e3f60718293a4b5c6d7e8f90123456',
+        headBranch: 'feat/queue',
+        event: 'pull_request',
+        conclusion: 'failure',
+        htmlUrl: `https://github.com/hsanjebri/api/actions/runs/${RUN_ID}`,
+        prNumbers: [7],
+      },
+    ]);
+
+    // The installation and repository are learned from the run itself.
+    expect(await db.select().from(installations)).toHaveLength(1);
+    const [repo] = await db.select().from(repositories);
+    expect(repo).toMatchObject({ githubRepoId: REPO_ID, fullName: 'hsanjebri/api', private: true });
+  });
+
+  it.each([
+    ['a successful run', { conclusion: 'success' }],
+    ['a cancelled run', { conclusion: 'cancelled' }],
+    ['an unfinished run', { action: 'in_progress', conclusion: null }],
+  ])('ignores %s', async (_name, overrides) => {
+    const response = await send('workflow_run', workflowRunCompleted(overrides));
+
+    expect(response.json()).toEqual({ status: 'ignored' });
+    expect(enqueued).toEqual([]);
+  });
+
+  it('does not queue anything for a repository with analysis disabled', async () => {
+    await send('workflow_run', workflowRunCompleted());
+    await db
+      .update(repositories)
+      .set({ settings: { enabled: false, commentMode: 'single', llmEnabled: true } });
+    enqueued.length = 0;
+
+    const response = await send('workflow_run', workflowRunCompleted({ runAttempt: 2 }));
+
+    expect(response.json()).toEqual({ status: 'ignored' });
+    expect(enqueued).toEqual([]);
+  });
+
+  it('queues one job per run attempt', async () => {
+    await send('workflow_run', workflowRunCompleted({ runAttempt: 1 }));
+    await send('workflow_run', workflowRunCompleted({ runAttempt: 2 }));
+
+    expect(enqueued.map((job) => job.runAttempt)).toEqual([1, 2]);
   });
 });

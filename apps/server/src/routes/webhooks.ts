@@ -1,12 +1,11 @@
-import { claimDelivery, completeDelivery, type Database } from '@logsy/db';
+import { claimDelivery, completeDelivery } from '@logsy/db';
 import type { FastifyPluginCallback } from 'fastify';
 import { z } from 'zod';
 import { verifySignature } from '../signature.js';
-import { handleWebhookEvent } from '../webhooks/handlers.js';
+import { handleWebhookEvent, type WebhookDeps } from '../webhooks/handlers.js';
 import { readAction } from '../webhooks/payloads.js';
 
-export interface WebhookRoutesOptions {
-  db: Database;
+export interface WebhookRoutesOptions extends WebhookDeps {
   webhookSecret: string;
 }
 
@@ -21,7 +20,7 @@ const headersSchema = z.object({
  */
 export const webhookRoutes: FastifyPluginCallback<WebhookRoutesOptions> = (
   app,
-  { db, webhookSecret },
+  { db, queue, webhookSecret },
   done,
 ) => {
   app.removeContentTypeParser('application/json');
@@ -64,7 +63,7 @@ export const webhookRoutes: FastifyPluginCallback<WebhookRoutesOptions> = (
     }
 
     try {
-      const outcome = await handleWebhookEvent(db, event, payload, log);
+      const outcome = await handleWebhookEvent({ db, queue }, event, payload, log);
       await completeDelivery(db, deliveryId, outcome);
       return await reply.code(202).send({ status: outcome });
     } catch (error) {

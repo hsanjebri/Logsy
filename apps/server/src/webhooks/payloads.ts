@@ -36,6 +36,30 @@ export const installationRepositoriesEventSchema = z.object({
   repositories_removed: z.array(z.object({ id: z.number().int().positive() })),
 });
 
+export const workflowRunEventSchema = z.object({
+  action: z.string(),
+  workflow_run: z.object({
+    id: z.number().int().positive(),
+    run_attempt: z.number().int().positive().default(1),
+    name: z.string().nullable(),
+    head_sha: z.string().min(1),
+    head_branch: z.string().nullable(),
+    event: z.string().min(1),
+    conclusion: z.string().nullable(),
+    html_url: z.url(),
+    pull_requests: z.array(z.object({ number: z.number().int().positive() })).nullable(),
+  }),
+  repository: z.object({
+    id: z.number().int().positive(),
+    full_name: z.string().min(1),
+    private: z.boolean(),
+    owner: z.object({ login: z.string().min(1), type: z.string().optional() }),
+  }),
+  // Present on every GitHub App delivery, but treated as optional for safety.
+  installation: z.object({ id: z.number().int().positive() }).optional(),
+});
+
+export type WorkflowRunEvent = z.infer<typeof workflowRunEventSchema>;
 export type InstallationPayload = z.infer<typeof installationSchema>;
 export type RepositoryPayload = z.infer<typeof repositorySchema>;
 export type InstallationEvent = z.infer<typeof installationEventSchema>;

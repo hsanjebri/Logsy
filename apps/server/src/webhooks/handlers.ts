@@ -1,5 +1,6 @@
 import {
   deleteInstallation,
+  findRepositoryByGithubId,
   removeRepositories,
   setInstallationSuspended,
   upsertInstallation,
@@ -8,42 +9,115 @@ import {
   type InstallationInput,
   type RepositoryInput,
 } from '@logsy/db';
+import type { AnalyzeRunQueue } from '@logsy/queue';
 import type { FastifyBaseLogger } from 'fastify';
 import {
   installationEventSchema,
   installationRepositoriesEventSchema,
+  workflowRunEventSchema,
   type InstallationEvent,
   type InstallationPayload,
   type InstallationRepositoriesEvent,
   type RepositoryPayload,
+  type WorkflowRunEvent,
 } from './payloads.js';
 
 export type HandlerOutcome = 'processed' | 'ignored';
 
+export interface WebhookDeps {
+  db: Database;
+  queue: Pick<AnalyzeRunQueue, 'enqueueAnalyzeRun'>;
+}
+
 /** Dispatches a verified, deduplicated webhook. Throws ZodError on unexpected payloads. */
 export async function handleWebhookEvent(
-  db: Database,
+  deps: WebhookDeps,
   event: string,
   payload: unknown,
   log: FastifyBaseLogger,
 ): Promise<HandlerOutcome> {
   switch (event) {
     case 'installation':
-      return handleInstallation(db, installationEventSchema.parse(payload), log);
+      return handleInstallation(deps.db, installationEventSchema.parse(payload), log);
     case 'installation_repositories':
       return handleInstallationRepositories(
-        db,
+        deps.db,
         installationRepositoriesEventSchema.parse(payload),
         log,
       );
     case 'workflow_run':
-      // Enqueued for analysis once the queue exists (Phase 2).
-      log.info('workflow_run received; analysis is not wired up yet');
-      return 'ignored';
+      return handleWorkflowRun(deps, workflowRunEventSchema.parse(payload), log);
     default:
       log.debug({ event }, 'ignoring unsupported event');
       return 'ignored';
   }
+}
+
+/**
+ * Queues analysis for a failed run. The installation and repository are refreshed from
+ * the payload first, so a repository Logsy has not seen yet still works.
+ */
+async function handleWorkflowRun(
+  { db, queue }: WebhookDeps,
+  payload: WorkflowRunEvent,
+  log: FastifyBaseLogger,
+): Promise<HandlerOutcome> {
+  const run = payload.workflow_run;
+  if (payload.action !== 'completed') return 'ignored';
+  if (run.conclusion !== 'failure') {
+    // Successful runs feed flaky-test history and comment resolution in later phases.
+    log.debug({ conclusion: run.conclusion }, 'run did not fail');
+    return 'ignored';
+  }
+  const installation = payload.installation;
+  if (!installation) {
+    log.warn({ runId: run.id }, 'workflow_run without an installation; cannot call the API');
+    return 'ignored';
+  }
+
+  await db.transaction(async (tx) => {
+    const installationId = await upsertInstallation(tx, {
+      githubInstallationId: installation.id,
+      accountLogin: payload.repository.owner.login,
+      accountType: payload.repository.owner.type ?? 'User',
+    });
+    await upsertRepositories(tx, installationId, [
+      {
+        githubRepoId: payload.repository.id,
+        fullName: payload.repository.full_name,
+        private: payload.repository.private,
+      },
+    ]);
+  });
+
+  const repository = await findRepositoryByGithubId(db, payload.repository.id);
+  if (!repository?.settings.enabled) {
+    log.info({ repo: payload.repository.full_name }, 'analysis disabled for repository');
+    return 'ignored';
+  }
+
+  const [owner, repo] = payload.repository.full_name.split('/');
+  await queue.enqueueAnalyzeRun({
+    installationId: installation.id,
+    githubRepoId: payload.repository.id,
+    owner: owner ?? payload.repository.owner.login,
+    repo: repo ?? payload.repository.full_name,
+    runId: run.id,
+    runAttempt: run.run_attempt,
+    workflowName: run.name ?? 'workflow',
+    headSha: run.head_sha,
+    headBranch: run.head_branch,
+    event: run.event,
+    conclusion: run.conclusion,
+    htmlUrl: run.html_url,
+    prNumbers: (run.pull_requests ?? []).map((pr) => pr.number),
+  });
+
+  log.info(
+    { runId: run.id, runAttempt: run.run_attempt, repo: payload.repository.full_name },
+    'queued analyze-run',
+  );
+  return 'processed';
 }
 
 async function handleInstallation(
