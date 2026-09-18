@@ -11,3 +11,5 @@ export {
   upsertRepositories,
 } from './queries/installations.js';
 export type { InstallationInput, RepositoryInput } from './queries/installations.js';
+export { findRepositoryByGithubId, upsertFailure, upsertWorkflowRun } from './queries/runs.js';
+export type { FailureInput, WorkflowRunInput } from './queries/runs.js';

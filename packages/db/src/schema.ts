@@ -127,7 +127,11 @@ export const failures = pgTable(
     logCharsTrimmed: integer().notNull(),
     createdAt: createdAt(),
   },
-  (table) => [index().on(table.workflowRunId), index().on(table.fingerprint)],
+  (table) => [
+    // A job appears once per run attempt; re-analysis updates the row in place.
+    unique().on(table.workflowRunId, table.githubJobId),
+    index().on(table.fingerprint),
+  ],
 );
 
 export const analyses = pgTable(
