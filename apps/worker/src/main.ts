@@ -3,11 +3,13 @@ import {
   baseEnvSchema,
   databaseEnvSchema,
   githubAppEnvSchema,
+  llmEnvSchema,
   loadEnv,
   redisEnvSchema,
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
 import { createGitHubApp } from '@logsy/github';
+import { createProvider, createRoutingProvider, type LlmProvider } from '@logsy/llm';
 import { analyzeRunJobSchema, createAnalyzeRunWorker, createRedisConnection } from '@logsy/queue';
 import { DelayedError, UnrecoverableError } from 'bullmq';
 import { pino } from 'pino';
@@ -16,17 +18,17 @@ import { processAnalyzeRun } from './analyze-run.js';
 
 const workerEnvSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(100).default(5),
+  /** Set to false to run on rules alone, with no LLM configured. */
+  LLM_ENABLED: z
+    .enum(['true', 'false'])
+    .default('true')
+    .transform((value) => value === 'true'),
 });
 
-function readEnv() {
+/** Env errors are reported as a list and stop the process; nothing else is loggable yet. */
+function readEnv<T>(read: () => T): T {
   try {
-    return loadEnv([
-      baseEnvSchema,
-      databaseEnvSchema,
-      redisEnvSchema,
-      githubAppEnvSchema,
-      workerEnvSchema,
-    ]);
+    return read();
   } catch (error) {
     if (error instanceof EnvValidationError) {
       process.stderr.write(`${error.message}\n`);
@@ -36,7 +38,11 @@ function readEnv() {
   }
 }
 
-const env = readEnv();
+const env = readEnv(() =>
+  loadEnv([baseEnvSchema, databaseEnvSchema, redisEnvSchema, githubAppEnvSchema, workerEnvSchema]),
+);
+// LLM settings are only required when the LLM is actually enabled.
+const llmEnv = env.LLM_ENABLED ? readEnv(() => loadEnv([llmEnvSchema])) : undefined;
 const log = pino({ level: env.LOG_LEVEL });
 const { db, pool } = createDatabase(env.DATABASE_URL);
 const redis = createRedisConnection(env.REDIS_URL);
@@ -48,6 +54,27 @@ const github = createGitHubApp({
   },
 });
 
+function buildLlm(): LlmProvider | undefined {
+  if (!llmEnv) return undefined;
+  const common = {
+    provider: llmEnv.LLM_PROVIDER,
+    anthropicApiKey: llmEnv.ANTHROPIC_API_KEY,
+    openaiApiKey: llmEnv.OPENAI_API_KEY,
+    ollamaBaseUrl: llmEnv.OLLAMA_BASE_URL,
+  };
+  const primary = createProvider({ ...common, model: llmEnv.LLM_MODEL });
+  if (!llmEnv.LLM_MODEL_FAST) return primary;
+  // Short logs rarely need the expensive model.
+  return createRoutingProvider({
+    primary,
+    fast: createProvider({ ...common, model: llmEnv.LLM_MODEL_FAST }),
+  });
+}
+
+const llm = buildLlm();
+if (llm) log.info({ provider: llm.name, model: llm.model }, 'llm enabled');
+else log.warn('llm disabled; only cached and rule-based analyses will be produced');
+
 const worker = createAnalyzeRunWorker(
   redis,
   async (job, token) => {
@@ -57,7 +84,10 @@ const worker = createAnalyzeRunWorker(
       throw new UnrecoverableError(`invalid analyze-run payload: ${parsed.error.message}`);
     }
 
-    const result = await processAnalyzeRun({ db, github, log }, parsed.data);
+    const result = await processAnalyzeRun(
+      { db, github, log, ...(llm ? { llm } : {}) },
+      parsed.data,
+    );
     if (result.retryAt) {
       await job.moveToDelayed(result.retryAt.getTime(), token);
       throw new DelayedError();

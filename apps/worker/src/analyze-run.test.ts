@@ -2,11 +2,13 @@ import {
   analyses,
   createDatabase,
   failures,
+  repositories,
   upsertInstallation,
   upsertRepositories,
   workflowRuns,
 } from '@logsy/db';
 import { truncateAll } from '@logsy/db/testing';
+import type { AnalysisInput, LlmAnalysis, LlmProvider } from '@logsy/llm';
 import type { AnalyzeRunJob } from '@logsy/queue';
 import { pino } from 'pino';
 import { afterAll, beforeEach, describe, expect, inject, it } from 'vitest';
@@ -231,5 +233,120 @@ describe('fingerprinting, cache and rules', () => {
     const [failure] = await db.select().from(failures);
     expect(failure?.category).toBe('unknown');
     expect(failure?.fingerprint).toMatch(/^v1:/);
+  });
+});
+
+describe('llm fallback', () => {
+  const mysteryLog = [
+    '##[group]Run ./deploy.sh',
+    './deploy.sh',
+    '##[endgroup]',
+    'Something unusual happened that no rule describes',
+    '##[error]Process completed with exit code 3.',
+  ].join('\n');
+
+  const llmResult = {
+    category: 'configuration' as const,
+    title: 'The deploy script failed',
+    rootCause: 'deploy.sh exited with status 3 after an unexpected condition.',
+    evidence: ['Something unusual happened that no rule describes'],
+    likelyFiles: [{ path: 'deploy.sh', reason: 'the failing script' }],
+    suggestedFix: 'Run ./deploy.sh locally with bash -x to see which command fails.',
+    isLikelyFlaky: false,
+    confidence: 0.72,
+  };
+
+  function stubLlm(overrides: Partial<LlmAnalysis> = {}) {
+    const calls: AnalysisInput[] = [];
+    const provider: LlmProvider = {
+      name: 'anthropic',
+      model: 'claude-opus-5',
+      analyze: (llmInput) => {
+        calls.push(llmInput);
+        return Promise.resolve({
+          result: llmResult,
+          usage: { inputTokens: 3_000, outputTokens: 250, costUsd: 0.02125 },
+          latencyMs: 1_800,
+          model: 'claude-opus-5',
+          promptVersion: 'v1',
+          attempts: 1,
+          fellBack: false,
+          ...overrides,
+        });
+      },
+    };
+    return { provider, calls };
+  }
+
+  it('asks the LLM only when no rule matched, and stores usage and cost', async () => {
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: mysteryLog } });
+    const { provider, calls } = stubLlm();
+
+    const result = await processAnalyzeRun({ db, github, log, llm: provider }, job);
+
+    expect(result.analyses).toEqual(['llm']);
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toMatchObject({ repoFullName: 'acme/api', jobName: 'job-102' });
+    expect(calls[0]?.excerpt).toContain('Something unusual happened');
+
+    const [analysis] = await db.select().from(analyses);
+    expect(analysis).toMatchObject({
+      source: 'llm',
+      provider: 'anthropic',
+      model: 'claude-opus-5',
+      promptVersion: 'v1',
+      inputTokens: 3_000,
+      outputTokens: 250,
+      latencyMs: 1_800,
+    });
+    expect(Number(analysis?.costUsd)).toBeCloseTo(0.02125, 6);
+    expect(analysis?.result).toMatchObject({ category: 'configuration' });
+  });
+
+  it('does not call the LLM when a rule already explains the failure', async () => {
+    const eresolve = [
+      '##[group]Run npm ci',
+      'npm ERR! ERESOLVE unable to resolve dependency tree',
+    ].join('\n');
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: eresolve } });
+    const { provider, calls } = stubLlm();
+
+    const result = await processAnalyzeRun({ db, github, log, llm: provider }, job);
+
+    expect(result.analyses).toEqual(['rule']);
+    expect(calls).toHaveLength(0);
+  });
+
+  it('does not call the LLM when the repository disabled it', async () => {
+    await db.update(repositories).set({
+      settings: { enabled: true, commentMode: 'single', llmEnabled: false },
+    });
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: mysteryLog } });
+    const { provider, calls } = stubLlm();
+
+    const result = await processAnalyzeRun({ db, github, log, llm: provider }, job);
+
+    expect(result.analyses).toEqual(['none']);
+    expect(calls).toHaveLength(0);
+    expect(await db.select().from(analyses)).toHaveLength(0);
+  });
+
+  it('reuses an LLM analysis from the cache on the next identical failure', async () => {
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: mysteryLog } });
+    const { provider, calls } = stubLlm();
+
+    await processAnalyzeRun({ db, github, log, llm: provider }, job);
+    const second = await processAnalyzeRun(
+      {
+        db,
+        github: githubStub({ jobs: [workflowJob({ id: 909 })], logs: { 909: mysteryLog } }),
+        log,
+        llm: provider,
+      },
+      { ...job, runId: job.runId + 5 },
+    );
+
+    expect(second.analyses).toEqual(['cache']);
+    expect(calls).toHaveLength(1);
   });
 });

@@ -19,6 +19,7 @@
     "@logsy/core": "workspace:*",
     "@logsy/db": "workspace:*",
     "@logsy/github": "workspace:*",
+    "@logsy/llm": "workspace:*",
     "@logsy/queue": "workspace:*",
     "bullmq": "^6.3.7",
     "pino": "^10.3.1",

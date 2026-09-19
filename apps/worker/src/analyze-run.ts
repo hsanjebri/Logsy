@@ -15,6 +15,7 @@ import {
   type Database,
 } from '@logsy/db';
 import { LogsUnavailableError, failedStep, isFailedJob, type GitHubApp } from '@logsy/github';
+import type { AnalysisInput, LlmProvider } from '@logsy/llm';
 import type { AnalyzeRunJob } from '@logsy/queue';
 import type { Logger } from 'pino';
 
@@ -22,6 +23,8 @@ export interface AnalyzeRunDeps {
   db: Database;
   github: GitHubApp;
   log: Logger;
+  /** Optional: when absent, failures with no rule are left unexplained. */
+  llm?: LlmProvider;
   /** Defer the job when fewer than this many API requests remain. */
   rateLimitFloor?: number;
 }
@@ -36,8 +39,8 @@ export interface AnalyzeRunResult {
   retryAt?: Date;
 }
 
-/** `none` means no rule matched; the LLM takes over in Phase 5. */
-export type AnalysisSource = 'cache' | 'rule' | 'none';
+/** `none` means nothing could explain it: no cache, no rule, and no LLM available. */
+export type AnalysisSource = 'cache' | 'rule' | 'llm' | 'none';
 
 /** Character budget for the stored excerpt, roughly 3k tokens. */
 const EXCERPT_MAX_CHARS = 12_000;
@@ -128,11 +131,22 @@ export async function processAnalyzeRun(
       logCharsTrimmed: excerpt.length,
     });
 
-    const source = await analyzeFailure(db, {
-      failureId,
-      fingerprint: errorFingerprint,
-      ruleMatch,
-    });
+    const source = await analyzeFailure(
+      { db, log, ...(deps.llm ? { llm: deps.llm } : {}) },
+      {
+        failureId,
+        fingerprint: errorFingerprint,
+        ruleMatch,
+        llmEnabled: repository.settings.llmEnabled,
+        llmInput: {
+          excerpt,
+          repoFullName: repository.fullName,
+          workflowName: job.workflowName,
+          jobName: failed.name,
+          stepName,
+        },
+      },
+    );
     analyses.push(source);
 
     log.info(
@@ -159,16 +173,26 @@ interface AnalyzeFailureInput {
   failureId: number;
   fingerprint: string;
   ruleMatch: ReturnType<typeof matchRule>;
+  /** Given to the model when no rule matched. */
+  llmInput: AnalysisInput;
+  llmEnabled: boolean;
 }
 
 /**
  * Explains one failure as cheaply as possible: reuse a previous analysis of the same
- * fingerprint, else apply a rule. Anything left over goes to the LLM in Phase 5.
+ * fingerprint, else apply a rule, and only then pay for an LLM call.
  */
 async function analyzeFailure(
-  db: Database,
-  { failureId, fingerprint: fingerprintValue, ruleMatch }: AnalyzeFailureInput,
+  deps: Pick<AnalyzeRunDeps, 'db' | 'llm' | 'log'>,
+  {
+    failureId,
+    fingerprint: fingerprintValue,
+    ruleMatch,
+    llmInput,
+    llmEnabled,
+  }: AnalyzeFailureInput,
 ): Promise<AnalysisSource> {
+  const { db } = deps;
   const cached = await findCachedAnalysis(db, fingerprintValue);
   if (cached) {
     await insertAnalysis(db, {
@@ -196,5 +220,38 @@ async function analyzeFailure(
     return 'rule';
   }
 
-  return 'none';
+  if (!deps.llm || !llmEnabled || llmInput.excerpt === '') {
+    return 'none';
+  }
+
+  const analysis = await deps.llm.analyze(llmInput);
+  await insertAnalysis(db, {
+    failureId,
+    fingerprint: fingerprintValue,
+    source: 'llm',
+    provider: deps.llm.name,
+    model: analysis.model,
+    promptVersion: analysis.promptVersion,
+    result: analysis.result,
+    confidence: analysis.result.confidence,
+    inputTokens: analysis.usage.inputTokens,
+    outputTokens: analysis.usage.outputTokens,
+    costUsd: analysis.usage.costUsd,
+    latencyMs: analysis.latencyMs,
+  });
+
+  deps.log.info(
+    {
+      model: analysis.model,
+      attempts: analysis.attempts,
+      fellBack: analysis.fellBack,
+      inputTokens: analysis.usage.inputTokens,
+      outputTokens: analysis.usage.outputTokens,
+      costUsd: analysis.usage.costUsd,
+      latencyMs: analysis.latencyMs,
+      confidence: analysis.result.confidence,
+    },
+    'llm analysis stored',
+  );
+  return 'llm';
 }
