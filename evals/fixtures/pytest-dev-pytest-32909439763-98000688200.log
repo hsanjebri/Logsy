@@ -1,0 +1,907 @@
+﻿2026-08-25T23:10:10.8215446Z Current runner version: '2.336.0'
+2026-08-25T23:10:10.8251771Z ##[group]Runner Image Provisioner
+2026-08-25T23:10:10.8253012Z Hosted Compute Agent
+2026-08-25T23:10:10.8253891Z Version: 20260729.566
+2026-08-25T23:10:10.8254892Z Commit: cf7153fe6e25b664e8693c24944bf2b00355d109
+2026-08-25T23:10:10.8256033Z Build Date: 2026-07-29T19:17:02Z
+2026-08-25T23:10:10.8257455Z Worker ID: {116f5e4e-dcd4-4fb0-b20d-01eb6935cd51}
+2026-08-25T23:10:10.8258667Z Azure Region: eastus
+2026-08-25T23:10:10.8259503Z ##[endgroup]
+2026-08-25T23:10:10.8261579Z ##[group]Operating System
+2026-08-25T23:10:10.8262743Z Microsoft Windows Server 2025
+2026-08-25T23:10:10.8263735Z 10.0.26100
+2026-08-25T23:10:10.8264596Z Datacenter
+2026-08-25T23:10:10.8265394Z ##[endgroup]
+2026-08-25T23:10:10.8266202Z ##[group]Runner Image
+2026-08-25T23:10:10.8267146Z Image: windows-2025-vs2026
+2026-08-25T23:10:10.8268070Z Version: 20260818.207.1
+2026-08-25T23:10:10.8270480Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260818.[REDACTED:high_entropy].md
+2026-08-25T23:10:10.8273395Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260818.207
+2026-08-25T23:10:10.8275128Z ##[endgroup]
+2026-08-25T23:10:10.8276841Z ##[group]GITHUB_TOKEN [REDACTED:assigned_secret]
+2026-08-25T23:10:10.8279975Z Contents: read
+2026-08-25T23:10:10.8280901Z Metadata: read
+2026-08-25T23:10:10.8281865Z ##[endgroup]
+2026-08-25T23:10:10.8284732Z Secret [REDACTED:assigned_secret] None
+2026-08-25T23:10:10.8286462Z Prepare workflow directory
+2026-08-25T23:10:10.8694629Z Prepare all required actions
+2026-08-25T23:10:10.8742731Z Getting action download info
+2026-08-25T23:10:11.0442309Z Download action repository 'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0' (SHA:9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0)
+2026-08-25T23:10:11.1773801Z Download action repository 'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c' (SHA:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c)
+2026-08-25T23:10:11.4433763Z Download action repository 'actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97' (SHA:5fda3b95a4ea91299a34e894583c3862153e4b97)
+2026-08-25T23:10:11.5947579Z Download action repository 'codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f' (SHA:fb8b3582c8e4def4969c97caa2f19720cb33a72f)
+2026-08-25T23:10:11.8423042Z Getting action download info
+2026-08-25T23:10:11.9238460Z Download action repository 'actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd' (SHA:ed597411d8f924073f98dfc5c65a23a2325f34cd)
+2026-08-25T23:10:12.1753770Z Getting action download info
+2026-08-25T23:10:12.3685941Z Complete job name: build (windows-py311)
+2026-08-25T23:10:12.5205000Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-08-25T23:10:12.5206856Z with:
+2026-08-25T23:10:12.5207519Z   fetch-depth: 0
+2026-08-25T23:10:12.5208245Z   persist-credentials: [REDACTED:assigned_secret]
+2026-08-25T23:10:12.5209081Z   repository: pytest-dev/pytest
+2026-08-25T23:10:12.5216151Z   token: ***
+2026-08-25T23:10:12.5216869Z   ssh-strict: true
+2026-08-25T23:10:12.5217559Z   ssh-user: git
+2026-08-25T23:10:12.5218243Z   clean: true
+2026-08-25T23:10:12.5218959Z   sparse-checkout-cone-mode: true
+2026-08-25T23:10:12.5219822Z   fetch-tags: false
+2026-08-25T23:10:12.5220545Z   show-progress: true
+2026-08-25T23:10:12.5221250Z   lfs: false
+2026-08-25T23:10:12.5221896Z   submodules: false
+2026-08-25T23:10:12.5222611Z   set-safe-directory: true
+2026-08-25T23:10:12.5223413Z   allow-unsafe-pr-checkout: false
+2026-08-25T23:10:12.5224461Z env:
+2026-08-25T23:10:12.5225148Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:12.5225962Z ##[endgroup]
+2026-08-25T23:10:12.6697124Z Syncing repository: pytest-dev/pytest
+2026-08-25T23:10:12.6699408Z ##[group]Getting Git version info
+2026-08-25T23:10:12.6700355Z Working directory is 'D:\a\pytest\pytest'
+2026-08-25T23:10:12.7697297Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-08-25T23:10:13.1705290Z git version 2.55.0.windows.4
+2026-08-25T23:10:13.1748748Z ##[endgroup]
+2026-08-25T23:10:13.1764840Z Temporarily overriding HOME='D:\a\_temp\354690ef-afb5-47e7-a05b-3b9b154742a1' before making global git config changes
+2026-08-25T23:10:13.1766939Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-25T23:10:13.1774843Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\pytest\pytest
+2026-08-25T23:10:13.2388444Z Deleting the contents of 'D:\a\pytest\pytest'
+2026-08-25T23:10:13.2394457Z ##[group]Determining repository object format
+2026-08-25T23:10:13.2396198Z ##[endgroup]
+2026-08-25T23:10:13.2397359Z ##[group]Initializing the repository
+2026-08-25T23:10:13.2404367Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\pytest\pytest
+2026-08-25T23:10:13.3383128Z Initialized empty Git repository in D:/a/pytest/pytest/.git/
+2026-08-25T23:10:13.3428919Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/pytest-dev/pytest
+2026-08-25T23:10:13.4022691Z ##[endgroup]
+2026-08-25T23:10:13.4024037Z ##[group]Disabling automatic garbage collection
+2026-08-25T23:10:13.4031949Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-08-25T23:10:13.4326928Z ##[endgroup]
+2026-08-25T23:10:13.4328891Z ##[group]Setting up auth
+2026-08-25T23:10:13.4330360Z Removing SSH command configuration
+2026-08-25T23:10:13.4340423Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-08-25T23:10:13.4681147Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-08-25T23:10:14.9897871Z Removing HTTP extra header
+2026-08-25T23:10:14.9906580Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-25T23:10:15.0198986Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-08-25T23:10:15.5424263Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-25T23:10:15.5436204Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-25T23:10:15.5758714Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-08-25T23:10:16.1260669Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-08-25T23:10:16.1554487Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/pytest/pytest/.git.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:16.1903435Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:16.2289456Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:16.2598108Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:16.2902869Z ##[endgroup]
+2026-08-25T23:10:16.2903525Z ##[group]Fetching the repository
+2026-08-25T23:10:16.2905413Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +bf057558ff4c7b148d66e344c11c2a09f60b933f:refs/remotes/pull/14936/merge
+2026-08-25T23:10:20.7929354Z From https://github.com/pytest-dev/pytest
+2026-08-25T23:10:20.7930186Z  * [new branch]          4.6.x             -> origin/4.6.x
+2026-08-25T23:10:20.7930786Z  * [new branch]          5.3.x             -> origin/5.3.x
+2026-08-25T23:10:20.7931307Z  * [new branch]          5.4.x             -> origin/5.4.x
+2026-08-25T23:10:20.7931805Z  * [new branch]          6.0.x             -> origin/6.0.x
+2026-08-25T23:10:20.7932327Z  * [new branch]          6.1.x             -> origin/6.1.x
+2026-08-25T23:10:20.7932900Z  * [new branch]          6.2.x             -> origin/6.2.x
+2026-08-25T23:10:20.7933525Z  * [new branch]          7.0.x             -> origin/7.0.x
+2026-08-25T23:10:20.7934133Z  * [new branch]          7.1.x             -> origin/7.1.x
+2026-08-25T23:10:20.7934826Z  * [new branch]          7.2.x             -> origin/7.2.x
+2026-08-25T23:10:20.7935464Z  * [new branch]          7.3.x             -> origin/7.3.x
+2026-08-25T23:10:20.7936057Z  * [new branch]          7.4.x             -> origin/7.4.x
+2026-08-25T23:10:20.7936660Z  * [new branch]          8.0.x             -> origin/8.0.x
+2026-08-25T23:10:20.7937182Z  * [new branch]          8.1.x             -> origin/8.1.x
+2026-08-25T23:10:20.7937715Z  * [new branch]          8.2.x             -> origin/8.2.x
+2026-08-25T23:10:20.7938072Z  * [new branch]          8.3.x             -> origin/8.3.x
+2026-08-25T23:10:20.7938712Z  * [new branch]          8.4.x             -> origin/8.4.x
+2026-08-25T23:10:20.7939605Z  * [new branch]          9.0.x             -> origin/9.0.x
+2026-08-25T23:10:20.7940306Z  * [new branch]          9.1.x             -> origin/9.1.x
+2026-08-25T23:10:20.7940966Z  * [new branch]          copilot/fix-pytest-with-python-lazy-imports -> origin/copilot/fix-pytest-with-python-lazy-imports
+2026-08-25T23:10:20.7941612Z  * [new branch]          expose-fixturedef -> origin/expose-fixturedef
+2026-08-25T23:10:20.7942097Z  * [new branch]          feat/13617-deselected-reason -> origin/feat/13617-deselected-reason
+2026-08-25T23:10:20.7942580Z  * [new branch]          fix/ellipsis      -> origin/fix/ellipsis
+2026-08-25T23:10:20.7942944Z  * [new branch]          fix/runners       -> origin/fix/runners
+2026-08-25T23:10:20.7943324Z  * [new branch]          graingert-patch-1 -> origin/graingert-patch-1
+2026-08-25T23:10:20.7943690Z  * [new branch]          main              -> origin/main
+2026-08-25T23:10:20.7944036Z  * [new branch]          module-pytest     -> origin/module-pytest
+2026-08-25T23:10:20.7944413Z  * [new branch]          report_xfails     -> origin/report_xfails
+2026-08-25T23:10:20.7945675Z  * [new branch]          stop-iteration    -> origin/stop-iteration
+2026-08-25T23:10:20.7946461Z  * [new branch]          update-plugin-list/patch-df87db7b0 -> origin/update-plugin-list/patch-df87db7b0
+2026-08-25T23:10:20.7948101Z  * [new branch]          update-plugin-list/patch-efc013416 -> origin/update-plugin-list/patch-efc013416
+2026-08-25T23:10:20.7949139Z  * [new branch]          wip_fix_capfd     -> origin/wip_fix_capfd
+2026-08-25T23:10:20.7949786Z  * [new tag]             1.0.0             -> 1.0.0
+2026-08-25T23:10:20.7950282Z  * [new tag]             1.0.0b3           -> 1.0.0b3
+2026-08-25T23:10:20.7950817Z  * [new tag]             1.0.0b6           -> 1.0.0b6
+2026-08-25T23:10:20.7951294Z  * [new tag]             1.0.0b8           -> 1.0.0b8
+2026-08-25T23:10:20.7951768Z  * [new tag]             1.0.0b9           -> 1.0.0b9
+2026-08-25T23:10:20.7952234Z  * [new tag]             1.0.1             -> 1.0.1
+2026-08-25T23:10:20.7952700Z  * [new tag]             1.0.2             -> 1.0.2
+2026-08-25T23:10:20.7953227Z  * [new tag]             1.1.0             -> 1.1.0
+2026-08-25T23:10:20.7953689Z  * [new tag]             1.1.1             -> 1.1.1
+2026-08-25T23:10:20.7954142Z  * [new tag]             1.2.0             -> 1.2.0
+2026-08-25T23:10:20.7954587Z  * [new tag]             1.2.1             -> 1.2.1
+2026-08-25T23:10:20.7955050Z  * [new tag]             1.3.0             -> 1.3.0
+2026-08-25T23:10:20.7955784Z  * [new tag]             1.3.1             -> 1.3.1
+2026-08-25T23:10:20.7956253Z  * [new tag]             1.3.2             -> 1.3.2
+2026-08-25T23:10:20.7956696Z  * [new tag]             1.3.3             -> 1.3.3
+2026-08-25T23:10:20.7957133Z  * [new tag]             1.3.4             -> 1.3.4
+2026-08-25T23:10:20.7957602Z  * [new tag]             2.0.0             -> 2.0.0
+2026-08-25T23:10:20.7958066Z  * [new tag]             2.0.1             -> 2.0.1
+2026-08-25T23:10:20.7958525Z  * [new tag]             2.0.2             -> 2.0.2
+2026-08-25T23:10:20.7959030Z  * [new tag]             2.0.3             -> 2.0.3
+2026-08-25T23:10:20.7959734Z  * [new tag]             2.1.0             -> 2.1.0
+2026-08-25T23:10:20.7960216Z  * [new tag]             2.1.2             -> 2.1.2
+2026-08-25T23:10:20.7960679Z  * [new tag]             2.1.3             -> 2.1.3
+2026-08-25T23:10:20.7961224Z  * [new tag]             2.2.0             -> 2.2.0
+2026-08-25T23:10:20.7961682Z  * [new tag]             2.2.1             -> 2.2.1
+2026-08-25T23:10:20.7962164Z  * [new tag]             2.2.2             -> 2.2.2
+2026-08-25T23:10:20.7962634Z  * [new tag]             2.2.3             -> 2.2.3
+2026-08-25T23:10:20.7963073Z  * [new tag]             2.2.4             -> 2.2.4
+2026-08-25T23:10:20.7963533Z  * [new tag]             2.3.0             -> 2.3.0
+2026-08-25T23:10:20.7963995Z  * [new tag]             2.3.1             -> 2.3.1
+2026-08-25T23:10:20.7964431Z  * [new tag]             2.3.2             -> 2.3.2
+2026-08-25T23:10:20.7964887Z  * [new tag]             2.3.3             -> 2.3.3
+2026-08-25T23:10:20.7965369Z  * [new tag]             2.3.4             -> 2.3.4
+2026-08-25T23:10:20.7965826Z  * [new tag]             2.3.5             -> 2.3.5
+2026-08-25T23:10:20.7966286Z  * [new tag]             2.4.0             -> 2.4.0
+2026-08-25T23:10:20.7966745Z  * [new tag]             2.4.1             -> 2.4.1
+2026-08-25T23:10:20.7967202Z  * [new tag]             2.4.2             -> 2.4.2
+2026-08-25T23:10:20.7967648Z  * [new tag]             2.5.0             -> 2.5.0
+2026-08-25T23:10:20.7968091Z  * [new tag]             2.5.1             -> 2.5.1
+2026-08-25T23:10:20.7968555Z  * [new tag]             2.5.2             -> 2.5.2
+2026-08-25T23:10:20.7969021Z  * [new tag]             2.6.0             -> 2.6.0
+2026-08-25T23:10:20.7969489Z  * [new tag]             2.6.1             -> 2.6.1
+2026-08-25T23:10:20.7969949Z  * [new tag]             2.6.2             -> 2.6.2
+2026-08-25T23:10:20.7970402Z  * [new tag]             2.6.3             -> 2.6.3
+2026-08-25T23:10:20.7970848Z  * [new tag]             2.6.4             -> 2.6.4
+2026-08-25T23:10:20.7971479Z  * [new tag]             2.7.0             -> 2.7.0
+2026-08-25T23:10:20.7971959Z  * [new tag]             2.7.1             -> 2.7.1
+2026-08-25T23:10:20.7972413Z  * [new tag]             2.7.2             -> 2.7.2
+2026-08-25T23:10:20.7972874Z  * [new tag]             2.7.3             -> 2.7.3
+2026-08-25T23:10:20.7973380Z  * [new tag]             2.8.0             -> 2.8.0
+2026-08-25T23:10:20.7974129Z  * [new tag]             2.8.1             -> 2.8.1
+2026-08-25T23:10:20.7974744Z  * [new tag]             2.8.2             -> 2.8.2
+2026-08-25T23:10:20.7975320Z  * [new tag]             2.8.3             -> 2.8.3
+2026-08-25T23:10:20.7975911Z  * [new tag]             2.8.4             -> 2.8.4
+2026-08-25T23:10:20.7976492Z  * [new tag]             2.8.5             -> 2.8.5
+2026-08-25T23:10:20.7977048Z  * [new tag]             2.8.6             -> 2.8.6
+2026-08-25T23:10:20.7977606Z  * [new tag]             2.8.7             -> 2.8.7
+2026-08-25T23:10:20.7978222Z  * [new tag]             2.9.0             -> 2.9.0
+2026-08-25T23:10:20.7978791Z  * [new tag]             2.9.1             -> 2.9.1
+2026-08-25T23:10:20.7979356Z  * [new tag]             2.9.2             -> 2.9.2
+2026-08-25T23:10:20.7979933Z  * [new tag]             3.0.0             -> 3.0.0
+2026-08-25T23:10:20.7981181Z  * [new tag]             3.0.1             -> 3.0.1
+2026-08-25T23:10:20.7982126Z  * [new tag]             3.0.2             -> 3.0.2
+2026-08-25T23:10:20.7982763Z  * [new tag]             3.0.3             -> 3.0.3
+2026-08-25T23:10:20.7983371Z  * [new tag]             3.0.4             -> 3.0.4
+2026-08-25T23:10:20.7984003Z  * [new tag]             3.0.5             -> 3.0.5
+2026-08-25T23:10:20.7984610Z  * [new tag]             3.0.6             -> 3.0.6
+2026-08-25T23:10:20.7985209Z  * [new tag]             3.0.7             -> 3.0.7
+2026-08-25T23:10:20.7985677Z  * [new tag]             3.1.0             -> 3.1.0
+2026-08-25T23:10:20.7986233Z  * [new tag]             3.1.1             -> 3.1.1
+2026-08-25T23:10:20.7986748Z  * [new tag]             3.1.2             -> 3.1.2
+2026-08-25T23:10:20.7987252Z  * [new tag]             3.1.3             -> 3.1.3
+2026-08-25T23:10:20.7987748Z  * [new tag]             3.10.0            -> 3.10.0
+2026-08-25T23:10:20.7988249Z  * [new tag]             3.10.1            -> 3.10.1
+2026-08-25T23:10:20.7988753Z  * [new tag]             3.2.0             -> 3.2.0
+2026-08-25T23:10:20.7989212Z  * [new tag]             3.2.1             -> 3.2.1
+2026-08-25T23:10:20.7989684Z  * [new tag]             3.2.2             -> 3.2.2
+2026-08-25T23:10:20.7990159Z  * [new tag]             3.2.3             -> 3.2.3
+2026-08-25T23:10:20.7990629Z  * [new tag]             3.2.4             -> 3.2.4
+2026-08-25T23:10:20.7991106Z  * [new tag]             3.2.5             -> 3.2.5
+2026-08-25T23:10:20.7991574Z  * [new tag]             3.3.0             -> 3.3.0
+2026-08-25T23:10:20.7992044Z  * [new tag]             3.3.1             -> 3.3.1
+2026-08-25T23:10:20.7992530Z  * [new tag]             3.3.2             -> 3.3.2
+2026-08-25T23:10:20.7992985Z  * [new tag]             3.4.0             -> 3.4.0
+2026-08-25T23:10:20.7993446Z  * [new tag]             3.4.1             -> 3.4.1
+2026-08-25T23:10:20.7993912Z  * [new tag]             3.4.2             -> 3.4.2
+2026-08-25T23:10:20.7994379Z  * [new tag]             3.5.0             -> 3.5.0
+2026-08-25T23:10:20.7994836Z  * [new tag]             3.5.1             -> 3.5.1
+2026-08-25T23:10:20.7995293Z  * [new tag]             3.6.0             -> 3.6.0
+2026-08-25T23:10:20.7995768Z  * [new tag]             3.6.1             -> 3.6.1
+2026-08-25T23:10:20.7996231Z  * [new tag]             3.6.2             -> 3.6.2
+2026-08-25T23:10:20.7996765Z  * [new tag]             3.6.3             -> 3.6.3
+2026-08-25T23:10:20.7997273Z  * [new tag]             3.6.4             -> 3.6.4
+2026-08-25T23:10:20.7997751Z  * [new tag]             3.7.0             -> 3.7.0
+2026-08-25T23:10:20.7998513Z  * [new tag]             3.7.1             -> 3.7.1
+2026-08-25T23:10:20.7999055Z  * [new tag]             3.7.2             -> 3.7.2
+2026-08-25T23:10:20.7999535Z  * [new tag]             3.7.3             -> 3.7.3
+2026-08-25T23:10:20.8000023Z  * [new tag]             3.7.4             -> 3.7.4
+2026-08-25T23:10:20.8000537Z  * [new tag]             3.8.0             -> 3.8.0
+2026-08-25T23:10:20.8001460Z  * [new tag]             3.8.1             -> 3.8.1
+2026-08-25T23:10:20.8001983Z  * [new tag]             3.8.2             -> 3.8.2
+2026-08-25T23:10:20.8002505Z  * [new tag]             3.9.0             -> 3.9.0
+2026-08-25T23:10:20.8003048Z  * [new tag]             3.9.1             -> 3.9.1
+2026-08-25T23:10:20.8003552Z  * [new tag]             3.9.2             -> 3.9.2
+2026-08-25T23:10:20.8004044Z  * [new tag]             3.9.3             -> 3.9.3
+2026-08-25T23:10:20.8004537Z  * [new tag]             4.0.0             -> 4.0.0
+2026-08-25T23:10:20.8005004Z  * [new tag]             4.0.1             -> 4.0.1
+2026-08-25T23:10:20.8005489Z  * [new tag]             4.0.2             -> 4.0.2
+2026-08-25T23:10:20.8005953Z  * [new tag]             4.1.0             -> 4.1.0
+2026-08-25T23:10:20.8006434Z  * [new tag]             4.1.1             -> 4.1.1
+2026-08-25T23:10:20.8006911Z  * [new tag]             4.2.0             -> 4.2.0
+2026-08-25T23:10:20.8007390Z  * [new tag]             4.2.1             -> 4.2.1
+2026-08-25T23:10:20.8008801Z  * [new tag]             4.3.0             -> 4.3.0
+2026-08-25T23:10:20.8009314Z  * [new tag]             4.3.1             -> 4.3.1
+2026-08-25T23:10:20.8009800Z  * [new tag]             4.4.0             -> 4.4.0
+2026-08-25T23:10:20.8010283Z  * [new tag]             4.4.1             -> 4.4.1
+2026-08-25T23:10:20.8010774Z  * [new tag]             4.4.2             -> 4.4.2
+2026-08-25T23:10:20.8011263Z  * [new tag]             4.5.0             -> 4.5.0
+2026-08-25T23:10:20.8011752Z  * [new tag]             4.6.0             -> 4.6.0
+2026-08-25T23:10:20.8012236Z  * [new tag]             4.6.1             -> 4.6.1
+2026-08-25T23:10:20.8012724Z  * [new tag]             4.6.10            -> 4.6.10
+2026-08-25T23:10:20.8013269Z  * [new tag]             4.6.11            -> 4.6.11
+2026-08-25T23:10:20.8013779Z  * [new tag]             4.6.2             -> 4.6.2
+2026-08-25T23:10:20.8014263Z  * [new tag]             4.6.3             -> 4.6.3
+2026-08-25T23:10:20.8014771Z  * [new tag]             4.6.4             -> 4.6.4
+2026-08-25T23:10:20.8015269Z  * [new tag]             4.6.5             -> 4.6.5
+2026-08-25T23:10:20.8015832Z  * [new tag]             4.6.6             -> 4.6.6
+2026-08-25T23:10:20.8016356Z  * [new tag]             4.6.7             -> 4.6.7
+2026-08-25T23:10:20.8016863Z  * [new tag]             4.6.8             -> 4.6.8
+2026-08-25T23:10:20.8017144Z  * [new tag]             4.6.9             -> 4.6.9
+2026-08-25T23:10:20.8017412Z  * [new tag]             5.0.0             -> 5.0.0
+2026-08-25T23:10:20.8017675Z  * [new tag]             5.0.1             -> 5.0.1
+2026-08-25T23:10:20.8017960Z  * [new tag]             5.1.0             -> 5.1.0
+2026-08-25T23:10:20.8018230Z  * [new tag]             5.1.1             -> 5.1.1
+2026-08-25T23:10:20.8018494Z  * [new tag]             5.1.2             -> 5.1.2
+2026-08-25T23:10:20.8018756Z  * [new tag]             5.1.3             -> 5.1.3
+2026-08-25T23:10:20.8019018Z  * [new tag]             5.2.0             -> 5.2.0
+2026-08-25T23:10:20.8019300Z  * [new tag]             5.2.1             -> 5.2.1
+2026-08-25T23:10:20.8019581Z  * [new tag]             5.2.2             -> 5.2.2
+2026-08-25T23:10:20.8019853Z  * [new tag]             5.2.3             -> 5.2.3
+2026-08-25T23:10:20.8020125Z  * [new tag]             5.2.4             -> 5.2.4
+2026-08-25T23:10:20.8020389Z  * [new tag]             5.3.0             -> 5.3.0
+2026-08-25T23:10:20.8020654Z  * [new tag]             5.3.1             -> 5.3.1
+2026-08-25T23:10:20.8021327Z  * [new tag]             5.3.2             -> 5.3.2
+2026-08-25T23:10:20.8022267Z  * [new tag]             5.3.3             -> 5.3.3
+2026-08-25T23:10:20.8022628Z  * [new tag]             5.3.4             -> 5.3.4
+2026-08-25T23:10:20.8022935Z  * [new tag]             5.3.5             -> 5.3.5
+2026-08-25T23:10:20.8023211Z  * [new tag]             5.4.0             -> 5.4.0
+2026-08-25T23:10:20.8023480Z  * [new tag]             5.4.1             -> 5.4.1
+2026-08-25T23:10:20.8023759Z  * [new tag]             5.4.2             -> 5.4.2
+2026-08-25T23:10:20.8024026Z  * [new tag]             5.4.3             -> 5.4.3
+2026-08-25T23:10:20.8024317Z  * [new tag]             6.0.0             -> 6.0.0
+2026-08-25T23:10:20.8024603Z  * [new tag]             6.0.0rc1          -> 6.0.0rc1
+2026-08-25T23:10:20.8024900Z  * [new tag]             6.0.1             -> 6.0.1
+2026-08-25T23:10:20.8025168Z  * [new tag]             6.0.2             -> 6.0.2
+2026-08-25T23:10:20.8025436Z  * [new tag]             6.1.0             -> 6.1.0
+2026-08-25T23:10:20.8025708Z  * [new tag]             6.1.1             -> 6.1.1
+2026-08-25T23:10:20.8025982Z  * [new tag]             6.1.2             -> 6.1.2
+2026-08-25T23:10:20.8026248Z  * [new tag]             6.2.0             -> 6.2.0
+2026-08-25T23:10:20.8026537Z  * [new tag]             6.2.0.dev0        -> 6.2.0.dev0
+2026-08-25T23:10:20.8026827Z  * [new tag]             6.2.1             -> 6.2.1
+2026-08-25T23:10:20.8027092Z  * [new tag]             6.2.2             -> 6.2.2
+2026-08-25T23:10:20.8027476Z  * [new tag]             6.2.3             -> 6.2.3
+2026-08-25T23:10:20.8027855Z  * [new tag]             6.2.4             -> 6.2.4
+2026-08-25T23:10:20.8028271Z  * [new tag]             6.2.5             -> 6.2.5
+2026-08-25T23:10:20.8028562Z  * [new tag]             6.3.0.dev0        -> 6.3.0.dev0
+2026-08-25T23:10:20.8028843Z  * [new tag]             7.0.0             -> 7.0.0
+2026-08-25T23:10:20.8029131Z  * [new tag]             7.0.0.dev0        -> 7.0.0.dev0
+2026-08-25T23:10:20.8029433Z  * [new tag]             7.0.0.post1       -> 7.0.0.post1
+2026-08-25T23:10:20.8029743Z  * [new tag]             7.0.0rc1          -> 7.0.0rc1
+2026-08-25T23:10:20.8030021Z  * [new tag]             7.0.1             -> 7.0.1
+2026-08-25T23:10:20.8030289Z  * [new tag]             7.1.0             -> 7.1.0
+2026-08-25T23:10:20.8030566Z  * [new tag]             7.1.0.dev0        -> 7.1.0.dev0
+2026-08-25T23:10:20.8030843Z  * [new tag]             7.1.1             -> 7.1.1
+2026-08-25T23:10:20.8031119Z  * [new tag]             7.1.2             -> 7.1.2
+2026-08-25T23:10:20.8031385Z  * [new tag]             7.1.3             -> 7.1.3
+2026-08-25T23:10:20.8031650Z  * [new tag]             7.2.0             -> 7.2.0
+2026-08-25T23:10:20.8031924Z  * [new tag]             7.2.0.dev0        -> 7.2.0.dev0
+2026-08-25T23:10:20.8032199Z  * [new tag]             7.2.1             -> 7.2.1
+2026-08-25T23:10:20.8032464Z  * [new tag]             7.2.2             -> 7.2.2
+2026-08-25T23:10:20.8032732Z  * [new tag]             7.3.0             -> 7.3.0
+2026-08-25T23:10:20.8033004Z  * [new tag]             7.3.1             -> 7.3.1
+2026-08-25T23:10:20.8033268Z  * [new tag]             7.3.2             -> 7.3.2
+2026-08-25T23:10:20.8033539Z  * [new tag]             7.4.0             -> 7.4.0
+2026-08-25T23:10:20.8033812Z  * [new tag]             7.4.0.dev0        -> 7.4.0.dev0
+2026-08-25T23:10:20.8034087Z  * [new tag]             7.4.1             -> 7.4.1
+2026-08-25T23:10:20.8034482Z  * [new tag]             7.4.2             -> 7.4.2
+2026-08-25T23:10:20.8034978Z  * [new tag]             7.4.3             -> 7.4.3
+2026-08-25T23:10:20.8035474Z  * [new tag]             7.4.4             -> 7.4.4
+2026-08-25T23:10:20.8035980Z  * [new tag]             8.0.0             -> 8.0.0
+2026-08-25T23:10:20.8036483Z  * [new tag]             8.0.0.dev0        -> 8.0.0.dev0
+2026-08-25T23:10:20.8037005Z  * [new tag]             8.0.0rc1          -> 8.0.0rc1
+2026-08-25T23:10:20.8037550Z  * [new tag]             8.0.0rc2          -> 8.0.0rc2
+2026-08-25T23:10:20.8038064Z  * [new tag]             8.0.1             -> 8.0.1
+2026-08-25T23:10:20.8038754Z  * [new tag]             8.0.2             -> 8.0.2
+2026-08-25T23:10:20.8039274Z  * [new tag]             8.1.0             -> 8.1.0
+2026-08-25T23:10:20.8039822Z  * [new tag]             8.1.0.dev0        -> 8.1.0.dev0
+2026-08-25T23:10:20.8040334Z  * [new tag]             8.1.1             -> 8.1.1
+2026-08-25T23:10:20.8040821Z  * [new tag]             8.1.2             -> 8.1.2
+2026-08-25T23:10:20.8041778Z  * [new tag]             8.2.0             -> 8.2.0
+2026-08-25T23:10:20.8042334Z  * [new tag]             8.2.0.dev0        -> 8.2.0.dev0
+2026-08-25T23:10:20.8042884Z  * [new tag]             8.2.1             -> 8.2.1
+2026-08-25T23:10:20.8043383Z  * [new tag]             8.2.2             -> 8.2.2
+2026-08-25T23:10:20.8043905Z  * [new tag]             8.3.0             -> 8.3.0
+2026-08-25T23:10:20.8044427Z  * [new tag]             8.3.0.dev0        -> 8.3.0.dev0
+2026-08-25T23:10:20.8044974Z  * [new tag]             8.3.1             -> 8.3.1
+2026-08-25T23:10:20.8045503Z  * [new tag]             8.3.2             -> 8.3.2
+2026-08-25T23:10:20.8045987Z  * [new tag]             8.3.3             -> 8.3.3
+2026-08-25T23:10:20.8046453Z  * [new tag]             8.3.4             -> 8.3.4
+2026-08-25T23:10:20.8046866Z  * [new tag]             8.3.5             -> 8.3.5
+2026-08-25T23:10:20.8047302Z  * [new tag]             8.4.0             -> 8.4.0
+2026-08-25T23:10:20.8048041Z  * [new tag]             8.4.0.dev0        -> 8.4.0.dev0
+2026-08-25T23:10:20.8048535Z  * [new tag]             8.4.1             -> 8.4.1
+2026-08-25T23:10:20.8049004Z  * [new tag]             8.4.2             -> 8.4.2
+2026-08-25T23:10:20.8049495Z  * [new tag]             8.5.0.dev0        -> 8.5.0.dev0
+2026-08-25T23:10:20.8049961Z  * [new tag]             9.0.0             -> 9.0.0
+2026-08-25T23:10:20.8050434Z  * [new tag]             9.0.1             -> 9.0.1
+2026-08-25T23:10:20.8050931Z  * [new tag]             9.0.2             -> 9.0.2
+2026-08-25T23:10:20.8051493Z  * [new tag]             9.0.3             -> 9.0.3
+2026-08-25T23:10:20.8051792Z  * [new tag]             9.1.0             -> 9.1.0
+2026-08-25T23:10:20.8052088Z  * [new tag]             9.1.0.dev0        -> 9.1.0.dev0
+2026-08-25T23:10:20.8052372Z  * [new tag]             9.1.1             -> 9.1.1
+2026-08-25T23:10:20.8052651Z  * [new tag]             9.2.0.dev0        -> 9.2.0.dev0
+2026-08-25T23:10:20.8052952Z  * [new tag]             v7.4.3            -> v7.4.3
+2026-08-25T23:10:20.8053331Z  * [new ref]             bf057558ff4c7b148d66e344c11c2a09f60b933f -> pull/14936/merge
+2026-08-25T23:10:20.8054411Z ##[endgroup]
+2026-08-25T23:10:20.8054977Z ##[group]Determining the checkout info
+2026-08-25T23:10:20.8055608Z ##[endgroup]
+2026-08-25T23:10:20.8056071Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-08-25T23:10:20.8478392Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-08-25T23:10:20.8767970Z ##[group]Checking out the ref
+2026-08-25T23:10:20.8776433Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/remotes/pull/14936/merge
+2026-08-25T23:10:21.1286517Z Note: switching to 'refs/remotes/pull/14936/merge'.
+2026-08-25T23:10:21.1287261Z 
+2026-08-25T23:10:21.1287632Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-08-25T23:10:21.1288512Z changes and commit them, and you can discard any commits you make in this
+2026-08-25T23:10:21.1289086Z state without impacting any branches by switching back to a branch.
+2026-08-25T23:10:21.1289408Z 
+2026-08-25T23:10:21.1289599Z If you want to create a new branch to retain commits you create, you may
+2026-08-25T23:10:21.1290036Z do so (now or later) by using -c with the switch command. Example:
+2026-08-25T23:10:21.1290289Z 
+2026-08-25T23:10:21.1290380Z   git switch -c <new-branch-name>
+2026-08-25T23:10:21.1290593Z 
+2026-08-25T23:10:21.1290681Z Or undo this operation with:
+2026-08-25T23:10:21.1290832Z 
+2026-08-25T23:10:21.1290909Z   git switch -
+2026-08-25T23:10:21.1291284Z 
+2026-08-25T23:10:21.1291525Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-08-25T23:10:21.1291827Z 
+2026-08-25T23:10:21.1292171Z HEAD is now at bf057558f Merge 8ee0568ed48c118e9f6c139b7ff1f47694b8570d into 6a30f9e5764d106ce5a37e5bb706e797d46e318f
+2026-08-25T23:10:21.1471104Z ##[endgroup]
+2026-08-25T23:10:21.1935490Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-08-25T23:10:21.2202344Z bf057558ff4c7b148d66e344c11c2a09f60b933f
+2026-08-25T23:10:21.2242533Z ##[group]Removing auth
+2026-08-25T23:10:21.2242880Z Removing SSH command configuration
+2026-08-25T23:10:21.2254861Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-08-25T23:10:21.2556764Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-08-25T23:10:21.7757475Z Removing HTTP extra header
+2026-08-25T23:10:21.7766289Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-25T23:10:21.8065271Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-08-25T23:10:22.3292828Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-25T23:10:22.3306686Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-25T23:10:22.3591579Z includeif.gitdir:D:/a/pytest/pytest/.git.path
+2026-08-25T23:10:22.3592467Z includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path
+2026-08-25T23:10:22.3593065Z includeif.gitdir:/github/workspace/.git.path
+2026-08-25T23:10:22.3626522Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-25T23:10:22.3636104Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/pytest/pytest/.git.path
+2026-08-25T23:10:22.3899967Z D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.3946898Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/pytest/pytest/.git.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.4256894Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path
+2026-08-25T23:10:22.4526219Z D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.4566707Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.4868159Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-08-25T23:10:22.5118572Z /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.5156736Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.5445535Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-25T23:10:22.5701670Z /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.5741723Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:10:22.6040112Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-08-25T23:10:23.1077293Z Removing credentials [REDACTED:assigned_secret] 'D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config'
+2026-08-25T23:10:23.1091127Z ##[endgroup]
+2026-08-25T23:10:23.1548011Z ##[group]Run actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+2026-08-25T23:10:23.1548596Z with:
+2026-08-25T23:10:23.1548811Z   name: Packages
+2026-08-25T23:10:23.1549029Z   path: dist
+2026-08-25T23:10:23.1549267Z   merge-multiple: false
+2026-08-25T23:10:23.1549540Z   repository: pytest-dev/pytest
+2026-08-25T23:10:23.1549777Z   run-id: 32909439763
+2026-08-25T23:10:23.1549974Z   skip-decompress: false
+2026-08-25T23:10:23.1550182Z   digest-mismatch: error
+2026-08-25T23:10:23.1550372Z env:
+2026-08-25T23:10:23.1550539Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:23.1550747Z ##[endgroup]
+2026-08-25T23:10:23.3262064Z Downloading single artifact
+2026-08-25T23:10:23.4302198Z Preparing to download the following artifacts:
+2026-08-25T23:10:23.4303626Z - Packages (ID: 9586012339, Size: 2149983, Expected Digest: sha256:70ed9728507e7de3497c4b1f648bd62758c340790993d50b1cad5e14dba3a88f)
+2026-08-25T23:10:23.6378496Z Redirecting to blob download url: https://productionresultssa15.blob.core.windows.net/actions-results/0bf83727-795e-4283-b120-44bff86f8c63/workflow-job-run-80da9993-d120-5e53-8151-1b588c03e5aa/artifacts/40a2085371b8effbae526101c0fd639a2ed6604c16513802a0e05bd3d9b8e1b0.zip
+2026-08-25T23:10:23.6382220Z Starting download of artifact to: D:\a\pytest\pytest\dist
+2026-08-25T23:10:23.7992605Z (node:2940) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-08-25T23:10:23.7994407Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-25T23:10:23.8657912Z SHA256 digest of downloaded artifact is 70ed9728507e7de3497c4b1f648bd62758c340790993d50b1cad5e14dba3a88f
+2026-08-25T23:10:23.8658491Z Artifact download completed successfully.
+2026-08-25T23:10:23.8658784Z Total of 1 artifact(s) downloaded
+2026-08-25T23:10:23.8665119Z Download artifact has finished successfully
+2026-08-25T23:10:23.8998762Z ##[group]Run actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+2026-08-25T23:10:23.8999215Z with:
+2026-08-25T23:10:23.8999407Z   python-version: 3.11
+2026-08-25T23:10:23.8999638Z   check-latest: true
+2026-08-25T23:10:23.8999841Z   allow-prereleases: true
+2026-08-25T23:10:23.9002327Z   token: ***
+2026-08-25T23:10:23.9002523Z   update-environment: true
+2026-08-25T23:10:23.9002749Z   freethreaded: false
+2026-08-25T23:10:23.9002938Z env:
+2026-08-25T23:10:23.9003125Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:23.9003340Z ##[endgroup]
+2026-08-25T23:10:24.0496533Z ##[group]Installed versions
+2026-08-25T23:10:24.6138954Z Resolved as '3.11.9'
+2026-08-25T23:10:24.6189970Z Successfully set up CPython (3.11.9)
+2026-08-25T23:10:24.6190651Z ##[endgroup]
+2026-08-25T23:10:24.6458260Z Prepare all required actions
+2026-08-25T23:10:24.6458891Z Getting action download info
+2026-08-25T23:10:24.7316076Z Download action repository 'astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990' (SHA:11f9893b081a58869d3b5fccaea48c9e9e46f990)
+2026-08-25T23:10:24.9702792Z ##[group]Run ./.github/actions/setup-tox
+2026-08-25T23:10:24.9703235Z with:
+2026-08-25T23:10:24.9703523Z   python-version: 3.11
+2026-08-25T23:10:24.9703736Z   enable-cache: true
+2026-08-25T23:10:24.9703942Z env:
+2026-08-25T23:10:24.9704119Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:24.9704431Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9704891Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-08-25T23:10:24.9705364Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9705765Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9706200Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9706504Z ##[endgroup]
+2026-08-25T23:10:24.9767928Z ##[start-action display=Install uv;id=__self.__astral-sh_setup-uv]
+2026-08-25T23:10:24.9974012Z ##[group]Run astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990
+2026-08-25T23:10:24.9974370Z with:
+2026-08-25T23:10:24.9974549Z   enable-cache: true
+2026-08-25T23:10:24.9974768Z   activate-environment: false
+2026-08-25T23:10:24.9974990Z   no-project: false
+2026-08-25T23:10:24.9975195Z   working-directory: D:\a\pytest\pytest
+2026-08-25T23:10:24.9977694Z   github-token: ***
+2026-08-25T23:10:24.9978262Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-08-25T23:10:24.9978971Z   restore-cache: true
+2026-08-25T23:10:24.9979331Z   save-cache: true
+2026-08-25T23:10:24.9979521Z   prune-cache: true
+2026-08-25T23:10:24.9979705Z   cache-python: false
+2026-08-25T23:10:24.9979914Z   ignore-nothing-to-cache: false
+2026-08-25T23:10:24.9980360Z   ignore-empty-workdir: false
+2026-08-25T23:10:24.9980599Z   download-from-astral-mirror: true
+2026-08-25T23:10:24.9980846Z   add-problem-matchers: true
+2026-08-25T23:10:24.9981052Z   quiet: false
+2026-08-25T23:10:24.9981239Z   resolution-strategy: highest
+2026-08-25T23:10:24.9981446Z env:
+2026-08-25T23:10:24.9981812Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:24.9982111Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9982561Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-08-25T23:10:24.9982996Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9983385Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9983770Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:24.9984080Z ##[endgroup]
+2026-08-25T23:10:25.1997053Z Trying to find version for uv in: D:\a\pytest\pytest\uv.toml
+2026-08-25T23:10:25.1998055Z Could not find file: D:\a\pytest\pytest\uv.toml
+2026-08-25T23:10:25.1998761Z Trying to find version for uv in: D:\a\pytest\pytest\pyproject.toml
+2026-08-25T23:10:25.2023945Z Could not determine uv version from uv.toml or pyproject.toml. Falling back to latest.
+2026-08-25T23:10:25.2031338Z Fetching manifest data from https://raw.githubusercontent.com/astral-sh/versions/main/v1/uv.ndjson ...
+2026-08-25T23:10:25.2796936Z Downloading uv from "https://releases.astral.sh/github/uv/releases/download/0.12.6/uv-x86_64-pc-windows-msvc.zip" ...
+2026-08-25T23:10:25.3190126Z ##[warning]Failed to download from mirror, falling back to GitHub Releases: Unexpected HTTP response: 404
+2026-08-25T23:10:25.3191632Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.12.6/uv-x86_64-pc-windows-msvc.zip" ...
+2026-08-25T23:10:25.9895170Z [command]C:\Windows\system32\tar.exe x -C D:\a\_temp\35ba6e36-ee51-46ed-a1d0-f9bad1dec0c6 -f D:\a\_temp\e1bb8ee3-7e3a-49f9-be80-7e2317e148e9
+2026-08-25T23:10:26.1730611Z Set UV_TOOL_BIN_DIR to D:\a\_temp\uv-tool-bin-dir
+2026-08-25T23:10:26.1735099Z Added D:\a\_temp\uv-tool-bin-dir to the path
+2026-08-25T23:10:26.1748246Z Added C:\hostedtoolcache\windows\uv\0.12.6\x86_64 to the path
+2026-08-25T23:10:26.1751694Z Set UV_TOOL_DIR to D:\a\_temp\uv-tool-dir
+2026-08-25T23:10:26.1756135Z Set UV_PYTHON_INSTALL_DIR to D:\a\_temp\uv-python-dir
+2026-08-25T23:10:26.1759946Z Added D:\a\_temp\uv-python-dir to the path
+2026-08-25T23:10:26.1769708Z Set UV_CACHE_DIR to D:\a\_temp\setup-uv-cache
+2026-08-25T23:10:26.1770571Z Successfully installed uv version 0.12.6
+2026-08-25T23:10:27.5831975Z Searching files using cache dependency glob: D:\a\pytest\pytest\**\*requirements*.txt,D:\a\pytest\pytest\**\*requirements*.in,D:\a\pytest\pytest\**\*constraints*.txt,D:\a\pytest\pytest\**\*constraints*.in,D:\a\pytest\pytest\**\pyproject.toml,D:\a\pytest\pytest\**\uv.lock,D:\a\pytest\pytest\**\*.py.lock
+2026-08-25T23:10:27.7451400Z D:\a\pytest\pytest\doc\en\broken-dep-constraints.txt
+2026-08-25T23:10:27.7799767Z D:\a\pytest\pytest\doc\en\requirements.txt
+2026-08-25T23:10:27.7848021Z D:\a\pytest\pytest\pyproject.toml
+2026-08-25T23:10:27.8606652Z D:\a\pytest\pytest\testing\plugins_integration\requirements.txt
+2026-08-25T23:10:27.8760252Z D:\a\pytest\pytest\uv.lock
+2026-08-25T23:10:27.8773591Z Found 5 files to hash.
+2026-08-25T23:10:27.8784106Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.11.9-pruned-8f4b87d8bba206b87ad19ec576ba7878b98d2bf2c4e706bda9be715cd8a25963
+2026-08-25T23:10:28.1116519Z Cache hit for: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.11.9-pruned-8f4b87d8bba206b87ad19ec576ba7878b98d2bf2c4e706bda9be715cd8a25963
+2026-08-25T23:10:28.3073455Z Received 3655921 of 3655921 (100.0%), 24.6 MBs/sec
+2026-08-25T23:10:28.3074010Z Cache Size: ~3 MB (3655921 B)
+2026-08-25T23:10:28.3117491Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/be2b7324-fbbc-452a-a805-94be8835aec2/cache.tzst -P -C D:/a/pytest/pytest --force-local --use-compress-program "zstd -d"
+2026-08-25T23:10:28.4769773Z Cache restored successfully
+2026-08-25T23:10:28.4781224Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.11.9-pruned-8f4b87d8bba206b87ad19ec576ba7878b98d2bf2c4e706bda9be715cd8a25963
+2026-08-25T23:10:28.6025150Z ##[end-action id=__self.__astral-sh_setup-uv;outcome=success;conclusion=success;duration_ms=3625]
+2026-08-25T23:10:28.6029544Z ##[start-action display=Install tox;id=__self.__run]
+2026-08-25T23:10:28.6169545Z ##[group]Run if [ -n "$PYTHON_VERSION" ]; then
+2026-08-25T23:10:28.6169962Z [36;1mif [ -n "$PYTHON_VERSION" ]; then[0m
+2026-08-25T23:10:28.6170345Z [36;1m  uv tool install --python "$PYTHON_VERSION" tox --with tox-uv[0m
+2026-08-25T23:10:28.6170689Z [36;1melse[0m
+2026-08-25T23:10:28.6170905Z [36;1m  uv tool install tox --with tox-uv[0m
+2026-08-25T23:10:28.6171159Z [36;1mfi[0m
+2026-08-25T23:10:28.6191893Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-08-25T23:10:28.6192292Z env:
+2026-08-25T23:10:28.6192477Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:28.6192799Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:28.6193248Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-08-25T23:10:28.6193714Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:28.6194114Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:28.6194521Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:28.6194870Z   UV_TOOL_BIN_DIR: D:\a\_temp\uv-tool-bin-dir
+2026-08-25T23:10:28.6195146Z   UV_TOOL_DIR: D:\a\_temp\uv-tool-dir
+2026-08-25T23:10:28.6195435Z   UV_PYTHON_INSTALL_DIR: D:\a\_temp\uv-python-dir
+2026-08-25T23:10:28.6195800Z   UV_CACHE_DIR: D:\a\_temp\setup-uv-cache
+2026-08-25T23:10:28.6196064Z   PYTHON_VERSION: 3.11
+2026-08-25T23:10:28.6197036Z ##[endgroup]
+2026-08-25T23:10:28.9829242Z Resolved 16 packages in 165ms
+2026-08-25T23:10:29.0276491Z Downloading virtualenv (5.1MiB)
+2026-08-25T23:10:29.0281189Z Downloading uv (18.1MiB)
+2026-08-25T23:10:29.2373866Z  Downloaded uv
+2026-08-25T23:10:29.3136802Z  Downloaded virtualenv
+2026-08-25T23:10:29.3144112Z Prepared 16 packages in 308ms
+2026-08-25T23:10:29.3759957Z Installed 16 packages in 61ms
+2026-08-25T23:10:29.3762398Z  + cachetools==7.1.7
+2026-08-25T23:10:29.3762819Z  + colorama==0.4.6
+2026-08-25T23:10:29.3764449Z  + distlib==0.4.3
+2026-08-25T23:10:29.3766019Z  + filelock==3.32.4
+2026-08-25T23:10:29.3766478Z  + packaging==26.3
+2026-08-25T23:10:29.3768459Z  + platformdirs==4.11.4
+2026-08-25T23:10:29.3769865Z  + pluggy==1.6.0
+2026-08-25T23:10:29.3771023Z  + pyproject-api==1.11.0
+2026-08-25T23:10:29.3772800Z  + python-discovery==1.5.3
+2026-08-25T23:10:29.3773504Z  + tomli-w==1.2.0
+2026-08-25T23:10:29.3775256Z  + tox==4.60.1
+2026-08-25T23:10:29.3776335Z  + tox-uv==1.36.0
+2026-08-25T23:10:29.3778166Z  + tox-uv-bare==1.36.0
+2026-08-25T23:10:29.3779349Z  + typing-extensions==4.16.0
+2026-08-25T23:10:29.3781887Z  + uv==0.12.6
+2026-08-25T23:10:29.3782219Z  + virtualenv==21.7.5
+2026-08-25T23:10:29.3796456Z Installed 1 executable: tox
+2026-08-25T23:10:29.3939397Z ##[end-action id=__self.__run;outcome=success;conclusion=success;duration_ms=790]
+2026-08-25T23:10:29.4116388Z ##[group]Run tox run -e py311 --installpkg `find dist/*.tar.gz`
+2026-08-25T23:10:29.4116914Z [36;1mtox run -e py311 --installpkg `find dist/*.tar.gz`[0m
+2026-08-25T23:10:29.4134782Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-08-25T23:10:29.4135176Z env:
+2026-08-25T23:10:29.4135361Z   PYTEST_ADDOPTS: --color=yes
+2026-08-25T23:10:29.4136332Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:29.4136824Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.11.9\x64/lib/pkgconfig
+2026-08-25T23:10:29.4137279Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:29.4137692Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:29.4138098Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.11.9\x64
+2026-08-25T23:10:29.4138448Z   UV_TOOL_BIN_DIR: D:\a\_temp\uv-tool-bin-dir
+2026-08-25T23:10:29.4138729Z   UV_TOOL_DIR: D:\a\_temp\uv-tool-dir
+2026-08-25T23:10:29.4139254Z   UV_PYTHON_INSTALL_DIR: D:\a\_temp\uv-python-dir
+2026-08-25T23:10:29.4139556Z   UV_CACHE_DIR: D:\a\_temp\setup-uv-cache
+2026-08-25T23:10:29.4139841Z   _PYTEST_TOX_POSARGS_JUNIT: --junitxml=junit.xml
+2026-08-25T23:10:29.4140119Z ##[endgroup]
+2026-08-25T23:10:31.4746533Z py311: venv> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe venv -p cpython3.11 --allow-existing --prompt=pytest[py311] --python-preference system D:\a\pytest\pytest\.tox\py311
+2026-08-25T23:10:31.5453170Z py311: install_dependency-groups> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe pip install argcomplete "asynctest; python_version < \"3.11\"" attrs>=23.1 coverage>=7.5 hypothesis>=6.75 mock numpy>=1.26 pexpect>=4.9 pytest-xdist>=3.5 pyyaml requests setuptools xmlschema
+2026-08-25T23:10:32.6176419Z .pkg_external: venv> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe venv -p D:\a\_temp\uv-tool-dir\tox\Scripts\python.exe --allow-existing --prompt=pytest[.pkg_external] --python-preference system D:\a\pytest\pytest\.tox\.pkg_external
+2026-08-25T23:10:32.6767481Z .pkg_external: freeze> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe --color never pip freeze
+2026-08-25T23:10:32.7309450Z .pkg_external: 
+2026-08-25T23:10:35.2000315Z .pkg_external_sdist_meta: install_requires> python -I -m pip install setuptools-scm[toml]>=6.2.3 setuptools>=77
+2026-08-25T23:10:38.4313922Z .pkg_external_sdist_meta: _optional_hooks D:\a\pytest\pytest\.tox\.pkg_external\tmp\sdist-extract\pytest-9.2.0.dev245+gbf057558f> python D:\a\_temp\uv-tool-dir\tox\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+2026-08-25T23:10:39.0403296Z .pkg_external_sdist_meta: get_requires_for_build_sdist D:\a\pytest\pytest\.tox\.pkg_external\tmp\sdist-extract\pytest-9.2.0.dev245+gbf057558f> python D:\a\_temp\uv-tool-dir\tox\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+2026-08-25T23:10:39.8520069Z .pkg_external_sdist_meta: get_requires_for_build_wheel D:\a\pytest\pytest\.tox\.pkg_external\tmp\sdist-extract\pytest-9.2.0.dev245+gbf057558f> python D:\a\_temp\uv-tool-dir\tox\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+2026-08-25T23:10:40.5120308Z .pkg_external_sdist_meta: freeze> python -m pip freeze --all
+2026-08-25T23:10:40.8685924Z .pkg_external_sdist_meta: packaging==26.3,pip==26.2.1,setuptools==84.0.0,setuptools-scm==10.2.1,vcs-versioning==2.3.1
+2026-08-25T23:10:40.8697302Z .pkg_external_sdist_meta: prepare_metadata_for_build_wheel D:\a\pytest\pytest\.tox\.pkg_external\tmp\sdist-extract\pytest-9.2.0.dev245+gbf057558f> python D:\a\_temp\uv-tool-dir\tox\Lib\site-packages\pyproject_api\_backend.py True setuptools.build_meta
+2026-08-25T23:10:41.4877510Z py311: install_package_deps> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe pip install "colorama>=0.4; sys_platform == \"win32\"" "exceptiongroup>=1; python_version < \"3.11\"" iniconfig>=2 packaging>=24 pluggy<2,>=1.5 pygments>=2.15 "tomli>=2; python_version < \"3.11\""
+2026-08-25T23:10:41.5426276Z py311: install_package> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe pip install --reinstall --no-deps pytest@D:\a\pytest\pytest\dist\pytest-9.2.0.dev245+gbf057558f.tar.gz
+2026-08-25T23:10:43.6621150Z py311: freeze> D:\a\_temp\uv-tool-dir\tox\Scripts\uv.exe --color never pip freeze
+2026-08-25T23:10:43.7162209Z py311: argcomplete==3.7.2,attrs==26.1.0,certifi==2026.7.22,charset-normalizer==3.5.1,colorama==0.4.6,coverage==7.15.4,elementpath==5.1.4,execnet==2.1.2,hypothesis==6.165.10,idna==3.19,iniconfig==2.3.0,mock==5.2.0,numpy==2.4.6,packaging==26.3,pexpect==4.9.0,pluggy==1.6.0,ptyprocess==0.7.0,pygments==2.21.0,pytest @ file:///D:/a/pytest/pytest/dist/pytest-9.2.0.dev245+gbf057558f.tar.gz,pytest-xdist==3.8.0,pyyaml==6.0.3,requests==2.34.2,setuptools==84.0.0,sortedcontainers==2.4.0,urllib3==2.7.0,xmlschema==4.3.2
+2026-08-25T23:10:43.7169390Z py311: commands[0]> pytest --junitxml=junit.xml
+2026-08-25T23:10:50.7211815Z [1m============================= test session starts =============================[0m
+2026-08-25T23:10:50.7212779Z platform win32 -- Python 3.11.9, pytest-9.2.0.dev245+gbf057558f, pluggy-1.6.0
+2026-08-25T23:10:50.7213904Z cachedir: .tox\py311\.pytest_cache
+2026-08-25T23:10:50.7214346Z rootdir: D:\a\pytest\pytest
+2026-08-25T23:10:50.7214754Z configfile: pyproject.toml
+2026-08-25T23:10:50.7215131Z testpaths: testing
+2026-08-25T23:10:50.7215493Z plugins: hypothesis-6.165.10, xdist-3.8.0
+2026-08-25T23:10:50.7215956Z collected 4559 items
+2026-08-25T23:10:50.7216174Z 
+2026-08-25T23:10:50.8245716Z testing\_py\test_local.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [  1%]
+2026-08-25T23:10:57.1886298Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mX[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33m [  2%]
+2026-08-25T23:10:57.6524672Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[33m          [  3%][0m
+2026-08-25T23:10:57.8046413Z testing\acceptance_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [  4%][0m
+2026-08-25T23:10:57.8557164Z testing\code\test_code.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                              [  4%][0m
+2026-08-25T23:10:58.0100280Z testing\code\test_excinfo.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [  5%]
+2026-08-25T23:10:59.4857018Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [  6%]
+2026-08-25T23:11:00.1488902Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                       [  8%][0m
+2026-08-25T23:11:00.3530143Z testing\code\test_source.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [  9%]
+2026-08-25T23:11:00.3532124Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                           [  9%][0m
+2026-08-25T23:11:00.4039724Z testing\deprecated_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [  9%][0m
+2026-08-25T23:11:00.4041152Z testing\freeze\tests\test_doctest.txt [32m.[0m[33m                                  [  9%][0m
+2026-08-25T23:11:00.4042037Z testing\freeze\tests\test_trivial.py [32m.[0m[32m.[0m[33m                                  [  9%][0m
+2026-08-25T23:11:00.4557776Z testing\io\test_pprint.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 10%]
+2026-08-25T23:11:00.5075458Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                    [ 11%][0m
+2026-08-25T23:11:00.5077541Z testing\io\test_saferepr.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                            [ 11%][0m
+2026-08-25T23:11:00.6095662Z testing\io\test_terminalwriter.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 12%]
+2026-08-25T23:11:00.6603273Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                              [ 12%][0m
+2026-08-25T23:11:00.7115610Z testing\io\test_wcwidth.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                             [ 13%][0m
+2026-08-25T23:11:00.7118744Z testing\logging\test_fixture.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                      [ 13%][0m
+2026-08-25T23:11:00.7120986Z testing\logging\test_formatter.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                   [ 13%][0m
+2026-08-25T23:11:00.7121750Z testing\logging\test_reporting.py [32m.[0m[32m.[0m[33m                                     [ 13%][0m
+2026-08-25T23:11:01.0666302Z testing\python\approx.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 14%]
+2026-08-25T23:11:01.1689071Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 16%]
+2026-08-25T23:11:01.1691903Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                              [ 16%][0m
+2026-08-25T23:11:01.1693047Z testing\python\collect.py [32m.[0m[32m.[0m[33m                                             [ 16%][0m
+2026-08-25T23:11:01.2198100Z testing\python\fixtures.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                          [ 17%][0m
+2026-08-25T23:11:01.2200297Z testing\python\integration.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                       [ 17%][0m
+2026-08-25T23:11:02.9857561Z testing\python\metafunc.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 18%]
+2026-08-25T23:11:02.9860206Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                         [ 18%][0m
+2026-08-25T23:11:03.2409532Z testing\python\raises.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                  [ 19%][0m
+2026-08-25T23:11:03.2920286Z testing\python\raises_group.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m              [ 20%][0m
+2026-08-25T23:11:03.2922024Z testing\test_argcomplete.py [33ms[0m[33ms[0m[33m                                           [ 20%][0m
+2026-08-25T23:11:05.5603905Z testing\test_assertion.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 21%]
+2026-08-25T23:11:07.2280943Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                [ 22%][0m
+2026-08-25T23:11:07.4822302Z testing\test_assertrewrite.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 23%]
+2026-08-25T23:11:07.4825207Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                   [ 23%][0m
+2026-08-25T23:11:07.5332819Z testing\test_assertrewrite_coverage.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 24%]
+2026-08-25T23:11:07.5848067Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                   [ 25%][0m
+2026-08-25T23:11:07.6356097Z testing\test_cacheprovider.py [32m.[0m[33m                                          [ 25%][0m
+2026-08-25T23:11:07.6869042Z testing\test_capture.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 26%]
+2026-08-25T23:11:07.7382158Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                         [ 26%][0m
+2026-08-25T23:11:07.7383689Z testing\test_collection.py [32m.[0m[32m.[0m[33m                                            [ 26%][0m
+2026-08-25T23:11:07.7897800Z testing\test_compat.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                       [ 26%][0m
+2026-08-25T23:11:07.9944804Z testing\test_config.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 27%]
+2026-08-25T23:11:08.1471951Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                               [ 28%][0m
+2026-08-25T23:11:08.2491514Z testing\test_conftest.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                     [ 28%][0m
+2026-08-25T23:11:08.2493187Z testing\test_debugging.py [32m.[0m[33m                                              [ 28%][0m
+2026-08-25T23:11:08.2494907Z testing\test_doctest.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                    [ 28%][0m
+2026-08-25T23:11:08.2496881Z testing\test_entry_points.py [32m.[0m[33m                                           [ 28%][0m
+2026-08-25T23:11:08.2498190Z testing\test_faulthandler.py [32m.[0m[32m.[0m[32m.[0m[33m                                         [ 28%][0m
+2026-08-25T23:11:08.3518585Z testing\test_findpaths.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                      [ 29%][0m
+2026-08-25T23:11:08.3521587Z testing\test_helpconfig.py [32m.[0m[33m                                             [ 29%][0m
+2026-08-25T23:11:08.4043190Z testing\test_junitxml.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                       [ 29%][0m
+2026-08-25T23:11:08.4044477Z testing\test_legacypath.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                          [ 29%][0m
+2026-08-25T23:11:08.4046912Z testing\test_main.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                               [ 29%][0m
+2026-08-25T23:11:08.4555283Z testing\test_mark.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                               [ 30%][0m
+2026-08-25T23:11:08.5065494Z testing\test_mark_expression.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 31%]
+2026-08-25T23:11:08.6092383Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 32%]
+2026-08-25T23:11:08.6601737Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                    [ 33%][0m
+2026-08-25T23:11:08.9126496Z testing\test_monkeypatch.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m             [ 34%][0m
+2026-08-25T23:11:08.9639738Z testing\test_nodes.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 34%][0m
+2026-08-25T23:11:08.9641807Z testing\test_parseopt.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                [ 35%][0m
+2026-08-25T23:11:09.0153820Z testing\test_pastebin.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                           [ 35%][0m
+2026-08-25T23:11:09.0666492Z testing\test_pluginmanager.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                [ 35%][0m
+2026-08-25T23:11:09.0668880Z testing\test_pytester.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                           [ 36%][0m
+2026-08-25T23:11:09.1183627Z testing\test_recwarn.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 37%]
+2026-08-25T23:11:09.1692825Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                            [ 37%][0m
+2026-08-25T23:11:09.2708080Z testing\test_runner.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                   [ 37%][0m
+2026-08-25T23:11:09.2709858Z testing\test_scope.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                               [ 37%][0m
+2026-08-25T23:11:09.2710555Z testing\test_skipping.py [32m.[0m[33m                                               [ 37%][0m
+2026-08-25T23:11:09.2711134Z testing\test_stash.py [32m.[0m[33m                                                  [ 37%][0m
+2026-08-25T23:11:09.2711714Z testing\test_subtests.py [32m.[0m[33m                                               [ 37%][0m
+2026-08-25T23:11:09.3737626Z testing\test_terminal.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 38%]
+2026-08-25T23:11:09.6790442Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                [ 39%][0m
+2026-08-25T23:11:09.8838034Z testing\test_tmpdir.py [32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[33m                   [ 39%][0m
+2026-08-25T23:11:09.8841125Z testing\test_warning_types.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                             [ 40%][0m
+2026-08-25T23:11:09.8842831Z testing\test_warnings.py [32m.[0m[33m                                               [ 40%][0m
+2026-08-25T23:11:14.9423577Z testing\acceptance_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 41%]
+2026-08-25T23:11:17.9326507Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33m                                  [ 42%][0m
+2026-08-25T23:11:20.6650031Z testing\code\test_excinfo.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m         [ 42%][0m
+2026-08-25T23:11:23.0928950Z testing\deprecated_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                        [ 43%][0m
+2026-08-25T23:11:23.2449559Z testing\examples\test_issue519.py [32m.[0m[33m                                      [ 43%][0m
+2026-08-25T23:11:23.8535593Z testing\logging\test_fixture.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                [ 43%][0m
+2026-08-25T23:11:26.1379350Z testing\logging\test_reporting.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 44%]
+2026-08-25T23:11:26.9500716Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                            [ 44%][0m
+2026-08-25T23:11:27.2031669Z testing\python\approx.py [32m.[0m[32m.[0m[32m.[0m[33m                                             [ 44%][0m
+2026-08-25T23:11:33.9742670Z testing\python\collect.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 45%]
+2026-08-25T23:11:39.6853182Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                      [ 46%][0m
+2026-08-25T23:11:44.0864898Z testing\python\fixtures.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 47%]
+2026-08-25T23:11:49.6073473Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 49%]
+2026-08-25T23:11:54.3231262Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 50%]
+2026-08-25T23:11:57.0055612Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 51%][0m
+2026-08-25T23:11:59.2281750Z testing\python\integration.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                           [ 51%][0m
+2026-08-25T23:12:03.8307130Z testing\python\metafunc.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 52%]
+2026-08-25T23:12:06.5149112Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                              [ 53%][0m
+2026-08-25T23:12:06.9717740Z testing\python\raises.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                          [ 53%][0m
+2026-08-25T23:12:07.1242016Z testing\python\raises_group.py [32m.[0m[32m.[0m[33m                                        [ 53%][0m
+2026-08-25T23:12:07.6825357Z testing\python\show_fixtures_per_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                      [ 53%][0m
+2026-08-25T23:12:16.3162752Z testing\test_assertion.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 54%]
+2026-08-25T23:12:21.6757906Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                              [ 55%][0m
+2026-08-25T23:12:24.5143188Z testing\test_assertrewrite.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 56%]
+2026-08-25T23:12:26.4413559Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                            [ 57%][0m
+2026-08-25T23:12:36.5853414Z testing\test_cacheprovider.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 58%]
+2026-08-25T23:12:40.9807148Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                   [ 58%][0m
+2026-08-25T23:12:44.4777969Z testing\test_capture.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m    [ 59%][0m
+2026-08-25T23:12:44.8315865Z testing\test_collect_imported_tests.py [32m.[0m[32m.[0m[32m.[0m[33m                               [ 59%][0m
+2026-08-25T23:12:50.3410196Z testing\test_collection.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 60%]
+2026-08-25T23:13:02.2583659Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m      [ 62%][0m
+2026-08-25T23:13:06.0064409Z testing\test_config.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 63%]
+2026-08-25T23:13:10.0673576Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 64%]
+2026-08-25T23:13:17.4011930Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 66%]
+2026-08-25T23:13:18.7701303Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                       [ 66%][0m
+2026-08-25T23:13:22.5679531Z testing\test_conftest.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 67%]
+2026-08-25T23:13:22.6189232Z [0m[32m.[0m[33m                                                                        [ 67%][0m
+2026-08-25T23:13:24.0361474Z testing\test_debugging.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                  [ 68%][0m
+2026-08-25T23:13:29.2451968Z testing\test_doctest.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 69%]
+2026-08-25T23:13:36.0260955Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 70%]
+2026-08-25T23:13:37.1892641Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                             [ 70%][0m
+2026-08-25T23:13:38.2018658Z testing\test_error_diffs.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                 [ 71%][0m
+2026-08-25T23:13:39.1100105Z testing\test_faulthandler.py [32m.[0m[32m.[0m[32m.[0m[33m                                         [ 71%][0m
+2026-08-25T23:13:39.7189411Z testing\test_helpconfig.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                     [ 71%][0m
+2026-08-25T23:13:44.6774861Z testing\test_junitxml.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 72%]
+2026-08-25T23:13:53.5745400Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 74%]
+2026-08-25T23:13:54.6357237Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                             [ 74%][0m
+2026-08-25T23:13:55.4953500Z testing\test_legacypath.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                    [ 74%][0m
+2026-08-25T23:13:55.5972658Z testing\test_link_resolve.py [32m.[0m[33m                                           [ 74%][0m
+2026-08-25T23:13:56.7122867Z testing\test_main.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                 [ 74%][0m
+2026-08-25T23:14:02.0702834Z testing\test_mark.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 76%]
+2026-08-25T23:14:15.7397396Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                          [ 77%][0m
+2026-08-25T23:14:16.1978209Z testing\test_monkeypatch.py [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33m                                         [ 77%][0m
+2026-08-25T23:14:18.4691263Z testing\test_nodes.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                               [ 77%][0m
+2026-08-25T23:14:19.0760313Z testing\test_parseopt.py [33ms[0m[33m                                               [ 77%][0m
+2026-08-25T23:14:19.6822133Z testing\test_pastebin.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                            [ 77%][0m
+2026-08-25T23:14:22.4754425Z testing\test_pathlib.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 78%]
+2026-08-25T23:14:38.1268800Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m        [ 79%][0m
+2026-08-25T23:14:39.9990528Z testing\test_pluginmanager.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                         [ 80%][0m
+2026-08-25T23:14:42.9293019Z testing\test_pytester.py [33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                       [ 80%][0m
+2026-08-25T23:14:43.6373408Z testing\test_python_path.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                       [ 80%][0m
+2026-08-25T23:14:44.3456293Z testing\test_recwarn.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                            [ 81%][0m
+2026-08-25T23:14:47.0760573Z testing\test_reports.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                           [ 81%][0m
+2026-08-25T23:14:58.2834921Z testing\test_runner.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 82%]
+2026-08-25T23:14:59.1935571Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                     [ 82%][0m
+2026-08-25T23:15:00.4077621Z testing\test_runner_xunit.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                               [ 83%][0m
+2026-08-25T23:15:03.7924513Z testing\test_session.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                       [ 83%][0m
+2026-08-25T23:15:11.1096012Z testing\test_setuponly.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                     [ 84%][0m
+2026-08-25T23:15:11.6655767Z testing\test_setupplan.py [32m.[0m[32m.[0m[32m.[0m[33m                                            [ 84%][0m
+2026-08-25T23:15:21.3594323Z testing\test_skipping.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 85%]
+2026-08-25T23:15:28.1797849Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                          [ 86%][0m
+2026-08-25T23:15:32.7214310Z testing\test_stepwise.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                              [ 86%][0m
+2026-08-25T23:15:37.0642406Z testing\test_subtests.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                [ 87%][0m
+2026-08-25T23:15:44.5871359Z testing\test_terminal.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 88%]
+2026-08-25T23:15:53.9880475Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 89%]
+2026-08-25T23:16:09.3548607Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                       [ 91%][0m
+2026-08-25T23:16:11.3229090Z testing\test_threadexception.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                 [ 91%][0m
+2026-08-25T23:16:19.9476139Z testing\test_tmpdir.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33m                     [ 91%][0m
+2026-08-25T23:16:24.7024699Z testing\test_unittest.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 92%]
+2026-08-25T23:16:28.1906891Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                          [ 93%][0m
+2026-08-25T23:16:29.3011079Z testing\test_unraisableexception.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                              [ 93%][0m
+2026-08-25T23:16:29.4025437Z testing\test_warning_types.py [32m.[0m[33m                                          [ 93%][0m
+2026-08-25T23:16:46.0895438Z testing\test_warnings.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m   [ 94%][0m
+2026-08-25T23:16:48.0574866Z testing\acceptance_test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 94%][0m
+2026-08-25T23:16:48.4105461Z testing\python\collect.py [32m.[0m[33m                                              [ 94%][0m
+2026-08-25T23:16:49.1664666Z testing\python\fixtures.py [33mx[0m[32m.[0m[33m                                            [ 94%][0m
+2026-08-25T23:16:57.9910282Z testing\test_assertion.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                   [ 95%][0m
+2026-08-25T23:17:03.8918806Z testing\test_assertrewrite.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[33m                                [ 95%][0m
+2026-08-25T23:17:17.4204320Z testing\test_capture.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33m                        [ 95%][0m
+2026-08-25T23:17:19.2875750Z testing\test_collection.py [32m.[0m[32m.[0m[32m.[0m[33m                                           [ 96%][0m
+2026-08-25T23:17:21.1051325Z testing\test_config.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                              [ 96%][0m
+2026-08-25T23:17:27.9755924Z testing\test_debugging.py [33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33m [ 97%]
+2026-08-25T23:17:27.9764171Z [0m[33m                                                                         [ 97%][0m
+2026-08-25T23:17:33.4208449Z testing\test_faulthandler.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                      [ 97%][0m
+2026-08-25T23:17:34.8832628Z testing\test_helpconfig.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                          [ 97%][0m
+2026-08-25T23:17:35.2869560Z testing\test_legacypath.py [32m.[0m[33m                                             [ 97%][0m
+2026-08-25T23:17:42.8017242Z testing\test_meta.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m [ 98%]
+2026-08-25T23:17:46.8938029Z [0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                               [ 99%][0m
+2026-08-25T23:17:49.5187079Z testing\test_pytester.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33m                                         [ 99%][0m
+2026-08-25T23:17:50.0743910Z testing\test_recwarn.py [32m.[0m[33m                                                [ 99%][0m
+2026-08-25T23:17:50.5801211Z testing\test_reports.py [32m.[0m[33m                                                [ 99%][0m
+2026-08-25T23:17:51.5387071Z testing\test_subtests.py [32m.[0m[32m.[0m[33m                                              [ 99%][0m
+2026-08-25T23:17:52.5481965Z testing\test_terminal.py [33ms[0m[33ms[0m[32m.[0m[32m.[0m[33m                                            [ 99%][0m
+2026-08-25T23:17:53.5663628Z testing\test_tmpdir.py [31mF[0m[32m.[0m[31m                                                [ 99%][0m
+2026-08-25T23:17:54.0024324Z testing\test_unittest.py [33ms[0m[32m.[0m[31m                                              [ 99%][0m
+2026-08-25T23:17:56.6271809Z testing\test_unraisableexception.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                              [ 99%][0m
+2026-08-25T23:18:04.4453758Z testing\test_warnings.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                [100%][0m
+2026-08-25T23:18:04.4454937Z 
+2026-08-25T23:18:04.4455299Z ================================== FAILURES ===================================
+2026-08-25T23:18:04.4456351Z [31m[1m___________ TestOriginSidecar.test_origin_written_next_to_basetemp ____________[0m
+2026-08-25T23:18:04.4456958Z 
+2026-08-25T23:18:04.4457277Z self = <test_tmpdir.TestOriginSidecar object at 0x000002B41EEDC250>
+2026-08-25T23:18:04.4458456Z pytester = <Pytester WindowsPath('C:/[REDACTED:high_entropy]')>
+2026-08-25T23:18:04.4459372Z 
+2026-08-25T23:18:04.4460684Z     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_origin_written_next_to_basetemp[39;49;00m([96mself[39;49;00m, pytester: Pytester) -> [94mNone[39;49;00m:[90m[39;49;00m
+2026-08-25T23:18:04.4462163Z         pytester.makepyfile([90m[39;49;00m
+2026-08-25T23:18:04.4462737Z     [90m        [39;49;00m[33m"""[39;49;00m
+2026-08-25T23:18:04.4464969Z     [33m        def test_stash_basetemp(tmp_path, tmp_path_factory, pytestconfig):[39;49;00m
+2026-08-25T23:18:04.4465954Z     [33m            base = tmp_path_factory.getbasetemp()[39;49;00m
+2026-08-25T23:18:04.4466769Z     [33m            pytestconfig.stash.setdefault('base', base)[39;49;00m
+2026-08-25T23:18:04.4467686Z     [33m            (pytestconfig.rootpath / '_basetemp.txt').write_text(str(base))[39;49;00m
+2026-08-25T23:18:04.4468476Z     [33m        """[39;49;00m[90m[39;49;00m
+2026-08-25T23:18:04.4469028Z         )[90m[39;49;00m
+2026-08-25T23:18:04.4469597Z         result = pytester.runpytest_subprocess()[90m[39;49;00m
+2026-08-25T23:18:04.4470419Z         result.assert_outcomes(passed=[94m1[39;49;00m)[90m[39;49;00m
+2026-08-25T23:18:04.4471533Z >       base = Path((pytester.path / [33m"[39;49;00m[33m_basetemp.txt[39;49;00m[33m"[39;49;00m).read_text().strip())[90m[39;49;00m
+2026-08-25T23:18:04.4472526Z                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+2026-08-25T23:18:04.4472904Z 
+2026-08-25T23:18:04.4473499Z [1m[31mD:\a\pytest\pytest\testing\test_tmpdir.py[0m:933: 
+2026-08-25T23:18:04.4474134Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+2026-08-25T23:18:04.4474544Z 
+2026-08-25T23:18:04.4475276Z self = WindowsPath('C:/[REDACTED:high_entropy].txt')
+2026-08-25T23:18:04.4476323Z encoding = None, errors = None
+2026-08-25T23:18:04.4476609Z 
+2026-08-25T23:18:04.4477453Z     [0m[94mdef[39;49;00m[90m [39;49;00m[92mread_text[39;49;00m([96mself[39;49;00m, encoding=[94mNone[39;49;00m, errors=[94mNone[39;49;00m):[90m[39;49;00m
+2026-08-25T23:18:04.4478504Z     [90m    [39;49;00m[33m"""[39;49;00m
+2026-08-25T23:18:04.4479218Z     [33m    Open the file in text mode, read it, and close the file.[39;49;00m
+2026-08-25T23:18:04.4479901Z     [33m    """[39;49;00m[90m[39;49;00m
+2026-08-25T23:18:04.4480515Z >       encoding = io.text_encoding(encoding)[90m[39;49;00m
+2026-08-25T23:18:04.4481209Z                    ^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+2026-08-25T23:18:04.4482244Z [1m[31mE       EncodingWarning: 'encoding' argument not specified[0m
+2026-08-25T23:18:04.4482706Z 
+2026-08-25T23:18:04.4483243Z [1m[31mC:\hostedtoolcache\windows\Python\3.11.9\x64\Lib\pathlib.py[0m:1057: EncodingWarning
+2026-08-25T23:18:04.4484133Z ---------------------------- Captured stdout call -----------------------------
+2026-08-25T23:18:04.4485578Z running: D:\a\pytest\pytest\.tox\py311\Scripts\python.exe -mpytest --basetemp=C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_origin_written_next_to_basetemp0\runpytest-0
+2026-08-25T23:18:04.4487249Z      in: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_origin_written_next_to_basetemp0
+2026-08-25T23:18:04.4488155Z ============================= test session starts =============================
+2026-08-25T23:18:04.4488935Z platform win32 -- Python 3.11.9, pytest-9.2.0.dev245+gbf057558f, pluggy-1.6.0
+2026-08-25T23:18:04.4489956Z rootdir: C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_origin_written_next_to_basetemp0
+2026-08-25T23:18:04.4490840Z collected 1 item
+2026-08-25T23:18:04.4491027Z 
+2026-08-25T23:18:04.4491383Z test_origin_written_next_to_basetemp.py .                                [100%]
+2026-08-25T23:18:04.4491914Z 
+2026-08-25T23:18:04.4492127Z ============================== warnings summary ===============================
+2026-08-25T23:18:04.4492994Z test_origin_written_next_to_basetemp.py::test_stash_basetemp
+2026-08-25T23:18:04.4494404Z   C:\Users\runneradmin\AppData\Local\Temp\pytest-of-unknown\pytest-0\test_origin_written_next_to_basetemp0\test_origin_written_next_to_basetemp.py:4: EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4495904Z     (pytestconfig.rootpath / '_basetemp.txt').write_text(str(base))
+2026-08-25T23:18:04.4496365Z 
+2026-08-25T23:18:04.4496942Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2026-08-25T23:18:04.4497705Z ======================== 1 passed, 1 warning in 0.02s =========================
+2026-08-25T23:18:04.4498306Z =================================== XPASSES ===================================
+2026-08-25T23:18:04.4499177Z [32m[1m___________ TestLocalPath.test_make_numbered_dir_multiprocess_safe ____________[0m
+2026-08-25T23:18:04.4500050Z ---------------------------- Captured stderr call -----------------------------
+2026-08-25T23:18:04.4501056Z D:\a\pytest\pytest\.tox\py311\Lib\site-packages\_pytest\_py\path.py:1308: EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4502150Z 
+2026-08-25T23:18:04.4502340Z   with os.fdopen(fd, "w") as f:
+2026-08-25T23:18:04.4502619Z 
+2026-08-25T23:18:04.4503172Z D:\a\pytest\pytest\.tox\py311\Lib\site-packages\_pytest\_py\path.py:1308: EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4503923Z 
+2026-08-25T23:18:04.4504101Z   with os.fdopen(fd, "w") as f:
+2026-08-25T23:18:04.4504549Z 
+2026-08-25T23:18:04.4505129Z D:\a\pytest\pytest\.tox\py311\Lib\site-packages\_pytest\_py\path.py:1308: EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4505860Z 
+2026-08-25T23:18:04.4506037Z   with os.fdopen(fd, "w") as f:
+2026-08-25T23:18:04.4506275Z 
+2026-08-25T23:18:04.4506848Z D:\a\pytest\pytest\.tox\py311\Lib\site-packages\_pytest\_py\path.py:1308: EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4507575Z 
+2026-08-25T23:18:04.4507757Z   with os.fdopen(fd, "w") as f:
+2026-08-25T23:18:04.4507994Z 
+2026-08-25T23:18:04.4508319Z -------------- generated xml file: D:\a\pytest\pytest\junit.xml ---------------
+2026-08-25T23:18:04.4509175Z [36m[1m=========================== short test summary info ===========================[0m
+2026-08-25T23:18:04.4512252Z [31mFAILED[0m testing/test_tmpdir.py::[1mTestOriginSidecar::test_origin_written_next_to_basetemp[0m - EncodingWarning: 'encoding' argument not specified
+2026-08-25T23:18:04.4513913Z [33mXPASS[0m testing/_py/test_local.py::[1mTestLocalPath::test_make_numbered_dir_multiprocess_safe[0m - #11603
+2026-08-25T23:18:04.4515408Z [31m= [31m[1m1 failed[0m, [32m4398 passed[0m, [33m146 skipped[0m, [33m13 xfailed[0m, [33m1 xpassed[0m[31m in 439.60s (0:07:19)[0m[31m =[0m
+2026-08-25T23:18:05.2044249Z py311: exit 1 (441.48 seconds) D:\a\pytest\pytest> pytest --junitxml=junit.xml pid=7872
+2026-08-25T23:18:05.2097902Z   py311: FAIL code 1 (453.73=setup[12.25]+cmd[441.48] seconds)
+2026-08-25T23:18:05.2098490Z   evaluation failed :( (453.86 seconds)
+2026-08-25T23:18:05.2685878Z ##[error]Process completed with exit code 1.
+2026-08-25T23:18:05.2943604Z Post job cleanup.
+2026-08-25T23:18:05.2949247Z ##[start-action display=Install uv;id=__7240b3ae-6bad-4375-a21b-50af66b58111.__astral-sh_setup-uv]
+2026-08-25T23:18:05.2953403Z ##[end-action id=__7240b3ae-6bad-4375-a21b-50af66b58111.__astral-sh_setup-uv;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-25T23:18:05.3194150Z Post job cleanup.
+2026-08-25T23:18:05.5475080Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-08-25T23:18:05.5771575Z git version 2.55.0.windows.4
+2026-08-25T23:18:05.5844558Z Temporarily overriding HOME='D:\a\_temp\cd0d48a8-26dd-4610-90a8-06b2e6dd12e2' before making global git config changes
+2026-08-25T23:18:05.5845644Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-25T23:18:05.5856595Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\pytest\pytest
+2026-08-25T23:18:05.6162259Z Removing SSH command configuration
+2026-08-25T23:18:05.6174030Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-08-25T23:18:05.6506533Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-08-25T23:18:06.2316616Z Removing HTTP extra header
+2026-08-25T23:18:06.2327339Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-25T23:18:06.2670776Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-08-25T23:18:06.8088552Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-25T23:18:06.8101145Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-25T23:18:06.8370808Z includeif.gitdir:D:/a/pytest/pytest/.git.path
+2026-08-25T23:18:06.8371556Z includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path
+2026-08-25T23:18:06.8412759Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/pytest/pytest/.git.path
+2026-08-25T23:18:06.8675280Z D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:18:06.8719780Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/pytest/pytest/.git.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:18:06.9028319Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path
+2026-08-25T23:18:06.9292566Z D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:18:06.9336538Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/pytest/pytest/.git/worktrees/*.path D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config
+2026-08-25T23:18:06.9648681Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-08-25T23:18:07.5048177Z Removing credentials [REDACTED:assigned_secret] 'D:\a\_temp\git-credentials-152a0718-abce-4614-8cb3-22ed8c81382e.config'
+2026-08-25T23:18:07.5267054Z Cleaning up orphan processes

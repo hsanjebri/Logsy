@@ -1,0 +1,12 @@
+{
+  "source": "psf/requests",
+  "ecosystem": "python",
+  "runId": 34145371878,
+  "jobId": 101816150164,
+  "workflowName": "Lint code",
+  "jobName": "lint",
+  "stepName": "Run pre-commit",
+  "logChars": 24630,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

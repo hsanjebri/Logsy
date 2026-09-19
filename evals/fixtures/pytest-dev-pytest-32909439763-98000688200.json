@@ -1,0 +1,12 @@
+{
+  "source": "pytest-dev/pytest",
+  "ecosystem": "python",
+  "runId": 32909439763,
+  "jobId": 98000688200,
+  "workflowName": "test",
+  "jobName": "build (windows-py311)",
+  "stepName": "Test without coverage",
+  "logChars": 128105,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

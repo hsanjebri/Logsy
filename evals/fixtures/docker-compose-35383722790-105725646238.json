@@ -1,0 +1,12 @@
+{
+  "source": "docker/compose",
+  "ecosystem": "docker",
+  "runId": 35383722790,
+  "jobId": 105725646238,
+  "workflowName": "ci",
+  "jobName": "e2e (standalone, stable, containerd)",
+  "stepName": "Test standalone mode",
+  "logChars": 756949,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

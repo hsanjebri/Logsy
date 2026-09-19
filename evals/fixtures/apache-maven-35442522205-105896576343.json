@@ -1,0 +1,12 @@
+{
+  "source": "apache/maven",
+  "ecosystem": "java-maven",
+  "runId": 35442522205,
+  "jobId": 105896576343,
+  "workflowName": "Java CI",
+  "jobName": "full-build (ubuntu-latest, 17)",
+  "stepName": "Build with downloaded Maven",
+  "logChars": 1536837,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

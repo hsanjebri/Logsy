@@ -1,0 +1,12 @@
+{
+  "source": "eslint/eslint",
+  "ecosystem": "node",
+  "runId": 35271449377,
+  "jobId": 105371607166,
+  "workflowName": "CI",
+  "jobName": "Test (ubuntu-latest, 26.x)",
+  "stepName": "Test EMFILE Handling",
+  "logChars": 25288,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

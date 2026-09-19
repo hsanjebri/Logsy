@@ -1,0 +1,12 @@
+{
+  "source": "spring-projects/spring-boot",
+  "ecosystem": "java-gradle",
+  "runId": 35342851213,
+  "jobId": 105592517062,
+  "workflowName": "CI",
+  "jobName": "Windows | Java 27",
+  "stepName": "Build",
+  "logChars": 433280,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

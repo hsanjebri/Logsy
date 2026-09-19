@@ -1,0 +1,2221 @@
+﻿2026-09-19T00:09:08.1646503Z Current runner version: '2.337.0'
+2026-09-19T00:09:08.1685011Z ##[group]Runner Image Provisioner
+2026-09-19T00:09:08.1686301Z Hosted Compute Agent
+2026-09-19T00:09:08.1687322Z Version: 20260828.587
+2026-09-19T00:09:08.1688463Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-19T00:09:08.1689665Z Build Date: 2026-08-28T16:44:25Z
+2026-09-19T00:09:08.1690890Z Worker ID: {fc57333d-04a5-4620-bc88-8e3c762f4acf}
+2026-09-19T00:09:08.1692150Z Azure Region: northcentralus
+2026-09-19T00:09:08.1693485Z ##[endgroup]
+2026-09-19T00:09:08.1695992Z ##[group]Operating System
+2026-09-19T00:09:08.1697191Z Microsoft Windows Server 2025
+2026-09-19T00:09:08.1698576Z 10.0.26100
+2026-09-19T00:09:08.1699686Z Datacenter
+2026-09-19T00:09:08.1700812Z ##[endgroup]
+2026-09-19T00:09:08.1701816Z ##[group]Runner Image
+2026-09-19T00:09:08.1703664Z Image: windows-2025-vs2026
+2026-09-19T00:09:08.1705037Z Version: 20260907.229.1
+2026-09-19T00:09:08.1707898Z Included Software: https://github.com/actions/runner-images/blob/win25-vs2026/20260907.[REDACTED:high_entropy].md
+2026-09-19T00:09:08.1711214Z Image Release: https://github.com/actions/runner-images/releases/tag/win25-vs2026%2F20260907.229
+2026-09-19T00:09:08.1713075Z ##[endgroup]
+2026-09-19T00:09:08.1715183Z ##[group]GITHUB_TOKEN [REDACTED:assigned_secret]
+2026-09-19T00:09:08.1717994Z Contents: read
+2026-09-19T00:09:08.1719020Z Metadata: read
+2026-09-19T00:09:08.1720016Z ##[endgroup]
+2026-09-19T00:09:08.1723990Z Secret [REDACTED:assigned_secret] None
+2026-09-19T00:09:08.1725567Z Cache mode: write
+2026-09-19T00:09:08.1726865Z Prepare workflow directory
+2026-09-19T00:09:08.2363051Z Prepare all required actions
+2026-09-19T00:09:08.2412384Z Getting action download info
+2026-09-19T00:09:08.4645031Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-19T00:09:08.5995744Z Download action repository 'actions/setup-node@820762786026740c76f36085b0efc47a31fe5020' (SHA:820762786026740c76f36085b0efc47a31fe5020)
+2026-09-19T00:09:08.7750521Z Download action repository 'codecov/codecov-action@0b35c9ecc4f0529d0eb674914510c22f85b196b4' (SHA:0b35c9ecc4f0529d0eb674914510c22f85b196b4)
+2026-09-19T00:09:09.0847379Z Getting action download info
+2026-09-19T00:09:09.1875731Z Download action repository 'actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd' (SHA:ed597411d8f924073f98dfc5c65a23a2325f34cd)
+2026-09-19T00:09:09.4820383Z Complete job name: test extra (windows-latest)
+2026-09-19T00:09:09.6345681Z ##[group]Run git config --system core.longpaths true
+2026-09-19T00:09:09.6346711Z [36;1mgit config --system core.longpaths true[0m
+2026-09-19T00:09:09.6369745Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:09:09.6370886Z env:
+2026-09-19T00:09:09.6371392Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:09:09.6371949Z ##[endgroup]
+2026-09-19T00:09:10.7056107Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-09-19T00:09:10.7057078Z with:
+2026-09-19T00:09:10.7057557Z   repository: microsoft/TypeScript
+2026-09-19T00:09:10.7061556Z   token: ***
+2026-09-19T00:09:10.7062017Z   ssh-strict: true
+2026-09-19T00:09:10.7062485Z   ssh-user: git
+2026-09-19T00:09:10.7062960Z   persist-credentials: [REDACTED:assigned_secret]
+2026-09-19T00:09:10.7063485Z   clean: true
+2026-09-19T00:09:10.7063963Z   sparse-checkout-cone-mode: true
+2026-09-19T00:09:10.7064520Z   fetch-depth: 1
+2026-09-19T00:09:10.7064965Z   fetch-tags: false
+2026-09-19T00:09:10.7065421Z   show-progress: true
+2026-09-19T00:09:10.7065892Z   lfs: false
+2026-09-19T00:09:10.7066321Z   submodules: false
+2026-09-19T00:09:10.7067058Z   set-safe-directory: true
+2026-09-19T00:09:10.7067590Z   allow-unsafe-pr-checkout: false
+2026-09-19T00:09:10.7068166Z env:
+2026-09-19T00:09:10.7068586Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:09:10.7069088Z ##[endgroup]
+2026-09-19T00:09:10.8585229Z Syncing repository: microsoft/TypeScript
+2026-09-19T00:09:10.8587122Z ##[group]Getting Git version info
+2026-09-19T00:09:10.8590591Z Working directory is 'D:\a\TypeScript\TypeScript'
+2026-09-19T00:09:10.9524032Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-09-19T00:09:10.9855419Z git version 2.55.0.windows.5
+2026-09-19T00:09:10.9908290Z ##[endgroup]
+2026-09-19T00:09:10.9924138Z Temporarily overriding HOME='D:\a\_temp\ac475a3c-3b0a-4f97-9aeb-6271b9f317ae' before making global git config changes
+2026-09-19T00:09:10.9925572Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-19T00:09:10.9935037Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\TypeScript\TypeScript
+2026-09-19T00:09:11.0239755Z Deleting the contents of 'D:\a\TypeScript\TypeScript'
+2026-09-19T00:09:11.0245263Z ##[group]Determining repository object format
+2026-09-19T00:09:11.0247556Z ##[endgroup]
+2026-09-19T00:09:11.0248459Z ##[group]Initializing the repository
+2026-09-19T00:09:11.0256057Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\TypeScript\TypeScript
+2026-09-19T00:09:11.1101985Z Initialized empty Git repository in D:/a/TypeScript/TypeScript/.git/
+2026-09-19T00:09:11.1150954Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/microsoft/TypeScript
+2026-09-19T00:09:11.2024420Z ##[endgroup]
+2026-09-19T00:09:11.2025912Z ##[group]Disabling automatic garbage collection
+2026-09-19T00:09:11.2027326Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2026-09-19T00:09:11.2450010Z ##[endgroup]
+2026-09-19T00:09:11.2451076Z ##[group]Setting up auth
+2026-09-19T00:09:11.2451911Z Removing SSH command configuration
+2026-09-19T00:09:11.2465003Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-09-19T00:09:11.2793209Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-09-19T00:09:12.6602989Z Removing HTTP extra header
+2026-09-19T00:09:12.6616832Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-19T00:09:12.6932764Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-09-19T00:09:13.2515681Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-09-19T00:09:13.2526955Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-19T00:09:13.2830182Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-09-19T00:09:13.8143873Z [command]"C:\Program Files\Git\bin\git.exe" config --file D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2026-09-19T00:09:13.8451263Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/TypeScript/TypeScript/.git.path D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:09:13.8751170Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:D:/a/TypeScript/TypeScript/.git/worktrees/*.path D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:09:13.9094465Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:09:13.9402823Z [command]"C:\Program Files\Git\bin\git.exe" config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:09:13.9711593Z ##[endgroup]
+2026-09-19T00:09:13.9713049Z ##[group]Fetching the repository
+2026-09-19T00:09:13.9727315Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e6f86ede8167218b1d3984114e302ab084769761:refs/remotes/pull/64299/merge
+2026-09-19T00:09:16.5286040Z From https://github.com/microsoft/TypeScript
+2026-09-19T00:09:16.5287347Z  * [new ref]           e6f86ede8167218b1d3984114e302ab084769761 -> pull/64299/merge
+2026-09-19T00:09:16.5334483Z ##[endgroup]
+2026-09-19T00:09:16.5335119Z ##[group]Determining the checkout info
+2026-09-19T00:09:16.5336717Z ##[endgroup]
+2026-09-19T00:09:16.5347553Z [command]"C:\Program Files\Git\bin\git.exe" sparse-checkout disable
+2026-09-19T00:09:16.5871269Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all extensions.worktreeConfig
+2026-09-19T00:09:16.6199185Z ##[group]Checking out the ref
+2026-09-19T00:09:16.6208210Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/remotes/pull/64299/merge
+2026-09-19T00:09:17.8337684Z Updating files:   5% (3514/66639)
+2026-09-19T00:09:17.9939466Z Updating files:   6% (3999/66639)
+2026-09-19T00:09:18.1966152Z Updating files:   7% (4665/66639)
+2026-09-19T00:09:18.3727035Z Updating files:   8% (5332/66639)
+2026-09-19T00:09:18.5305277Z Updating files:   9% (5998/66639)
+2026-09-19T00:09:18.6893199Z Updating files:  10% (6664/66639)
+2026-09-19T00:09:18.7342791Z Updating files:  11% (7331/66639)
+2026-09-19T00:09:18.9775185Z Updating files:  11% (7529/66639)
+2026-09-19T00:09:19.1477671Z Updating files:  12% (7997/66639)
+2026-09-19T00:09:19.3560638Z Updating files:  13% (8664/66639)
+2026-09-19T00:09:19.5649910Z Updating files:  14% (9330/66639)
+2026-09-19T00:09:19.7337776Z Updating files:  15% (9996/66639)
+2026-09-19T00:09:19.7625703Z Updating files:  15% (10559/66639)
+2026-09-19T00:09:19.9512144Z Updating files:  16% (10663/66639)
+2026-09-19T00:09:20.2333546Z Updating files:  17% (11329/66639)
+2026-09-19T00:09:20.3913089Z Updating files:  18% (11996/66639)
+2026-09-19T00:09:20.5471829Z Updating files:  19% (12662/66639)
+2026-09-19T00:09:20.7033033Z Updating files:  20% (13328/66639)
+2026-09-19T00:09:20.7343876Z Updating files:  21% (13995/66639)
+2026-09-19T00:09:20.8677001Z Updating files:  21% (14110/66639)
+2026-09-19T00:09:21.0213496Z Updating files:  22% (14661/66639)
+2026-09-19T00:09:21.1751620Z Updating files:  23% (15327/66639)
+2026-09-19T00:09:21.3444641Z Updating files:  24% (15994/66639)
+2026-09-19T00:09:21.6569414Z Updating files:  25% (16660/66639)
+2026-09-19T00:09:21.7352189Z Updating files:  26% (17327/66639)
+2026-09-19T00:09:21.8182965Z Updating files:  26% (17654/66639)
+2026-09-19T00:09:21.9854116Z Updating files:  27% (17993/66639)
+2026-09-19T00:09:22.1750757Z Updating files:  28% (18659/66639)
+2026-09-19T00:09:22.3542300Z Updating files:  29% (19326/66639)
+2026-09-19T00:09:22.5146125Z Updating files:  30% (19992/66639)
+2026-09-19T00:09:22.6841648Z Updating files:  31% (20659/66639)
+2026-09-19T00:09:22.7475933Z Updating files:  32% (21325/66639)
+2026-09-19T00:09:22.8889775Z Updating files:  32% (21583/66639)
+2026-09-19T00:09:23.1750478Z Updating files:  33% (21991/66639)
+2026-09-19T00:09:23.4261024Z Updating files:  34% (22658/66639)
+2026-09-19T00:09:23.6766117Z Updating files:  35% (23324/66639)
+2026-09-19T00:09:23.7550296Z Updating files:  36% (23991/66639)
+2026-09-19T00:09:23.8595743Z Updating files:  36% (24265/66639)
+2026-09-19T00:09:24.0373954Z Updating files:  37% (24657/66639)
+2026-09-19T00:09:24.1987132Z Updating files:  38% (25323/66639)
+2026-09-19T00:09:24.4617686Z Updating files:  39% (25990/66639)
+2026-09-19T00:09:24.6323402Z Updating files:  40% (26656/66639)
+2026-09-19T00:09:24.7564763Z Updating files:  41% (27322/66639)
+2026-09-19T00:09:24.7972029Z Updating files:  41% (27833/66639)
+2026-09-19T00:09:24.9486530Z Updating files:  42% (27989/66639)
+2026-09-19T00:09:25.1134509Z Updating files:  43% (28655/66639)
+2026-09-19T00:09:25.2644618Z Updating files:  44% (29322/66639)
+2026-09-19T00:09:25.4459154Z Updating files:  45% (29988/66639)
+2026-09-19T00:09:25.5953499Z Updating files:  46% (30654/66639)
+2026-09-19T00:09:25.7697568Z Updating files:  47% (31321/66639)
+2026-09-19T00:09:25.9209991Z Updating files:  47% (31508/66639)
+2026-09-19T00:09:26.1182441Z Updating files:  48% (31987/66639)
+2026-09-19T00:09:26.2953131Z Updating files:  49% (32654/66639)
+2026-09-19T00:09:26.4577167Z Updating files:  50% (33320/66639)
+2026-09-19T00:09:26.6151758Z Updating files:  51% (33986/66639)
+2026-09-19T00:09:26.7780147Z Updating files:  52% (34653/66639)
+2026-09-19T00:09:26.7856094Z Updating files:  53% (35319/66639)
+2026-09-19T00:09:26.9403702Z Updating files:  53% (35350/66639)
+2026-09-19T00:09:27.2224613Z Updating files:  54% (35986/66639)
+2026-09-19T00:09:27.3944950Z Updating files:  55% (36652/66639)
+2026-09-19T00:09:27.5574597Z Updating files:  56% (37318/66639)
+2026-09-19T00:09:27.7226070Z Updating files:  57% (37985/66639)
+2026-09-19T00:09:27.8005359Z Updating files:  58% (38651/66639)
+2026-09-19T00:09:27.8809960Z Updating files:  58% (38975/66639)
+2026-09-19T00:09:28.0423342Z Updating files:  59% (39318/66639)
+2026-09-19T00:09:28.1987843Z Updating files:  60% (39984/66639)
+2026-09-19T00:09:28.5118411Z Updating files:  61% (40650/66639)
+2026-09-19T00:09:28.6689394Z Updating files:  62% (41317/66639)
+2026-09-19T00:09:28.8141931Z Updating files:  63% (41983/66639)
+2026-09-19T00:09:28.8316223Z Updating files:  63% (42575/66639)
+2026-09-19T00:09:28.9754188Z Updating files:  64% (42649/66639)
+2026-09-19T00:09:29.1189626Z Updating files:  65% (43316/66639)
+2026-09-19T00:09:29.2634777Z Updating files:  66% (43982/66639)
+2026-09-19T00:09:29.4190599Z Updating files:  67% (44649/66639)
+2026-09-19T00:09:29.5825411Z Updating files:  68% (45315/66639)
+2026-09-19T00:09:29.8162449Z Updating files:  69% (45981/66639)
+2026-09-19T00:09:29.8241468Z Updating files:  69% (46613/66639)
+2026-09-19T00:09:29.9900272Z Updating files:  70% (46648/66639)
+2026-09-19T00:09:30.1488005Z Updating files:  71% (47314/66639)
+2026-09-19T00:09:30.2968946Z Updating files:  72% (47981/66639)
+2026-09-19T00:09:30.4497119Z Updating files:  73% (48647/66639)
+2026-09-19T00:09:30.6137387Z Updating files:  74% (49313/66639)
+2026-09-19T00:09:30.7682341Z Updating files:  75% (49980/66639)
+2026-09-19T00:09:30.8163592Z Updating files:  76% (50646/66639)
+2026-09-19T00:09:30.9236011Z Updating files:  76% (50856/66639)
+2026-09-19T00:09:31.2164297Z Updating files:  77% (51313/66639)
+2026-09-19T00:09:31.3657614Z Updating files:  78% (51979/66639)
+2026-09-19T00:09:31.5550170Z Updating files:  79% (52645/66639)
+2026-09-19T00:09:31.7708534Z Updating files:  80% (53312/66639)
+2026-09-19T00:09:31.8182264Z Updating files:  81% (53978/66639)
+2026-09-19T00:09:31.9131284Z Updating files:  81% (54192/66639)
+2026-09-19T00:09:32.0550351Z Updating files:  82% (54644/66639)
+2026-09-19T00:09:32.1998355Z Updating files:  83% (55311/66639)
+2026-09-19T00:09:32.3458042Z Updating files:  84% (55977/66639)
+2026-09-19T00:09:32.4856726Z Updating files:  85% (56644/66639)
+2026-09-19T00:09:32.6278958Z Updating files:  86% (57310/66639)
+2026-09-19T00:09:32.8227139Z Updating files:  87% (57976/66639)
+2026-09-19T00:09:32.8997576Z Updating files:  87% (58331/66639)
+2026-09-19T00:09:33.0436771Z Updating files:  88% (58643/66639)
+2026-09-19T00:09:33.1892381Z Updating files:  89% (59309/66639)
+2026-09-19T00:09:33.3317016Z Updating files:  90% (59976/66639)
+2026-09-19T00:09:33.4773700Z Updating files:  91% (60642/66639)
+2026-09-19T00:09:33.6237332Z Updating files:  92% (61308/66639)
+2026-09-19T00:09:33.7661150Z Updating files:  93% (61975/66639)
+2026-09-19T00:09:33.8237349Z Updating files:  94% (62641/66639)
+2026-09-19T00:09:33.9265657Z Updating files:  94% (62901/66639)
+2026-09-19T00:09:34.0735977Z Updating files:  95% (63308/66639)
+2026-09-19T00:09:34.3238404Z Updating files:  96% (63974/66639)
+2026-09-19T00:09:34.4716013Z Updating files:  97% (64640/66639)
+2026-09-19T00:09:34.6184938Z Updating files:  98% (65307/66639)
+2026-09-19T00:09:34.8093055Z Updating files:  99% (65973/66639)
+2026-09-19T00:09:34.8093549Z Updating files: 100% (66639/66639)
+2026-09-19T00:09:34.8093881Z Updating files: 100% (66639/66639), done.
+2026-09-19T00:09:34.9002947Z Note: switching to 'refs/remotes/pull/64299/merge'.
+2026-09-19T00:09:34.9003261Z 
+2026-09-19T00:09:34.9003496Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-19T00:09:34.9004065Z changes and commit them, and you can discard any commits you make in this
+2026-09-19T00:09:34.9004585Z state without impacting any branches by switching back to a branch.
+2026-09-19T00:09:34.9004899Z 
+2026-09-19T00:09:34.9005099Z If you want to create a new branch to retain commits you create, you may
+2026-09-19T00:09:34.9005586Z do so (now or later) by using -c with the switch command. Example:
+2026-09-19T00:09:34.9005866Z 
+2026-09-19T00:09:34.9006002Z   git switch -c <new-branch-name>
+2026-09-19T00:09:34.9006183Z 
+2026-09-19T00:09:34.9006293Z Or undo this operation with:
+2026-09-19T00:09:34.9006479Z 
+2026-09-19T00:09:34.9006555Z   git switch -
+2026-09-19T00:09:34.9006678Z 
+2026-09-19T00:09:34.9006901Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-19T00:09:34.9007246Z 
+2026-09-19T00:09:34.9007636Z HEAD is now at e6f86ede Merge 4f09ae9ed3b21802df044a0ed48fb5b657bd8f64 into 4ba2fafe7b605c38d963d3697128e34b9e9c7618
+2026-09-19T00:09:34.9145571Z ##[endgroup]
+2026-09-19T00:09:34.9487606Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format=%H
+2026-09-19T00:09:34.9827896Z e6f86ede8167218b1d3984114e302ab084769761
+2026-09-19T00:09:35.0313973Z ##[group]Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+2026-09-19T00:09:35.0314400Z with:
+2026-09-19T00:09:35.0314665Z   node-version: lts/*
+2026-09-19T00:09:35.0314869Z   check-latest: false
+2026-09-19T00:09:35.0317405Z   token: ***
+2026-09-19T00:09:35.0317611Z   package-manager-cache: true
+2026-09-19T00:09:35.0317842Z env:
+2026-09-19T00:09:35.0318011Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:09:35.0318233Z ##[endgroup]
+2026-09-19T00:09:35.1900666Z Attempt to resolve LTS alias from manifest...
+2026-09-19T00:09:35.8645665Z Found in cache @ C:\hostedtoolcache\windows\node\24.20.0\x64
+2026-09-19T00:09:35.8652514Z ##[group]Environment details
+2026-09-19T00:09:41.5808618Z node: v24.20.0
+2026-09-19T00:09:41.5808984Z npm: 11.19.0
+2026-09-19T00:09:41.5809262Z yarn: 1.22.22
+2026-09-19T00:09:41.5810571Z ##[endgroup]
+2026-09-19T00:09:41.5818003Z Detected npm as the package manager from package.json's packageManager field. Auto caching has been enabled for npm. If you want to disable it, set package-manager-cache input to false
+2026-09-19T00:09:41.6677797Z [command]C:\Windows\system32\cmd.exe /D /S /C "C:\hostedtoolcache\windows\node\24.20.0\x64\npm.cmd config get cache"
+2026-09-19T00:09:42.1923110Z C:\npm\cache
+2026-09-19T00:09:42.5638369Z Cache hit for: [REDACTED:high_entropy]
+2026-09-19T00:09:43.3226862Z Received 71299668 of 71299668 (100.0%), 107.6 MBs/sec
+2026-09-19T00:09:43.3229770Z Cache Size: ~68 MB (71299668 B)
+2026-09-19T00:09:43.3264509Z [command]"C:\Program Files\Git\usr\bin\tar.exe" -xf D:/a/_temp/002dc7c8-8f95-4a3d-8b70-4193b86d43e4/cache.tzst -P -C D:/a/TypeScript/TypeScript --force-local --use-compress-program "zstd -d"
+2026-09-19T00:09:44.3530803Z Cache restored successfully
+2026-09-19T00:09:44.3593260Z Cache restored from key: [REDACTED:high_entropy]
+2026-09-19T00:09:44.3935274Z Prepare all required actions
+2026-09-19T00:09:44.3935932Z Getting action download info
+2026-09-19T00:09:44.4928133Z Download action repository 'actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e' (SHA:b7ad1dad31e06c5925ef5d2fc7ad053ef454303e)
+2026-09-19T00:09:44.8381605Z ##[group]Run ./.github/actions/setup-go
+2026-09-19T00:09:44.8381891Z with:
+2026-09-19T00:09:44.8382067Z   go-version: 1.27
+2026-09-19T00:09:44.8382249Z env:
+2026-09-19T00:09:44.8383377Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:09:44.8383625Z ##[endgroup]
+2026-09-19T00:09:44.8444170Z ##[start-action display=Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e;id=__self.__actions_setup-go]
+2026-09-19T00:09:44.8616470Z ##[group]Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+2026-09-19T00:09:44.8616839Z with:
+2026-09-19T00:09:44.8617011Z   go-version: 1.27
+2026-09-19T00:09:44.8617290Z   go-download-base-url: https://aka.ms/golang/release/latest
+2026-09-19T00:09:44.8617651Z   cache: false
+2026-09-19T00:09:44.8617832Z   check-latest: false
+2026-09-19T00:09:44.8620238Z   token: ***
+2026-09-19T00:09:44.8620412Z env:
+2026-09-19T00:09:44.8620583Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:09:44.8620803Z ##[endgroup]
+2026-09-19T00:09:45.0221341Z Setup go version spec 1.27
+2026-09-19T00:09:45.0222023Z Using custom Go download base URL: https://aka.ms/golang/release/latest
+2026-09-19T00:09:45.0234594Z Attempting to download 1.27...
+2026-09-19T00:09:45.0235191Z Skipping version listing for known direct-download URL. Constructing download URL directly.
+2026-09-19T00:09:45.0237066Z Constructed direct download URL: https://aka.ms/golang/release/latest/go1.27.windows-amd64.zip
+2026-09-19T00:09:45.0238049Z Install from custom download URL
+2026-09-19T00:09:45.0240392Z Acquiring 1.27 from https://aka.ms/golang/release/latest/go1.27.windows-amd64.zip
+2026-09-19T00:09:47.0163243Z Extracting Go...
+2026-09-19T00:09:47.1351947Z [command]"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command "$ErrorActionPreference = 'Stop' ; try { Add-Type -AssemblyName System.IO.Compression.ZipFile } catch { } ; try { [System.IO.Compression.ZipFile]::ExtractToDirectory('D:\a\_temp\go1.27.windows-amd64.zip', 'D:\a\_temp\c1f4978a-7005-410e-8f90-420849258870', $true) } catch { if (($_.Exception.GetType().FullName -eq 'System.Management.Automation.MethodException') -or ($_.Exception.GetType().FullName -eq 'System.Management.Automation.RuntimeException') ){ Expand-Archive -LiteralPath 'D:\a\_temp\go1.27.windows-amd64.zip' -DestinationPath 'D:\a\_temp\c1f4978a-7005-410e-8f90-420849258870' -Force } else { throw $_ } } ;"
+2026-09-19T00:09:52.4009685Z Successfully extracted go to D:\a\_temp\c1f4978a-7005-410e-8f90-420849258870
+2026-09-19T00:09:52.4485546Z Requested version '1.27' resolved to installed version '1.27.1'
+2026-09-19T00:09:52.4486963Z Adding to the cache ...
+2026-09-19T00:10:04.8176668Z Created link C:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64 => D:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64
+2026-09-19T00:10:04.8184339Z Created link C:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64.complete => D:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64.complete
+2026-09-19T00:10:04.8185782Z Successfully cached go to C:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64
+2026-09-19T00:10:04.8190906Z Added go to the path
+2026-09-19T00:10:04.8194600Z Successfully set up Go version 1.27
+2026-09-19T00:10:05.1604570Z go version go1.27.1 windows/amd64
+2026-09-19T00:10:05.1604983Z 
+2026-09-19T00:10:05.1607329Z ##[group]go env
+2026-09-19T00:10:08.6181257Z set AR=ar
+2026-09-19T00:10:08.6181668Z set CC=gcc
+2026-09-19T00:10:08.6182050Z set CGO_CFLAGS=-O2 -g
+2026-09-19T00:10:08.6182428Z set CGO_CPPFLAGS=
+2026-09-19T00:10:08.6182782Z set CGO_CXXFLAGS=-O2 -g
+2026-09-19T00:10:08.6183134Z set CGO_ENABLED=1
+2026-09-19T00:10:08.6183468Z set CGO_FFLAGS=-O2 -g
+2026-09-19T00:10:08.6184143Z set CGO_LDFLAGS=-O2 -g
+2026-09-19T00:10:08.6184483Z set CXX=g++
+2026-09-19T00:10:08.6186957Z set GCCGO=gccgo
+2026-09-19T00:10:08.6187377Z set GO111MODULE=
+2026-09-19T00:10:08.6187684Z set GOAMD64=v1
+2026-09-19T00:10:08.6187991Z set GOARCH=amd64
+2026-09-19T00:10:08.6188305Z set GOAUTH=netrc
+2026-09-19T00:10:08.6188726Z set GOBIN=C:\Users\runneradmin\go\bin
+2026-09-19T00:10:08.6189405Z set GOCACHE=C:\Users\runneradmin\AppData\Local\ms-go-build
+2026-09-19T00:10:08.6189991Z set GOCACHEPROG=
+2026-09-19T00:10:08.6190300Z set GODEBUG=
+2026-09-19T00:10:08.6191164Z set GOENV=C:\Users\runneradmin\AppData\Roaming\go\env
+2026-09-19T00:10:08.6191673Z set GOEXE=.exe
+2026-09-19T00:10:08.6192004Z set GOEXPERIMENT=
+2026-09-19T00:10:08.6192348Z set GOFIPS140=off
+2026-09-19T00:10:08.6192641Z set GOFLAGS=
+2026-09-19T00:10:08.6194043Z set GOGCCFLAGS=-m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=C:\Users\RUNNER~1\AppData\Local\Temp\go-build498377019=/tmp/go-build -gno-record-gcc-switches
+2026-09-19T00:10:08.6195392Z set GOHOSTARCH=amd64
+2026-09-19T00:10:08.6195764Z set GOHOSTOS=windows
+2026-09-19T00:10:08.6196092Z set GOINSECURE=
+2026-09-19T00:10:08.6196393Z set GOMOD=NUL
+2026-09-19T00:10:08.6196832Z set GOMODCACHE=C:\Users\runneradmin\go\pkg\mod
+2026-09-19T00:10:08.6197304Z set GONOPROXY=
+2026-09-19T00:10:08.6197590Z set GONOSUMDB=
+2026-09-19T00:10:08.6197874Z set GOOS=windows
+2026-09-19T00:10:08.6198228Z set GOPACKAGESDRIVER=
+2026-09-19T00:10:08.6198765Z set GOPATH=C:\Users\runneradmin\go
+2026-09-19T00:10:08.6199197Z set GOPRIVATE=
+2026-09-19T00:10:08.6199674Z set GOPROXY=https://proxy.golang.org,direct
+2026-09-19T00:10:08.6200383Z set GOROOT=C:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64
+2026-09-19T00:10:08.6200963Z set GOSUMDB=sum.golang.org
+2026-09-19T00:10:08.6201365Z set GOTELEMETRY=local
+2026-09-19T00:10:08.6202015Z set GOTELEMETRYDIR=C:\Users\runneradmin\AppData\Roaming\go\telemetry
+2026-09-19T00:10:08.6202630Z set GOTMPDIR=
+2026-09-19T00:10:08.6202967Z set GOTOOLCHAIN=local
+2026-09-19T00:10:08.6203736Z set GOTOOLDIR=C:\hostedtoolcache\windows\go-87ee608c\1.27.1\x64\pkg\tool\windows_amd64
+2026-09-19T00:10:08.6204832Z set GOVCS=
+2026-09-19T00:10:08.6205169Z set GOVERSION=go1.27.1
+2026-09-19T00:10:08.6205680Z set GOWORK=D:\a\TypeScript\TypeScript\go.work
+2026-09-19T00:10:08.6206198Z set MS_GO_NOSYSTEMCRYPTO=
+2026-09-19T00:10:08.6206599Z set PKG_CONFIG=pkg-config
+2026-09-19T00:10:08.6206850Z 
+2026-09-19T00:10:08.6207299Z ##[endgroup]
+2026-09-19T00:10:08.6355079Z ##[end-action id=__self.__actions_setup-go;outcome=success;conclusion=success;duration_ms=23791]
+2026-09-19T00:10:08.6529880Z ##[group]Run echo "::remove-matcher owner=eslint-compact::"
+2026-09-19T00:10:08.6551041Z [36;1mecho "::remove-matcher owner=eslint-compact::"[0m
+2026-09-19T00:10:08.6551417Z [36;1mecho "::remove-matcher owner=eslint-stylish::"[0m
+2026-09-19T00:10:08.6551744Z [36;1mecho "::remove-matcher owner=tsc::"[0m
+2026-09-19T00:10:08.6552047Z [36;1mecho "::remove-matcher owner=go::"[0m
+2026-09-19T00:10:08.6571022Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:10:08.6571966Z env:
+2026-09-19T00:10:08.6572155Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:10:08.6572390Z   GOTOOLCHAIN: local
+2026-09-19T00:10:08.6572594Z ##[endgroup]
+2026-09-19T00:10:08.7168288Z ##[group]Run npm ci
+2026-09-19T00:10:08.7168576Z [36;1mnpm ci[0m
+2026-09-19T00:10:08.7186826Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:10:08.7187233Z env:
+2026-09-19T00:10:08.7187437Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:10:08.7187661Z   GOTOOLCHAIN: local
+2026-09-19T00:10:08.7187854Z ##[endgroup]
+2026-09-19T00:10:25.7448790Z 
+2026-09-19T00:10:25.7449271Z added 168 packages, and audited 172 packages in 16s
+2026-09-19T00:10:25.7449800Z 
+2026-09-19T00:10:25.7451841Z 37 packages are looking for funding
+2026-09-19T00:10:25.7453105Z   run `npm fund` for details
+2026-09-19T00:10:25.7480078Z 
+2026-09-19T00:10:25.7480573Z 1 high severity vulnerability
+2026-09-19T00:10:25.7481279Z 
+2026-09-19T00:10:25.7482231Z To address all issues, run:
+2026-09-19T00:10:25.7482673Z   npm audit fix
+2026-09-19T00:10:25.7482882Z 
+2026-09-19T00:10:25.7483051Z Run `npm audit` for details.
+2026-09-19T00:10:27.6165060Z ##[group]Run npx hereby test:extension
+2026-09-19T00:10:27.6165452Z [36;1mnpx hereby test:extension[0m
+2026-09-19T00:10:27.6183632Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:10:27.6184020Z env:
+2026-09-19T00:10:27.6184386Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:10:27.6184626Z   GOTOOLCHAIN: local
+2026-09-19T00:10:27.6184822Z ##[endgroup]
+2026-09-19T00:10:28.7219949Z Using [33mD:\a\TypeScript\TypeScript\Herebyfile.mjs[39m to run [34mtest:extension[39m
+2026-09-19T00:10:28.7223632Z Starting [34mtest:extension[39m
+2026-09-19T00:10:28.7225877Z $ npm test -w native-preview
+2026-09-19T00:10:29.0538341Z 
+2026-09-19T00:10:29.0538894Z > native-preview@0.0.0 test
+2026-09-19T00:10:29.0539811Z > tsc -p test && esbuild test/index.test.ts --bundle --platform=node --format=cjs --outfile=dist/test/index.test.cjs && node --test dist/test/index.test.cjs
+2026-09-19T00:10:29.0540591Z 
+2026-09-19T00:10:29.9242844Z 
+2026-09-19T00:10:29.9243533Z   dist\test\index.test.cjs  11.3kb
+2026-09-19T00:10:29.9243940Z 
+2026-09-19T00:10:29.9244150Z Done in 7ms
+2026-09-19T00:10:30.1321588Z ✔ content mapper extensions match document paths case-insensitively (1.2958ms)
+2026-09-19T00:10:30.1326109Z ✔ serializes the documented inferred project contribution (0.9892ms)
+2026-09-19T00:10:30.1327167Z ✔ resolves the TypeScript 7 package (6.2704ms)
+2026-09-19T00:10:30.1330657Z ✔ resolves the TypeScript 7 scoped alias recommended in the 7.0 release post (4.5347ms)
+2026-09-19T00:10:30.1338420Z ✔ resolves an unscoped TypeScript 7 alias (4.618ms)
+2026-09-19T00:10:30.1342109Z ✔ resolves the native-preview package (5.2295ms)
+2026-09-19T00:10:30.1346521Z ✔ resolves a non-hoisted platform package (5.9849ms)
+2026-09-19T00:10:30.1348582Z ✔ resolves a platform package hoisted above a workspace (6.3836ms)
+2026-09-19T00:10:30.1351860Z ✔ resolves a pnpm virtual-store package (9.3431ms)
+2026-09-19T00:10:30.1357605Z ✔ resolves a pnpm native-preview virtual-store package (11.5913ms)
+2026-09-19T00:10:30.1360797Z ✔ resolves an npm linked-store package (8.9205ms)
+2026-09-19T00:10:30.1365648Z ✔ throws when the platform package is missing (4.6619ms)
+2026-09-19T00:10:30.1503388Z ℹ tests 12
+2026-09-19T00:10:30.1503870Z ℹ suites 0
+2026-09-19T00:10:30.1504357Z ℹ pass 12
+2026-09-19T00:10:30.1504757Z ℹ fail 0
+2026-09-19T00:10:30.1505143Z ℹ cancelled 0
+2026-09-19T00:10:30.1505563Z ℹ skipped 0
+2026-09-19T00:10:30.1505980Z ℹ todo 0
+2026-09-19T00:10:30.1506363Z ℹ duration_ms 165.718
+2026-09-19T00:10:30.1850804Z Finished [32mtest:extension[39m in 1.4s
+2026-09-19T00:10:30.1851635Z Completed [34mtest:extension[39m in 1.4s
+2026-09-19T00:10:30.4034951Z ##[group]Run npx hereby test:tools
+2026-09-19T00:10:30.4035306Z [36;1mnpx hereby test:tools[0m
+2026-09-19T00:10:30.4053207Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:10:30.4053598Z env:
+2026-09-19T00:10:30.4053777Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:10:30.4053997Z   GOTOOLCHAIN: local
+2026-09-19T00:10:30.4054189Z ##[endgroup]
+2026-09-19T00:10:31.4291616Z Using [33mD:\a\TypeScript\TypeScript\Herebyfile.mjs[39m to run [34mtest:tools[39m
+2026-09-19T00:10:31.4295323Z Starting [34mtest:tools[39m
+2026-09-19T00:10:31.4309689Z $ go install gotest.tools/gotestsum
+2026-09-19T00:10:31.7586834Z go: downloading gotest.tools/gotestsum v1.13.0
+2026-09-19T00:10:32.0470700Z go: downloading github.com/dnephin/pflag v1.0.7
+2026-09-19T00:10:32.0919147Z go: downloading golang.org/x/tools v0.50.0
+2026-09-19T00:10:32.1017540Z go: downloading github.com/fatih/color v1.18.0
+2026-09-19T00:10:32.1555703Z go: downloading github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
+2026-09-19T00:10:32.2461971Z go: downloading github.com/bitfield/gotestdox v0.2.2
+2026-09-19T00:10:32.2539287Z go: downloading golang.org/x/sync v0.23.0
+2026-09-19T00:10:32.2940145Z go: downloading golang.org/x/term v0.46.0
+2026-09-19T00:10:33.0298330Z go: downloading github.com/mattn/go-colorable v0.1.14
+2026-09-19T00:10:33.0350896Z go: downloading github.com/mattn/go-isatty v0.0.20
+2026-09-19T00:10:33.0409822Z go: downloading golang.org/x/sys v0.48.0
+2026-09-19T00:10:33.5889712Z go: downloading github.com/fsnotify/fsnotify v1.9.0
+2026-09-19T00:10:35.0481920Z go: downloading golang.org/x/text v0.42.0
+2026-09-19T00:10:39.9596809Z go: downloading golang.org/x/mod v0.41.0
+2026-09-19T00:10:58.0474180Z $ "D:\\a\\TypeScript\\TypeScript\\tools\\gotestsum.exe" --format-hide-empty-pkg --hide-summary skipped -- "-coverprofile=D:\\a\\TypeScript\\TypeScript\\coverage\\coverage.tools.out" -coverpkg=./... ./...
+2026-09-19T00:10:58.1706572Z go: downloading github.com/anchore/quill v0.7.1
+2026-09-19T00:10:58.5779591Z go: downloading github.com/blacktop/go-macho v1.1.283
+2026-09-19T00:10:58.7742680Z go: downloading github.com/golangci/plugin-module-register v0.1.2
+2026-09-19T00:10:58.8100842Z go: downloading gotest.tools/v3 v3.5.2
+2026-09-19T00:10:58.9696734Z go: downloading github.com/blacktop/go-dwarf v1.0.14
+2026-09-19T00:10:58.9712042Z go: downloading github.com/google/go-cmp v0.7.0
+2026-09-19T00:10:58.9835626Z go: downloading github.com/anchore/go-macholibre v0.0.0-20250826193721-3cd206ca93aa
+2026-09-19T00:10:58.9844283Z go: downloading github.com/go-restruct/restruct v1.2.0-alpha
+2026-09-19T00:10:59.0775919Z go: downloading github.com/github/smimesign v0.2.0
+2026-09-19T00:10:59.1037474Z go: downloading github.com/scylladb/go-set v1.0.3-0.20200225121959-cc7b2070d91e
+2026-09-19T00:10:59.1075343Z go: downloading software.sslmate.com/src/go-pkcs12 v0.7.2
+2026-09-19T00:10:59.1675019Z go: downloading github.com/anchore/go-logger v0.0.0-20251106021608-a5b0513fa9a9
+2026-09-19T00:10:59.2295615Z go: downloading github.com/pkg/errors v0.9.1
+2026-09-19T00:10:59.2704338Z go: downloading golang.org/x/crypto v0.57.0
+2026-09-19T00:10:59.2704972Z go: downloading github.com/google/uuid v1.6.0
+2026-09-19T00:11:22.6031146Z [32m✓[0m  cmd/machotool (91ms) (coverage: 1.9% of statements in ./...)
+2026-09-19T00:11:26.5868916Z [32m✓[0m  customlint (1.264s) (coverage: 44.0% of statements in ./...)
+2026-09-19T00:11:31.5901951Z [32m✓[0m  gen-proto (5.904s) (coverage: 34.6% of statements in ./...)
+2026-09-19T00:11:32.1907964Z 
+2026-09-19T00:11:32.1908458Z DONE 17 tests in 16.639s
+2026-09-19T00:11:32.1934189Z Finished [32mtest:tools[39m in 1m 0.7s
+2026-09-19T00:11:32.1934747Z Completed [34mtest:tools[39m in 1m 0.7s
+2026-09-19T00:11:32.2420564Z ##[group]Run npx hereby test:api
+2026-09-19T00:11:32.2420908Z [36;1mnpx hereby test:api[0m
+2026-09-19T00:11:32.2440145Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:11:32.2440528Z env:
+2026-09-19T00:11:32.2440713Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:11:32.2440946Z   GOTOOLCHAIN: local
+2026-09-19T00:11:32.2441141Z ##[endgroup]
+2026-09-19T00:11:33.2344550Z Using [33mD:\a\TypeScript\TypeScript\Herebyfile.mjs[39m to run [34mtest:api[39m
+2026-09-19T00:11:33.2348191Z Starting [34mlib[39m
+2026-09-19T00:11:33.2357374Z Starting [34mtsc:build[39m
+2026-09-19T00:11:33.2361984Z $ go build -tags=noembed -o "D:\\a\\TypeScript\\TypeScript\\built\\local\\tsc.exe" ./cmd/tsc
+2026-09-19T00:11:33.2480384Z Starting [34mgenerate:enums[39m
+2026-09-19T00:11:33.5947626Z Starting [34mgenerate:api[39m
+2026-09-19T00:11:33.5949117Z $ go -C ./tools run ./gen-proto ../tsc/internal/api/proto.go ../packages/typescript/src/api/proto.generated.ts
+2026-09-19T00:11:33.6825289Z Generating enums from Go source...
+2026-09-19T00:11:33.8003942Z   SymbolFlags: 67 members → symbolFlags.enum.ts, symbolFlags.ts
+2026-09-19T00:11:33.8157883Z   CheckFlags: 31 members → checkFlags.enum.ts, checkFlags.ts
+2026-09-19T00:11:33.8449653Z   TypeFlags: 73 members → typeFlags.enum.ts, typeFlags.ts
+2026-09-19T00:11:33.8544669Z   ObjectFlags: 49 members → objectFlags.enum.ts, objectFlags.ts
+2026-09-19T00:11:33.8605479Z   SignatureFlags: 12 members → signatureFlags.enum.ts, signatureFlags.ts
+2026-09-19T00:11:33.8659579Z   SignatureKind: 2 members → signatureKind.enum.ts, signatureKind.ts
+2026-09-19T00:11:33.8710102Z   IndexKind: 2 members → indexKind.enum.ts, indexKind.ts
+2026-09-19T00:11:33.8745816Z   ElementFlags: 9 members → elementFlags.enum.ts, elementFlags.ts
+2026-09-19T00:11:33.8800567Z   TypePredicateKind: 4 members → typePredicateKind.enum.ts, typePredicateKind.ts
+2026-09-19T00:11:33.8873136Z   TypeFormatFlags: 26 members → typeFormatFlags.enum.ts, typeFormatFlags.ts
+2026-09-19T00:11:33.8912441Z   DiagnosticCategory: 4 members → diagnosticCategory.enum.ts, diagnosticCategory.ts
+2026-09-19T00:11:33.9317197Z   SyntaxKind: 386 members → syntaxKind.enum.ts, syntaxKind.ts
+2026-09-19T00:11:33.9517245Z   NodeFlags: 41 members → nodeFlags.enum.ts, nodeFlags.ts
+2026-09-19T00:11:33.9518520Z   OuterExpressionKinds: 13 members → outerExpressionKinds.enum.ts, outerExpressionKinds.ts
+2026-09-19T00:11:33.9603652Z   ModifierFlags: 39 members → modifierFlags.enum.ts, modifierFlags.ts
+2026-09-19T00:11:33.9610900Z   ModuleKind: 14 members → moduleKind.enum.ts, moduleKind.ts
+2026-09-19T00:11:33.9642778Z   ModuleResolutionKind: 6 members → moduleResolutionKind.enum.ts, moduleResolutionKind.ts
+2026-09-19T00:11:33.9667382Z   ModuleDetectionKind: 4 members → moduleDetectionKind.enum.ts, moduleDetectionKind.ts
+2026-09-19T00:11:33.9690498Z   NewLineKind: 3 members → newLineKind.enum.ts, newLineKind.ts
+2026-09-19T00:11:33.9713655Z   JsxEmit: 6 members → jsxEmit.enum.ts, jsxEmit.ts
+2026-09-19T00:11:33.9734418Z   ScriptKind: 6 members → scriptKind.enum.ts, scriptKind.ts
+2026-09-19T00:11:33.9804325Z   TokenFlags: 27 members → tokenFlags.enum.ts, tokenFlags.ts
+2026-09-19T00:11:33.9809740Z   DiagnosticDirectivePolicy: 2 members → diagnosticDirectivePolicy.enum.ts, diagnosticDirectivePolicy.ts
+2026-09-19T00:11:33.9835309Z   SpanMapKind: 3 members → spanMapKind.enum.ts, spanMapKind.ts
+2026-09-19T00:11:33.9865820Z   SpanMapFidelity: 4 members → spanMapFidelity.enum.ts, spanMapFidelity.ts
+2026-09-19T00:11:33.9956860Z   SpanMapFeature: 22 members → spanMapFeature.enum.ts, spanMapFeature.ts
+2026-09-19T00:11:34.0019460Z   NodeBuilderFlags: 33 members → nodeBuilderFlags.enum.ts, nodeBuilderFlags.ts
+2026-09-19T00:11:34.0195858Z   CompletionItemKind: 25 members → completionItemKind.enum.ts, completionItemKind.ts
+2026-09-19T00:11:34.0197287Z   EmitOnly: 3 members → emitOnly.enum.ts, emitOnly.ts
+2026-09-19T00:11:34.0243027Z   InternalSymbolName: 20 members → internalSymbolName.enum.ts, internalSymbolName.ts
+2026-09-19T00:11:34.0243955Z Getting values from go
+2026-09-19T00:11:34.0266405Z $ dprint fmt tsc/internal/api/enum_values_generated.go
+2026-09-19T00:11:34.0421322Z Finished [32mlib[39m in 806ms
+2026-09-19T00:11:34.1027885Z Compiling D:\a\TypeScript\TypeScript\node_modules\@dprint\typescript\plugin.wasm
+2026-09-19T00:11:34.1080964Z Compiling D:\a\TypeScript\TypeScript\node_modules\@dprint\json\plugin.wasm
+2026-09-19T00:11:34.1096072Z Compiling D:\a\TypeScript\TypeScript\node_modules\dprint-plugin-yaml\plugin.wasm
+2026-09-19T00:11:34.1126909Z Compiling D:\a\TypeScript\TypeScript\node_modules\@jakebailey\dprint-plugin-gofumpt\plugin.wasm
+2026-09-19T00:11:40.8130997Z Formatted [0m[1m1[0m file.
+2026-09-19T00:11:40.9304596Z $ go run tsc/internal/api/enum_values_generated.go
+2026-09-19T00:11:43.6269916Z $ npx dprint fmt packages/typescript/src/api/proto.generated.ts
+2026-09-19T00:11:44.4761559Z Formatted [0m[1m1[0m file.
+2026-09-19T00:11:44.5041203Z Finished [32mgenerate:api[39m in 10.9s
+2026-09-19T00:14:53.1588909Z All generated values match Go.
+2026-09-19T00:14:53.1611481Z $ dprint fmt "packages\\typescript\\src\\enums\\symbolFlags.enum.ts" "packages\\typescript\\src\\enums\\symbolFlags.ts" "packages\\typescript\\src\\enums\\checkFlags.enum.ts" "packages\\typescript\\src\\enums\\checkFlags.ts" "packages\\typescript\\src\\enums\\typeFlags.enum.ts" "packages\\typescript\\src\\enums\\typeFlags.ts" "packages\\typescript\\src\\enums\\objectFlags.enum.ts" "packages\\typescript\\src\\enums\\objectFlags.ts" "packages\\typescript\\src\\enums\\signatureFlags.enum.ts" "packages\\typescript\\src\\enums\\signatureFlags.ts" "packages\\typescript\\src\\enums\\signatureKind.enum.ts" "packages\\typescript\\src\\enums\\signatureKind.ts" "packages\\typescript\\src\\enums\\indexKind.enum.ts" "packages\\typescript\\src\\enums\\indexKind.ts" "packages\\typescript\\src\\enums\\elementFlags.enum.ts" "packages\\typescript\\src\\enums\\elementFlags.ts" "packages\\typescript\\src\\enums\\typePredicateKind.enum.ts" "packages\\typescript\\src\\enums\\typePredicateKind.ts" "packages\\typescript\\src\\enums\\typeFormatFlags.enum.ts" "packages\\typescript\\src\\enums\\typeFormatFlags.ts" "packages\\typescript\\src\\enums\\diagnosticCategory.enum.ts" "packages\\typescript\\src\\enums\\diagnosticCategory.ts" "packages\\typescript\\src\\enums\\syntaxKind.enum.ts" "packages\\typescript\\src\\enums\\syntaxKind.ts" "packages\\typescript\\src\\enums\\nodeFlags.enum.ts" "packages\\typescript\\src\\enums\\nodeFlags.ts" "packages\\typescript\\src\\enums\\outerExpressionKinds.enum.ts" "packages\\typescript\\src\\enums\\outerExpressionKinds.ts" "packages\\typescript\\src\\enums\\modifierFlags.enum.ts" "packages\\typescript\\src\\enums\\modifierFlags.ts" "packages\\typescript\\src\\enums\\moduleKind.enum.ts" "packages\\typescript\\src\\enums\\moduleKind.ts" "packages\\typescript\\src\\enums\\moduleResolutionKind.enum.ts" "packages\\typescript\\src\\enums\\moduleResolutionKind.ts" "packages\\typescript\\src\\enums\\moduleDetectionKind.enum.ts" "packages\\typescript\\src\\enums\\moduleDetectionKind.ts" "packages\\typescript\\src\\enums\\newLineKind.enum.ts" "packages\\typescript\\src\\enums\\newLineKind.ts" "packages\\typescript\\src\\enums\\jsxEmit.enum.ts" "packages\\typescript\\src\\enums\\jsxEmit.ts" "packages\\typescript\\src\\enums\\scriptKind.enum.ts" "packages\\typescript\\src\\enums\\scriptKind.ts" "packages\\typescript\\src\\enums\\tokenFlags.enum.ts" "packages\\typescript\\src\\enums\\tokenFlags.ts" "packages\\typescript\\src\\enums\\diagnosticDirectivePolicy.enum.ts" "packages\\typescript\\src\\enums\\diagnosticDirectivePolicy.ts" "packages\\typescript\\src\\enums\\spanMapKind.enum.ts" "packages\\typescript\\src\\enums\\spanMapKind.ts" "packages\\typescript\\src\\enums\\spanMapFidelity.enum.ts" "packages\\typescript\\src\\enums\\spanMapFidelity.ts" "packages\\typescript\\src\\enums\\spanMapFeature.enum.ts" "packages\\typescript\\src\\enums\\spanMapFeature.ts" "packages\\typescript\\src\\enums\\nodeBuilderFlags.enum.ts" "packages\\typescript\\src\\enums\\nodeBuilderFlags.ts" "packages\\typescript\\src\\enums\\completionItemKind.enum.ts" "packages\\typescript\\src\\enums\\completionItemKind.ts" "packages\\typescript\\src\\enums\\emitOnly.enum.ts" "packages\\typescript\\src\\enums\\emitOnly.ts" "packages\\typescript\\src\\enums\\internalSymbolName.enum.ts" "packages\\typescript\\src\\enums\\internalSymbolName.ts"
+2026-09-19T00:14:53.3113657Z Formatted [0m[1m60[0m files.
+2026-09-19T00:14:53.3227311Z Done.
+2026-09-19T00:14:53.3229219Z Finished [32mgenerate:enums[39m in 3m 20s
+2026-09-19T00:14:53.3230280Z Starting [34mbuild:api:test[39m
+2026-09-19T00:14:53.3231731Z $ npm run -w @typescript/typescript generate:sync
+2026-09-19T00:14:54.2158929Z 
+2026-09-19T00:14:54.2159470Z > @typescript/typescript@0.0.0 generate:sync
+2026-09-19T00:14:54.2159939Z > npm run node -- scripts/generateSync.ts
+2026-09-19T00:14:54.2160246Z 
+2026-09-19T00:14:54.6914625Z 
+2026-09-19T00:14:54.6915774Z > @typescript/typescript@0.0.0 node
+2026-09-19T00:14:54.6916766Z > node --conditions @typescript/source scripts/generateSync.ts
+2026-09-19T00:14:54.6917577Z 
+2026-09-19T00:14:55.2042993Z Generating sync API from async source...
+2026-09-19T00:14:55.2561200Z   src/api/async/types.ts → src/api/sync/types.ts
+2026-09-19T00:14:55.4902933Z   src/api/async/api.ts → src/api/sync/api.ts
+2026-09-19T00:14:56.2321137Z   test/async/api.test.ts → test/sync/api.test.ts
+2026-09-19T00:14:56.2404069Z   test/async/api.bench.ts → test/sync/api.bench.ts
+2026-09-19T00:14:56.2435491Z   test/async/astnav.test.ts → test/sync/astnav.test.ts
+2026-09-19T00:14:56.2618333Z   test/async/api.bench.ts → test/generators/api.bench.ts
+2026-09-19T00:14:56.2620970Z Formatting...
+2026-09-19T00:14:56.9419581Z Done.
+2026-09-19T00:14:57.2639152Z $ npm run -w @typescript/typescript build:test
+2026-09-19T00:14:59.2446114Z 
+2026-09-19T00:14:59.2809931Z > @typescript/typescript@0.0.0 build:test
+2026-09-19T00:14:59.3161958Z > tsc -b test
+2026-09-19T00:14:59.3204793Z 
+2026-09-19T00:15:08.6045460Z Finished [32mbuild:api:test[39m in 15.2s
+2026-09-19T00:15:48.2634135Z Finished [32mtsc:build[39m in 4m 15s
+2026-09-19T00:15:48.2634789Z Starting [34mtest:api[39m
+2026-09-19T00:15:48.2635426Z $ node --conditions @typescript/source --test "./test/**/*.test.ts"
+2026-09-19T00:15:49.5859683Z ▶ API
+2026-09-19T00:15:49.5888652Z   ✔ getCurrentLanguageServerSnapshot is LSP-only (1.6865ms)
+2026-09-19T00:15:49.6598270Z   ✔ initializes once for concurrent first requests (110.4541ms)
+2026-09-19T00:15:49.6913615Z   ✔ disposes (29.3685ms)
+2026-09-19T00:15:49.7152047Z   ✔ disposal handles concurrent initialization (25.9312ms)
+2026-09-19T00:15:49.7355611Z   ✔ parseCommandLine (20.9597ms)
+2026-09-19T00:15:49.7541361Z   ✔ parseCommandLine reports diagnostics (18.7316ms)
+2026-09-19T00:15:49.7823025Z   ✔ readConfigFile (20.4325ms)
+2026-09-19T00:15:49.8051932Z   ✔ readConfigFile reports read and parse errors (28.9271ms)
+2026-09-19T00:15:49.8402617Z   ✔ parseJsonConfigFileContent with configDirectory (25.881ms)
+2026-09-19T00:15:49.9034038Z   ✔ parseJsonConfigFileContent accepts non-object JSON (72.4221ms)
+2026-09-19T00:15:49.9377993Z   ✔ parseJsonConfigFileContent with configFileName (36.1617ms)
+2026-09-19T00:15:49.9655428Z   ✔ parseJsonConfigFileContent preserves raw config (18.0646ms)
+2026-09-19T00:15:49.9883835Z   ✔ parseJsonConfigFileContent preserves an empty files list (30.5539ms)
+2026-09-19T00:15:50.0188765Z   ✔ parseJsonConfigFileContent reports null array elements (27.2382ms)
+2026-09-19T00:15:50.0548301Z   ✔ transpile (38.4684ms)
+2026-09-19T00:15:50.0851654Z   ✔ createSourceFile (30.4946ms)
+2026-09-19T00:15:50.4339204Z   ✔ createSourceFile can be used with a compatible program (346.1027ms)
+2026-09-19T00:15:50.4603249Z   ✔ createSourceFileFromFile (27.3155ms)
+2026-09-19T00:15:50.4926631Z   ✔ createProgram (31.1408ms)
+2026-09-19T00:15:50.5242101Z   ✔ createSnapshot creates independent synthetic programs (33.022ms)
+2026-09-19T00:15:50.5666658Z   ✔ snapshot.update reconfigures a synthetic program (43.2473ms)
+2026-09-19T00:15:50.6352211Z   ✔ snapshot.update reconfigures module resolution providers (67.9332ms)
+2026-09-19T00:15:50.7031811Z   ✔ module resolver runs against snapshots or the host filesystem (68.436ms)
+2026-09-19T00:15:50.7966027Z   ✔ module resolver callbacks can delegate to another resolver (76.5949ms)
+2026-09-19T00:15:50.8395454Z   ✔ module resolver callbacks can resolve against the in-progress snapshot filesystem (58.3723ms)
+2026-09-19T00:15:50.9002361Z   ✔ program module resolution uses the resolver compiler options (59.6306ms)
+2026-09-19T00:15:50.9400557Z   ✔ module resolver callbacks preserve retained and live filesystem context (41.5678ms)
+2026-09-19T00:15:50.9723895Z   ✔ provided resolutions do not report native resolution provenance diagnostics (31.8868ms)
+2026-09-19T00:15:51.0410287Z   ✔ Program resolved modules and type reference directives (67.0752ms)
+2026-09-19T00:15:51.0837165Z   ✔ createProgram ignores an on-disk tsconfig (45.8599ms)
+2026-09-19T00:15:51.1163463Z   ✔ createProgram includes project references (31.4245ms)
+2026-09-19T00:15:51.1384031Z   ✔ createProgram includes config file parsing diagnostics (23.8431ms)
+2026-09-19T00:15:51.1662689Z   ✔ createProgram discovers imported non-root dependencies (23.8591ms)
+2026-09-19T00:15:51.1911606Z   ✔ parseConfigFile (28.0325ms)
+2026-09-19T00:15:51.2147842Z   ✔ parseConfigFile includes projectReferences (23.851ms)
+2026-09-19T00:15:51.2374885Z   ✔ parseConfigFile preserves raw config (22.7641ms)
+2026-09-19T00:15:51.2614115Z   ✔ parseConfigFile includes compileOnSave (23.5586ms)
+2026-09-19T00:15:51.2846451Z   ✔ parseConfigFile includes typeAcquisition (21.8417ms)
+2026-09-19T00:15:51.2851826Z ✔ API (1739.1108ms)
+2026-09-19T00:15:51.3043818Z ▶ API - automatic batching
+2026-09-19T00:15:51.3068021Z   ✔ initializes only once for concurrent first requests (20.1062ms)
+2026-09-19T00:15:51.3250157Z   ✔ batches multiple concurrent requests into one automatically (21.1458ms)
+2026-09-19T00:15:51.3255016Z ✔ API - automatic batching (41.6123ms)
+2026-09-19T00:15:51.3453162Z ▶ API - batchContext
+2026-09-19T00:15:51.3458794Z   ✔ transparently paginates batch responses (19.6196ms)
+2026-09-19T00:15:51.3667640Z   ✔ holds requests until disposal (19.877ms)
+2026-09-19T00:15:51.4937712Z   ✔ settles an item error without dropping a sibling result (127.5527ms)
+2026-09-19T00:15:51.4956551Z ✔ API - batchContext (167.5643ms)
+2026-09-19T00:15:51.6007946Z ▶ Checker - getImmediateAliasedSymbol
+2026-09-19T00:15:51.6013742Z   ✔ resolves one level of alias indirection (106.7225ms)
+2026-09-19T00:15:51.6014731Z ✔ Checker - getImmediateAliasedSymbol (106.9761ms)
+2026-09-19T00:15:51.7222382Z ▶ Checker - getTargetSymbol
+2026-09-19T00:15:51.7223786Z   ✔ gets the target symbol of instantiated symbol (120.5417ms)
+2026-09-19T00:15:51.7230553Z ✔ Checker - getTargetSymbol (120.7944ms)
+2026-09-19T00:15:51.8560096Z ▶ Snapshot
+2026-09-19T00:15:51.8561062Z   ✔ createSnapshot returns snapshot with projects (134.5022ms)
+2026-09-19T00:15:51.9575452Z   ✔ project exposes parsedCommandLine (101.8424ms)
+2026-09-19T00:15:52.0642271Z   ✔ getSymbolAtPosition (104.8222ms)
+2026-09-19T00:15:52.1971436Z   ✔ getSymbolAtLocation (132.4959ms)
+2026-09-19T00:15:52.3069635Z   ✔ getSymbolOfSourceFile (110.9266ms)
+2026-09-19T00:15:52.4246874Z   ✔ getSymbolOfSourceFile returns undefined for a non-module file (117.523ms)
+2026-09-19T00:15:52.5465594Z   ✔ getSymbolOfSourceFile batched (122.6714ms)
+2026-09-19T00:15:52.6740457Z   ✔ getTypeOfSymbol (127.7778ms)
+2026-09-19T00:15:52.8232265Z   ✔ getNonMissingTypeOfSymbol (148.8403ms)
+2026-09-19T00:15:52.8235402Z ✔ Snapshot (1102.4603ms)
+2026-09-19T00:15:52.9404851Z ▶ LanguageService - imports
+2026-09-19T00:15:52.9412233Z   ✔ getImportEditsForSymbols adds a named import (115.7589ms)
+2026-09-19T00:15:53.0879074Z   ✔ getImportAdderEdits coalesces multiple importSymbol actions (145.0547ms)
+2026-09-19T00:15:53.2436686Z   ✔ getImportAdderEdits adds to an existing import (156.8688ms)
+2026-09-19T00:15:53.3899599Z   ✔ getImportAdderEdits returns no edits for non-exported symbols (146.8803ms)
+2026-09-19T00:15:53.5127128Z   ✔ getImportAdderEdits rejects invalid actions (122.6795ms)
+2026-09-19T00:15:53.5132276Z ✔ LanguageService - imports (687.9125ms)
+2026-09-19T00:15:53.6299482Z ▶ LanguageService - getCompletionsAtPosition
+2026-09-19T00:15:53.6317794Z   ✔ returns member completions after a dot (115.7455ms)
+2026-09-19T00:15:53.7427567Z   ✔ completion entries include sortText (109.5455ms)
+2026-09-19T00:15:53.8440099Z   ✔ returns undefined for a non-existent file (103.9774ms)
+2026-09-19T00:15:53.9778003Z   ✔ includeSymbol: true populates symbol on property completions (133.9914ms)
+2026-09-19T00:15:53.9783339Z ✔ LanguageService - getCompletionsAtPosition (463.8552ms)
+2026-09-19T00:15:54.1609150Z ▶ LanguageService - getReferencedSymbolsForNode
+2026-09-19T00:15:54.1613880Z   ✔ getReferencedSymbolsForNode (183.8584ms)
+2026-09-19T00:15:54.1618655Z ✔ LanguageService - getReferencedSymbolsForNode (184.1624ms)
+2026-09-19T00:15:54.3504657Z ▶ LanguageService - getSignatureUsage
+2026-09-19T00:15:54.3505431Z   ✔ getSignatureUsage (184.1001ms)
+2026-09-19T00:15:54.3511643Z ✔ LanguageService - getSignatureUsage (184.477ms)
+2026-09-19T00:15:54.5059575Z ▶ Checker - getApparentType
+2026-09-19T00:15:54.5112538Z   ✔ returns the apparent type of a literal type (158.5308ms)
+2026-09-19T00:15:54.5121466Z ✔ Checker - getApparentType (158.876ms)
+2026-09-19T00:15:54.6624236Z ▶ Checker - getReducedType
+2026-09-19T00:15:54.6626540Z   ✔ returns the reduced type (156.1877ms)
+2026-09-19T00:15:54.6632000Z ✔ Checker - getReducedType (156.4457ms)
+2026-09-19T00:15:54.8674151Z ▶ Checker - getMemberInModuleExports
+2026-09-19T00:15:54.8679602Z   ✔ returns a named export when present (207.1428ms)
+2026-09-19T00:15:54.8680911Z ✔ Checker - getMemberInModuleExports (207.396ms)
+2026-09-19T00:15:55.0369008Z ▶ SourceFile
+2026-09-19T00:15:55.0369866Z   ✔ getSourceFile rejects invalid document identifiers (169.52ms)
+2026-09-19T00:15:55.1152472Z   ✔ getSourceFileNames returns all program files, not just root files (76.8104ms)
+2026-09-19T00:15:55.3555540Z   ✔ source file metadata identifies external library and default library files (239.6554ms)
+2026-09-19T00:15:55.5739528Z   ✔ source file metadata reports implied node format (216.2383ms)
+2026-09-19T00:15:55.7661418Z   ✔ file properties (194.4021ms)
+2026-09-19T00:15:55.9701509Z   ✔ extended data (204.5431ms)
+2026-09-19T00:15:56.1414703Z   ✔ forEachChild with visitList does not visit array children twice (171.4016ms)
+2026-09-19T00:15:56.1417616Z ✔ SourceFile (1273.6499ms)
+2026-09-19T00:15:56.4070824Z ▶ NodeArray
+2026-09-19T00:15:56.4075193Z   ✔ hasTrailingComma (264.8878ms)
+2026-09-19T00:15:56.4087215Z ✔ NodeArray (265.1601ms)
+2026-09-19T00:15:56.5425104Z ✔ unicode escapes (133.5122ms)
+2026-09-19T00:15:56.6777632Z ✔ template unicode escapes (136.5858ms)
+2026-09-19T00:15:56.8145367Z ✔ Object equality (137.1397ms)
+2026-09-19T00:15:56.9339024Z ✔ Snapshot dispose (118.207ms)
+2026-09-19T00:15:57.1076852Z ▶ Multiple snapshots
+2026-09-19T00:15:57.1084123Z   ✔ two snapshots work independently (176.2602ms)
+2026-09-19T00:15:57.4735700Z   ✔ each snapshot has its own server-side lifecycle (363.8052ms)
+2026-09-19T00:15:57.6347922Z   ✔ adding a new file is reflected in the next snapshot (155.7382ms)
+2026-09-19T00:15:57.8543712Z   ✔ multiple sequential edits produce correct snapshots (225.4787ms)
+2026-09-19T00:15:57.9920380Z   ✔ snapshot.update derives from its receiver and reconstructs unchanged projects (134.7009ms)
+2026-09-19T00:15:58.1356326Z   ✔ snapshot.update preserves stable project ordering (145.786ms)
+2026-09-19T00:15:58.2934778Z   ✔ snapshot.update ensures all dirty programs (158.1083ms)
+2026-09-19T00:15:58.2938856Z ✔ Multiple snapshots (1360.7646ms)
+2026-09-19T00:15:58.4837058Z ▶ Source file caching
+2026-09-19T00:15:58.4964907Z   ✔ same file from same snapshot returns cached object (187.7537ms)
+2026-09-19T00:15:58.7484606Z   ✔ same file from two snapshots (same content) returns cached object (264.7774ms)
+2026-09-19T00:15:59.0495859Z   ✔ modified file returns a different source file object (302.9669ms)
+2026-09-19T00:15:59.3043276Z   ✔ unmodified file retains cached object across file change notification (253.3361ms)
+2026-09-19T00:15:59.5468298Z   ✔ disposing the source snapshot releases its cache entries (242.5678ms)
+2026-09-19T00:15:59.8669775Z   ✔ invalidateAll causes all files to be re-fetched (319.931ms)
+2026-09-19T00:16:00.0813742Z   ✔ node handles from a cached source file should be valid in a new snapshot (214.1943ms)
+2026-09-19T00:16:00.0818803Z ✔ Source file caching (1786.4505ms)
+2026-09-19T00:16:00.2485008Z ▶ Snapshot disposal
+2026-09-19T00:16:00.2488297Z   ✔ dispose is idempotent (166.9489ms)
+2026-09-19T00:16:00.4052489Z   ✔ api.close waits for disposal started by using (155.4447ms)
+2026-09-19T00:16:00.6307918Z   ✔ api.close disposes all active snapshots (225.4234ms)
+2026-09-19T00:16:00.6312594Z ✔ Snapshot disposal (548.2622ms)
+2026-09-19T00:16:00.7960348Z ▶ Source file cache keying across projects
+2026-09-19T00:16:00.7961653Z   ✔ different parse modes produce separate cached objects; same parse modes share (166.2674ms)
+2026-09-19T00:16:00.7967811Z ✔ Source file cache keying across projects (166.5682ms)
+2026-09-19T00:16:00.9549851Z ▶ Checker - symbol identity across projects
+2026-09-19T00:16:00.9595279Z   ✔ getSymbolAtPosition returns same Symbol instance across projects (154.5872ms)
+2026-09-19T00:16:01.1370236Z   ✔ overlapping synthetic programs share Symbol instances (185.1458ms)
+2026-09-19T00:16:01.1372929Z ✔ Checker - symbol identity across projects (340.1005ms)
+2026-09-19T00:16:01.2625130Z ▶ Checker - types and signatures
+2026-09-19T00:16:01.2637882Z   ✔ getTypeAtPosition (126.5888ms)
+2026-09-19T00:16:01.4546339Z   ✔ getTypeAtPosition batched (189.4832ms)
+2026-09-19T00:16:01.6697249Z   ✔ getTypeAtLocation (214.179ms)
+2026-09-19T00:16:01.9234166Z   ✔ getTypeAtLocation returns property type for parenthesized and chained access (issue #3938) (256.0476ms)
+2026-09-19T00:16:02.0583741Z   ✔ getTypeAtLocation returns call result type for private method call (issue #4041) (136.9676ms)
+2026-09-19T00:16:02.2364307Z   ✔ getSignaturesOfType - call signatures (176.434ms)
+2026-09-19T00:16:02.3900959Z   ✔ getApparentProperties includes CallableFunction members (153.5873ms)
+2026-09-19T00:16:02.6863588Z   ✔ checker and object methods share cached results (291.6197ms)
+2026-09-19T00:16:02.8677437Z   ✔ getSignaturesOfType - construct signatures (183.4807ms)
+2026-09-19T00:16:03.0869488Z   ✔ Signature declaration can be resolved (222.4189ms)
+2026-09-19T00:16:03.2560238Z   ✔ getSignaturesOfType - signature type parameters (167.9834ms)
+2026-09-19T00:16:03.4171473Z   ✔ Signature.getParameters() returns parameter symbols with correct names (161.434ms)
+2026-09-19T00:16:03.6025015Z   ✔ Signature.getThisParameter() returns undefined when no explicit this parameter (182.5031ms)
+2026-09-19T00:16:03.8028262Z   ✔ Signature.getThisParameter() returns symbol for explicit this parameter (202.8458ms)
+2026-09-19T00:16:03.9920404Z   ✔ Signature.getTarget() returns undefined for a non-instantiated signature (189.5168ms)
+2026-09-19T00:16:04.1641106Z   ✔ Signature.getTarget() returns the generic source signature for an instantiated call (171.0006ms)
+2026-09-19T00:16:04.1642560Z ✔ Checker - types and signatures (3028.1013ms)
+2026-09-19T00:16:04.3200756Z ▶ Symbol - parent, members, exports
+2026-09-19T00:16:04.3219864Z   ✔ getMembers returns class members (155.5063ms)
+2026-09-19T00:16:04.4811866Z   ✔ getExports returns module exports via sourceFile symbol (160.5489ms)
+2026-09-19T00:16:04.6328235Z   ✔ getParent returns containing symbol (153.2514ms)
+2026-09-19T00:16:04.7942024Z   ✔ checkFlags is typed as CheckFlags (158.8652ms)
+2026-09-19T00:16:04.7947084Z ✔ Symbol - parent, members, exports (628.8449ms)
+2026-09-19T00:16:05.0292948Z ▶ Type - getSymbol
+2026-09-19T00:16:05.0312195Z   ✔ getSymbol returns the symbol of a type (233.956ms)
+2026-09-19T00:16:05.0434751Z ✔ Type - getSymbol (234.2241ms)
+2026-09-19T00:16:05.2538402Z ▶ Type - sub-property fetchers
+2026-09-19T00:16:05.2566873Z   ✔ TypeReference.getTarget() returns the generic target (222.7484ms)
+2026-09-19T00:16:05.4248519Z   ✔ UnionOrIntersectionType.getTypes() returns union members (173.2044ms)
+2026-09-19T00:16:05.6090173Z   ✔ UnionOrIntersectionType.getTypes() returns intersection members (184.6442ms)
+2026-09-19T00:16:05.7679330Z   ✔ UnionOrIntersectionType.getTypes() on a wrongly-cast type returns undefined without hitting the server (157.9774ms)
+2026-09-19T00:16:05.9240456Z   ✔ IndexType.getTarget() returns the target type (156.9861ms)
+2026-09-19T00:16:06.1585215Z   ✔ IndexedAccessType.getObjectType() and getIndexType() (235.9821ms)
+2026-09-19T00:16:06.3800523Z   ✔ ConditionalType.getCheckType() and getExtendsType() (220.0533ms)
+2026-09-19T00:16:06.5160229Z   ✔ ConditionalType.getTrueType() and getFalseType() (135.7304ms)
+2026-09-19T00:16:06.6601137Z   ✔ TemplateLiteralType.texts and getTypes() (139.3595ms)
+2026-09-19T00:16:06.8277164Z   ✔ StringMappingType.getTarget() returns the mapped type (172.1936ms)
+2026-09-19T00:16:07.0335791Z   ✔ tuple metadata is owned by tuple targets (204.8851ms)
+2026-09-19T00:16:07.2566936Z   ✔ tuple targets expose labeled element declarations (222.0263ms)
+2026-09-19T00:16:07.2611375Z ✔ Type - sub-property fetchers (2227.2763ms)
+2026-09-19T00:16:07.3946640Z ▶ Checker - intrinsic type getters
+2026-09-19T00:16:07.3964395Z   ✔ getAnyType returns a type with Any flag (138.7427ms)
+2026-09-19T00:16:07.5604743Z   ✔ getStringType returns a type with String flag (166.5136ms)
+2026-09-19T00:16:07.7382049Z   ✔ getNumberType returns a type with Number flag (178.4119ms)
+2026-09-19T00:16:07.8944970Z   ✔ getBooleanType returns a type with Boolean flag (154.9466ms)
+2026-09-19T00:16:08.1228665Z   ✔ getVoidType returns a type with Void flag (231.8357ms)
+2026-09-19T00:16:08.2827708Z   ✔ getUndefinedType returns a type with Undefined flag (157.6155ms)
+2026-09-19T00:16:08.4062078Z   ✔ getNullType returns a type with Null flag (121.2316ms)
+2026-09-19T00:16:08.5191060Z   ✔ getNeverType returns a type with Never flag (115.419ms)
+2026-09-19T00:16:08.6678970Z   ✔ getUnknownType returns a type with Unknown flag (143.7508ms)
+2026-09-19T00:16:08.8263056Z   ✔ getBigIntType returns a type with BigInt flag (158.4439ms)
+2026-09-19T00:16:09.0151868Z   ✔ getESSymbolType returns a type with ESSymbol flag (185.8436ms)
+2026-09-19T00:16:09.1721040Z   ✔ getNonPrimitiveType returns a type with NonPrimitive flag (163.1547ms)
+2026-09-19T00:16:09.1727060Z ✔ Checker - intrinsic type getters (1917.3059ms)
+2026-09-19T00:16:09.3223438Z ▶ Checker - multi-project type ID uniqueness
+2026-09-19T00:16:09.3226178Z   ✔ intrinsic types from 3 projects in the same snapshot have non-colliding IDs (152.2511ms)
+2026-09-19T00:16:09.6206103Z   ✔ symbol and signature handles from 3 projects in the same snapshot have non-colliding IDs (297.0728ms)
+2026-09-19T00:16:09.6211599Z ✔ Checker - multi-project type ID uniqueness (449.7159ms)
+2026-09-19T00:16:09.7901657Z ▶ Checker - getBaseTypeOfLiteralType
+2026-09-19T00:16:09.7902679Z   ✔ number literal widens to number (168.7713ms)
+2026-09-19T00:16:09.9477517Z   ✔ string literal widens to string (157.8786ms)
+2026-09-19T00:16:09.9483410Z ✔ Checker - getBaseTypeOfLiteralType (327.0265ms)
+2026-09-19T00:16:10.0963007Z ▶ Checker - getContextualType
+2026-09-19T00:16:10.0965038Z   ✔ contextual type from function parameter (148.7375ms)
+2026-09-19T00:16:10.0965925Z ✔ Checker - getContextualType (149.1132ms)
+2026-09-19T00:16:10.2106679Z ▶ Checker - getTypeOfSymbolAtLocation
+2026-09-19T00:16:10.2107843Z   ✔ narrowed type via typeof check (112.4406ms)
+2026-09-19T00:16:10.2118187Z ✔ Checker - getTypeOfSymbolAtLocation (112.7351ms)
+2026-09-19T00:16:10.3366795Z ▶ Checker - getShorthandAssignmentValueSymbol
+2026-09-19T00:16:10.3371659Z   ✔ shorthand property symbol resolves to variable (126.7989ms)
+2026-09-19T00:16:10.3383568Z ✔ Checker - getShorthandAssignmentValueSymbol (127.0617ms)
+2026-09-19T00:16:10.4731009Z ▶ readFile callback semantics
+2026-09-19T00:16:10.4749582Z   ✔ readFile: string returns content, null blocks fallback, undefined falls through to real FS (131.4306ms)
+2026-09-19T00:16:10.4755440Z ✔ readFile callback semantics (131.6933ms)
+2026-09-19T00:16:10.4821313Z ▶ updateSnapshot file systems
+2026-09-19T00:16:10.4878342Z   ✔ request filesystem factories derive directory listings (2.8586ms)
+2026-09-19T00:16:10.5215479Z   ✔ full file system is total and does not invoke host callbacks (47.8116ms)
+2026-09-19T00:16:11.1941657Z   ✔ full file system with lib resolves the default library (657.8627ms)
+2026-09-19T00:16:11.2306778Z   ✔ full file system accepts paths decoded from VS Code document URIs (52.0369ms)
+2026-09-19T00:16:11.2571495Z   ✔ file system layer bypasses callbacks on hits and falls back on misses (25.1321ms)
+2026-09-19T00:16:11.2841668Z   ✔ file system layer factory preserves host directory entries (26.8742ms)
+2026-09-19T00:16:11.3070329Z   ✔ full file system resolves packages through internal monorepo symlinks (24.7822ms)
+2026-09-19T00:16:11.3365871Z   ✔ full file system resolves relative symlink targets (27.0191ms)
+2026-09-19T00:16:11.3670158Z   ✔ Snapshot.update layers filesystem edits and removals (30.9715ms)
+2026-09-19T00:16:11.4108106Z   ✔ eager snapshot disposal does not retain filesystem history (45.0516ms)
+2026-09-19T00:16:11.4454177Z   ✔ Snapshot.update treats a full filesystem as a total replacement (34.1808ms)
+2026-09-19T00:16:11.4710017Z   ✔ Snapshot.update applies target changes through inherited symlinks (25.7152ms)
+2026-09-19T00:16:11.5001503Z   ✔ full filesystem emit returns outputs without mutating the host (30.0922ms)
+2026-09-19T00:16:11.5305470Z   ✔ filesystem layer emit writes through to the host (29.3526ms)
+2026-09-19T00:16:11.5735461Z   ✔ full file system can link node_modules from the host (43.5132ms)
+2026-09-19T00:16:11.6172894Z   ✔ Snapshot.update host symlinks bypass an inherited full filesystem (36.1051ms)
+2026-09-19T00:16:11.6314535Z ✔ updateSnapshot file systems (1140.7917ms)
+2026-09-19T00:16:11.8169620Z ▶ Checker - isArrayType / isTupleType
+2026-09-19T00:16:11.8173923Z   ✔ number[] is array, not tuple (202.7069ms)
+2026-09-19T00:16:11.9752856Z   ✔ readonly number[] is array (162.4636ms)
+2026-09-19T00:16:12.1689979Z   ✔ Array<number> is array, not tuple (186.9076ms)
+2026-09-19T00:16:12.3343835Z   ✔ [number, string] is tuple, not array (169.9632ms)
+2026-09-19T00:16:12.4527491Z   ✔ readonly [number, string] is tuple, not array (121.2982ms)
+2026-09-19T00:16:12.6083159Z   ✔ string is neither array nor tuple (148.0522ms)
+2026-09-19T00:16:12.6368000Z ✔ Checker - isArrayType / isTupleType (992.1733ms)
+2026-09-19T00:16:12.7979130Z ▶ Checker - isReadonlySymbol
+2026-09-19T00:16:12.7986508Z   ✔ properties with a 'readonly' modifier (197.4705ms)
+2026-09-19T00:16:12.9171210Z   ✔ variables declared with 'const' (118.8784ms)
+2026-09-19T00:16:13.0768744Z   ✔ get accessors without matching set accessors (158.6802ms)
+2026-09-19T00:16:13.0770233Z ✔ Checker - isReadonlySymbol (475.366ms)
+2026-09-19T00:16:13.1975885Z ▶ Checker - getReturnTypeOfSignature
+2026-09-19T00:16:13.1980305Z   ✔ returns the return type of a function signature (115.994ms)
+2026-09-19T00:16:13.2034109Z ✔ Checker - getReturnTypeOfSignature (116.3149ms)
+2026-09-19T00:16:13.3117286Z ▶ Checker - getRestTypeOfSignature
+2026-09-19T00:16:13.3118632Z   ✔ returns the rest type of a signature with rest parameter (116.5012ms)
+2026-09-19T00:16:13.3128822Z ✔ Checker - getRestTypeOfSignature (117.0109ms)
+2026-09-19T00:16:13.4269315Z ▶ Checker - getTypePredicateOfSignature
+2026-09-19T00:16:13.4276193Z   ✔ returns type predicate for 'x is T' guard (116.501ms)
+2026-09-19T00:16:13.5333373Z   ✔ returns type predicate for 'this is T' guard (105.3777ms)
+2026-09-19T00:16:13.6506020Z   ✔ returns type predicate for 'asserts x is T' (116.0401ms)
+2026-09-19T00:16:13.7756767Z   ✔ returns undefined for signature without type predicate (125.6602ms)
+2026-09-19T00:16:13.7761813Z ✔ Checker - getTypePredicateOfSignature (464.0951ms)
+2026-09-19T00:16:13.9243053Z ▶ Checker - getBaseTypes
+2026-09-19T00:16:13.9262419Z   ✔ returns base types of a class (146.8743ms)
+2026-09-19T00:16:14.0834437Z   ✔ returns base types of an interface (152.3136ms)
+2026-09-19T00:16:14.2187487Z   ✔ does not panic for a type alias to a generic interface instantiation (142.7946ms)
+2026-09-19T00:16:14.2188701Z ✔ Checker - getBaseTypes (442.5565ms)
+2026-09-19T00:16:14.3548086Z ▶ Type - getBaseTypes
+2026-09-19T00:16:14.3554127Z   ✔ returns base types for a class type and undefined for a non-class/interface (136.1594ms)
+2026-09-19T00:16:14.3557850Z ✔ Type - getBaseTypes (136.3961ms)
+2026-09-19T00:16:14.5055160Z ▶ Type - isErrorType
+2026-09-19T00:16:14.5082509Z   ✔ identifies the error type from an unresolvable annotation (148.5368ms)
+2026-09-19T00:16:14.5123993Z ✔ Type - isErrorType (148.8679ms)
+2026-09-19T00:16:14.6461329Z ▶ Checker - well-known symbols
+2026-09-19T00:16:14.6468551Z   ✔ isUnknownSymbol identifies the aliased unknown symbol (141.5615ms)
+2026-09-19T00:16:14.6478830Z ✔ Checker - well-known symbols (141.8219ms)
+2026-09-19T00:16:14.7850697Z ▶ Checker - well-known signatures
+2026-09-19T00:16:14.7857612Z   ✔ isUnknownSignature identifies an unresolvable call (138.2437ms)
+2026-09-19T00:16:14.7863710Z ✔ Checker - well-known signatures (138.512ms)
+2026-09-19T00:16:14.9042876Z ▶ Symbol - escaped names and tables
+2026-09-19T00:16:14.9045593Z   ✔ getExports/getMembers return a cached Map keyed by escaped name (120.0499ms)
+2026-09-19T00:16:15.0571117Z   ✔ anonymous type symbol has a __-escaped name, never the \xFE sentinel (150.479ms)
+2026-09-19T00:16:15.2034044Z   ✔ distinguishes a pattern ambient module name from a matching user-provided export name (147.3327ms)
+2026-09-19T00:16:15.2040180Z ✔ Symbol - escaped names and tables (418.396ms)
+2026-09-19T00:16:15.2043554Z ▶ ast - escapeLeadingUnderscores
+2026-09-19T00:16:15.2062862Z   ✔ round-trips display and escaped names (0.2047ms)
+2026-09-19T00:16:15.2086177Z ✔ ast - escapeLeadingUnderscores (0.3178ms)
+2026-09-19T00:16:15.2107632Z ▶ ast - tryGetAmbientModuleNameFromSymbolName
+2026-09-19T00:16:15.2112496Z   ✔ gets ambient module names from escaped symbol names (0.1529ms)
+2026-09-19T00:16:15.2131658Z ✔ ast - tryGetAmbientModuleNameFromSymbolName (0.2463ms)
+2026-09-19T00:16:15.3196594Z ▶ ast - getJSDocTags
+2026-09-19T00:16:15.3198810Z   ✔ returns a node's own tags, and inherited @param / @template tags (116.5037ms)
+2026-09-19T00:16:15.4502343Z   ✔ a function-expression parameter inherits @param tags from the variable statement (126.381ms)
+2026-09-19T00:16:15.6028588Z   ✔ a @type cast tag is owned by its parenthesized expression, not the declaration (155.369ms)
+2026-09-19T00:16:15.6052116Z ✔ ast - getJSDocTags (398.6893ms)
+2026-09-19T00:16:15.7234782Z ▶ Checker - getPropertiesOfType
+2026-09-19T00:16:15.7247769Z   ✔ returns properties of an object type (121.1745ms)
+2026-09-19T00:16:15.7248777Z ✔ Checker - getPropertiesOfType (121.4721ms)
+2026-09-19T00:16:15.8614988Z ▶ Checker - getIndexInfosOfType
+2026-09-19T00:16:15.8620497Z   ✔ returns index signatures of an indexed type (136.6336ms)
+2026-09-19T00:16:15.9911092Z   ✔ readonly index signature reports isReadonly true (130.8035ms)
+2026-09-19T00:16:15.9913634Z ✔ Checker - getIndexInfosOfType (267.7825ms)
+2026-09-19T00:16:16.2135097Z ▶ Checker - TypeScript API parity
+2026-09-19T00:16:16.2139958Z   ✔ exposes interface this types and checker operations (221.8094ms)
+2026-09-19T00:16:16.2146137Z   ✔ uses Strada-compatible JsxEmit values (0.3352ms)
+2026-09-19T00:16:16.2148108Z ✔ Checker - TypeScript API parity (222.3418ms)
+2026-09-19T00:16:16.3526075Z ▶ Checker - getConstraintOfTypeParameter
+2026-09-19T00:16:16.3527618Z   ✔ returns constraint of a type parameter (138.4039ms)
+2026-09-19T00:16:16.3530296Z ✔ Checker - getConstraintOfTypeParameter (138.6877ms)
+2026-09-19T00:16:16.4923105Z ▶ Checker - TypeParameter getters
+2026-09-19T00:16:16.4928135Z   ✔ getConstraint() and getDefault() return the constraint and default types (139.9307ms)
+2026-09-19T00:16:16.6353473Z   ✔ getConstraint() and getDefault() return undefined when there is none (141.717ms)
+2026-09-19T00:16:16.6354620Z ✔ Checker - TypeParameter getters (282.0939ms)
+2026-09-19T00:16:16.7696117Z ▶ Checker - getTypeArguments
+2026-09-19T00:16:16.7698999Z   ✔ returns type arguments of a generic instantiation (133.7512ms)
+2026-09-19T00:16:16.8918691Z   ✔ a wrongly-typed call throws on the client without taking down the server (123.0829ms)
+2026-09-19T00:16:16.8920340Z ✔ Checker - getTypeArguments (257.2366ms)
+2026-09-19T00:16:17.0305974Z ▶ Checker - getBaseConstraintOfType
+2026-09-19T00:16:17.0311559Z   ✔ returns the base constraint of a type parameter (138.7311ms)
+2026-09-19T00:16:17.1743360Z   ✔ returns undefined for a non-instantiable type (143.3868ms)
+2026-09-19T00:16:17.1745957Z ✔ Checker - getBaseConstraintOfType (282.436ms)
+2026-09-19T00:16:17.3258880Z ▶ Checker - getPropertyOfType
+2026-09-19T00:16:17.3259847Z   ✔ returns a named property symbol of a type (149.0547ms)
+2026-09-19T00:16:17.3274244Z ✔ Checker - getPropertyOfType (149.3015ms)
+2026-09-19T00:16:17.4581443Z ▶ Checker - getConstantValue
+2026-09-19T00:16:17.4582429Z   ✔ returns numeric value of an enum member (134.7194ms)
+2026-09-19T00:16:17.5870457Z   ✔ returns infinite numeric enum values without changing equivalent strings (129.1742ms)
+2026-09-19T00:16:17.7231541Z   ✔ returns string value of a string-initialized enum member (135.0802ms)
+2026-09-19T00:16:17.7239091Z ✔ Checker - getConstantValue (399.4819ms)
+2026-09-19T00:16:17.8434576Z ▶ Checker - getSignatureFromDeclaration
+2026-09-19T00:16:17.8438765Z   ✔ returns the signature of a function declaration (119.9294ms)
+2026-09-19T00:16:17.8442018Z ✔ Checker - getSignatureFromDeclaration (120.1809ms)
+2026-09-19T00:16:17.9784540Z ▶ Checker - getExportSpecifierLocalTargetSymbol
+2026-09-19T00:16:17.9789947Z   ✔ resolves the local target of an export specifier (133.9237ms)
+2026-09-19T00:16:17.9794045Z ✔ Checker - getExportSpecifierLocalTargetSymbol (134.285ms)
+2026-09-19T00:16:18.1142429Z ▶ Checker - getAliasedSymbol
+2026-09-19T00:16:18.1147029Z   ✔ resolves an import alias to its target symbol (135.8171ms)
+2026-09-19T00:16:18.1152712Z ✔ Checker - getAliasedSymbol (136.1167ms)
+2026-09-19T00:16:18.2680302Z ▶ Checker - getFullyQualifiedName
+2026-09-19T00:16:18.2683446Z   ✔ returns module-qualified names for exported symbols and dotted names for members (149.9674ms)
+2026-09-19T00:16:18.2686293Z ✔ Checker - getFullyQualifiedName (150.2193ms)
+2026-09-19T00:16:18.3955642Z ▶ Checker - getExportsOfModule
+2026-09-19T00:16:18.3957562Z   ✔ returns all exports including re-exports via 'export *' (132.2889ms)
+2026-09-19T00:16:18.3969975Z ✔ Checker - getExportsOfModule (132.5323ms)
+2026-09-19T00:16:18.5954991Z ▶ Checker - getSymbolsInScope
+2026-09-19T00:16:18.5957320Z   ✔ returns symbols visible at a position (198.8409ms)
+2026-09-19T00:16:18.8351961Z   ✔ returns type symbols when asked for type meaning at a node (239.2235ms)
+2026-09-19T00:16:19.0761604Z   ✔ SymbolFlags.All includes both value and type meanings (238.1148ms)
+2026-09-19T00:16:19.0762818Z ✔ Checker - getSymbolsInScope (676.6865ms)
+2026-09-19T00:16:19.2028418Z ▶ Symbol - getDocumentationComment and getJsDocTags
+2026-09-19T00:16:19.2053265Z   ✔ getDocumentationComment returns the leading comment text (126.7568ms)
+2026-09-19T00:16:19.3344936Z   ✔ getJsDocTags returns structured tag name/text pairs (131.2676ms)
+2026-09-19T00:16:19.3423906Z ✔ Symbol - getDocumentationComment and getJsDocTags (258.374ms)
+2026-09-19T00:16:19.4674753Z ▶ TypeParameter - isThisType
+2026-09-19T00:16:19.4678021Z   ✔ isThisType is true for the polymorphic 'this' type in a class method (135.2486ms)
+2026-09-19T00:16:19.6073391Z   ✔ isThisType is absent for a regular generic type parameter (138.3537ms)
+2026-09-19T00:16:19.6074980Z ✔ TypeParameter - isThisType (274.0259ms)
+2026-09-19T00:16:19.7349136Z ▶ Type - getAliasTypeArguments
+2026-09-19T00:16:19.7351527Z   ✔ returns the type arguments of a single-param generic type alias (126.8969ms)
+2026-09-19T00:16:19.8612425Z   ✔ returns multiple type arguments for a multi-param generic type alias (127.9769ms)
+2026-09-19T00:16:20.0041884Z   ✔ returns empty array for a non-alias generic type (140.8725ms)
+2026-09-19T00:16:20.0044177Z ✔ Type - getAliasTypeArguments (396.2916ms)
+2026-09-19T00:16:20.1484576Z ▶ Type - getAliasSymbol
+2026-09-19T00:16:20.1487903Z   ✔ returns the symbol for a non-generic type alias (146.3281ms)
+2026-09-19T00:16:20.2719936Z   ✔ returns the symbol for a generic type alias (123.5889ms)
+2026-09-19T00:16:20.4068414Z   ✔ returns undefined for a non-alias type (133.132ms)
+2026-09-19T00:16:20.4071261Z ✔ Type - getAliasSymbol (403.4504ms)
+2026-09-19T00:16:20.5578604Z ▶ IntrinsicType - intrinsicName
+2026-09-19T00:16:20.5579930Z   ✔ intrinsicName matches the primitive type name (150.8689ms)
+2026-09-19T00:16:20.5581851Z ✔ IntrinsicType - intrinsicName (151.1352ms)
+2026-09-19T00:16:20.6943447Z ▶ FreshableType - getFreshType and getRegularType
+2026-09-19T00:16:20.6951395Z   ✔ LiteralType.value is empty string for the empty-string literal type (135.2794ms)
+2026-09-19T00:16:20.8276033Z   ✔ LiteralType.value is accessible via the FreshableType hierarchy (135.5633ms)
+2026-09-19T00:16:20.9633913Z   ✔ BigIntLiteralType.value is a bigint (positive and negative) (133.6539ms)
+2026-09-19T00:16:21.1136581Z   ✔ NumberLiteralType.value is infinity (positive and negative) (149.9571ms)
+2026-09-19T00:16:21.2287501Z   ✔ getFreshType() returns a fresh twin with matching value (116.0253ms)
+2026-09-19T00:16:21.3668933Z   ✔ getRegularType() on a fresh literal returns the regular twin (138.8848ms)
+2026-09-19T00:16:21.4916466Z   ✔ getFreshType() and getRegularType() work for computed enum types (TypeFlags.Enum) (114.8492ms)
+2026-09-19T00:16:21.4925531Z ✔ FreshableType - getFreshType and getRegularType (925.034ms)
+2026-09-19T00:16:21.6549956Z ▶ Checker - isContextSensitive
+2026-09-19T00:16:21.6555233Z   ✔ arrow function with no type annotation is context sensitive (170.5168ms)
+2026-09-19T00:16:21.6566330Z ✔ Checker - isContextSensitive (170.8552ms)
+2026-09-19T00:16:21.7723754Z ▶ Checker - isTypeAssignableTo
+2026-09-19T00:16:21.7738771Z   ✔ returns true when source is assignable to target (117.4339ms)
+2026-09-19T00:16:21.8974716Z   ✔ returns false when source is not assignable to target (125.4473ms)
+2026-09-19T00:16:22.0292557Z   ✔ a string literal type is assignable to string but not number (131.8826ms)
+2026-09-19T00:16:22.0297337Z ✔ Checker - isTypeAssignableTo (375.1785ms)
+2026-09-19T00:16:22.0526253Z ▶ Printer
+2026-09-19T00:16:22.0528208Z   ✔ printNode with factory-created keyword type (22.4805ms)
+2026-09-19T00:16:22.1892343Z   ✔ printFile (137.046ms)
+2026-09-19T00:16:22.3288598Z   ✔ printFile preserves JSON source file semantics (139.3184ms)
+2026-09-19T00:16:22.4558146Z   ✔ printNode with factory-created union type (127.5969ms)
+2026-09-19T00:16:22.6689504Z   ✔ printNode with factory-created function type (210.9151ms)
+2026-09-19T00:16:22.8203175Z   ✔ printNode with factory-created type reference (154.5804ms)
+2026-09-19T00:16:22.9374982Z   ✔ printNode with factory-created array type (115.9384ms)
+2026-09-19T00:16:23.1130570Z   ✔ typeToTypeNode + printNode round-trip (175.3868ms)
+2026-09-19T00:16:23.3763268Z   ✔ visitEachChild on typeToTypeNode result with keyword types (263.8284ms)
+2026-09-19T00:16:23.5430493Z   ✔ typeToString (167.3151ms)
+2026-09-19T00:16:23.6914462Z   ✔ typeToString with TypeFormatFlags (138.6367ms)
+2026-09-19T00:16:23.8251588Z   ✔ printNode with terminateUnterminatedLiterals option (141.2722ms)
+2026-09-19T00:16:23.8256870Z ✔ Printer (1795.5963ms)
+2026-09-19T00:16:25.5425723Z ▶ Program - selected file emit
+2026-09-19T00:16:25.6133936Z   ✔ getJavaScriptEmit forces JavaScript and source maps (1613.3681ms)
+2026-09-19T00:16:27.7776757Z   ✔ getDeclarationEmit forces declarations and declaration maps (2339.8846ms)
+2026-09-19T00:16:27.8992472Z   ✔ selected file emit accepts empty arrays (120.5512ms)
+2026-09-19T00:16:27.8998509Z ✔ Program - selected file emit (4074.2913ms)
+2026-09-19T00:16:28.0433078Z ▶ SnapshotInternalAPI - formatNodeForInsertion
+2026-09-19T00:16:28.0506704Z   ✔ formats a synthesized statement with correct indentation for insertion inside a function body (139.8636ms)
+2026-09-19T00:16:28.2065010Z   ✔ formats a node at top-level with no indentation (168.5585ms)
+2026-09-19T00:16:28.3052817Z   ✔ formats a synthesized statement with correct indentation when non-ASCII characters precede the insertion position (98.079ms)
+2026-09-19T00:16:28.3054314Z ✔ SnapshotInternalAPI - formatNodeForInsertion (407.0586ms)
+2026-09-19T00:16:28.4011598Z ▶ modifierFlags
+2026-09-19T00:16:28.4012971Z   ✔ export async function has Export | Async flags (97.9773ms)
+2026-09-19T00:16:28.5001546Z   ✔ node without modifiers has ModifierFlags.None (96.8359ms)
+2026-09-19T00:16:28.5002934Z ✔ modifierFlags (195.1189ms)
+2026-09-19T00:16:28.5915200Z ▶ Checker - getResolvedSymbol
+2026-09-19T00:16:28.5916350Z   ✔ resolves variable reference to its declaration symbol (92.1688ms)
+2026-09-19T00:16:28.5917915Z ✔ Checker - getResolvedSymbol (92.4672ms)
+2026-09-19T00:16:28.6938641Z ▶ VariableDeclarationList - BlockScoped flags
+2026-09-19T00:16:28.6950594Z   ✔ let declaration has Let flag (99.8204ms)
+2026-09-19T00:16:28.7901826Z   ✔ const declaration has Const flag (96.8672ms)
+2026-09-19T00:16:28.7902910Z ✔ VariableDeclarationList - BlockScoped flags (197.1213ms)
+2026-09-19T00:16:28.8977294Z ✔ TypeOperator operator kind (106.1817ms)
+2026-09-19T00:16:28.9946260Z ✔ SpreadAssignment roundtrip (98.4076ms)
+2026-09-19T00:16:29.1047791Z ✔ VariableDeclarationList const flag clone (110.9268ms)
+2026-09-19T00:16:29.2041732Z ✔ JSDoc before ExpressionStatement allowed (98.8127ms)
+2026-09-19T00:16:29.3319459Z ✔ Factory ModifierList auto-conversion (113.3098ms)
+2026-09-19T00:16:36.4569263Z ✔ Parse-clone-emit roundtrip (7138.964ms)
+2026-09-19T00:16:36.5627478Z ▶ Program - diagnostics
+2026-09-19T00:16:36.5645938Z   ✔ getSyntacticDiagnostics (105.369ms)
+2026-09-19T00:16:36.6718991Z   ✔ getSemanticDiagnostics with messageChain and relatedInformation (110.2803ms)
+2026-09-19T00:16:36.7594525Z   ✔ getSuggestionDiagnostics (87.1366ms)
+2026-09-19T00:16:36.8497286Z   ✔ getConfigFileParsingDiagnostics (91.1631ms)
+2026-09-19T00:16:36.9459446Z   ✔ getConfigFileNames and getConfigSourceFile (95.5854ms)
+2026-09-19T00:16:37.0410718Z   ✔ getDeclarationDiagnostics (95.6348ms)
+2026-09-19T00:16:37.1640843Z   ✔ getBindDiagnostics (123.1683ms)
+2026-09-19T00:16:37.2836709Z   ✔ getProgramDiagnostics (119.0153ms)
+2026-09-19T00:16:37.7250096Z   ✔ getGlobalDiagnostics (439.4239ms)
+2026-09-19T00:16:37.7585768Z   ✔ getGlobalDiagnostics returns file-less diagnostics from the checker (36.0423ms)
+2026-09-19T00:16:37.8583335Z   ✔ getSyntacticDiagnostics with multiple files (99.493ms)
+2026-09-19T00:16:37.9643807Z   ✔ getSemanticDiagnostics with multiple files (102.7997ms)
+2026-09-19T00:16:38.0640819Z   ✔ getBindDiagnostics with multiple files (100.6195ms)
+2026-09-19T00:16:38.1711981Z   ✔ diagnostics with no files argument returns all (106.1553ms)
+2026-09-19T00:16:38.2617232Z   ✔ diagnostics with empty files array returns empty (90.737ms)
+2026-09-19T00:16:38.2619303Z ✔ Program - diagnostics (1803.8034ms)
+2026-09-19T00:16:38.3833577Z ▶ getDefaultProjectForFile
+2026-09-19T00:16:38.3834914Z   ✔ finds inferred project for d.ts in node_modules after openFiles (118.2607ms)
+2026-09-19T00:16:38.5012175Z   ✔ inferred project reflects file changes without a follow-up open/close request (122.8718ms)
+2026-09-19T00:16:38.5937770Z   ✔ opens multiple inferred files in one snapshot (92.7732ms)
+2026-09-19T00:16:38.7143664Z   ✔ opening a file resolves to a configured project via ancestor search (118.0763ms)
+2026-09-19T00:16:38.8133285Z   ✔ closeProjects releases a project opened via openProjects (97.0626ms)
+2026-09-19T00:16:38.9392661Z   ✔ closeFiles releases a file opened via openFiles (122.4374ms)
+2026-09-19T00:16:38.9393652Z ✔ getDefaultProjectForFile (672.2198ms)
+2026-09-19T00:16:39.0325467Z ▶ Program - emit
+2026-09-19T00:16:39.0327840Z   ✔ emit all files (100.734ms)
+2026-09-19T00:16:39.1374938Z   ✔ emit only dts (104.7324ms)
+2026-09-19T00:16:39.2384672Z   ✔ emit only js (100.8333ms)
+2026-09-19T00:16:39.3335982Z   ✔ emitToString emits the whole program and respects emitOnly (92.981ms)
+2026-09-19T00:16:39.4337097Z   ✔ whole-program emit includes option-controlled maps (98.7551ms)
+2026-09-19T00:16:39.5280921Z   ✔ noEmitOnError reports diagnostics without writing output (95.2703ms)
+2026-09-19T00:16:39.6296623Z   ✔ emit and emitToString respect noEmit (102.0823ms)
+2026-09-19T00:16:39.7342172Z   ✔ emit rejects unknown files and invalid emitOnly values (105.1347ms)
+2026-09-19T00:16:39.8622847Z   ✔ emit reports async VFS write failures as diagnostics (126.6413ms)
+2026-09-19T00:16:39.8627360Z ✔ Program - emit (928.1828ms)
+2026-09-19T00:16:59.6845411Z ┌─────────┬─────────────────────────────────────────────────────┬──────────────────────┬─────────────────────┬────────────────────────┬────────────────────────┬─────────┐
+2026-09-19T00:16:59.6846957Z │ (index) │ Task name                                           │ Latency avg (ns)     │ Latency med (ns)    │ Throughput avg (ops/s) │ Throughput med (ops/s) │ Samples │
+2026-09-19T00:16:59.6847953Z ├─────────┼─────────────────────────────────────────────────────┼──────────────────────┼─────────────────────┼────────────────────────┼────────────────────────┼─────────┤
+2026-09-19T00:16:59.6848839Z │ 0       │ 'spawn API'                                         │ '51400 ± 0.00%'      │ '51400 ± 0.00'      │ '19455 ± 0.00%'        │ '19455 ± 0'            │ 1       │
+2026-09-19T00:16:59.6849674Z │ 1       │ 'load snapshot'                                     │ '307093900 ± 0.00%'  │ '307093900 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:16:59.6850661Z │ 2       │ 'TS - load project'                                 │ '1554379900 ± 0.00%' │ '1554379900 ± 0.00' │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:16:59.6852286Z │ 3       │ 'transfer debug.ts'                                 │ '5865800 ± 0.00%'    │ '5865800 ± 0.00'    │ '170 ± 0.00%'          │ '170 ± 0'              │ 1       │
+2026-09-19T00:16:59.6853256Z │ 4       │ 'transfer program.ts'                               │ '28986200 ± 0.00%'   │ '28986200 ± 0.00'   │ '34 ± 0.00%'           │ '34 ± 0'               │ 1       │
+2026-09-19T00:16:59.6854133Z │ 5       │ 'transfer checker.ts'                               │ '242945800 ± 0.00%'  │ '242945800 ± 0.00'  │ '4 ± 0.00%'            │ '4 ± 0'                │ 1       │
+2026-09-19T00:16:59.6854992Z │ 6       │ 'materialize program.ts'                            │ '4644700 ± 0.00%'    │ '4644700 ± 0.00'    │ '215 ± 0.00%'          │ '215 ± 0'              │ 1       │
+2026-09-19T00:16:59.6855859Z │ 7       │ 'materialize checker.ts'                            │ '104703800 ± 0.00%'  │ '104703800 ± 0.00'  │ '10 ± 0.00%'           │ '10 ± 0'               │ 1       │
+2026-09-19T00:16:59.6857071Z │ 8       │ 'getSymbolAtPosition - one location'                │ '3190300 ± 0.00%'    │ '3190300 ± 0.00'    │ '313 ± 0.00%'          │ '313 ± 0'              │ 1       │
+2026-09-19T00:16:59.6858056Z │ 9       │ 'TS - getSymbolAtPosition - one location'           │ '1513800 ± 0.00%'    │ '1513800 ± 0.00'    │ '661 ± 0.00%'          │ '661 ± 0'              │ 1       │
+2026-09-19T00:16:59.6859147Z │ 10      │ 'getSymbolAtPosition - 10160 identifiers'           │ '4775899600 ± 0.00%' │ '4775899600 ± 0.00' │ '0 ± 0.00%'            │ '0 ± 0'                │ 1       │
+2026-09-19T00:16:59.6861489Z │ 11      │ 'getSymbolAtPosition - 10160 identifiers (batched)' │ '396758200 ± 0.00%'  │ '396758200 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:16:59.6862948Z │ 12      │ 'getSymbolAtLocation - 10160 identifiers'           │ '4193937800 ± 0.00%' │ '4193937800 ± 0.00' │ '0 ± 0.00%'            │ '0 ± 0'                │ 1       │
+2026-09-19T00:16:59.6863987Z │ 13      │ 'getSymbolAtLocation - 10160 identifiers (batched)' │ '195718400 ± 0.00%'  │ '195718400 ± 0.00'  │ '5 ± 0.00%'            │ '5 ± 0'                │ 1       │
+2026-09-19T00:16:59.6864989Z │ 14      │ 'TS - getSymbolAtLocation - 10160 identifiers'      │ '529440400 ± 0.00%'  │ '529440400 ± 0.00'  │ '2 ± 0.00%'            │ '2 ± 0'                │ 1       │
+2026-09-19T00:16:59.6865939Z └─────────┴─────────────────────────────────────────────────────┴──────────────────────┴─────────────────────┴────────────────────────┴────────────────────────┴─────────┘
+2026-09-19T00:16:59.6917797Z ✔ Benchmarks (19829.2514ms)
+2026-09-19T00:16:59.7751200Z ▶ Timing
+2026-09-19T00:16:59.7752017Z   ✔ collects combined client, server, and transport timing info (85.7253ms)
+2026-09-19T00:16:59.8512229Z   ✔ tracks source-file node materialization (76.4596ms)
+2026-09-19T00:16:59.8685061Z   ✔ is disabled by default (17.4902ms)
+2026-09-19T00:16:59.8686175Z ✔ Timing (180.0366ms)
+2026-09-19T00:16:59.9649047Z ▶ runWithTemporaryFileUpdate
+2026-09-19T00:16:59.9650758Z   ✔ temporary file update is visible in the callback and reverted afterward (95.9871ms)
+2026-09-19T00:17:00.0446671Z   ✔ reconstructs projects omitted from the response diff (79.7487ms)
+2026-09-19T00:17:00.0608774Z   ✔ updates synthetic programs with temporary contents (20.1572ms)
+2026-09-19T00:17:00.0609307Z ✔ runWithTemporaryFileUpdate (196.1747ms)
+2026-09-19T00:17:00.1408364Z   getTokenAtPosition: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1408763Z   getTouchingPropertyName: checked 9772 positions
+2026-09-19T00:17:00.1409394Z   findPrecedingToken: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1410375Z   findNextToken: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1411057Z ▶ astnav
+2026-09-19T00:17:00.1411457Z   ✔ getTokenAtPosition [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1412032Z   ✔ getTouchingPropertyName (220.8482ms)
+2026-09-19T00:17:00.1412655Z   ✔ findPrecedingToken [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1413204Z   ✔ findNextToken [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1414030Z ✔ astnav (1087.9192ms)
+2026-09-19T00:17:00.1414500Z ▶ diagnosticFormatter
+2026-09-19T00:17:00.1415145Z   ✔ formats diagnostics with a configured program host (218.5423ms)
+2026-09-19T00:17:00.1416032Z   ✔ uses the API host for standalone diagnostics (209.5893ms)
+2026-09-19T00:17:00.1416898Z   ✔ uses the API directory and LF defaults for inferred projects (245.4325ms)
+2026-09-19T00:17:00.1417671Z ✔ diagnosticFormatter (675.9342ms)
+2026-09-19T00:17:00.1418109Z ▶ Encoder
+2026-09-19T00:17:00.1418470Z   ✔ encodes empty source file (5.9654ms)
+2026-09-19T00:17:00.1419172Z   ✔ keeps adjacent surrogate string-table entries separate (0.6747ms)
+2026-09-19T00:17:00.1419972Z   ✔ encodes source file with identifier (1.611ms)
+2026-09-19T00:17:00.1420705Z   ✔ encodes if statement with optional else (0.7585ms)
+2026-09-19T00:17:00.1421394Z   ✔ encodes if statement with else (0.6199ms)
+2026-09-19T00:17:00.1422053Z   ✔ encodes function declaration (0.7954ms)
+2026-09-19T00:17:00.1422747Z   ✔ encodes arbitrary node (not source file) (0.3935ms)
+2026-09-19T00:17:00.1423416Z   ✔ protocol version is 8 (0.5282ms)
+2026-09-19T00:17:00.1424289Z   ✔ encodes source files without content mapping metadata (0.8282ms)
+2026-09-19T00:17:00.1425316Z   ✔ boolean properties are encoded (0.4432ms)
+2026-09-19T00:17:00.1425962Z   ✔ postfix unary operator is preserved through encode/decode (0.5939ms)
+2026-09-19T00:17:00.1426697Z   ✔ prefix unary operator is preserved through encode/decode (0.5277ms)
+2026-09-19T00:17:00.1427446Z   ✔ postfix decrement operator is preserved (0.428ms)
+2026-09-19T00:17:00.1428205Z   ✔ single-child node with no children returns undefined (1.1257ms)
+2026-09-19T00:17:00.1429253Z   ✔ NodeList element access is consistent across forward, backward, and random order (3.6278ms)
+2026-09-19T00:17:00.1430155Z ✔ Encoder (22.548ms)
+2026-09-19T00:17:00.1430701Z ▶ UTF-8 vs UTF-16 position encoding
+2026-09-19T00:17:00.1431715Z   ✔ ASCII: text.slice(pos, end) works (0.4772ms)
+2026-09-19T00:17:00.1432398Z   ✔ 2-byte char: text.slice(pos, end) works (1.9319ms)
+2026-09-19T00:17:00.1433303Z   ✔ 4-byte char (supplementary plane): text.slice(pos, end) works (0.1819ms)
+2026-09-19T00:17:00.1434168Z   ✔ multi-byte identifier: text.slice(pos, end) works (0.1376ms)
+2026-09-19T00:17:00.1434729Z ✔ UTF-8 vs UTF-16 position encoding (3.0411ms)
+2026-09-19T00:17:00.1435278Z ▶ Line and character mapping
+2026-09-19T00:17:00.1435780Z   ✔ getLineStarts for empty file (0.4902ms)
+2026-09-19T00:17:00.1436421Z   ✔ getLineStarts for LF-separated lines (0.2213ms)
+2026-09-19T00:17:00.1437078Z   ✔ getLineStarts for CRLF-separated lines (0.2226ms)
+2026-09-19T00:17:00.1437695Z   ✔ getLineStarts is cached (0.2024ms)
+2026-09-19T00:17:00.1438280Z   ✔ getLineAndCharacterOfPosition (0.4263ms)
+2026-09-19T00:17:00.1439048Z   ✔ getLineAndCharacterOfPosition uses UTF-16 code units (0.3584ms)
+2026-09-19T00:17:00.1439881Z   ✔ getPositionOfLineAndCharacter round-trips (0.3453ms)
+2026-09-19T00:17:00.1444420Z   ✔ getPositionOfLineAndCharacter throws for out-of-range line (0.8141ms)
+2026-09-19T00:17:00.1446603Z ✔ Line and character mapping (3.5135ms)
+2026-09-19T00:17:00.1448377Z ✔ scanJsDocToken [REDACTED:assigned_secret] a range ending in a hyphen (3.7913ms)
+2026-09-19T00:17:00.1449905Z ▶ SpanMap
+2026-09-19T00:17:00.1450940Z   ✔ maps virtual positions and ranges to original (3.666ms)
+2026-09-19T00:17:00.1451692Z   ✔ maps aliases with atom geometry (0.426ms)
+2026-09-19T00:17:00.1452367Z   ✔ maps synthesized gaps to insertion points (0.3264ms)
+2026-09-19T00:17:00.1453304Z   ✔ maps original positions and ranges to virtual (1.3256ms)
+2026-09-19T00:17:00.1454919Z   ✔ maps segment endpoints (1.3924ms)
+2026-09-19T00:17:00.1467098Z   ✔ maps zero-length spans at segment ends (0.3859ms)
+2026-09-19T00:17:00.1468763Z   ✔ sorts virtual and original indexes independently (0.3313ms)
+2026-09-19T00:17:00.1469505Z   ✔ an empty map describes fully synthesized output (0.2928ms)
+2026-09-19T00:17:00.1469959Z   ✔ maps duplicate groups by features (0.3939ms)
+2026-09-19T00:17:00.1470604Z   ✔ maps every covering overlapping span (0.9607ms)
+2026-09-19T00:17:00.1471086Z   ✔ finds an early covering segment through the original index (0.4701ms)
+2026-09-19T00:17:00.1471554Z   ✔ falls back from a disabled containing span (0.2887ms)
+2026-09-19T00:17:00.1471994Z   ✔ maps minimal cross-group projections (0.3369ms)
+2026-09-19T00:17:00.1472517Z   ✔ explicit zero features disables original-to-virtual mapping (0.2587ms)
+2026-09-19T00:17:00.1473278Z   ✔ exposes fidelity predicates (0.2687ms)
+2026-09-19T00:17:00.1473875Z ✔ SpanMap (14.8909ms)
+2026-09-19T00:17:00.1474580Z ┌─────────┬─────────────────────────────────────────────────────┬──────────────────────┬─────────────────────┬────────────────────────┬────────────────────────┬─────────┐
+2026-09-19T00:17:00.1475537Z │ (index) │ Task name                                           │ Latency avg (ns)     │ Latency med (ns)    │ Throughput avg (ops/s) │ Throughput med (ops/s) │ Samples │
+2026-09-19T00:17:00.1476518Z ├─────────┼─────────────────────────────────────────────────────┼──────────────────────┼─────────────────────┼────────────────────────┼────────────────────────┼─────────┤
+2026-09-19T00:17:00.1477346Z │ 0       │ 'spawn API'                                         │ '30260800 ± 0.00%'   │ '30260800 ± 0.00'   │ '33 ± 0.00%'           │ '33 ± 0'               │ 1       │
+2026-09-19T00:17:00.1478160Z │ 1       │ 'load snapshot'                                     │ '299559700 ± 0.00%'  │ '299559700 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:17:00.1479003Z │ 2       │ 'TS - load project'                                 │ '1790441000 ± 0.00%' │ '1790441000 ± 0.00' │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:17:00.1479852Z │ 3       │ 'transfer debug.ts'                                 │ '6577100 ± 0.00%'    │ '6577100 ± 0.00'    │ '152 ± 0.00%'          │ '152 ± 0'              │ 1       │
+2026-09-19T00:17:00.1480936Z │ 4       │ 'transfer program.ts'                               │ '18912900 ± 0.00%'   │ '18912900 ± 0.00'   │ '53 ± 0.00%'           │ '53 ± 0'               │ 1       │
+2026-09-19T00:17:00.1481792Z │ 5       │ 'transfer checker.ts'                               │ '312413300 ± 0.00%'  │ '312413300 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:17:00.1482990Z │ 6       │ 'materialize program.ts'                            │ '6484700 ± 0.00%'    │ '6484700 ± 0.00'    │ '154 ± 0.00%'          │ '154 ± 0'              │ 1       │
+2026-09-19T00:17:00.1483892Z │ 7       │ 'materialize checker.ts'                            │ '87715300 ± 0.00%'   │ '87715300 ± 0.00'   │ '11 ± 0.00%'           │ '11 ± 0'               │ 1       │
+2026-09-19T00:17:00.1484788Z │ 8       │ 'getSymbolAtPosition - one location'                │ '473100 ± 0.00%'     │ '473100 ± 0.00'     │ '2114 ± 0.00%'         │ '2114 ± 0'             │ 1       │
+2026-09-19T00:17:00.1485881Z │ 9       │ 'TS - getSymbolAtPosition - one location'           │ '1849500 ± 0.00%'    │ '1849500 ± 0.00'    │ '541 ± 0.00%'          │ '541 ± 0'              │ 1       │
+2026-09-19T00:17:00.1486886Z │ 10      │ 'getSymbolAtPosition - 10160 identifiers'           │ '588445200 ± 0.00%'  │ '588445200 ± 0.00'  │ '2 ± 0.00%'            │ '2 ± 0'                │ 1       │
+2026-09-19T00:17:00.1487865Z │ 11      │ 'getSymbolAtPosition - 10160 identifiers (batched)' │ '501506100 ± 0.00%'  │ '501506100 ± 0.00'  │ '2 ± 0.00%'            │ '2 ± 0'                │ 1       │
+2026-09-19T00:17:00.1488834Z │ 12      │ 'getSymbolAtLocation - 10160 identifiers'           │ '516987400 ± 0.00%'  │ '516987400 ± 0.00'  │ '2 ± 0.00%'            │ '2 ± 0'                │ 1       │
+2026-09-19T00:17:00.1489809Z │ 13      │ 'getSymbolAtLocation - 10160 identifiers (batched)' │ '313122200 ± 0.00%'  │ '313122200 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:17:00.1490819Z │ 14      │ 'TS - getSymbolAtLocation - 10160 identifiers'      │ '807068700 ± 0.00%'  │ '807068700 ± 0.00'  │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:17:00.1491750Z └─────────┴─────────────────────────────────────────────────────┴──────────────────────┴─────────────────────┴────────────────────────┴────────────────────────┴─────────┘
+2026-09-19T00:17:00.1492280Z ▶ API - generator batching
+2026-09-19T00:17:00.1492578Z   ✔ batches source file requests (50.1506ms)
+2026-09-19T00:17:00.1493067Z   ✔ all and defer yield discriminated host messages without starting children (0.6611ms)
+2026-09-19T00:17:00.1493581Z   ✔ all preserves generator protocol behavior (0.9715ms)
+2026-09-19T00:17:00.1493986Z   ✔ defer preserves generator protocol behavior (0.7781ms)
+2026-09-19T00:17:00.1494393Z   ✔ retains deferred branding after completion (0.6804ms)
+2026-09-19T00:17:00.1494897Z   ✔ joins nested, empty, and synchronously completed groups in result order (0.7865ms)
+2026-09-19T00:17:00.1495614Z   ✔ preserves tuple results through all and any generator types (0.5334ms)
+2026-09-19T00:17:00.1496138Z   ✔ preserves sibling order across repeated nested joins (0.6069ms)
+2026-09-19T00:17:00.1496632Z   ✔ preserves root all ordering with successful deferred work (0.78ms)
+2026-09-19T00:17:00.1497124Z   ✔ preserves root all ordering with failing deferred work (0.4645ms)
+2026-09-19T00:17:00.1497720Z   ✔ preserves singleton join continuations through requests, errors, and deferred work (0.6114ms)
+2026-09-19T00:17:00.1498807Z   ✔ finishes joined foreground cleanup before deferred request errors (0.4726ms)
+2026-09-19T00:17:00.1500982Z   ✔ completes root all helpers before detached work finishes (0.3627ms)
+2026-09-19T00:17:00.1502134Z   ✔ throws nested all failures into the waiting parent (0.3784ms)
+2026-09-19T00:17:00.1502724Z   ✔ cancels failed join siblings but finishes detached and unrelated work (0.4317ms)
+2026-09-19T00:17:00.1503919Z   ✔ catches synchronous join failures including undefined (0.3008ms)
+2026-09-19T00:17:00.1505015Z   ✔ does not route synchronous deferred failures through a waiting join (0.419ms)
+2026-09-19T00:17:00.1506066Z   ✔ rejects generator reuse across joins and deferred work (0.376ms)
+2026-09-19T00:17:00.1507021Z   ✔ rejects completed generator reuse after a join finishes (0.454ms)
+2026-09-19T00:17:00.1507959Z   ✔ tracks all identity independently across executors (0.4364ms)
+2026-09-19T00:17:00.1508842Z   ✔ deduplicates initialization across nested joins (0.3906ms)
+2026-09-19T00:17:00.1509625Z   ✔ composes request generators with all (43.3643ms)
+2026-09-19T00:17:00.1510325Z   ✔ throws request errors into generators (28.0295ms)
+2026-09-19T00:17:00.1511029Z   ✔ lazily caches generator-enabled methods (29.212ms)
+2026-09-19T00:17:00.1511842Z   ✔ advances generators through multiple request rounds (41.5567ms)
+2026-09-19T00:17:00.1512654Z   ✔ transparently paginates batch responses (39.5251ms)
+2026-09-19T00:17:00.1513216Z   ✔ transparently paginates responses at the default batch size limit (4131.4214ms)
+2026-09-19T00:17:00.1515343Z   ✔ executes deferred generators without returning their results (68.1344ms)
+2026-09-19T00:17:00.1515929Z   ✔ waits for deferred work spawned after a request (58.0096ms)
+2026-09-19T00:17:00.1516393Z   ✔ does not block on deferred work from a nested all (38.5318ms)
+2026-09-19T00:17:00.1516825Z   ✔ omits deferred results in any batch position (48.95ms)
+2026-09-19T00:17:00.1517252Z   ✔ throws request errors into deferred generators (53.0433ms)
+2026-09-19T00:17:00.1517778Z   ✔ batch execution deduplicates only initialize requests within a round (0.3319ms)
+2026-09-19T00:17:00.1518275Z   ✔ does not execute an empty request round (0.1949ms)
+2026-09-19T00:17:00.1518703Z   ✔ maps deduplicated responses back into request groups (0.3538ms)
+2026-09-19T00:17:00.1519226Z   ✔ isolates handled errors from other generators in the same round (0.3183ms)
+2026-09-19T00:17:00.1519688Z   ✔ executes recursively deferred generators (0.364ms)
+2026-09-19T00:17:00.1520141Z   ✔ surfaces deferred errors after the parent completes (0.5623ms)
+2026-09-19T00:17:00.1520596Z   ✔ appends deferred work after the parent request (0.333ms)
+2026-09-19T00:17:00.1520992Z   ✔ rejects repeated generator instances (0.2713ms)
+2026-09-19T00:17:00.1521413Z   ✔ yields source file metadata requests on cache misses (159.6097ms)
+2026-09-19T00:17:00.1521882Z   ✔ uses generators attached to sync API methods (209.7602ms)
+2026-09-19T00:17:00.1522392Z   ✔ keeps every publicly reachable generator-backed method in sync (1806.3435ms)
+2026-09-19T00:17:00.1522850Z ✔ API - generator batching (6824.1096ms)
+2026-09-19T00:17:00.1523597Z ✔ Generator benchmarks (13993.7539ms)
+2026-09-19T00:17:00.1524250Z ┌─────────┬─────────────────────────────────────────────────────┬──────────────────────┬─────────────────────┬────────────────────────┬────────────────────────┬─────────┐
+2026-09-19T00:17:00.1525148Z │ (index) │ Task name                                           │ Latency avg (ns)     │ Latency med (ns)    │ Throughput avg (ops/s) │ Throughput med (ops/s) │ Samples │
+2026-09-19T00:17:00.1526282Z ├─────────┼─────────────────────────────────────────────────────┼──────────────────────┼─────────────────────┼────────────────────────┼────────────────────────┼─────────┤
+2026-09-19T00:17:00.1527107Z │ 0       │ 'spawn API'                                         │ '29233300 ± 0.00%'   │ '29233300 ± 0.00'   │ '34 ± 0.00%'           │ '34 ± 0'               │ 1       │
+2026-09-19T00:17:00.1527934Z │ 1       │ 'load snapshot'                                     │ '414655400 ± 0.00%'  │ '414655400 ± 0.00'  │ '2 ± 0.00%'            │ '2 ± 0'                │ 1       │
+2026-09-19T00:17:00.1528768Z │ 2       │ 'TS - load project'                                 │ '1679482600 ± 0.00%' │ '1679482600 ± 0.00' │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:17:00.1529620Z │ 3       │ 'transfer debug.ts'                                 │ '2181600 ± 0.00%'    │ '2181600 ± 0.00'    │ '458 ± 0.00%'          │ '458 ± 0'              │ 1       │
+2026-09-19T00:17:00.1530595Z │ 4       │ 'transfer program.ts'                               │ '6220400 ± 0.00%'    │ '6220400 ± 0.00'    │ '161 ± 0.00%'          │ '161 ± 0'              │ 1       │
+2026-09-19T00:17:00.1531450Z │ 5       │ 'transfer checker.ts'                               │ '59857900 ± 0.00%'   │ '59857900 ± 0.00'   │ '17 ± 0.00%'           │ '17 ± 0'               │ 1       │
+2026-09-19T00:17:00.1532303Z │ 6       │ 'materialize program.ts'                            │ '4338600 ± 0.00%'    │ '4338600 ± 0.00'    │ '230 ± 0.00%'          │ '230 ± 0'              │ 1       │
+2026-09-19T00:17:00.1533158Z │ 7       │ 'materialize checker.ts'                            │ '79616200 ± 0.00%'   │ '79616200 ± 0.00'   │ '13 ± 0.00%'           │ '13 ± 0'               │ 1       │
+2026-09-19T00:17:00.1534049Z │ 8       │ 'getSymbolAtPosition - one location'                │ '391600 ± 0.00%'     │ '391600 ± 0.00'     │ '2554 ± 0.00%'         │ '2554 ± 0'             │ 1       │
+2026-09-19T00:17:00.1535006Z │ 9       │ 'TS - getSymbolAtPosition - one location'           │ '1587000 ± 0.00%'    │ '1587000 ± 0.00'    │ '630 ± 0.00%'          │ '630 ± 0'              │ 1       │
+2026-09-19T00:17:00.1535955Z │ 10      │ 'getSymbolAtPosition - 10160 identifiers'           │ '1930683600 ± 0.00%' │ '1930683600 ± 0.00' │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:17:00.1536935Z │ 11      │ 'getSymbolAtPosition - 10160 identifiers (batched)' │ '369205900 ± 0.00%'  │ '369205900 ± 0.00'  │ '3 ± 0.00%'            │ '3 ± 0'                │ 1       │
+2026-09-19T00:17:00.1537916Z │ 12      │ 'getSymbolAtLocation - 10160 identifiers'           │ '2037658300 ± 0.00%' │ '2037658300 ± 0.00' │ '0 ± 0.00%'            │ '0 ± 0'                │ 1       │
+2026-09-19T00:17:00.1538887Z │ 13      │ 'getSymbolAtLocation - 10160 identifiers (batched)' │ '224492200 ± 0.00%'  │ '224492200 ± 0.00'  │ '4 ± 0.00%'            │ '4 ± 0'                │ 1       │
+2026-09-19T00:17:00.1539979Z │ 14      │ 'TS - getSymbolAtLocation - 10160 identifiers'      │ '712134400 ± 0.00%'  │ '712134400 ± 0.00'  │ '1 ± 0.00%'            │ '1 ± 0'                │ 1       │
+2026-09-19T00:17:00.1540918Z └─────────┴─────────────────────────────────────────────────────┴──────────────────────┴─────────────────────┴────────────────────────┴────────────────────────┴─────────┘
+2026-09-19T00:17:00.1541673Z ▶ API
+2026-09-19T00:17:00.1542250Z   ✔ getCurrentLanguageServerSnapshot is LSP-only (3.5398ms)
+2026-09-19T00:17:00.1542855Z   ✔ initializes once for concurrent first requests (44.515ms)
+2026-09-19T00:17:00.1543838Z   ✔ disposes (40.8374ms)
+2026-09-19T00:17:00.1544341Z   ✔ parseCommandLine (31.0481ms)
+2026-09-19T00:17:00.1544995Z   ✔ parseCommandLine reports diagnostics (30.0266ms)
+2026-09-19T00:17:00.1545647Z   ✔ readConfigFile (34.7383ms)
+2026-09-19T00:17:00.1546055Z   ✔ readConfigFile reports read and parse errors (27.5883ms)
+2026-09-19T00:17:00.1546711Z   ✔ parseJsonConfigFileContent with configDirectory (30.5631ms)
+2026-09-19T00:17:00.1547358Z   ✔ parseJsonConfigFileContent accepts non-object JSON (37.8906ms)
+2026-09-19T00:17:00.1547858Z   ✔ parseJsonConfigFileContent with configFileName (48.007ms)
+2026-09-19T00:17:00.1548326Z   ✔ parseJsonConfigFileContent preserves raw config (37.5815ms)
+2026-09-19T00:17:00.1548820Z   ✔ parseJsonConfigFileContent preserves an empty files list (38.8302ms)
+2026-09-19T00:17:00.1549340Z   ✔ parseJsonConfigFileContent reports null array elements (33.852ms)
+2026-09-19T00:17:00.1549729Z   ✔ transpile (35.2158ms)
+2026-09-19T00:17:00.1549991Z   ✔ createSourceFile (38.8224ms)
+2026-09-19T00:17:00.1550374Z   ✔ createSourceFile can be used with a compatible program (123.9304ms)
+2026-09-19T00:17:00.1550791Z   ✔ createSourceFileFromFile (33.1634ms)
+2026-09-19T00:17:00.1551087Z   ✔ createProgram (30.936ms)
+2026-09-19T00:17:00.1551457Z   ✔ createSnapshot creates independent synthetic programs (28.0009ms)
+2026-09-19T00:17:00.1551941Z   ✔ snapshot.update reconfigures a synthetic program (47.0833ms)
+2026-09-19T00:17:00.1552439Z   ✔ snapshot.update reconfigures module resolution providers (41.6223ms)
+2026-09-19T00:17:00.1552962Z   ✔ module resolver runs against snapshots or the host filesystem (51.052ms)
+2026-09-19T00:17:00.1553496Z   ✔ module resolver callbacks can delegate to another resolver (31.6863ms)
+2026-09-19T00:17:00.1554103Z   ✔ module resolver callbacks can resolve against the in-progress snapshot filesystem (39.7766ms)
+2026-09-19T00:17:00.1554723Z   ✔ program module resolution uses the resolver compiler options (45.2619ms)
+2026-09-19T00:17:00.1555305Z   ✔ module resolver callbacks preserve retained and live filesystem context (39.3615ms)
+2026-09-19T00:17:00.1555946Z   ✔ provided resolutions do not report native resolution provenance diagnostics (27.2388ms)
+2026-09-19T00:17:00.1556515Z   ✔ Program resolved modules and type reference directives (36.2995ms)
+2026-09-19T00:17:00.1557073Z   ✔ createProgram ignores an on-disk tsconfig (44.8884ms)
+2026-09-19T00:17:00.1557496Z   ✔ createProgram includes project references (31.842ms)
+2026-09-19T00:17:00.1557941Z   ✔ createProgram includes config file parsing diagnostics (30.5571ms)
+2026-09-19T00:17:00.1558437Z   ✔ createProgram discovers imported non-root dependencies (27.4325ms)
+2026-09-19T00:17:00.1558831Z   ✔ parseConfigFile (58.999ms)
+2026-09-19T00:17:00.1559177Z   ✔ parseConfigFile includes projectReferences (31.7926ms)
+2026-09-19T00:17:00.1559572Z   ✔ parseConfigFile preserves raw config (28.669ms)
+2026-09-19T00:17:00.1559956Z   ✔ parseConfigFile includes compileOnSave (33.6897ms)
+2026-09-19T00:17:00.1560347Z   ✔ parseConfigFile includes typeAcquisition (28.1807ms)
+2026-09-19T00:17:00.1560691Z ✔ API (1409.4908ms)
+2026-09-19T00:17:00.1560951Z ▶ Checker - getImmediateAliasedSymbol
+2026-09-19T00:17:00.1561306Z   ✔ resolves one level of alias indirection (132.3621ms)
+2026-09-19T00:17:00.1561742Z ✔ Checker - getImmediateAliasedSymbol (132.5567ms)
+2026-09-19T00:17:00.1562346Z ▶ Checker - getTargetSymbol
+2026-09-19T00:17:00.1562780Z   ✔ gets the target symbol of instantiated symbol (144.6585ms)
+2026-09-19T00:17:00.1563675Z ✔ Checker - getTargetSymbol (144.8238ms)
+2026-09-19T00:17:00.1564025Z ▶ Snapshot
+2026-09-19T00:17:00.1564331Z   ✔ createSnapshot returns snapshot with projects (112.4236ms)
+2026-09-19T00:17:00.1564735Z   ✔ project exposes parsedCommandLine (137.8438ms)
+2026-09-19T00:17:00.1565076Z   ✔ getSymbolAtPosition (119.8243ms)
+2026-09-19T00:17:00.1565372Z   ✔ getSymbolAtLocation (116.516ms)
+2026-09-19T00:17:00.1565666Z   ✔ getSymbolOfSourceFile (113.9717ms)
+2026-09-19T00:17:00.1566099Z   ✔ getSymbolOfSourceFile returns undefined for a non-module file (141.8894ms)
+2026-09-19T00:17:00.1566560Z   ✔ getSymbolOfSourceFile batched (127.9908ms)
+2026-09-19T00:17:00.1566875Z   ✔ getTypeOfSymbol (119.9258ms)
+2026-09-19T00:17:00.1567169Z   ✔ getNonMissingTypeOfSymbol (204.6303ms)
+2026-09-19T00:17:00.1567457Z ✔ Snapshot (1195.8417ms)
+2026-09-19T00:17:00.1567708Z ▶ LanguageService - imports
+2026-09-19T00:17:00.1568202Z   ✔ getImportEditsForSymbols adds a named import (203.0369ms)
+2026-09-19T00:17:00.1568720Z   ✔ getImportAdderEdits coalesces multiple importSymbol actions (171.3247ms)
+2026-09-19T00:17:00.1569219Z   ✔ getImportAdderEdits adds to an existing import (176.2519ms)
+2026-09-19T00:17:00.1569730Z   ✔ getImportAdderEdits returns no edits for non-exported symbols (195.4599ms)
+2026-09-19T00:17:00.1570225Z   ✔ getImportAdderEdits rejects invalid actions (202.3359ms)
+2026-09-19T00:17:00.1570591Z ✔ LanguageService - imports (948.9681ms)
+2026-09-19T00:17:00.1570915Z ▶ LanguageService - getCompletionsAtPosition
+2026-09-19T00:17:00.1571279Z   ✔ returns member completions after a dot (156.8146ms)
+2026-09-19T00:17:00.1571656Z   ✔ completion entries include sortText (198.7887ms)
+2026-09-19T00:17:00.1572038Z   ✔ returns undefined for a non-existent file (213.7193ms)
+2026-09-19T00:17:00.1572516Z   ✔ includeSymbol: true populates symbol on property completions (188.9398ms)
+2026-09-19T00:17:00.1573023Z ✔ LanguageService - getCompletionsAtPosition (758.6534ms)
+2026-09-19T00:17:00.1573423Z ▶ LanguageService - getReferencedSymbolsForNode
+2026-09-19T00:17:00.1573775Z   ✔ getReferencedSymbolsForNode (302.0266ms)
+2026-09-19T00:17:00.1574159Z ✔ LanguageService - getReferencedSymbolsForNode (302.1875ms)
+2026-09-19T00:17:00.1574532Z ▶ LanguageService - getSignatureUsage
+2026-09-19T00:17:00.1574832Z   ✔ getSignatureUsage (197.3118ms)
+2026-09-19T00:17:00.1575144Z ✔ LanguageService - getSignatureUsage (197.48ms)
+2026-09-19T00:17:00.1575505Z ▶ Checker - getApparentType
+2026-09-19T00:17:00.1575828Z   ✔ returns the apparent type of a literal type (154.6518ms)
+2026-09-19T00:17:00.1576188Z ✔ Checker - getApparentType (154.8425ms)
+2026-09-19T00:17:00.1576471Z ▶ Checker - getReducedType
+2026-09-19T00:17:00.1576738Z   ✔ returns the reduced type (124.0209ms)
+2026-09-19T00:17:00.1577040Z ✔ Checker - getReducedType (124.2361ms)
+2026-09-19T00:17:00.1577452Z ▶ Checker - getMemberInModuleExports
+2026-09-19T00:17:00.1577790Z   ✔ returns a named export when present (131.7573ms)
+2026-09-19T00:17:00.1578157Z ✔ Checker - getMemberInModuleExports (131.9345ms)
+2026-09-19T00:17:00.1578458Z ▶ SourceFile
+2026-09-19T00:17:00.1578769Z   ✔ getSourceFile rejects invalid document identifiers (132.055ms)
+2026-09-19T00:17:00.1579291Z   ✔ getSourceFileNames returns all program files, not just root files (40.6636ms)
+2026-09-19T00:17:00.1579910Z   ✔ source file metadata identifies external library and default library files (177.4962ms)
+2026-09-19T00:17:00.1581001Z   ✔ source file metadata reports implied node format (160.1684ms)
+2026-09-19T00:17:00.1581670Z   ✔ file properties (143.6299ms)
+2026-09-19T00:17:00.1582185Z   ✔ extended data (166.0485ms)
+2026-09-19T00:17:00.1582882Z   ✔ forEachChild with visitList does not visit array children twice (129.6531ms)
+2026-09-19T00:17:00.1583470Z ✔ SourceFile (950.58ms)
+2026-09-19T00:17:00.1584205Z ▶ NodeArray
+2026-09-19T00:17:00.1584655Z   ✔ hasTrailingComma (147.453ms)
+2026-09-19T00:17:00.1585127Z ✔ NodeArray (147.6135ms)
+2026-09-19T00:17:00.1585610Z ✔ unicode escapes (147.8561ms)
+2026-09-19T00:17:00.1586053Z ✔ template unicode escapes (131.8903ms)
+2026-09-19T00:17:00.1586609Z ✔ Object equality (297.7971ms)
+2026-09-19T00:17:00.1587148Z ✔ Snapshot dispose (130.5293ms)
+2026-09-19T00:17:00.1587635Z ▶ Multiple snapshots
+2026-09-19T00:17:00.1588163Z   ✔ two snapshots work independently (265.1047ms)
+2026-09-19T00:17:00.1588937Z   ✔ each snapshot has its own server-side lifecycle (432.1689ms)
+2026-09-19T00:17:00.1589897Z   ✔ adding a new file is reflected in the next snapshot (299.3846ms)
+2026-09-19T00:17:00.1590822Z   ✔ multiple sequential edits produce correct snapshots (320.6495ms)
+2026-09-19T00:17:00.1592030Z   ✔ snapshot.update derives from its receiver and reconstructs unchanged projects (218.3833ms)
+2026-09-19T00:17:00.1593245Z   ✔ snapshot.update preserves stable project ordering (210.6677ms)
+2026-09-19T00:17:00.1594224Z   ✔ snapshot.update ensures all dirty programs (162.7455ms)
+2026-09-19T00:17:00.1595170Z ✔ Multiple snapshots (1909.7159ms)
+2026-09-19T00:17:00.1595746Z ▶ Source file caching
+2026-09-19T00:17:00.1596414Z   ✔ same file from same snapshot returns cached object (164.1265ms)
+2026-09-19T00:17:00.1597311Z   ✔ same file from two snapshots (same content) returns cached object (286.6894ms)
+2026-09-19T00:17:00.1599177Z   ✔ modified file returns a different source file object (167.686ms)
+2026-09-19T00:17:00.1600226Z   ✔ unmodified file retains cached object across file change notification (286.6047ms)
+2026-09-19T00:17:00.1604840Z   ✔ disposing the source snapshot releases its cache entries (247.0122ms)
+2026-09-19T00:17:00.1606143Z   ✔ invalidateAll causes all files to be re-fetched (166.7959ms)
+2026-09-19T00:17:00.1607210Z   ✔ node handles from a cached source file should be valid in a new snapshot (219.0996ms)
+2026-09-19T00:17:00.1608129Z ✔ Source file caching (1538.7193ms)
+2026-09-19T00:17:00.1608674Z ▶ Snapshot disposal
+2026-09-19T00:17:00.1609154Z   ✔ dispose is idempotent (139.9209ms)
+2026-09-19T00:17:00.1609882Z   ✔ api.close waits for disposal started by using (278.5739ms)
+2026-09-19T00:17:00.1610701Z   ✔ api.close disposes all active snapshots (162.7067ms)
+2026-09-19T00:17:00.1611368Z ✔ Snapshot disposal (581.4986ms)
+2026-09-19T00:17:00.1611929Z ▶ Source file cache keying across projects
+2026-09-19T00:17:00.1612908Z   ✔ different parse modes produce separate cached objects; same parse modes share (208.2883ms)
+2026-09-19T00:17:00.1614024Z ✔ Source file cache keying across projects (208.4434ms)
+2026-09-19T00:17:00.1614734Z ▶ Checker - symbol identity across projects
+2026-09-19T00:17:00.1615657Z   ✔ getSymbolAtPosition returns same Symbol instance across projects (152.4024ms)
+2026-09-19T00:17:00.1616736Z   ✔ overlapping synthetic programs share Symbol instances (30.7401ms)
+2026-09-19T00:17:00.1617613Z ✔ Checker - symbol identity across projects (183.3581ms)
+2026-09-19T00:17:00.1618586Z ▶ Checker - types and signatures
+2026-09-19T00:17:00.1619128Z   ✔ getTypeAtPosition (141.3884ms)
+2026-09-19T00:17:00.1620019Z   ✔ getTypeAtPosition batched (139.798ms)
+2026-09-19T00:17:00.1620624Z   ✔ getTypeAtLocation (234.4665ms)
+2026-09-19T00:17:00.1621659Z   ✔ getTypeAtLocation returns property type for parenthesized and chained access (issue #3938) (153.401ms)
+2026-09-19T00:17:00.1623095Z   ✔ getTypeAtLocation returns call result type for private method call (issue #4041) (189.1209ms)
+2026-09-19T00:17:00.1624154Z   ✔ getSignaturesOfType - call signatures (173.9493ms)
+2026-09-19T00:17:00.1625066Z   ✔ getApparentProperties includes CallableFunction members (153.8759ms)
+2026-09-19T00:17:00.1626039Z   ✔ checker and object methods share cached results (185.4232ms)
+2026-09-19T00:17:00.1626954Z   ✔ getSignaturesOfType - construct signatures (159.8085ms)
+2026-09-19T00:17:00.1627696Z   ✔ Signature declaration can be resolved (198.7821ms)
+2026-09-19T00:17:00.1628460Z   ✔ getSignaturesOfType - signature type parameters (174.6908ms)
+2026-09-19T00:17:00.1629471Z   ✔ Signature.getParameters() returns parameter symbols with correct names (205.0734ms)
+2026-09-19T00:17:00.1630665Z   ✔ Signature.getThisParameter() returns undefined when no explicit this parameter (202.628ms)
+2026-09-19T00:17:00.1631706Z   ✔ Signature.getThisParameter() returns symbol for explicit this parameter (184.2687ms)
+2026-09-19T00:17:00.1632349Z   ✔ Signature.getTarget() returns undefined for a non-instantiated signature (136.0819ms)
+2026-09-19T00:17:00.1633356Z   ✔ Signature.getTarget() returns the generic source signature for an instantiated call (132.4356ms)
+2026-09-19T00:17:00.1633900Z ✔ Checker - types and signatures (2766.5088ms)
+2026-09-19T00:17:00.1634230Z ▶ Symbol - parent, members, exports
+2026-09-19T00:17:00.1634545Z   ✔ getMembers returns class members (270.0269ms)
+2026-09-19T00:17:00.1634986Z   ✔ getExports returns module exports via sourceFile symbol (189.3035ms)
+2026-09-19T00:17:00.1635434Z   ✔ getParent returns containing symbol (139.1793ms)
+2026-09-19T00:17:00.1635806Z   ✔ checkFlags is typed as CheckFlags (192.7436ms)
+2026-09-19T00:17:00.1636353Z ✔ Symbol - parent, members, exports (791.6415ms)
+2026-09-19T00:17:00.1636684Z ▶ Type - getSymbol
+2026-09-19T00:17:00.1636973Z   ✔ getSymbol returns the symbol of a type (127.5701ms)
+2026-09-19T00:17:00.1637308Z ✔ Type - getSymbol (127.7084ms)
+2026-09-19T00:17:00.1637583Z ▶ Type - sub-property fetchers
+2026-09-19T00:17:00.1637972Z   ✔ TypeReference.getTarget() returns the generic target (309.2723ms)
+2026-09-19T00:17:00.1638496Z   ✔ UnionOrIntersectionType.getTypes() returns union members (144.2066ms)
+2026-09-19T00:17:00.1639068Z   ✔ UnionOrIntersectionType.getTypes() returns intersection members (141.9553ms)
+2026-09-19T00:17:00.1640062Z   ✔ UnionOrIntersectionType.getTypes() on a wrongly-cast type returns undefined without hitting the server (135.0328ms)
+2026-09-19T00:17:00.1640912Z   ✔ IndexType.getTarget() returns the target type (197.1715ms)
+2026-09-19T00:17:00.1641440Z   ✔ IndexedAccessType.getObjectType() and getIndexType() (254.5702ms)
+2026-09-19T00:17:00.1641954Z   ✔ ConditionalType.getCheckType() and getExtendsType() (192.4582ms)
+2026-09-19T00:17:00.1642438Z   ✔ ConditionalType.getTrueType() and getFalseType() (118.111ms)
+2026-09-19T00:17:00.1642883Z   ✔ TemplateLiteralType.texts and getTypes() (133.4416ms)
+2026-09-19T00:17:00.1643339Z   ✔ StringMappingType.getTarget() returns the mapped type (179.8197ms)
+2026-09-19T00:17:00.1643784Z   ✔ tuple metadata is owned by tuple targets (195.3033ms)
+2026-09-19T00:17:00.1644202Z   ✔ tuple targets expose labeled element declarations (201.3094ms)
+2026-09-19T00:17:00.1644602Z ✔ Type - sub-property fetchers (2203.6101ms)
+2026-09-19T00:17:00.1644913Z ▶ Checker - intrinsic type getters
+2026-09-19T00:17:00.1645242Z   ✔ getAnyType returns a type with Any flag (125.7633ms)
+2026-09-19T00:17:00.1645649Z   ✔ getStringType returns a type with String flag (131.4953ms)
+2026-09-19T00:17:00.1646082Z   ✔ getNumberType returns a type with Number flag (232.2452ms)
+2026-09-19T00:17:00.1646660Z   ✔ getBooleanType returns a type with Boolean flag (180.8952ms)
+2026-09-19T00:17:00.1647080Z   ✔ getVoidType returns a type with Void flag (150.4958ms)
+2026-09-19T00:17:00.1647518Z   ✔ getUndefinedType returns a type with Undefined flag (154.4252ms)
+2026-09-19T00:17:00.1647957Z   ✔ getNullType returns a type with Null flag (131.9481ms)
+2026-09-19T00:17:00.1648353Z   ✔ getNeverType returns a type with Never flag (155.6629ms)
+2026-09-19T00:17:00.1648775Z   ✔ getUnknownType returns a type with Unknown flag (155.4496ms)
+2026-09-19T00:17:00.1649210Z   ✔ getBigIntType returns a type with BigInt flag (137.9291ms)
+2026-09-19T00:17:00.1649652Z   ✔ getESSymbolType returns a type with ESSymbol flag (122.1608ms)
+2026-09-19T00:17:00.1650150Z   ✔ getNonPrimitiveType returns a type with NonPrimitive flag (156.1327ms)
+2026-09-19T00:17:00.1650599Z ✔ Checker - intrinsic type getters (1835.6204ms)
+2026-09-19T00:17:00.1650934Z ▶ Checker - multi-project type ID uniqueness
+2026-09-19T00:17:00.1651434Z   ✔ intrinsic types from 3 projects in the same snapshot have non-colliding IDs (152.1887ms)
+2026-09-19T00:17:00.1652120Z   ✔ symbol and signature handles from 3 projects in the same snapshot have non-colliding IDs (152.3417ms)
+2026-09-19T00:17:00.1652685Z ✔ Checker - multi-project type ID uniqueness (304.7422ms)
+2026-09-19T00:17:00.1653039Z ▶ Checker - getBaseTypeOfLiteralType
+2026-09-19T00:17:00.1653349Z   ✔ number literal widens to number (107.7115ms)
+2026-09-19T00:17:00.1653677Z   ✔ string literal widens to string (113.7938ms)
+2026-09-19T00:17:00.1654016Z ✔ Checker - getBaseTypeOfLiteralType (221.705ms)
+2026-09-19T00:17:00.1654334Z ▶ Checker - getContextualType
+2026-09-19T00:17:00.1654654Z   ✔ contextual type from function parameter (164.2522ms)
+2026-09-19T00:17:00.1655014Z ✔ Checker - getContextualType (164.4075ms)
+2026-09-19T00:17:00.1655334Z ▶ Checker - getTypeOfSymbolAtLocation
+2026-09-19T00:17:00.1655654Z   ✔ narrowed type via typeof check (203.6476ms)
+2026-09-19T00:17:00.1656020Z ✔ Checker - getTypeOfSymbolAtLocation (203.8085ms)
+2026-09-19T00:17:00.1656470Z ▶ Checker - getShorthandAssignmentValueSymbol
+2026-09-19T00:17:00.1656894Z   ✔ shorthand property symbol resolves to variable (202.6838ms)
+2026-09-19T00:17:00.1657333Z ✔ Checker - getShorthandAssignmentValueSymbol (202.8233ms)
+2026-09-19T00:17:00.1657700Z ▶ readFile callback semantics
+2026-09-19T00:17:00.1658215Z   ✔ readFile: string returns content, null blocks fallback, undefined falls through to real FS (206.511ms)
+2026-09-19T00:17:00.1658753Z ✔ readFile callback semantics (206.6987ms)
+2026-09-19T00:17:00.1659049Z ▶ updateSnapshot file systems
+2026-09-19T00:17:00.1659416Z   ✔ request filesystem factories derive directory listings (2.7346ms)
+2026-09-19T00:17:00.1660116Z   ✔ full file system is total and does not invoke host callbacks (48.3207ms)
+2026-09-19T00:17:00.1660619Z   ✔ full file system with lib resolves the default library (688.1141ms)
+2026-09-19T00:17:00.1661347Z   ✔ full file system accepts paths decoded from VS Code document URIs (43.361ms)
+2026-09-19T00:17:00.1661929Z   ✔ file system layer bypasses callbacks on hits and falls back on misses (46.7624ms)
+2026-09-19T00:17:00.1662477Z   ✔ file system layer factory preserves host directory entries (40.0269ms)
+2026-09-19T00:17:00.1663027Z   ✔ full file system resolves packages through internal monorepo symlinks (33.4695ms)
+2026-09-19T00:17:00.1663548Z   ✔ full file system resolves relative symlink targets (31.5318ms)
+2026-09-19T00:17:00.1664013Z   ✔ Snapshot.update layers filesystem edits and removals (63.9595ms)
+2026-09-19T00:17:00.1664504Z   ✔ eager snapshot disposal does not retain filesystem history (66.8863ms)
+2026-09-19T00:17:00.1665048Z   ✔ Snapshot.update treats a full filesystem as a total replacement (48.7491ms)
+2026-09-19T00:17:00.1665631Z   ✔ Snapshot.update applies target changes through inherited symlinks (45.6574ms)
+2026-09-19T00:17:00.1666191Z   ✔ full filesystem emit returns outputs without mutating the host (43.9504ms)
+2026-09-19T00:17:00.1666826Z   ✔ filesystem layer emit writes through to the host (31.5119ms)
+2026-09-19T00:17:00.1667289Z   ✔ full file system can link node_modules from the host (39.2439ms)
+2026-09-19T00:17:00.1667809Z   ✔ Snapshot.update host symlinks bypass an inherited full filesystem (40.9902ms)
+2026-09-19T00:17:00.1668262Z ✔ updateSnapshot file systems (1317.0217ms)
+2026-09-19T00:17:00.1668588Z ▶ Checker - isArrayType / isTupleType
+2026-09-19T00:17:00.1668893Z   ✔ number[] is array, not tuple (140.3755ms)
+2026-09-19T00:17:00.1669203Z   ✔ readonly number[] is array (154.3129ms)
+2026-09-19T00:17:00.1669529Z   ✔ Array<number> is array, not tuple (121.1187ms)
+2026-09-19T00:17:00.1669887Z   ✔ [number, string] is tuple, not array (154.1779ms)
+2026-09-19T00:17:00.1670278Z   ✔ readonly [number, string] is tuple, not array (137.7135ms)
+2026-09-19T00:17:00.1670659Z   ✔ string is neither array nor tuple (127.5327ms)
+2026-09-19T00:17:00.1671005Z ✔ Checker - isArrayType / isTupleType (835.8106ms)
+2026-09-19T00:17:00.1671336Z ▶ Checker - isReadonlySymbol
+2026-09-19T00:17:00.1671647Z   ✔ properties with a 'readonly' modifier (135.7934ms)
+2026-09-19T00:17:00.1671998Z   ✔ variables declared with 'const' (145.2906ms)
+2026-09-19T00:17:00.1672375Z   ✔ get accessors without matching set accessors (136.1115ms)
+2026-09-19T00:17:00.1672732Z ✔ Checker - isReadonlySymbol (417.4815ms)
+2026-09-19T00:17:00.1673041Z ▶ Checker - getReturnTypeOfSignature
+2026-09-19T00:17:00.1673406Z   ✔ returns the return type of a function signature (150.0076ms)
+2026-09-19T00:17:00.1673808Z ✔ Checker - getReturnTypeOfSignature (150.1582ms)
+2026-09-19T00:17:00.1674141Z ▶ Checker - getRestTypeOfSignature
+2026-09-19T00:17:00.1674532Z   ✔ returns the rest type of a signature with rest parameter (134.929ms)
+2026-09-19T00:17:00.1675139Z ✔ Checker - getRestTypeOfSignature (135.1357ms)
+2026-09-19T00:17:00.1675509Z ▶ Checker - getTypePredicateOfSignature
+2026-09-19T00:17:00.1675862Z   ✔ returns type predicate for 'x is T' guard (146.636ms)
+2026-09-19T00:17:00.1676282Z   ✔ returns type predicate for 'this is T' guard (140.7695ms)
+2026-09-19T00:17:00.1676796Z   ✔ returns type predicate for 'asserts x is T' (131.578ms)
+2026-09-19T00:17:00.1677260Z   ✔ returns undefined for signature without type predicate (136.9875ms)
+2026-09-19T00:17:00.1677702Z ✔ Checker - getTypePredicateOfSignature (556.3281ms)
+2026-09-19T00:17:00.1678033Z ▶ Checker - getBaseTypes
+2026-09-19T00:17:00.1678366Z   ✔ returns base types of a class (134.4511ms)
+2026-09-19T00:17:00.1678704Z   ✔ returns base types of an interface (158.7296ms)
+2026-09-19T00:17:00.1679163Z   ✔ does not panic for a type alias to a generic interface instantiation (154.4407ms)
+2026-09-19T00:17:00.1679654Z ✔ Checker - getBaseTypes (447.9625ms)
+2026-09-19T00:17:00.1680126Z ▶ Type - getBaseTypes
+2026-09-19T00:17:00.1680544Z   ✔ returns base types for a class type and undefined for a non-class/interface (122.345ms)
+2026-09-19T00:17:00.1681129Z ✔ Type - getBaseTypes (122.5774ms)
+2026-09-19T00:17:00.1681483Z ▶ Type - isErrorType
+2026-09-19T00:17:00.1681853Z   ✔ identifies the error type from an unresolvable annotation (140.403ms)
+2026-09-19T00:17:00.1682260Z ✔ Type - isErrorType (140.6315ms)
+2026-09-19T00:17:00.1682534Z ▶ Checker - well-known symbols
+2026-09-19T00:17:00.1682911Z   ✔ isUnknownSymbol identifies the aliased unknown symbol (126.5985ms)
+2026-09-19T00:17:00.1683322Z ✔ Checker - well-known symbols (126.7429ms)
+2026-09-19T00:17:00.1683620Z ▶ Checker - well-known signatures
+2026-09-19T00:17:00.1683982Z   ✔ isUnknownSignature identifies an unresolvable call (144.875ms)
+2026-09-19T00:17:00.1684393Z ✔ Checker - well-known signatures (145.0254ms)
+2026-09-19T00:17:00.1684703Z ▶ Symbol - escaped names and tables
+2026-09-19T00:17:00.1685130Z   ✔ getExports/getMembers return a cached Map keyed by escaped name (134.0541ms)
+2026-09-19T00:17:00.1685697Z   ✔ anonymous type symbol has a __-escaped name, never the \xFE sentinel (147.5712ms)
+2026-09-19T00:17:00.1687247Z   ✔ distinguishes a pattern ambient module name from a matching user-provided export name (138.6986ms)
+2026-09-19T00:17:00.1687807Z ✔ Symbol - escaped names and tables (420.6073ms)
+2026-09-19T00:17:00.1688140Z ▶ ast - escapeLeadingUnderscores
+2026-09-19T00:17:00.1688476Z   ✔ round-trips display and escaped names (0.1874ms)
+2026-09-19T00:17:00.1688836Z ✔ ast - escapeLeadingUnderscores (0.3012ms)
+2026-09-19T00:17:00.1689180Z ▶ ast - tryGetAmbientModuleNameFromSymbolName
+2026-09-19T00:17:00.1689585Z   ✔ gets ambient module names from escaped symbol names (0.153ms)
+2026-09-19T00:17:00.1690026Z ✔ ast - tryGetAmbientModuleNameFromSymbolName (0.2479ms)
+2026-09-19T00:17:00.1690377Z ▶ ast - getJSDocTags
+2026-09-19T00:17:00.1690749Z   ✔ returns a node's own tags, and inherited @param / @template tags (132.1976ms)
+2026-09-19T00:17:00.1691384Z   ✔ a function-expression parameter inherits @param tags from the variable statement (132.0294ms)
+2026-09-19T00:17:00.1692054Z   ✔ a @type cast tag is owned by its parenthesized expression, not the declaration (152.8804ms)
+2026-09-19T00:17:00.1692527Z ✔ ast - getJSDocTags (417.3794ms)
+2026-09-19T00:17:00.1692808Z ▶ Checker - getPropertiesOfType
+2026-09-19T00:17:00.1693122Z   ✔ returns properties of an object type (153.7409ms)
+2026-09-19T00:17:00.1693477Z ✔ Checker - getPropertiesOfType (153.8974ms)
+2026-09-19T00:17:00.1693791Z ▶ Checker - getIndexInfosOfType
+2026-09-19T00:17:00.1694125Z   ✔ returns index signatures of an indexed type (146.4801ms)
+2026-09-19T00:17:00.1694552Z   ✔ readonly index signature reports isReadonly true (140.5711ms)
+2026-09-19T00:17:00.1694937Z ✔ Checker - getIndexInfosOfType (287.2977ms)
+2026-09-19T00:17:00.1695251Z ▶ Checker - TypeScript API parity
+2026-09-19T00:17:00.1695620Z   ✔ exposes interface this types and checker operations (226.0385ms)
+2026-09-19T00:17:00.1696039Z   ✔ uses Strada-compatible JsxEmit values (0.1566ms)
+2026-09-19T00:17:00.1696391Z ✔ Checker - TypeScript API parity (226.3637ms)
+2026-09-19T00:17:00.1696724Z ▶ Checker - getConstraintOfTypeParameter
+2026-09-19T00:17:00.1697083Z   ✔ returns constraint of a type parameter (152.6068ms)
+2026-09-19T00:17:00.1697571Z ✔ Checker - getConstraintOfTypeParameter (152.7557ms)
+2026-09-19T00:17:00.1697920Z ▶ Checker - TypeParameter getters
+2026-09-19T00:17:00.1698370Z   ✔ getConstraint() and getDefault() return the constraint and default types (130.6311ms)
+2026-09-19T00:17:00.1698983Z   ✔ getConstraint() and getDefault() return undefined when there is none (139.1192ms)
+2026-09-19T00:17:00.1699465Z ✔ Checker - TypeParameter getters (269.9803ms)
+2026-09-19T00:17:00.1699814Z ▶ Checker - getTypeArguments
+2026-09-19T00:17:00.1700441Z   ✔ returns type arguments of a generic instantiation (142.2711ms)
+2026-09-19T00:17:00.1700984Z   ✔ a wrongly-typed call throws on the client without taking down the server (145.8521ms)
+2026-09-19T00:17:00.1701683Z ✔ Checker - getTypeArguments (288.3734ms)
+2026-09-19T00:17:00.1702000Z ▶ Checker - getBaseConstraintOfType
+2026-09-19T00:17:00.1702388Z   ✔ returns the base constraint of a type parameter (143.6702ms)
+2026-09-19T00:17:00.1702970Z   ✔ returns undefined for a non-instantiable type (116.951ms)
+2026-09-19T00:17:00.1703500Z ✔ Checker - getBaseConstraintOfType (260.9994ms)
+2026-09-19T00:17:00.1703833Z ▶ Checker - getPropertyOfType
+2026-09-19T00:17:00.1704165Z   ✔ returns a named property symbol of a type (128.3906ms)
+2026-09-19T00:17:00.1704524Z ✔ Checker - getPropertyOfType (128.5551ms)
+2026-09-19T00:17:00.1704819Z ▶ Checker - getConstantValue
+2026-09-19T00:17:00.1705124Z   ✔ returns numeric value of an enum member (150.6215ms)
+2026-09-19T00:17:00.1705627Z   ✔ returns infinite numeric enum values without changing equivalent strings (143.6054ms)
+2026-09-19T00:17:00.1706187Z   ✔ returns string value of a string-initialized enum member (135.4741ms)
+2026-09-19T00:17:00.1706598Z ✔ Checker - getConstantValue (430.0432ms)
+2026-09-19T00:17:00.1706903Z ▶ Checker - getSignatureFromDeclaration
+2026-09-19T00:17:00.1707278Z   ✔ returns the signature of a function declaration (135.1101ms)
+2026-09-19T00:17:00.1708126Z ✔ Checker - getSignatureFromDeclaration (135.3028ms)
+2026-09-19T00:17:00.1708519Z ▶ Checker - getExportSpecifierLocalTargetSymbol
+2026-09-19T00:17:00.1708939Z   ✔ resolves the local target of an export specifier (146.7523ms)
+2026-09-19T00:17:00.1709405Z ✔ Checker - getExportSpecifierLocalTargetSymbol (146.9092ms)
+2026-09-19T00:17:00.1709775Z ▶ Checker - getAliasedSymbol
+2026-09-19T00:17:00.1710109Z   ✔ resolves an import alias to its target symbol (160.5742ms)
+2026-09-19T00:17:00.1710476Z ✔ Checker - getAliasedSymbol (160.7622ms)
+2026-09-19T00:17:00.1710785Z ▶ Checker - getFullyQualifiedName
+2026-09-19T00:17:00.1711270Z   ✔ returns module-qualified names for exported symbols and dotted names for members (135.6099ms)
+2026-09-19T00:17:00.1711793Z ✔ Checker - getFullyQualifiedName (135.7599ms)
+2026-09-19T00:17:00.1712106Z ▶ Checker - getExportsOfModule
+2026-09-19T00:17:00.1712482Z   ✔ returns all exports including re-exports via 'export *' (134.0316ms)
+2026-09-19T00:17:00.1712907Z ✔ Checker - getExportsOfModule (134.2109ms)
+2026-09-19T00:17:00.1713279Z ▶ Checker - getSymbolsInScope
+2026-09-19T00:17:00.1713641Z   ✔ returns symbols visible at a position (215.6995ms)
+2026-09-19T00:17:00.1714087Z   ✔ returns type symbols when asked for type meaning at a node (241.6671ms)
+2026-09-19T00:17:00.1714590Z   ✔ SymbolFlags.All includes both value and type meanings (252.8956ms)
+2026-09-19T00:17:00.1714993Z ✔ Checker - getSymbolsInScope (710.541ms)
+2026-09-19T00:17:00.1715336Z ▶ Symbol - getDocumentationComment and getJsDocTags
+2026-09-19T00:17:00.1715796Z   ✔ getDocumentationComment returns the leading comment text (133.728ms)
+2026-09-19T00:17:00.1716300Z   ✔ getJsDocTags returns structured tag name/text pairs (119.6308ms)
+2026-09-19T00:17:00.1716770Z ✔ Symbol - getDocumentationComment and getJsDocTags (253.5646ms)
+2026-09-19T00:17:00.1717142Z ▶ TypeParameter - isThisType
+2026-09-19T00:17:00.1717566Z   ✔ isThisType is true for the polymorphic 'this' type in a class method (137.1195ms)
+2026-09-19T00:17:00.1718235Z   ✔ isThisType is absent for a regular generic type parameter (165.5188ms)
+2026-09-19T00:17:00.1718660Z ✔ TypeParameter - isThisType (302.8498ms)
+2026-09-19T00:17:00.1718959Z ▶ Type - getAliasTypeArguments
+2026-09-19T00:17:00.1719370Z   ✔ returns the type arguments of a single-param generic type alias (155.7097ms)
+2026-09-19T00:17:00.1719937Z   ✔ returns multiple type arguments for a multi-param generic type alias (124.2249ms)
+2026-09-19T00:17:00.1720710Z   ✔ returns empty array for a non-alias generic type (125.4726ms)
+2026-09-19T00:17:00.1721099Z ✔ Type - getAliasTypeArguments (405.7103ms)
+2026-09-19T00:17:00.1721612Z ▶ Type - getAliasSymbol
+2026-09-19T00:17:00.1721955Z   ✔ returns the symbol for a non-generic type alias (174.5703ms)
+2026-09-19T00:17:00.1722380Z   ✔ returns the symbol for a generic type alias (168.1807ms)
+2026-09-19T00:17:00.1722768Z   ✔ returns undefined for a non-alias type (160.4396ms)
+2026-09-19T00:17:00.1723117Z ✔ Type - getAliasSymbol (503.58ms)
+2026-09-19T00:17:00.1723393Z ▶ IntrinsicType - intrinsicName
+2026-09-19T00:17:00.1723743Z   ✔ intrinsicName matches the primitive type name (174.9835ms)
+2026-09-19T00:17:00.1724123Z ✔ IntrinsicType - intrinsicName (175.1271ms)
+2026-09-19T00:17:00.1724475Z ▶ FreshableType - getFreshType and getRegularType
+2026-09-19T00:17:00.1724949Z   ✔ LiteralType.value is empty string for the empty-string literal type (111.1507ms)
+2026-09-19T00:17:00.1725527Z   ✔ LiteralType.value is accessible via the FreshableType hierarchy (204.4361ms)
+2026-09-19T00:17:00.1726087Z   ✔ BigIntLiteralType.value is a bigint (positive and negative) (242.3455ms)
+2026-09-19T00:17:00.1726633Z   ✔ NumberLiteralType.value is infinity (positive and negative) (214.964ms)
+2026-09-19T00:17:00.1727148Z   ✔ getFreshType() returns a fresh twin with matching value (185.011ms)
+2026-09-19T00:17:00.1727652Z   ✔ getRegularType() on a fresh literal returns the regular twin (157.7446ms)
+2026-09-19T00:17:00.1728647Z   ✔ getFreshType() and getRegularType() work for computed enum types (TypeFlags.Enum) (3669.9773ms)
+2026-09-19T00:17:00.1729243Z ✔ FreshableType - getFreshType and getRegularType (4786.2624ms)
+2026-09-19T00:17:00.1729620Z ▶ Checker - isContextSensitive
+2026-09-19T00:17:00.1730018Z   ✔ arrow function with no type annotation is context sensitive (302.1679ms)
+2026-09-19T00:17:00.1730453Z ✔ Checker - isContextSensitive (302.3252ms)
+2026-09-19T00:17:00.1730755Z ▶ Checker - isTypeAssignableTo
+2026-09-19T00:17:00.1731101Z   ✔ returns true when source is assignable to target (148.1138ms)
+2026-09-19T00:17:00.1731563Z   ✔ returns false when source is not assignable to target (142.7343ms)
+2026-09-19T00:17:00.1732068Z   ✔ a string literal type is assignable to string but not number (110.2642ms)
+2026-09-19T00:17:00.1732493Z ✔ Checker - isTypeAssignableTo (401.3966ms)
+2026-09-19T00:17:00.1732776Z ▶ Printer
+2026-09-19T00:17:00.1733202Z   ✔ printNode with factory-created keyword type (22.2251ms)
+2026-09-19T00:17:00.1743102Z   ✔ printFile (107.3605ms)
+2026-09-19T00:17:00.1743531Z   ✔ printFile preserves JSON source file semantics (106.9666ms)
+2026-09-19T00:17:00.1744008Z   ✔ printNode with factory-created union type (115.7949ms)
+2026-09-19T00:17:00.1744449Z   ✔ printNode with factory-created function type (99.956ms)
+2026-09-19T00:17:00.1744882Z   ✔ printNode with factory-created type reference (118.2414ms)
+2026-09-19T00:17:00.1745298Z   ✔ printNode with factory-created array type (97.9981ms)
+2026-09-19T00:17:00.1745695Z   ✔ typeToTypeNode + printNode round-trip (122.5973ms)
+2026-09-19T00:17:00.1746149Z   ✔ visitEachChild on typeToTypeNode result with keyword types (91.1312ms)
+2026-09-19T00:17:00.1746556Z   ✔ typeToString (98.565ms)
+2026-09-19T00:17:00.1746856Z   ✔ typeToString with TypeFormatFlags (113.9644ms)
+2026-09-19T00:17:00.1747288Z   ✔ printNode with terminateUnterminatedLiterals option (156.526ms)
+2026-09-19T00:17:00.1747673Z ✔ Printer (1252.2856ms)
+2026-09-19T00:17:00.1747947Z ▶ Program - selected file emit
+2026-09-19T00:17:00.1748324Z   ✔ getJavaScriptEmit forces JavaScript and source maps (108.8965ms)
+2026-09-19T00:17:00.1749034Z   ✔ getDeclarationEmit forces declarations and declaration maps (161.4718ms)
+2026-09-19T00:17:00.1749529Z   ✔ selected file emit accepts empty arrays (125.2901ms)
+2026-09-19T00:17:00.1749892Z ✔ Program - selected file emit (395.932ms)
+2026-09-19T00:17:00.1750237Z ▶ SnapshotInternalAPI - formatNodeForInsertion
+2026-09-19T00:17:00.1750836Z   ✔ formats a synthesized statement with correct indentation for insertion inside a function body (99.1873ms)
+2026-09-19T00:17:00.1751466Z   ✔ formats a node at top-level with no indentation (143.0985ms)
+2026-09-19T00:17:00.1752182Z   ✔ formats a synthesized statement with correct indentation when non-ASCII characters precede the insertion position (112.8132ms)
+2026-09-19T00:17:00.1752876Z ✔ SnapshotInternalAPI - formatNodeForInsertion (355.3846ms)
+2026-09-19T00:17:00.1753225Z ▶ modifierFlags
+2026-09-19T00:17:00.1753540Z   ✔ export async function has Export | Async flags (95.7071ms)
+2026-09-19T00:17:00.1753979Z   ✔ node without modifiers has ModifierFlags.None (105.1919ms)
+2026-09-19T00:17:00.1754338Z ✔ modifierFlags (201.1061ms)
+2026-09-19T00:17:00.1755082Z ▶ Checker - getResolvedSymbol
+2026-09-19T00:17:00.1756156Z   ✔ resolves variable reference to its declaration symbol (88.0731ms)
+2026-09-19T00:17:00.1758390Z ✔ Checker - getResolvedSymbol (88.2262ms)
+2026-09-19T00:17:00.1759902Z ▶ VariableDeclarationList - BlockScoped flags
+2026-09-19T00:17:00.1760971Z   ✔ let declaration has Let flag (109.8379ms)
+2026-09-19T00:17:00.1761555Z   ✔ const declaration has Const flag (116.5914ms)
+2026-09-19T00:17:00.1762208Z ✔ VariableDeclarationList - BlockScoped flags (226.6395ms)
+2026-09-19T00:17:00.1762831Z ✔ TypeOperator operator kind (94.9263ms)
+2026-09-19T00:17:00.1763371Z ✔ SpreadAssignment roundtrip (137.6931ms)
+2026-09-19T00:17:00.1763994Z ✔ VariableDeclarationList const flag clone (108.1873ms)
+2026-09-19T00:17:00.1765278Z ✔ JSDoc before ExpressionStatement allowed (96.0844ms)
+2026-09-19T00:17:00.1765898Z ✔ Factory ModifierList auto-conversion (114.207ms)
+2026-09-19T00:17:00.1766443Z ✔ Parse-clone-emit roundtrip (6591.8897ms)
+2026-09-19T00:17:00.1766904Z ▶ Program - diagnostics
+2026-09-19T00:17:00.1767335Z   ✔ getSyntacticDiagnostics (109.0261ms)
+2026-09-19T00:17:00.1768121Z   ✔ getSemanticDiagnostics with messageChain and relatedInformation (110.4804ms)
+2026-09-19T00:17:00.1768873Z   ✔ getSuggestionDiagnostics (106.1997ms)
+2026-09-19T00:17:00.1769466Z   ✔ getConfigFileParsingDiagnostics (97.7838ms)
+2026-09-19T00:17:00.1770103Z   ✔ getConfigFileNames and getConfigSourceFile (100.5155ms)
+2026-09-19T00:17:00.1770742Z   ✔ getDeclarationDiagnostics (105.4999ms)
+2026-09-19T00:17:00.1771287Z   ✔ getBindDiagnostics (110.1709ms)
+2026-09-19T00:17:00.1771801Z   ✔ getProgramDiagnostics (103.7627ms)
+2026-09-19T00:17:00.1772383Z   ✔ getGlobalDiagnostics (492.8448ms)
+2026-09-19T00:17:00.1773170Z   ✔ getGlobalDiagnostics returns file-less diagnostics from the checker (25.148ms)
+2026-09-19T00:17:00.1774118Z   ✔ getSyntacticDiagnostics with multiple files (108.3365ms)
+2026-09-19T00:17:00.1774843Z   ✔ getSemanticDiagnostics with multiple files (120.1708ms)
+2026-09-19T00:17:00.1775527Z   ✔ getBindDiagnostics with multiple files (107.0105ms)
+2026-09-19T00:17:00.1776232Z   ✔ diagnostics with no files argument returns all (96.5445ms)
+2026-09-19T00:17:00.1776996Z   ✔ diagnostics with empty files array returns empty (130.8622ms)
+2026-09-19T00:17:00.1777656Z ✔ Program - diagnostics (1925.5693ms)
+2026-09-19T00:17:00.1778145Z ▶ getDefaultProjectForFile
+2026-09-19T00:17:00.1778896Z   ✔ finds inferred project for d.ts in node_modules after openFiles (210.2037ms)
+2026-09-19T00:17:00.1779967Z   ✔ inferred project reflects file changes without a follow-up open/close request (125.5098ms)
+2026-09-19T00:17:00.1780935Z   ✔ opens multiple inferred files in one snapshot (120.5914ms)
+2026-09-19T00:17:00.1781850Z   ✔ opening a file resolves to a configured project via ancestor search (200.6493ms)
+2026-09-19T00:17:00.1783218Z   ✔ closeProjects releases a project opened via openProjects (88.5822ms)
+2026-09-19T00:17:00.1784131Z   ✔ closeFiles releases a file opened via openFiles (154.1417ms)
+2026-09-19T00:17:00.1784838Z ✔ getDefaultProjectForFile (900.2312ms)
+2026-09-19T00:17:00.1785291Z ▶ Program - emit
+2026-09-19T00:17:00.1785980Z   ✔ emit all files (128.3608ms)
+2026-09-19T00:17:00.1786426Z   ✔ emit only dts (159.152ms)
+2026-09-19T00:17:00.1786700Z   ✔ emit only js (147.2101ms)
+2026-09-19T00:17:00.1787092Z   ✔ emitToString emits the whole program and respects emitOnly (113.4691ms)
+2026-09-19T00:17:00.1787614Z   ✔ whole-program emit includes option-controlled maps (118.5889ms)
+2026-09-19T00:17:00.1788118Z   ✔ noEmitOnError reports diagnostics without writing output (116.9999ms)
+2026-09-19T00:17:00.1788564Z   ✔ emit and emitToString respect noEmit (100.954ms)
+2026-09-19T00:17:00.1788991Z   ✔ emit rejects unknown files and invalid emitOnly values (104.5874ms)
+2026-09-19T00:17:00.1789889Z ✔ Program - emit (989.9929ms)
+2026-09-19T00:17:00.1790162Z ✔ Benchmarks (14774.7402ms)
+2026-09-19T00:17:00.1790398Z ▶ Timing
+2026-09-19T00:17:00.1790743Z   ✔ collects combined client, server, and transport timing info (83.578ms)
+2026-09-19T00:17:00.1791888Z   ✔ tracks source-file node materialization (98.5866ms)
+2026-09-19T00:17:00.1792640Z   ✔ is disabled by default (26.3809ms)
+2026-09-19T00:17:00.1793182Z ✔ Timing (208.8444ms)
+2026-09-19T00:17:00.1793726Z ▶ runWithTemporaryFileUpdate
+2026-09-19T00:17:00.1794517Z   ✔ temporary file update is visible in the callback and reverted afterward (112.2339ms)
+2026-09-19T00:17:00.1795503Z   ✔ reconstructs projects omitted from the response diff (97.3591ms)
+2026-09-19T00:17:00.1796306Z   ✔ updates synthetic programs with temporary contents (41.7869ms)
+2026-09-19T00:17:00.1796963Z ✔ runWithTemporaryFileUpdate (251.7009ms)
+2026-09-19T00:17:00.1798044Z ┌─────────┬──────────────────────────────────────────────────┬──────────────────┬──────────────────┬────────────────────────┬────────────────────────┬─────────┐
+2026-09-19T00:17:00.1799866Z │ (index) │ Task name                                        │ Latency avg (ns) │ Latency med (ns) │ Throughput avg (ops/s) │ Throughput med (ops/s) │ Samples │
+2026-09-19T00:17:00.1801399Z ├─────────┼──────────────────────────────────────────────────┼──────────────────┼──────────────────┼────────────────────────┼────────────────────────┼─────────┤
+2026-09-19T00:17:00.1802907Z │ 0       │ 'factory immediate children - forEachChild'      │ '39900 ± 0.00%'  │ '39900 ± 0.00'   │ '25063 ± 0.00%'        │ '25063 ± 0'            │ 1       │
+2026-09-19T00:17:00.1804524Z │ 1       │ 'factory immediate children - childrenIter'      │ '64900 ± 0.00%'  │ '64900 ± 0.00'   │ '15408 ± 0.00%'        │ '15408 ± 0'            │ 1       │
+2026-09-19T00:17:00.1806077Z │ 2       │ 'factory recursive walk - forEachChild'          │ '239500 ± 0.00%' │ '239500 ± 0.00'  │ '4175 ± 0.00%'         │ '4175 ± 0'             │ 1       │
+2026-09-19T00:17:00.1807877Z │ 3       │ 'factory recursive walk - childrenIter'          │ '294500 ± 0.00%' │ '294500 ± 0.00'  │ '3396 ± 0.00%'         │ '3396 ± 0'             │ 1       │
+2026-09-19T00:17:00.1809456Z │ 4       │ 'factory recursive early exit - forEachChild'    │ '49400 ± 0.00%'  │ '49400 ± 0.00'   │ '20243 ± 0.00%'        │ '20243 ± 0'            │ 1       │
+2026-09-19T00:17:00.1811110Z │ 5       │ 'factory recursive early exit - childrenIter'    │ '38900 ± 0.00%'  │ '38900 ± 0.00'   │ '25707 ± 0.00%'        │ '25707 ± 0'            │ 1       │
+2026-09-19T00:17:00.1812721Z │ 6       │ 'factory recursive midpoint exit - forEachChild' │ '213200 ± 0.00%' │ '213200 ± 0.00'  │ '4690 ± 0.00%'         │ '4690 ± 0'             │ 1       │
+2026-09-19T00:17:00.1814357Z │ 7       │ 'factory recursive midpoint exit - childrenIter' │ '163300 ± 0.00%' │ '163300 ± 0.00'  │ '6124 ± 0.00%'         │ '6124 ± 0'             │ 1       │
+2026-09-19T00:17:00.1815988Z │ 8       │ 'remote immediate children - forEachChild'       │ '15900 ± 0.00%'  │ '15900 ± 0.00'   │ '62893 ± 0.00%'        │ '62893 ± 0'            │ 1       │
+2026-09-19T00:17:00.1817639Z │ 9       │ 'remote immediate children - childrenIter'       │ '17300 ± 0.00%'  │ '17300 ± 0.00'   │ '57803 ± 0.00%'        │ '57803 ± 0'            │ 1       │
+2026-09-19T00:17:00.1819281Z │ 10      │ 'remote recursive walk - forEachChild'           │ '204900 ± 0.00%' │ '204900 ± 0.00'  │ '4880 ± 0.00%'         │ '4880 ± 0'             │ 1       │
+2026-09-19T00:17:00.1821127Z │ 11      │ 'remote recursive walk - childrenIter'           │ '278300 ± 0.00%' │ '278300 ± 0.00'  │ '3593 ± 0.00%'         │ '3593 ± 0'             │ 1       │
+2026-09-19T00:17:00.1822718Z │ 12      │ 'remote recursive early exit - forEachChild'     │ '19400 ± 0.00%'  │ '19400 ± 0.00'   │ '51546 ± 0.00%'        │ '51546 ± 0'            │ 1       │
+2026-09-19T00:17:00.1824366Z │ 13      │ 'remote recursive early exit - childrenIter'     │ '55100 ± 0.00%'  │ '55100 ± 0.00'   │ '18149 ± 0.00%'        │ '18149 ± 0'            │ 1       │
+2026-09-19T00:17:00.1826613Z │ 14      │ 'remote recursive midpoint exit - forEachChild'  │ '844200 ± 0.00%' │ '844200 ± 0.00'  │ '1185 ± 0.00%'         │ '1185 ± 0'             │ 1       │
+2026-09-19T00:17:00.1828346Z │ 15      │ 'remote recursive midpoint exit - childrenIter'  │ '967800 ± 0.00%' │ '967800 ± 0.00'  │ '1033 ± 0.00%'         │ '1033 ± 0'             │ 1       │
+2026-09-19T00:17:00.1829961Z └─────────┴──────────────────────────────────────────────────┴──────────────────┴──────────────────┴────────────────────────┴────────────────────────┴─────────┘
+2026-09-19T00:17:00.1830839Z ▶ NodeObject + childrenIter
+2026-09-19T00:17:00.1831342Z   ✔ skips absent optional child lists (2.162ms)
+2026-09-19T00:17:00.1831901Z ✔ NodeObject + childrenIter (4.0819ms)
+2026-09-19T00:17:00.1832381Z ✔ Benchmarks (185.2465ms)
+2026-09-19T00:17:00.1832741Z ▶ cloneNode
+2026-09-19T00:17:00.1833096Z   ✔ clones an identifier (1.8156ms)
+2026-09-19T00:17:00.1833612Z   ✔ clones a numeric literal (0.441ms)
+2026-09-19T00:17:00.1834239Z   ✔ clones a string literal (0.2399ms)
+2026-09-19T00:17:00.1834834Z   ✔ preserves text range (0.2516ms)
+2026-09-19T00:17:00.1835404Z   ✔ clone is shallow (children are shared) (0.4043ms)
+2026-09-19T00:17:00.1835968Z   ✔ clone has no parent (0.2484ms)
+2026-09-19T00:17:00.1836417Z   ✔ clones a token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1836821Z ✔ cloneNode (4.5445ms)
+2026-09-19T00:17:00.1837172Z ▶ visitNode
+2026-09-19T00:17:00.1837580Z   ✔ returns undefined for undefined input (0.392ms)
+2026-09-19T00:17:00.1838148Z   ✔ returns visitor result (0.1708ms)
+2026-09-19T00:17:00.1838746Z   ✔ visitor can return undefined to remove node (0.1372ms)
+2026-09-19T00:17:00.1839310Z ✔ visitNode (0.9732ms)
+2026-09-19T00:17:00.1839642Z ▶ visitNodes
+2026-09-19T00:17:00.1840271Z   ✔ returns undefined for undefined input (0.306ms)
+2026-09-19T00:17:00.1840880Z   ✔ returns same array if nothing changed (0.2543ms)
+2026-09-19T00:17:00.1841475Z   ✔ filters out undefined results (0.1843ms)
+2026-09-19T00:17:00.1841996Z   ✔ replaces nodes (0.1892ms)
+2026-09-19T00:17:00.1842411Z ✔ visitNodes (1.2783ms)
+2026-09-19T00:17:00.1842768Z ▶ visitEachChild
+2026-09-19T00:17:00.1843314Z   ✔ returns same node if nothing changed (identity visitor) (0.7425ms)
+2026-09-19T00:17:00.1844051Z   ✔ returns undefined for undefined input (0.1089ms)
+2026-09-19T00:17:00.1844651Z   ✔ creates new node when child changes (0.2177ms)
+2026-09-19T00:17:00.1845282Z   ✔ works on if statement with optional else (0.3609ms)
+2026-09-19T00:17:00.1845902Z   ✔ works on nodes with NodeArray children (0.234ms)
+2026-09-19T00:17:00.1846488Z   ✔ returns same node for leaf nodes (0.1248ms)
+2026-09-19T00:17:00.1846999Z ✔ visitEachChild (2.1224ms)
+2026-09-19T00:17:00.1847405Z ▶ getSynthesizedDeepClone
+2026-09-19T00:17:00.1847849Z   ✔ deeply clones identifier (0.508ms)
+2026-09-19T00:17:00.1848427Z   ✔ deeply clones identifier without trivia (0.1292ms)
+2026-09-19T00:17:00.1849584Z   ✔ deeply clones binary expression (0.3447ms)
+2026-09-19T00:17:00.1850186Z   ✔ sets parent pointers on deep clone (0.4143ms)
+2026-09-19T00:17:00.1850813Z   ✔ returns undefined for undefined input (0.1124ms)
+2026-09-19T00:17:00.1851581Z   ✔ deeply clones if statement with optional else (0.2563ms)
+2026-09-19T00:17:00.1852030Z   ✔ preserves tree structure with nested children (0.3061ms)
+2026-09-19T00:17:00.1852408Z   ✔ deeply clones string literal (0.1695ms)
+2026-09-19T00:17:00.1852728Z   ✔ deeply clones numeric literal (0.1766ms)
+2026-09-19T00:17:00.1853275Z   ✔ clone has same syntax structure (0.4012ms)
+2026-09-19T00:17:00.1853830Z ✔ getSynthesizedDeepClone (3.2906ms)
+2026-09-19T00:17:00.1854345Z ▶ getSynthesizedDeepClones
+2026-09-19T00:17:00.1854752Z   ✔ deeply clones a NodeArray (0.2757ms)
+2026-09-19T00:17:00.1855366Z   ✔ returns undefined for undefined input (0.1024ms)
+2026-09-19T00:17:00.1855800Z   ✔ preserves pos and end on NodeArray (0.1172ms)
+2026-09-19T00:17:00.1856907Z ✔ getSynthesizedDeepClones (0.6619ms)
+2026-09-19T00:17:00.1857492Z ▶ isValidTypeOnlyAliasUseSite
+2026-09-19T00:17:00.1858182Z   ✔ classifies syntactic type-only import use sites (128.7094ms)
+2026-09-19T00:17:00.1858887Z ✔ isValidTypeOnlyAliasUseSite (128.8678ms)
+2026-09-19T00:17:00.1859386Z ▶ visitor transformation
+2026-09-19T00:17:00.1859921Z   ✔ rename all identifiers via recursive visitor (0.3056ms)
+2026-09-19T00:17:00.1860591Z   ✔ deep clone + modify produces independent tree (0.2476ms)
+2026-09-19T00:17:00.1861210Z ✔ visitor transformation (0.7344ms)
+2026-09-19T00:17:00.1861665Z ▶ RemoteNode + cloneNode
+2026-09-19T00:17:00.1862246Z   ✔ does not read a sibling as an invalid JSDoc link name (126.5847ms)
+2026-09-19T00:17:00.1863138Z   ✔ uses distinct nodes for expression and type heritage (108.6ms)
+2026-09-19T00:17:00.1864000Z   ✔ cloneNode produces a NodeObject from a RemoteNode (130.5316ms)
+2026-09-19T00:17:00.1864835Z   ✔ cloneNode clones a remote import declaration (126.2475ms)
+2026-09-19T00:17:00.1865697Z   ✔ cloneNode preserves text on remote identifier (130.248ms)
+2026-09-19T00:17:00.1866914Z ✔ RemoteNode + cloneNode (622.7394ms)
+2026-09-19T00:17:00.1867464Z ▶ RemoteNode + visitEachChild
+2026-09-19T00:17:00.1867812Z   ✔ identity visitor returns same remote node (140.3966ms)
+2026-09-19T00:17:00.1868278Z   ✔ visitor can transform remote tree into NodeObject tree (144.8223ms)
+2026-09-19T00:17:00.1868703Z ✔ RemoteNode + visitEachChild (285.4342ms)
+2026-09-19T00:17:00.1869019Z ▶ RemoteNodeList inherited array methods
+2026-09-19T00:17:00.1869421Z   ✔ filter/map/slice return plain arrays without throwing (143.4427ms)
+2026-09-19T00:17:00.1869867Z ✔ RemoteNodeList inherited array methods (143.5859ms)
+2026-09-19T00:17:00.1870215Z ▶ RemoteNode + getSynthesizedDeepClone
+2026-09-19T00:17:00.1870576Z   ✔ deep clones a remote import declaration (122.6187ms)
+2026-09-19T00:17:00.1871047Z   ✔ deep clone of remote tree produces independent NodeObject tree (138.3391ms)
+2026-09-19T00:17:00.1871650Z   ✔ deep clone of remote SourceFile preserves top-level metadata references (151.7628ms)
+2026-09-19T00:17:00.1872165Z ✔ RemoteNode + getSynthesizedDeepClone (413.0162ms)
+2026-09-19T00:17:00.1872507Z ▶ RemoteNode + position/text getters
+2026-09-19T00:17:00.1872872Z   ✔ position and text getters on a parsed statement (141.7107ms)
+2026-09-19T00:17:00.1873280Z   ✔ getText/getFullText on a nested node (121.4855ms)
+2026-09-19T00:17:00.1873657Z   ✔ getStart can include leading JSDoc comments (135.8522ms)
+2026-09-19T00:17:00.1874122Z   ✔ a node without leading trivia has zero leading trivia width (140.7552ms)
+2026-09-19T00:17:00.1874591Z   ✔ the SourceFile node spans the whole file text (131.2151ms)
+2026-09-19T00:17:00.1875078Z   ✔ getter invariants hold for every node in a representative tree (134.7721ms)
+2026-09-19T00:17:00.1875637Z   ✔ getter invariants hold even for malformed source with missing nodes (139.4816ms)
+2026-09-19T00:17:00.1876102Z ✔ RemoteNode + position/text getters (945.9308ms)
+2026-09-19T00:17:00.1876858Z ▶ RemoteNode + child/token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1877372Z   ✔ childrenIter generates all node children and supports early return value passthru (139.3366ms)
+2026-09-19T00:17:00.1877921Z   ✔ childrenIter works with async generators (136.0451ms)
+2026-09-19T00:17:00.1878303Z   ✔ childrenIter skips empty NodeArrays (116.2227ms)
+2026-09-19T00:17:00.1878786Z   ✔ getChildren materializes the punctuation/keyword tokens the AST omits (154.7083ms)
+2026-09-19T00:17:00.1879338Z   ✔ getChildCount and getChildAt agree with getChildren (143.3498ms)
+2026-09-19T00:17:00.1879835Z   ✔ getFirstToken and getLastToken [REDACTED:assigned_secret] to the edge tokens [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1880329Z   ✔ a token [REDACTED:assigned_secret] has no children and no first/last token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1880898Z   ✔ NodeArrays are wrapped in a SyntaxList that holds the elements and separators (138.7848ms)
+2026-09-19T00:17:00.1881569Z   ✔ getChildren tiles [pos, end) contiguously, absorbing interior trivia into tokens [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1882119Z   ✔ a JSDoc comment is exposed as the first child (131.9006ms)
+2026-09-19T00:17:00.1882598Z   ✔ getChildren throws on a synthesized node without a real position (0.7223ms)
+2026-09-19T00:17:00.1883114Z   ✔ the else keyword is materialized as a synthetic token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1883636Z   ✔ getFirstToken [REDACTED:assigned_secret] leading JSDoc and returns the first real token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1884238Z   ✔ SourceFile children are the statements SyntaxList and the EndOfFile token [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1884801Z   ✔ getChildren is cached: repeat calls return the same array (148.3152ms)
+2026-09-19T00:17:00.1885303Z   ✔ getChildren on an EndOfFile token [REDACTED:assigned_secret] JSDoc is cached (155.606ms)
+2026-09-19T00:17:00.1885798Z   ✔ structural invariants hold recursively across a rich tree (142.1074ms)
+2026-09-19T00:17:00.1886225Z   ✔ invariants: variable declarations (125.2865ms)
+2026-09-19T00:17:00.1887057Z   ✔ invariants: function with optional, default and rest params (123.5067ms)
+2026-09-19T00:17:00.1887529Z   ✔ invariants: class with members (132.3311ms)
+2026-09-19T00:17:00.1887992Z   ✔ invariants: class with decorators (129.0901ms)
+2026-09-19T00:17:00.1888400Z   ✔ invariants: interface with signature members (142.6802ms)
+2026-09-19T00:17:00.1888842Z   ✔ invariants: generics with constraints and defaults (128.5757ms)
+2026-09-19T00:17:00.1889218Z   ✔ invariants: enums (157.6904ms)
+2026-09-19T00:17:00.1889522Z   ✔ invariants: import declarations (143.9076ms)
+2026-09-19T00:17:00.1889852Z   ✔ invariants: if/else chains (119.2195ms)
+2026-09-19T00:17:00.1890153Z   ✔ invariants: for variants (142.2952ms)
+2026-09-19T00:17:00.1890519Z   ✔ invariants: switch with an empty case clause (138.008ms)
+2026-09-19T00:17:00.1890946Z   ✔ invariants: object literal with all member kinds (140.1759ms)
+2026-09-19T00:17:00.1891383Z   ✔ invariants: tagged and nested template literals (129.7866ms)
+2026-09-19T00:17:00.1891788Z   ✔ invariants: comments and jsdoc with tags (133.5354ms)
+2026-09-19T00:17:00.1892159Z   ✔ invariants: empty constructs (162.3403ms)
+2026-09-19T00:17:00.1892564Z   ✔ invariants: JSX element with attributes and children (129.6303ms)
+2026-09-19T00:17:00.1893025Z   ✔ invariants: JS with reparsed @param/@returns types (115.6585ms)
+2026-09-19T00:17:00.1893638Z   ✔ invariants: JS with @type, @template and reparsed type parameters (156.9922ms)
+2026-09-19T00:17:00.1894331Z   ✔ invariants: JS with optional, default and rest @param variants (129.1796ms)
+2026-09-19T00:17:00.1894871Z   ✔ invariants: JS with a @type cast on a parenthesized expression (141.251ms)
+2026-09-19T00:17:00.1895419Z   ✔ invariants: JS with @typedef and @property hoisted into statements (126.9282ms)
+2026-09-19T00:17:00.1896056Z   ✔ invariants: JS with @callback (131.4019ms)
+2026-09-19T00:17:00.1896664Z   ✔ invariants: JS with constrained and multiple @template tags (140.3591ms)
+2026-09-19T00:17:00.1897288Z   ✔ invariants: JS with @this inserted into the parameter list (136.4196ms)
+2026-09-19T00:17:00.1898307Z   ✔ invariants: JS class with @extends type arguments and member tags (142.3668ms)
+2026-09-19T00:17:00.1898987Z   ✔ invariants: JS with @enum (155.9606ms)
+2026-09-19T00:17:00.1899602Z   ✔ invariants: JS with trailing orphan @typedef attached to EndOfFile (164.4207ms)
+2026-09-19T00:17:00.1900071Z   ✔ invariants: JS with @satisfies (138.1648ms)
+2026-09-19T00:17:00.1900435Z   ✔ invariants: JS with @import declaration (124.2192ms)
+2026-09-19T00:17:00.1900914Z   ✔ invariants: JS with reparsed types on exported and nested functions (138.1095ms)
+2026-09-19T00:17:00.1901452Z   ✔ invariants: JSX component with reparsed @param props type (144.2455ms)
+2026-09-19T00:17:00.1901965Z   ✔ invariants: JSX with @type cast and @typedef around elements (133.1101ms)
+2026-09-19T00:17:00.1902394Z ✔ RemoteNode + child/token [REDACTED:assigned_secret] (6676.0224ms)
+2026-09-19T00:17:00.1902699Z   getTokenAtPosition: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1903002Z   getTouchingPropertyName: checked 9772 positions
+2026-09-19T00:17:00.1903326Z   findPrecedingToken: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1903613Z   findNextToken: [REDACTED:assigned_secret] 9772 positions
+2026-09-19T00:17:00.1903888Z ▶ astnav
+2026-09-19T00:17:00.1904107Z   ✔ getTokenAtPosition [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1904402Z   ✔ getTouchingPropertyName (204.0155ms)
+2026-09-19T00:17:00.1904698Z   ✔ findPrecedingToken [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1904968Z   ✔ findNextToken [REDACTED:assigned_secret]
+2026-09-19T00:17:00.1905221Z ✔ astnav (884.9036ms)
+2026-09-19T00:17:00.1905515Z ✔ close shuts down the API process cleanly (3871.1353ms)
+2026-09-19T00:17:00.1906004Z ✔ versionMajorMinor runtime and declaration match the compiler version (33.3858ms)
+2026-09-19T00:17:00.1906414Z ▶ encodeWtf8
+2026-09-19T00:17:00.1906659Z   ✔ matches UTF-8 for scalar values (2.3086ms)
+2026-09-19T00:17:00.1907328Z   ✔ round-trips lone surrogates (0.698ms)
+2026-09-19T00:17:00.1907686Z   ✔ preserves surrogate sequence boundaries (0.6509ms)
+2026-09-19T00:17:00.1908125Z   ✔ encodes large exceptional input into compact byte storage (7.2537ms)
+2026-09-19T00:17:00.1908526Z ✔ encodeWtf8 (14.251ms)
+2026-09-19T00:17:00.1909373Z ▶ Wtf8Decoder
+2026-09-19T00:17:00.1909657Z   ✔ decodes standard UTF-8 (0.367ms)
+2026-09-19T00:17:00.1909996Z   ✔ preserves WTF-8 encoded lone surrogates (0.5353ms)
+2026-09-19T00:17:00.1910321Z ✔ Wtf8Decoder (1.1941ms)
+2026-09-19T00:17:00.1910546Z ▶ Msgpack strings
+2026-09-19T00:17:00.1910782Z   ✔ round-trip lone surrogates (0.6982ms)
+2026-09-19T00:17:00.1911068Z ✔ Msgpack strings (1.1248ms)
+2026-09-19T00:17:00.1911308Z ℹ tests 827
+2026-09-19T00:17:00.1911489Z ℹ suites 184
+2026-09-19T00:17:00.1911669Z ℹ pass 827
+2026-09-19T00:17:00.1911843Z ℹ fail 0
+2026-09-19T00:17:00.1912013Z ℹ cancelled 0
+2026-09-19T00:17:00.1912207Z ℹ skipped 0
+2026-09-19T00:17:00.1912382Z ℹ todo 0
+2026-09-19T00:17:00.1912567Z ℹ duration_ms 71845.4961
+2026-09-19T00:17:00.1912832Z Finished [32mtest:api[39m in 1m 11.9s
+2026-09-19T00:17:00.1913142Z Completed [34mtest:api[39m in 5m 26.9s
+2026-09-19T00:17:00.3454810Z ##[group]Run git add .
+2026-09-19T00:17:00.3455182Z [36;1mgit add .[0m
+2026-09-19T00:17:00.3471781Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:00.3472636Z env:
+2026-09-19T00:17:00.3472825Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.3473045Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.3473236Z ##[endgroup]
+2026-09-19T00:17:00.6589371Z ##[group]Run codecov/codecov-action@0b35c9ecc4f0529d0eb674914510c22f85b196b4
+2026-09-19T00:17:00.6589831Z with:
+2026-09-19T00:17:00.6590051Z   use_oidc: false
+2026-09-19T00:17:00.6590256Z   name: extra-windows-latest
+2026-09-19T00:17:00.6590490Z   directory: ./coverage
+2026-09-19T00:17:00.6590690Z   cleanup: false
+2026-09-19T00:17:00.6590886Z   disable_file_fixes: false
+2026-09-19T00:17:00.6591102Z   disable_search: false
+2026-09-19T00:17:00.6591311Z   disable_safe_directory: false
+2026-09-19T00:17:00.6591529Z   disable_telem: false
+2026-09-19T00:17:00.6591714Z   dry_run: false
+2026-09-19T00:17:00.6592418Z   fail_ci_if_error: false
+2026-09-19T00:17:00.6592637Z   git_service: github
+2026-09-19T00:17:00.6592832Z   gcov_executable: gcov
+2026-09-19T00:17:00.6593044Z   handle_no_reports_found: false
+2026-09-19T00:17:00.6593283Z   recurse_submodules: false
+2026-09-19T00:17:00.6593516Z   run_command: upload-coverage
+2026-09-19T00:17:00.6593755Z   skip_validation: false
+2026-09-19T00:17:00.6594011Z   use_legacy_upload_endpoint: false
+2026-09-19T00:17:00.6594252Z   use_pypi: false
+2026-09-19T00:17:00.6594426Z   verbose: false
+2026-09-19T00:17:00.6594600Z   version: latest
+2026-09-19T00:17:00.6594810Z env:
+2026-09-19T00:17:00.6594976Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.6595191Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.6595376Z ##[endgroup]
+2026-09-19T00:17:00.6604672Z ##[start-action display=Check system dependencies;id=__codecov_codecov-action.__run]
+2026-09-19T00:17:00.6734981Z ##[group]Run missing_deps=""
+2026-09-19T00:17:00.6735245Z [36;1mmissing_deps=""[0m
+2026-09-19T00:17:00.6735460Z [36;1m[0m
+2026-09-19T00:17:00.6735667Z [36;1m# Check for always-required commands[0m
+2026-09-19T00:17:00.6735950Z [36;1mfor cmd in bash git curl; do[0m
+2026-09-19T00:17:00.6736238Z [36;1m  if ! command -v "$cmd" >/dev/null 2>&1; then[0m
+2026-09-19T00:17:00.6736545Z [36;1m    missing_deps="$missing_deps $cmd"[0m
+2026-09-19T00:17:00.6736811Z [36;1m  fi[0m
+2026-09-19T00:17:00.6736973Z [36;1mdone[0m
+2026-09-19T00:17:00.6737129Z [36;1m[0m
+2026-09-19T00:17:00.6737377Z [36;1m# Check for gpg only if validation is not being skipped[0m
+2026-09-19T00:17:00.6737750Z [36;1mif [ "$INPUT_SKIP_VALIDATION" != "true" ]; then[0m
+2026-09-19T00:17:00.6738074Z [36;1m  if ! command -v gpg >/dev/null 2>&1; then[0m
+2026-09-19T00:17:00.6738374Z [36;1m    missing_deps="$missing_deps gpg"[0m
+2026-09-19T00:17:00.6738624Z [36;1m  fi[0m
+2026-09-19T00:17:00.6739226Z [36;1mfi[0m
+2026-09-19T00:17:00.6739479Z [36;1m[0m
+2026-09-19T00:17:00.6739680Z [36;1m# Report missing required dependencies[0m
+2026-09-19T00:17:00.6739975Z [36;1mif [ -n "$missing_deps" ]; then[0m
+2026-09-19T00:17:00.6740378Z [36;1m  echo "Error: The following required dependencies are missing:$missing_deps"[0m
+2026-09-19T00:17:00.6740898Z [36;1m  echo "Please install these dependencies before using this action."[0m
+2026-09-19T00:17:00.6741256Z [36;1m  exit 1[0m
+2026-09-19T00:17:00.6741433Z [36;1mfi[0m
+2026-09-19T00:17:00.6741598Z [36;1m[0m
+2026-09-19T00:17:00.6741839Z [36;1mecho "All required system dependencies are available."[0m
+2026-09-19T00:17:00.6758255Z shell: C:\Program Files\Git\bin\sh.EXE -e {0}
+2026-09-19T00:17:00.6758540Z env:
+2026-09-19T00:17:00.6758710Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.6758928Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.6759592Z   INPUT_SKIP_VALIDATION: false
+2026-09-19T00:17:00.6759813Z ##[endgroup]
+2026-09-19T00:17:00.7288131Z All required system dependencies are available.
+2026-09-19T00:17:00.7334833Z ##[end-action id=__codecov_codecov-action.__run;outcome=success;conclusion=success;duration_ms=72]
+2026-09-19T00:17:00.7337109Z ##[start-action display=Action version;id=__codecov_codecov-action.__run_2]
+2026-09-19T00:17:00.7467260Z ##[group]Run CC_ACTION_VERSION=$(cat ${GITHUB_ACTION_PATH}/src/version)
+2026-09-19T00:17:00.7467724Z [36;1mCC_ACTION_VERSION=$(cat ${GITHUB_ACTION_PATH}/src/version)[0m
+2026-09-19T00:17:00.7469923Z [36;1mecho -e "\033[0;32m==>\033[0m Running Action version $CC_ACTION_VERSION"[0m
+2026-09-19T00:17:00.7489494Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:00.7489884Z env:
+2026-09-19T00:17:00.7490058Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.7490277Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.7490478Z ##[endgroup]
+2026-09-19T00:17:00.8141743Z [0;32m==>[0m Running Action version 7.1.0
+2026-09-19T00:17:00.8186309Z ##[end-action id=__codecov_codecov-action.__run_2;outcome=success;conclusion=success;duration_ms=84]
+2026-09-19T00:17:00.8189516Z ##[start-action display=Set safe directory;id=__codecov_codecov-action.__run_3]
+2026-09-19T00:17:00.8318653Z ##[group]Run git config --global --add safe.directory "D:\a\TypeScript\TypeScript"
+2026-09-19T00:17:00.8319229Z [36;1mgit config --global --add safe.directory "D:\a\TypeScript\TypeScript"[0m
+2026-09-19T00:17:00.8319716Z [36;1mgit config --global --add safe.directory "$GITHUB_WORKSPACE"[0m
+2026-09-19T00:17:00.8336857Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:00.8337247Z env:
+2026-09-19T00:17:00.8337425Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.8337653Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.8337848Z ##[endgroup]
+2026-09-19T00:17:00.9473417Z ##[end-action id=__codecov_codecov-action.__run_3;outcome=success;conclusion=success;duration_ms=128]
+2026-09-19T00:17:00.9478745Z ##[start-action display=Set fork;id=__codecov_codecov-action.__run_4]
+2026-09-19T00:17:00.9638564Z ##[group]Run CC_FORK="false"
+2026-09-19T00:17:00.9638840Z [36;1mCC_FORK="false"[0m
+2026-09-19T00:17:00.9639403Z [36;1mif [ -n "$GITHUB_EVENT_PULL_REQUEST_HEAD_REPO_FULL_NAME" ] && [ "$GITHUB_EVENT_PULL_REQUEST_HEAD_REPO_FULL_NAME" != "$GITHUB_REPOSITORY" ];[0m
+2026-09-19T00:17:00.9639984Z [36;1mthen[0m
+2026-09-19T00:17:00.9640213Z [36;1m  echo -e "\033[0;32m==>\033[0m Fork detected"[0m
+2026-09-19T00:17:00.9640512Z [36;1m  CC_FORK="true"[0m
+2026-09-19T00:17:00.9640716Z [36;1mfi[0m
+2026-09-19T00:17:00.9640917Z [36;1mecho "CC_FORK=$CC_FORK" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:00.9657695Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:00.9658088Z env:
+2026-09-19T00:17:00.9658269Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:00.9658492Z   GOTOOLCHAIN: local
+2026-09-19T00:17:00.9658818Z   GITHUB_EVENT_PULL_REQUEST_HEAD_LABEL: andrewbranch:api-module-resolution
+2026-09-19T00:17:00.9659292Z   GITHUB_EVENT_PULL_REQUEST_HEAD_REPO_FULL_NAME: andrewbranch/TypeScript
+2026-09-19T00:17:00.9659672Z   GITHUB_REPOSITORY: microsoft/TypeScript
+2026-09-19T00:17:00.9659931Z ##[endgroup]
+2026-09-19T00:17:01.0033438Z [0;32m==>[0m Fork detected
+2026-09-19T00:17:01.0087458Z ##[end-action id=__codecov_codecov-action.__run_4;outcome=success;conclusion=success;duration_ms=60]
+2026-09-19T00:17:01.0090978Z ##[start-action display=Get OIDC token;id=__codecov_codecov-action.oidc]
+2026-09-19T00:17:01.0260397Z ##[group]Run actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd
+2026-09-19T00:17:01.0260770Z with:
+2026-09-19T00:17:01.0261386Z   script: if (process.env.CC_USE_OIDC === 'true' && process.env.CC_FORK != 'true') {
+  const id_token = [REDACTED:assigned_secret] core.getIDToken(process.env.CC_OIDC_AUDIENCE)
+  return id_token
+}
+
+2026-09-19T00:17:01.0264299Z   github-token: ***
+2026-09-19T00:17:01.0264496Z   debug: false
+2026-09-19T00:17:01.0264701Z   user-agent: actions/github-script
+2026-09-19T00:17:01.0264946Z   result-encoding: json
+2026-09-19T00:17:01.0265136Z   retries: 0
+2026-09-19T00:17:01.0265344Z   retry-exempt-status-codes: 400,401,403,404,422
+2026-09-19T00:17:01.0265621Z env:
+2026-09-19T00:17:01.0265789Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:01.0266003Z   GOTOOLCHAIN: local
+2026-09-19T00:17:01.0266183Z   CC_FORK: true
+2026-09-19T00:17:01.0266388Z   CC_OIDC_AUDIENCE: https://codecov.io
+2026-09-19T00:17:01.0266638Z   CC_USE_OIDC: false
+2026-09-19T00:17:01.0266851Z ##[endgroup]
+2026-09-19T00:17:01.1426839Z ##[end-action id=__codecov_codecov-action.oidc;outcome=success;conclusion=success;duration_ms=133]
+2026-09-19T00:17:01.1433368Z ##[start-action display=Get and set token;id=__codecov_codecov-action.__run_5]
+2026-09-19T00:17:01.1561034Z ##[group]Run if [ "$INPUT_USE_OIDC" == 'true' ] && [ "$CC_FORK" != 'true' ];
+2026-09-19T00:17:01.1561497Z [36;1mif [ "$INPUT_USE_OIDC" == 'true' ] && [ "$CC_FORK" != 'true' ];[0m
+2026-09-19T00:17:01.1561827Z [36;1mthen[0m
+2026-09-19T00:17:01.1562059Z [36;1m  echo "CC_TOKEN=[REDACTED:assigned_secret]" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.1562384Z [36;1melif [ -n "$INPUT_CODECOV_TOKEN" ];[0m
+2026-09-19T00:17:01.1563120Z [36;1mthen[0m
+2026-09-19T00:17:01.1563358Z [36;1m  echo -e "\033[0;32m==>\033[0m Token set from env"[0m
+2026-09-19T00:17:01.1563721Z [36;1m    echo "CC_TOKEN=[REDACTED:assigned_secret]" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.1564028Z [36;1melse[0m
+2026-09-19T00:17:01.1564209Z [36;1m  if [ -n "$INPUT_TOKEN" ];[0m
+2026-09-19T00:17:01.1564454Z [36;1m  then[0m
+2026-09-19T00:17:01.1564947Z [36;1m    echo -e "\033[0;32m==>\033[0m Token set from input"[0m
+2026-09-19T00:17:01.1565308Z [36;1m    CC_TOKEN=[REDACTED:assigned_secret] "$INPUT_TOKEN" | tr -d '\n')[0m
+2026-09-19T00:17:01.1565633Z [36;1m    echo "CC_TOKEN=[REDACTED:assigned_secret]" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.1565899Z [36;1m  fi[0m
+2026-09-19T00:17:01.1566063Z [36;1mfi[0m
+2026-09-19T00:17:01.1582760Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:01.1583160Z env:
+2026-09-19T00:17:01.1583336Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:01.1583568Z   GOTOOLCHAIN: local
+2026-09-19T00:17:01.1583757Z   CC_FORK: true
+2026-09-19T00:17:01.1583935Z   CC_OIDC_TOKEN: 
+[REDACTED:assigned_secret]   CC_OIDC_AUDIENCE: https://codecov.io
+2026-09-19T00:17:01.1584410Z   INPUT_USE_OIDC: false
+2026-09-19T00:17:01.1584607Z   INPUT_TOKEN: 
+[REDACTED:assigned_secret]   INPUT_CODECOV_TOKEN: 
+[REDACTED:assigned_secret] ##[endgroup]
+2026-09-19T00:17:01.1986891Z ##[end-action id=__codecov_codecov-action.__run_5;outcome=success;conclusion=success;duration_ms=55]
+2026-09-19T00:17:01.1990719Z ##[start-action display=Override branch for forks;id=__codecov_codecov-action.__run_6]
+2026-09-19T00:17:01.2116859Z ##[group]Run if [ -z "$CC_BRANCH" ] && [ -z "$CC_TOKEN" ] && [ "$CC_FORK" == 'true' ]
+2026-09-19T00:17:01.2117359Z [36;1mif [ -z "$CC_BRANCH" ] && [ -z "$CC_TOKEN" ] && [ "$CC_FORK" == 'true' ][0m
+2026-09-19T00:17:01.2117712Z [36;1mthen[0m
+2026-09-19T00:17:01.2118097Z [36;1m  echo -e "\033[0;32m==>\033[0m Fork detected, setting branch to $GITHUB_EVENT_PULL_REQUEST_HEAD_LABEL"[0m
+2026-09-19T00:17:01.2118639Z [36;1m  TOKENLESS="[REDACTED:assigned_secret]"[0m
+2026-09-19T00:17:01.2118999Z [36;1m  CC_BRANCH="$GITHUB_EVENT_PULL_REQUEST_HEAD_LABEL"[0m
+2026-09-19T00:17:01.2119345Z [36;1m  echo "TOKENLESS=[REDACTED:assigned_secret]" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.2119908Z [36;1mfi[0m
+2026-09-19T00:17:01.2120089Z [36;1m[0m
+2026-09-19T00:17:01.2120304Z [36;1mecho "CC_BRANCH=$CC_BRANCH" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.2136456Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:01.2136844Z env:
+2026-09-19T00:17:01.2137019Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:01.2137245Z   GOTOOLCHAIN: local
+2026-09-19T00:17:01.2137438Z   CC_FORK: true
+2026-09-19T00:17:01.2137608Z   CC_BRANCH: 
+2026-09-19T00:17:01.2137901Z   GITHUB_EVENT_PULL_REQUEST_HEAD_LABEL: andrewbranch:api-module-resolution
+2026-09-19T00:17:01.2138373Z   GITHUB_EVENT_PULL_REQUEST_HEAD_REPO_FULL_NAME: andrewbranch/TypeScript
+2026-09-19T00:17:01.2138758Z   GITHUB_REPOSITORY: microsoft/TypeScript
+2026-09-19T00:17:01.2139008Z ##[endgroup]
+2026-09-19T00:17:01.2492828Z [0;32m==>[0m Fork detected, setting branch to andrewbranch:api-module-resolution
+2026-09-19T00:17:01.2540211Z ##[end-action id=__codecov_codecov-action.__run_6;outcome=success;conclusion=success;duration_ms=54]
+2026-09-19T00:17:01.2546054Z ##[start-action display=Override commits and pr for pull requests;id=__codecov_codecov-action.__run_7]
+2026-09-19T00:17:01.2669736Z ##[group]Run if [ -z "$CC_SHA" ];
+2026-09-19T00:17:01.2670011Z [36;1mif [ -z "$CC_SHA" ];[0m
+2026-09-19T00:17:01.2670253Z [36;1mthen[0m
+2026-09-19T00:17:01.2670496Z [36;1m  CC_SHA="$GITHUB_EVENT_PULL_REQUEST_HEAD_SHA"[0m
+2026-09-19T00:17:01.2670781Z [36;1mfi[0m
+2026-09-19T00:17:01.2671006Z [36;1mif [ -z "$CC_PR" ] && [ "$CC_FORK" == 'true' ];[0m
+2026-09-19T00:17:01.2671288Z [36;1mthen[0m
+2026-09-19T00:17:01.2671479Z [36;1m  CC_PR="$GITHUB_EVENT_NUMBER"[0m
+2026-09-19T00:17:01.2672283Z [36;1mfi[0m
+2026-09-19T00:17:01.2672453Z [36;1m[0m
+2026-09-19T00:17:01.2672657Z [36;1mecho "CC_SHA=$CC_SHA" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.2672950Z [36;1mecho "CC_PR=$CC_PR" >> "$GITHUB_ENV"[0m
+2026-09-19T00:17:01.2689866Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:01.2690260Z env:
+2026-09-19T00:17:01.2690445Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:01.2690674Z   GOTOOLCHAIN: local
+2026-09-19T00:17:01.2690874Z   CC_FORK: true
+2026-09-19T00:17:01.2691103Z   TOKENLESS: [REDACTED:assigned_secret]
+2026-09-19T00:17:01.2691425Z   CC_BRANCH: andrewbranch:api-module-resolution
+2026-09-19T00:17:01.2691690Z   CC_PR: 
+2026-09-19T00:17:01.2691842Z   CC_SHA: 
+2026-09-19T00:17:01.2692017Z   GITHUB_EVENT_NAME: pull_request
+2026-09-19T00:17:01.2692254Z   GITHUB_EVENT_NUMBER: 64299
+2026-09-19T00:17:01.2692600Z   GITHUB_EVENT_PULL_REQUEST_HEAD_SHA: 4f09ae9ed3b21802df044a0ed48fb5b657bd8f64
+2026-09-19T00:17:01.2692973Z ##[endgroup]
+2026-09-19T00:17:01.3248644Z ##[end-action id=__codecov_codecov-action.__run_7;outcome=success;conclusion=success;duration_ms=70]
+2026-09-19T00:17:01.3257908Z ##[start-action display=Upload coverage to Codecov;id=__codecov_codecov-action.__run_8]
+2026-09-19T00:17:01.3406892Z ##[group]Run ${GITHUB_ACTION_PATH}/dist/codecov.sh
+2026-09-19T00:17:01.3407267Z [36;1m${GITHUB_ACTION_PATH}/dist/codecov.sh[0m
+2026-09-19T00:17:01.3426739Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:01.3427127Z env:
+2026-09-19T00:17:01.3427300Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:01.3427528Z   GOTOOLCHAIN: local
+2026-09-19T00:17:01.3427716Z   CC_FORK: true
+2026-09-19T00:17:01.3427931Z   TOKENLESS: [REDACTED:assigned_secret]
+2026-09-19T00:17:01.3428251Z   CC_BRANCH: andrewbranch:api-module-resolution
+2026-09-19T00:17:01.3428564Z   CC_SHA: 4f09ae9ed3b21802df044a0ed48fb5b657bd8f64
+2026-09-19T00:17:01.3428833Z   CC_PR: 64299
+2026-09-19T00:17:01.3429024Z   CC_BASE_SHA: 
+2026-09-19T00:17:01.3429195Z   CC_BINARY: 
+2026-09-19T00:17:01.3429365Z   CC_BUILD: 
+2026-09-19T00:17:01.3429815Z   CC_BUILD_URL: 
+2026-09-19T00:17:01.3430001Z   CC_CLEANUP: false
+2026-09-19T00:17:01.3430191Z   CC_CODE: 
+2026-09-19T00:17:01.3430354Z   CC_DIR: ./coverage
+2026-09-19T00:17:01.3430561Z   CC_DISABLE_FILE_FIXES: false
+2026-09-19T00:17:01.3430795Z   CC_DISABLE_SEARCH: false
+2026-09-19T00:17:01.3431005Z   CC_DISABLE_TELEM: false
+2026-09-19T00:17:01.3431203Z   CC_DRY_RUN: false
+2026-09-19T00:17:01.3431395Z   CC_ENTERPRISE_URL: 
+2026-09-19T00:17:01.3431580Z   CC_ENV: 
+2026-09-19T00:17:01.3431744Z   CC_EXCLUDES: 
+2026-09-19T00:17:01.3431919Z   CC_FAIL_ON_ERROR: false
+2026-09-19T00:17:01.3432116Z   CC_FILES: 
+2026-09-19T00:17:01.3432275Z   CC_FLAGS: 
+2026-09-19T00:17:01.3432450Z   CC_FORCE: 
+2026-09-19T00:17:01.3432608Z   CC_GCOV_ARGS: 
+2026-09-19T00:17:01.3432794Z   CC_GCOV_EXECUTABLE: gcov
+2026-09-19T00:17:01.3432996Z   CC_GCOV_IGNORE: 
+2026-09-19T00:17:01.3433179Z   CC_GCOV_INCLUDE: 
+2026-09-19T00:17:01.3433363Z   CC_GIT_SERVICE: github
+2026-09-19T00:17:01.3433582Z   CC_HANDLE_NO_REPORTS_FOUND: false
+2026-09-19T00:17:01.3433816Z   CC_JOB_CODE: 
+2026-09-19T00:17:01.3433986Z   CC_LEGACY: false
+2026-09-19T00:17:01.3434270Z   CC_NAME: extra-windows-latest
+2026-09-19T00:17:01.3434691Z   CC_NETWORK_FILTER: 
+2026-09-19T00:17:01.3435126Z   CC_NETWORK_PREFIX: 
+2026-09-19T00:17:01.3435329Z   CC_NETWORK_ROOT_FOLDER: 
+2026-09-19T00:17:01.3435520Z   CC_OS: 
+2026-09-19T00:17:01.3435673Z   CC_PARENT_SHA: 
+2026-09-19T00:17:01.3435847Z   CC_PLUGINS: 
+2026-09-19T00:17:01.3436022Z   CC_RECURSE_SUBMODULES: false
+2026-09-19T00:17:01.3436231Z   CC_REPORT_TYPE: 
+2026-09-19T00:17:01.3436415Z   CC_RUN_CMD: upload-coverage
+2026-09-19T00:17:01.3436624Z   CC_SERVICE: github
+2026-09-19T00:17:01.3436815Z   CC_SKIP_VALIDATION: false
+2026-09-19T00:17:01.3437010Z   CC_SLUG: 
+2026-09-19T00:17:01.3437169Z   CC_SWIFT_PROJECT: 
+2026-09-19T00:17:01.3437348Z   CC_USE_PYPI: false
+2026-09-19T00:17:01.3437658Z   CC_VERBOSE: false
+2026-09-19T00:17:01.3437832Z   CC_VERSION: latest
+2026-09-19T00:17:01.3438001Z   CC_YML_PATH: 
+2026-09-19T00:17:01.3438172Z ##[endgroup]
+2026-09-19T00:17:01.4169858Z      _____          _
+2026-09-19T00:17:01.4170267Z     / ____|        | |
+2026-09-19T00:17:01.4170614Z    | |     ___   __| | ___  ___ _____   __
+2026-09-19T00:17:01.4171066Z    | |    / _ \ / _` |/ _ \/ __/ _ \ \ / /
+2026-09-19T00:17:01.4171485Z    | |___| (_) | (_| |  __/ (_| (_) \ V /
+2026-09-19T00:17:01.4171903Z     \_____\___/ \__,_|\___|\___\___/ \_/
+2026-09-19T00:17:01.4172615Z                            [0;31m Wrapper-0.3.0[0m
+2026-09-19T00:17:01.4173073Z                            
+2026-09-19T00:17:01.5248320Z [0;32m==>[0m Detected [0;36mwindows[0m
+2026-09-19T00:17:01.5249998Z [0;32m ->[0m Downloading [0;36mhttps://cli.codecov.io/latest/windows/codecov.exe[0m
+2026-09-19T00:17:01.6604494Z   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+2026-09-19T00:17:01.6605622Z                                  Dload  Upload  Total   Spent   Left   Speed
+2026-09-19T00:17:01.6605982Z 
+2026-09-19T00:17:01.9341105Z   0      0   0      0   0      0      0      0                              0
+2026-09-19T00:17:01.9342376Z 100 13.52M 100 13.52M   0      0 40.34M      0                              0
+2026-09-19T00:17:01.9344466Z 100 13.52M 100 13.52M   0      0 40.31M      0                              0
+2026-09-19T00:17:01.9345063Z 100 13.52M 100 13.52M   0      0 40.29M      0                              0
+2026-09-19T00:17:01.9393140Z [0;32m==>[0m Finishing downloading [0;36mwindows:latest[0m
+2026-09-19T00:17:02.3514494Z       Version: [0;36mv11.3.1[0m
+2026-09-19T00:17:02.7504183Z gpg: directory '/c/Users/runneradmin/.gnupg' created
+2026-09-19T00:17:02.7504618Z  
+2026-09-19T00:17:03.6702152Z gpg: /c/Users/runneradmin/.gnupg/trustdb.gpg: trustdb created
+2026-09-19T00:17:03.6711751Z gpg: key 806BB28AED779869: public key "Codecov Uploader (Codecov Uploader Verification Key) <[REDACTED:email]>" imported
+2026-09-19T00:17:03.8786119Z gpg: Total number processed: 1
+2026-09-19T00:17:03.8786439Z gpg:               imported: 1
+2026-09-19T00:17:03.8852729Z [0;32m==>[0m Verifying GPG signature integrity
+2026-09-19T00:17:03.8854009Z [0;32m ->[0m Downloading [0;36mhttps://cli.codecov.io/latest/windows/codecov.exe.SHA256SUM[0m
+2026-09-19T00:17:03.8854802Z [0;32m ->[0m Downloading [0;36mhttps://cli.codecov.io/latest/windows/codecov.exe.SHA256SUM.sig[0m
+2026-09-19T00:17:03.8855261Z  
+2026-09-19T00:17:04.0461753Z gpg: Signature made Thu Jul  9 01:38:07 2026 CUT
+2026-09-19T00:17:04.0462274Z gpg:                using RSA key 27034E7FDB850E0BBC2C62FF806BB28AED779869
+2026-09-19T00:17:04.0505145Z gpg: Good signature from "Codecov Uploader (Codecov Uploader Verification Key) <[REDACTED:email]>" [unknown]
+2026-09-19T00:17:04.0506655Z gpg: WARNING: This key is not certified with a trusted signature!
+2026-09-19T00:17:04.0507465Z gpg:          There is no indication that the signature belongs to the owner.
+2026-09-19T00:17:04.0510295Z Primary key fingerprint: 2703 4E7F DB85 0E0B BC2C  62FF 806B B28A ED77 9869
+2026-09-19T00:17:04.1661021Z codecov.exe: OK
+2026-09-19T00:17:04.1680662Z [0;32m==>[0m CLI integrity verified
+2026-09-19T00:17:04.1681023Z 
+2026-09-19T00:17:06.2328031Z [0;32m ->[0m Token [REDACTED:assigned_secret] 0
+2026-09-19T00:17:06.2330217Z [0;32m==>[0m Running upload-coverage
+2026-09-19T00:17:06.2643970Z       [0;36m./codecov.exe  upload-coverage --git-service github --pr 64299 --sha 4f09ae9ed3b21802df044a0ed48fb5b657bd8f64 --branch andrewbranch:api-module-resolution --dir ./coverage --gcov-executable gcov --name extra-windows-latest[0m
+2026-09-19T00:17:07.9615223Z info - 2026-09-19 00:17:07,960 -- ci service found: github-actions
+2026-09-19T00:17:08.0840101Z warning - 2026-09-19 00:17:08,083 -- xcrun is not installed or can't be found.
+2026-09-19T00:17:08.0877345Z warning - 2026-09-19 00:17:08,087 -- No gcov data found.
+2026-09-19T00:17:08.1000580Z warning - 2026-09-19 00:17:08,099 -- coverage.py is not installed or can't be found.
+2026-09-19T00:17:08.2568425Z info - 2026-09-19 00:17:08,256 -- Found 1 coverage files to report
+2026-09-19T00:17:08.2569921Z info - 2026-09-19 00:17:08,256 -- > coverage\coverage.tools.out
+2026-09-19T00:17:12.5315030Z info - 2026-09-19 00:17:12,529 -- Your upload is now queued for processing. When finished, results will be available at: https://app.codecov.[REDACTED:high_entropy]
+2026-09-19T00:17:12.5316653Z info - 2026-09-19 00:17:12,529 -- Sending upload (11565948 bytes) to storage
+2026-09-19T00:17:12.9783637Z info - 2026-09-19 00:17:12,977 -- Upload queued for processing complete
+2026-09-19T00:17:13.6960888Z ##[end-action id=__codecov_codecov-action.__run_8;outcome=success;conclusion=success;duration_ms=12370]
+2026-09-19T00:17:13.7119486Z ##[group]Run git diff --staged --exit-code --stat
+2026-09-19T00:17:13.7119905Z [36;1mgit diff --staged --exit-code --stat[0m
+2026-09-19T00:17:13.7136540Z shell: C:\Program Files\Git\bin\bash.EXE --noprofile --norc -e -o pipefail {0}
+2026-09-19T00:17:13.7136943Z env:
+2026-09-19T00:17:13.7137126Z   TSGO_HEREBY_COVERAGE: true
+2026-09-19T00:17:13.7137348Z   GOTOOLCHAIN: local
+2026-09-19T00:17:13.7137536Z   CC_FORK: true
+2026-09-19T00:17:13.7137755Z   TOKENLESS: [REDACTED:assigned_secret]
+2026-09-19T00:17:13.7138084Z   CC_BRANCH: andrewbranch:api-module-resolution
+2026-09-19T00:17:13.7138401Z   CC_SHA: 4f09ae9ed3b21802df044a0ed48fb5b657bd8f64
+2026-09-19T00:17:13.7138678Z   CC_PR: 64299
+2026-09-19T00:17:13.7138849Z ##[endgroup]
+2026-09-19T00:17:13.7896571Z  packages/typescript/src/api/sync/api.ts | 14 +++++++-------
+2026-09-19T00:17:13.7897300Z  1 file changed, 7 insertions(+), 7 deletions(-)
+2026-09-19T00:17:13.7978582Z ##[error]Process completed with exit code 1.
+2026-09-19T00:17:13.8179866Z Post job cleanup.
+2026-09-19T00:17:13.8183455Z ##[start-action display=Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e;id=__3d9d6e09-0f68-4762-b7bb-298915ec0bb5.__actions_setup-go]
+2026-09-19T00:17:13.8187171Z ##[end-action id=__3d9d6e09-0f68-4762-b7bb-298915ec0bb5.__actions_setup-go;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-09-19T00:17:13.8369652Z Post job cleanup.
+2026-09-19T00:17:14.0470403Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-09-19T00:17:14.0742392Z git version 2.55.0.windows.5
+2026-09-19T00:17:14.0804082Z Copying 'C:\Users\runneradmin\.gitconfig' to 'D:\a\_temp\a4525bbb-1aac-460e-a06a-f770a56829d5\.gitconfig'
+2026-09-19T00:17:14.0825565Z Temporarily overriding HOME='D:\a\_temp\a4525bbb-1aac-460e-a06a-f770a56829d5' before making global git config changes
+2026-09-19T00:17:14.0826667Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-19T00:17:14.0836777Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\TypeScript\TypeScript
+2026-09-19T00:17:14.1152339Z Removing SSH command configuration
+2026-09-19T00:17:14.1164006Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-09-19T00:17:14.1481965Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-09-19T00:17:14.6986687Z Removing HTTP extra header
+2026-09-19T00:17:14.6996649Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-19T00:17:14.7313838Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-09-19T00:17:15.2744300Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-09-19T00:17:15.2763461Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-19T00:17:15.3031929Z includeif.gitdir:D:/a/TypeScript/TypeScript/.git.path
+2026-09-19T00:17:15.3032739Z includeif.gitdir:D:/a/TypeScript/TypeScript/.git/worktrees/*.path
+2026-09-19T00:17:15.3033431Z includeif.gitdir:/github/workspace/.git.path
+2026-09-19T00:17:15.3034110Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-19T00:17:15.3073529Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/TypeScript/TypeScript/.git.path
+2026-09-19T00:17:15.3330996Z D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:17:15.3374030Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/TypeScript/TypeScript/.git.path D\:\\a\\_temp\\git\-credentials\-cd20f148\-1992\-4bb7\-a502\-91c8e35c75c3\.config
+2026-09-19T00:17:15.3678965Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:D:/a/TypeScript/TypeScript/.git/worktrees/*.path
+2026-09-19T00:17:15.3941121Z D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:17:15.3981438Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:D:/a/TypeScript/TypeScript/.git/worktrees/*.path D\:\\a\\_temp\\git\-credentials\-cd20f148\-1992\-4bb7\-a502\-91c8e35c75c3\.config
+2026-09-19T00:17:15.4280701Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-19T00:17:15.4537507Z /github/runner_temp/git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:17:15.4575368Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-cd20f148\-1992\-4bb7\-a502\-91c8e35c75c3\.config
+2026-09-19T00:17:15.4869646Z [command]"C:\Program Files\Git\bin\git.exe" config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-19T00:17:15.5122705Z /github/runner_temp/git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config
+2026-09-19T00:17:15.5198282Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-cd20f148\-1992\-4bb7\-a502\-91c8e35c75c3\.config
+2026-09-19T00:17:15.5506685Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-09-19T00:17:16.1098808Z Removing credentials [REDACTED:assigned_secret] 'D:\a\_temp\git-credentials-cd20f148-1992-4bb7-a502-91c8e35c75c3.config'
+2026-09-19T00:17:16.1302762Z Cleaning up orphan processes

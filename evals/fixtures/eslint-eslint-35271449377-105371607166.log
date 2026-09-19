@@ -1,0 +1,302 @@
+﻿2026-09-17T20:32:52.3310675Z Current runner version: '2.337.0'
+2026-09-17T20:32:52.3346663Z ##[group]Runner Image Provisioner
+2026-09-17T20:32:52.3347311Z Hosted Compute Agent
+2026-09-17T20:32:52.3347677Z Version: 20260828.587
+2026-09-17T20:32:52.3348143Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-17T20:32:52.3348641Z Build Date: 2026-08-28T16:44:25Z
+2026-09-17T20:32:52.3349101Z Worker ID: {f28b2cc0-31fd-404d-b8b1-8d712f1cd586}
+2026-09-17T20:32:52.3349596Z Azure Region: westus3
+2026-09-17T20:32:52.3349986Z ##[endgroup]
+2026-09-17T20:32:52.3350764Z ##[group]Operating System
+2026-09-17T20:32:52.3351129Z Ubuntu
+2026-09-17T20:32:52.3351512Z 24.04.5
+2026-09-17T20:32:52.3351867Z LTS
+2026-09-17T20:32:52.3352174Z ##[endgroup]
+2026-09-17T20:32:52.3352493Z ##[group]Runner Image
+2026-09-17T20:32:52.3352895Z Image: ubuntu-24.04
+2026-09-17T20:32:52.3353442Z Version: 20260907.300.1
+2026-09-17T20:32:52.3354270Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-17T20:32:52.3355158Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-17T20:32:52.3355764Z ##[endgroup]
+2026-09-17T20:32:52.3356453Z ##[group]GITHUB_TOKEN [REDACTED:assigned_secret]
+2026-09-17T20:32:52.3357680Z Contents: read
+2026-09-17T20:32:52.3358048Z Metadata: read
+2026-09-17T20:32:52.3358426Z ##[endgroup]
+2026-09-17T20:32:52.3359746Z Secret [REDACTED:assigned_secret] Actions
+2026-09-17T20:32:52.3360311Z Cache mode: write
+2026-09-17T20:32:52.3360743Z Prepare workflow directory
+2026-09-17T20:32:52.3564437Z Prepare all required actions
+2026-09-17T20:32:52.3595396Z Getting action download info
+2026-09-17T20:32:52.6568930Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-17T20:32:52.8317756Z Download action repository 'actions/setup-node@v7' (SHA:820762786026740c76f36085b0efc47a31fe5020)
+2026-09-17T20:32:53.4110417Z Complete job name: Test (ubuntu-latest, 26.x)
+2026-09-17T20:32:53.4629719Z ##[group]Run actions/checkout@v7
+2026-09-17T20:32:53.4630201Z with:
+2026-09-17T20:32:53.4630462Z   repository: eslint/eslint
+2026-09-17T20:32:53.4632736Z   token: ***
+2026-09-17T20:32:53.4632992Z   ssh-strict: true
+2026-09-17T20:32:53.4633382Z   ssh-user: git
+2026-09-17T20:32:53.4633650Z   persist-credentials: [REDACTED:assigned_secret]
+2026-09-17T20:32:53.4633937Z   clean: true
+2026-09-17T20:32:53.4634205Z   sparse-checkout-cone-mode: true
+2026-09-17T20:32:53.4634513Z   fetch-depth: 1
+2026-09-17T20:32:53.4634767Z   fetch-tags: false
+2026-09-17T20:32:53.4635030Z   show-progress: true
+2026-09-17T20:32:53.4635301Z   lfs: false
+2026-09-17T20:32:53.4635565Z   submodules: false
+2026-09-17T20:32:53.4635843Z   set-safe-directory: true
+2026-09-17T20:32:53.4636145Z   allow-unsafe-pr-checkout: false
+2026-09-17T20:32:53.4636540Z ##[endgroup]
+2026-09-17T20:32:53.5324339Z Syncing repository: eslint/eslint
+2026-09-17T20:32:53.5325448Z ##[group]Getting Git version info
+2026-09-17T20:32:53.5325911Z Working directory is '/home/runner/work/eslint/eslint'
+2026-09-17T20:32:53.5326469Z [command]/usr/bin/git version
+2026-09-17T20:32:53.5623376Z git version 2.55.0
+2026-09-17T20:32:53.5634606Z ##[endgroup]
+2026-09-17T20:32:53.5641522Z Temporarily overriding HOME='/home/runner/work/_temp/80521849-9f85-4fea-813d-6558509a9e35' before making global git config changes
+2026-09-17T20:32:53.5642590Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-17T20:32:53.5644945Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/eslint/eslint
+2026-09-17T20:32:53.6104865Z Deleting the contents of '/home/runner/work/eslint/eslint'
+2026-09-17T20:32:53.6107196Z ##[group]Determining repository object format
+2026-09-17T20:32:53.6108215Z ##[endgroup]
+2026-09-17T20:32:53.6108664Z ##[group]Initializing the repository
+2026-09-17T20:32:53.6110868Z [command]/usr/bin/git init /home/runner/work/eslint/eslint
+2026-09-17T20:32:53.6553072Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-17T20:32:53.6554110Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-17T20:32:53.6555272Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-17T20:32:53.6556006Z hint: call:
+2026-09-17T20:32:53.6556382Z hint:
+2026-09-17T20:32:53.6556856Z hint: 	git config --global init.defaultBranch <name>
+2026-09-17T20:32:53.6557450Z hint:
+2026-09-17T20:32:53.6557977Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-17T20:32:53.6558900Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-17T20:32:53.6559573Z hint:
+2026-09-17T20:32:53.6559903Z hint: 	git branch -m <name>
+2026-09-17T20:32:53.6560342Z hint:
+2026-09-17T20:32:53.6560816Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-17T20:32:53.6561389Z Initialized empty Git repository in /home/runner/work/eslint/eslint/.git/
+2026-09-17T20:32:53.6563043Z [command]/usr/bin/git remote add origin https://github.com/eslint/eslint
+2026-09-17T20:32:53.6602525Z ##[endgroup]
+2026-09-17T20:32:53.6602998Z ##[group]Disabling automatic garbage collection
+2026-09-17T20:32:53.6604277Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-17T20:32:53.6625777Z ##[endgroup]
+2026-09-17T20:32:53.6626206Z ##[group]Setting up auth
+2026-09-17T20:32:53.6629094Z Removing SSH command configuration
+2026-09-17T20:32:53.6633904Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-17T20:32:53.6652207Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-17T20:32:53.7576173Z Removing HTTP extra header
+2026-09-17T20:32:53.7580170Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-17T20:32:53.7608131Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-17T20:32:53.7763647Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-09-17T20:32:53.7767194Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-17T20:32:53.7789350Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-17T20:32:53.7949494Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-17T20:32:53.7976092Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/eslint/eslint/.git.path /home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:32:53.7997861Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/eslint/eslint/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:32:53.8099331Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:32:53.8122896Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:32:53.8142677Z ##[endgroup]
+2026-09-17T20:32:53.8144163Z ##[group]Fetching the repository
+2026-09-17T20:32:53.8148557Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2624d9ac38bc13be71aaa8cf2742a61186e281f0:refs/remotes/pull/21210/merge
+2026-09-17T20:32:55.3184426Z From https://github.com/eslint/eslint
+2026-09-17T20:32:55.3185052Z  * [new ref]         2624d9ac38bc13be71aaa8cf2742a61186e281f0 -> pull/21210/merge
+2026-09-17T20:32:55.3189135Z ##[endgroup]
+2026-09-17T20:32:55.3189996Z ##[group]Determining the checkout info
+2026-09-17T20:32:55.3190561Z ##[endgroup]
+2026-09-17T20:32:55.3195004Z [command]/usr/bin/git sparse-checkout disable
+2026-09-17T20:32:55.3342832Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-17T20:32:55.3364009Z ##[group]Checking out the ref
+2026-09-17T20:32:55.3366212Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/21210/merge
+2026-09-17T20:32:55.4657503Z Note: switching to 'refs/remotes/pull/21210/merge'.
+2026-09-17T20:32:55.4657766Z 
+2026-09-17T20:32:55.4657884Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-17T20:32:55.4658208Z changes and commit them, and you can discard any commits you make in this
+2026-09-17T20:32:55.4658484Z state without impacting any branches by switching back to a branch.
+2026-09-17T20:32:55.4658880Z 
+2026-09-17T20:32:55.4659160Z If you want to create a new branch to retain commits you create, you may
+2026-09-17T20:32:55.4659538Z do so (now or later) by using -c with the switch command. Example:
+2026-09-17T20:32:55.4659814Z 
+2026-09-17T20:32:55.4660056Z   git switch -c <new-branch-name>
+2026-09-17T20:32:55.4660221Z 
+2026-09-17T20:32:55.4660537Z Or undo this operation with:
+2026-09-17T20:32:55.4662320Z 
+2026-09-17T20:32:55.4662510Z   git switch -
+2026-09-17T20:32:55.4662718Z 
+2026-09-17T20:32:55.4662925Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-17T20:32:55.4663211Z 
+2026-09-17T20:32:55.4663656Z HEAD is now at 2624d9a Merge d386b0940c0d2a1b90e3b965f56148263067f7a7 into 9ac7eb60525ec768c2fdc6699e5a292aa913ce9e
+2026-09-17T20:32:55.4673113Z ##[endgroup]
+2026-09-17T20:32:55.4714238Z [command]/usr/bin/git log -1 --format=%H
+2026-09-17T20:32:55.4736257Z 2624d9ac38bc13be71aaa8cf2742a61186e281f0
+2026-09-17T20:32:55.4995590Z ##[group]Run actions/setup-node@v7
+2026-09-17T20:32:55.4995752Z with:
+2026-09-17T20:32:55.4995875Z   node-version: 26.x
+2026-09-17T20:32:55.4995997Z   check-latest: false
+2026-09-17T20:32:55.4997405Z   token: ***
+2026-09-17T20:32:55.4997535Z   package-manager-cache: true
+2026-09-17T20:32:55.4997674Z ##[endgroup]
+2026-09-17T20:32:55.6580595Z Attempting to download 26.x...
+2026-09-17T20:32:56.6815888Z Acquiring 26.9.0 - x64 from https://github.com/actions/node-versions/releases/download/26.9.0-35174947414/node-26.9.0-linux-x64.tar.gz
+2026-09-17T20:32:57.1091111Z Extracting ...
+2026-09-17T20:32:57.1184366Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/a20f7963-ef39-4e74-97c8-31d88222affa -f /home/runner/work/_temp/4c882614-a797-4534-b540-df9c0e4f076e
+2026-09-17T20:32:58.1379119Z Adding to the cache ...
+2026-09-17T20:33:01.3530881Z ##[group]Environment details
+2026-09-17T20:33:01.4953575Z node: v26.9.0
+2026-09-17T20:33:01.4953939Z npm: 11.19.1
+2026-09-17T20:33:01.4954090Z yarn: 1.22.22
+2026-09-17T20:33:01.4954509Z ##[endgroup]
+2026-09-17T20:33:01.5101235Z ##[group]Run npm install
+2026-09-17T20:33:01.5101418Z [36;1mnpm install[0m
+2026-09-17T20:33:01.5135939Z shell: /usr/bin/bash -e {0}
+2026-09-17T20:33:01.5136109Z ##[endgroup]
+2026-09-17T20:33:25.6195015Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2026-09-17T20:33:25.6524605Z npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+2026-09-17T20:33:25.9285819Z npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+2026-09-17T20:33:26.2516525Z npm warn deprecated debuglog@1.0.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+2026-09-17T20:33:26.2524595Z npm warn deprecated readdir-scoped-modules@1.1.0: This functionality has been moved to @npmcli/fs
+2026-09-17T20:33:26.2653850Z npm warn deprecated read-package-json@2.1.2: This package is no longer supported. Please use @npmcli/package-json instead.
+2026-09-17T20:33:26.3007821Z npm warn deprecated @sinonjs/text-encoding@0.7.3: Deprecated: no longer maintained and no longer used by Sinon packages. See
+2026-09-17T20:33:26.3008772Z npm warn deprecated   https://github.com/sinonjs/nise/issues/243 for replacement details.
+2026-09-17T20:33:26.5316178Z npm warn deprecated read-installed@4.0.3: This package is no longer supported.
+2026-09-17T20:33:28.1717237Z npm warn deprecated lodash.pick@4.4.0: This package is deprecated. Use destructuring assignment syntax instead.
+2026-09-17T20:33:28.5505070Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting [REDACTED:email]
+2026-09-17T20:33:30.1162355Z npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-09-17T20:33:30.2807332Z npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting [REDACTED:email]
+2026-09-17T20:33:30.6562952Z npm warn deprecated sinon@11.1.2: 16.1.1
+2026-09-17T20:33:33.6302253Z 
+2026-09-17T20:33:33.6303095Z added 1186 packages, and audited 1189 packages in 32s
+2026-09-17T20:33:33.6311120Z 
+2026-09-17T20:33:33.6311586Z 278 packages are looking for funding
+2026-09-17T20:33:33.6311883Z   run `npm fund` for details
+2026-09-17T20:33:33.6409649Z 
+2026-09-17T20:33:33.6410518Z 29 vulnerabilities (6 low, 5 moderate, 16 high, 2 critical)
+2026-09-17T20:33:33.6410886Z 
+2026-09-17T20:33:33.6411091Z To address issues that do not require attention, run:
+2026-09-17T20:33:33.6411384Z   npm audit fix
+2026-09-17T20:33:33.6411512Z 
+2026-09-17T20:33:33.6411738Z To address all issues possible (including breaking changes), run:
+2026-09-17T20:33:33.6412075Z   npm audit fix --force
+2026-09-17T20:33:33.6412217Z 
+2026-09-17T20:33:33.6412379Z Some issues need review, and may require choosing
+2026-09-17T20:33:33.6412650Z a different dependency.
+2026-09-17T20:33:33.6412764Z 
+2026-09-17T20:33:33.6412871Z Run `npm audit` for details.
+2026-09-17T20:33:33.7003946Z ##[group]Run node Makefile mocha
+2026-09-17T20:33:33.7004153Z [36;1mnode Makefile mocha[0m
+2026-09-17T20:33:33.7033166Z shell: /usr/bin/bash -e {0}
+2026-09-17T20:33:33.7033399Z env:
+2026-09-17T20:33:33.7033507Z   NODE_OPTIONS: 
+2026-09-17T20:33:33.7033624Z ##[endgroup]
+2026-09-17T20:33:33.8219129Z Running unit tests
+2026-09-17T20:33:35.1714909Z 
+2026-09-17T20:33:35.3365573Z 
+2026-09-17T20:33:48.3143955Z [J[90m  [[0m....................................[90m][0m
+2026-09-17T20:33:53.2525045Z [J[90m  [[0m...................................[90m][0m
+2026-09-17T20:33:53.9867216Z [J[90m  [[0m▬..................................[90m][0m
+2026-09-17T20:33:55.2070517Z [J[90m  [[0m▬▬.................................[90m][0m
+2026-09-17T20:33:55.8963834Z [J[90m  [[0m▬▬▬................................[90m][0m
+2026-09-17T20:33:56.6251763Z [J[90m  [[0m▬▬▬▬...............................[90m][0m
+2026-09-17T20:33:57.3677594Z [J[90m  [[0m▬▬▬▬▬..............................[90m][0m
+2026-09-17T20:33:58.0124716Z [J[90m  [[0m▬▬▬▬▬▬.............................[90m][0m
+2026-09-17T20:33:58.8114618Z [J[90m  [[0m▬▬▬▬▬▬▬............................[90m][0m
+2026-09-17T20:33:59.7988966Z [J[90m  [[0m▬▬▬▬▬▬▬▬...........................[90m][0m
+2026-09-17T20:34:00.8409926Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬..........................[90m][0m
+2026-09-17T20:34:01.7380792Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬.........................[90m][0m
+2026-09-17T20:34:02.5742258Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬........................[90m][0m
+2026-09-17T20:34:03.2707421Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬.......................[90m][0m
+2026-09-17T20:34:03.8590405Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬......................[90m][0m
+2026-09-17T20:34:04.7255441Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬.....................[90m][0m
+2026-09-17T20:34:06.1364033Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬....................[90m][0m
+2026-09-17T20:34:07.1458722Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬...................[90m][0m
+2026-09-17T20:34:07.9849098Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬..................[90m][0m
+2026-09-17T20:34:09.1123029Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.................[90m][0m
+2026-09-17T20:34:09.8672667Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬................[90m][0m
+2026-09-17T20:34:10.5305098Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬...............[90m][0m
+2026-09-17T20:34:11.1611342Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬..............[90m][0m
+2026-09-17T20:34:11.9716484Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.............[90m][0m
+2026-09-17T20:34:12.8179461Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬............[90m][0m
+2026-09-17T20:34:13.4389748Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬...........[90m][0m
+2026-09-17T20:34:14.1185377Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬..........[90m][0m
+2026-09-17T20:34:14.8934367Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.........[90m][0m
+2026-09-17T20:34:15.5563383Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬........[90m][0m
+2026-09-17T20:34:16.1909295Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.......[90m][0m
+2026-09-17T20:34:16.8975450Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬......[90m][0m
+2026-09-17T20:34:17.6932080Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.....[90m][0m
+2026-09-17T20:34:18.5101241Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬....[90m][0m
+2026-09-17T20:34:19.1441949Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬...[90m][0m
+2026-09-17T20:34:19.8245177Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬..[90m][0m
+2026-09-17T20:34:20.0084498Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬.[90m][0m
+2026-09-17T20:34:22.8220597Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[90m][0m
+2026-09-17T20:34:22.8221399Z [J[90m  [[0m▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[90m][0m
+2026-09-17T20:34:22.8221594Z 
+2026-09-17T20:34:22.8223985Z [92m [0m[32m 38819 passing[0m[90m (48s)[0m
+2026-09-17T20:34:22.8224284Z [36m [0m[36m 11 pending[0m
+2026-09-17T20:34:22.8224420Z 
+2026-09-17T20:34:24.7545890Z 
+2026-09-17T20:34:24.7547115Z =============================== Coverage summary ===============================
+2026-09-17T20:34:24.7547677Z Statements   : 99.33% ( 99423/100093 )
+2026-09-17T20:34:24.7548164Z Branches     : 98.32% ( 16871/17158 )
+2026-09-17T20:34:24.7548428Z Functions    : 99.46% ( 3537/3556 )
+2026-09-17T20:34:24.7548686Z Lines        : 99.33% ( 99423/100093 )
+2026-09-17T20:34:24.7549026Z ================================================================================
+2026-09-17T20:34:26.5358684Z ##[group]Run node Makefile fuzz
+2026-09-17T20:34:26.5358877Z [36;1mnode Makefile fuzz[0m
+2026-09-17T20:34:26.5388588Z shell: /usr/bin/bash -e {0}
+2026-09-17T20:34:26.5388883Z ##[endgroup]
+2026-09-17T20:34:35.0236175Z 
+2026-09-17T20:34:35.0698913Z ##[group]Run npm run test:emfile
+2026-09-17T20:34:35.0699100Z [36;1mnpm run test:emfile[0m
+2026-09-17T20:34:35.0728025Z shell: /usr/bin/bash -e {0}
+2026-09-17T20:34:35.0728163Z ##[endgroup]
+2026-09-17T20:34:35.1342071Z 
+2026-09-17T20:34:35.1342660Z > eslint@10.10.0 test:emfile
+2026-09-17T20:34:35.1343065Z > node tools/check-emfile-handling.js
+2026-09-17T20:34:35.1343437Z 
+2026-09-17T20:34:35.1557869Z Detected Linux file limit of 65537.
+2026-09-17T20:34:35.1558156Z Generating 65537 files in tmp/emfile-check...
+2026-09-17T20:34:36.8638842Z Running ESLint...
+2026-09-17T20:35:05.0937189Z ✅ No errors encountered running ESLint.
+2026-09-17T20:35:05.0937653Z Checking that this number of files would cause an EMFILE error...
+2026-09-17T20:35:15.0880927Z ❌ Unexpected error encountered: EMFILE error not encountered.
+2026-09-17T20:35:16.4212310Z /home/runner/work/eslint/eslint/tools/check-emfile-handling.js:123
+2026-09-17T20:35:16.4232872Z 		throw new Error("EMFILE error not encountered.");
+2026-09-17T20:35:16.4233152Z 		      ^
+2026-09-17T20:35:16.4233409Z 
+2026-09-17T20:35:16.4233541Z Error: EMFILE error not encountered.
+2026-09-17T20:35:16.4233898Z     at /home/runner/work/eslint/eslint/tools/check-emfile-handling.js:123:9
+2026-09-17T20:35:16.4234147Z 
+2026-09-17T20:35:16.4234218Z Node.js v26.9.0
+2026-09-17T20:35:16.4420941Z ##[error]Process completed with exit code 1.
+2026-09-17T20:35:16.4504868Z Post job cleanup.
+2026-09-17T20:35:16.5067811Z [command]/usr/bin/git version
+2026-09-17T20:35:16.5096242Z git version 2.55.0
+2026-09-17T20:35:16.5115928Z Temporarily overriding HOME='/home/runner/work/_temp/b0162b61-2517-48d0-8340-39dab69100fc' before making global git config changes
+2026-09-17T20:35:16.5116632Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-17T20:35:16.5119147Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/eslint/eslint
+2026-09-17T20:35:16.5144058Z Removing SSH command configuration
+2026-09-17T20:35:16.5148136Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-17T20:35:16.5174027Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-17T20:35:16.5343698Z Removing HTTP extra header
+2026-09-17T20:35:16.5347576Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-17T20:35:16.5370144Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-17T20:35:16.5532962Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-09-17T20:35:16.5536838Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-17T20:35:16.5555927Z includeif.gitdir:/home/runner/work/eslint/eslint/.git.path
+2026-09-17T20:35:16.5556394Z includeif.gitdir:/home/runner/work/eslint/eslint/.git/worktrees/*.path
+2026-09-17T20:35:16.5556802Z includeif.gitdir:/github/workspace/.git.path
+2026-09-17T20:35:16.5557171Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-17T20:35:16.5561930Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/eslint/eslint/.git.path
+2026-09-17T20:35:16.5577840Z /home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:35:16.5584211Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/eslint/eslint/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-2e33fd41\-ae10\-4081\-a366\-26009438e978\.config
+2026-09-17T20:35:16.5613501Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/eslint/eslint/.git/worktrees/*.path
+2026-09-17T20:35:16.5629479Z /home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:35:16.5636031Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/eslint/eslint/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-2e33fd41\-ae10\-4081\-a366\-26009438e978\.config
+2026-09-17T20:35:16.5658425Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-17T20:35:16.5673964Z /github/runner_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:35:16.5678975Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-2e33fd41\-ae10\-4081\-a366\-26009438e978\.config
+2026-09-17T20:35:16.5710706Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-17T20:35:16.5726549Z /github/runner_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config
+2026-09-17T20:35:16.5731402Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-2e33fd41\-ae10\-4081\-a366\-26009438e978\.config
+2026-09-17T20:35:16.5753706Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-17T20:35:16.5912949Z Removing credentials [REDACTED:assigned_secret] '/home/runner/work/_temp/git-credentials-2e33fd41-ae10-4081-a366-26009438e978.config'
+2026-09-17T20:35:16.6029414Z Cleaning up orphan processes

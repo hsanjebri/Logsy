@@ -1,0 +1,1352 @@
+﻿2026-08-22T00:16:20.0507957Z Current runner version: '2.336.0'
+2026-08-22T00:16:20.0534769Z ##[group]Runner Image Provisioner
+2026-08-22T00:16:20.0535789Z Hosted Compute Agent
+2026-08-22T00:16:20.0536395Z Version: 20260729.566
+2026-08-22T00:16:20.0537026Z Commit: cf7153fe6e25b664e8693c24944bf2b00355d109
+2026-08-22T00:16:20.0537879Z Build Date: 2026-07-29T19:17:02Z
+2026-08-22T00:16:20.0538564Z Worker ID: {2f9f7736-639d-4a6f-be48-871db5b000a3}
+2026-08-22T00:16:20.0539363Z Azure Region: chilecentral
+2026-08-22T00:16:20.0540213Z ##[endgroup]
+2026-08-22T00:16:20.0541856Z ##[group]Operating System
+2026-08-22T00:16:20.0542597Z Ubuntu
+2026-08-22T00:16:20.0543125Z 24.04.4
+2026-08-22T00:16:20.0543708Z LTS
+2026-08-22T00:16:20.0544241Z ##[endgroup]
+2026-08-22T00:16:20.0544797Z ##[group]Runner Image
+2026-08-22T00:16:20.0545478Z Image: ubuntu-24.04
+2026-08-22T00:16:20.0546060Z Version: 20260816.277.1
+2026-08-22T00:16:20.0547432Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260816.277/images/ubuntu/Ubuntu2404-Readme.md
+2026-08-22T00:16:20.0548995Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260816.277
+2026-08-22T00:16:20.0550554Z ##[endgroup]
+2026-08-22T00:16:20.0551726Z ##[group]GITHUB_TOKEN [REDACTED:assigned_secret]
+2026-08-22T00:16:20.0553748Z Metadata: read
+2026-08-22T00:16:20.0554423Z Packages: read
+2026-08-22T00:16:20.0555051Z ##[endgroup]
+2026-08-22T00:16:20.0557192Z Secret [REDACTED:assigned_secret] None
+2026-08-22T00:16:20.0558468Z Prepare workflow directory
+2026-08-22T00:16:20.1170466Z Prepare all required actions
+2026-08-22T00:16:20.1219133Z Getting action download info
+2026-08-22T00:16:20.6833070Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-08-22T00:16:20.8748687Z Complete job name: Test: vite@7, browser, node-24, ubuntu-latest
+2026-08-22T00:16:20.9234624Z ##[group]Checking docker version
+2026-08-22T00:16:20.9247861Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-08-22T00:16:21.0051167Z '1.48'
+2026-08-22T00:16:21.0063477Z Docker daemon API version: '1.48'
+2026-08-22T00:16:21.0064311Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-08-22T00:16:21.0246578Z '1.48'
+2026-08-22T00:16:21.0272492Z Docker client API version: '1.48'
+2026-08-22T00:16:21.0277164Z ##[endgroup]
+2026-08-22T00:16:21.0281347Z ##[group]Clean up resources from previous jobs
+2026-08-22T00:16:21.0286695Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=d7740f"
+2026-08-22T00:16:21.0437892Z ##[command]/usr/bin/docker network prune --force --filter "label=d7740f"
+2026-08-22T00:16:21.0574369Z ##[endgroup]
+2026-08-22T00:16:21.0574947Z ##[group]Create local container network
+2026-08-22T00:16:21.0585112Z ##[command]/usr/bin/docker network create --label d7740f github_network_0deeb39db0d0442da853a0c13d049f85
+2026-08-22T00:16:21.1113964Z 399dfecc8cc6830b277c0c7be16c398ef9ff9bebd58a71c472ac562a1c09ddbe
+2026-08-22T00:16:21.1134891Z ##[endgroup]
+2026-08-22T00:16:21.1160712Z ##[group]Starting job container
+2026-08-22T00:16:21.1186200Z ##[command]/usr/bin/docker --config /home/runner/work/_temp/.docker_a97edf4e-8934-46ea-9795-e814f6c78d74 login ghcr.io -u MarshallOfSound --password-stdin
+[REDACTED:assigned_secret] ##[command]/usr/bin/docker --config /home/runner/work/_temp/.docker_a97edf4e-8934-46ea-9795-e814f6c78d74 pull ghcr.io/vitest-dev/vitest/playwright-deps:1.62.1-7edfbd9622e0
+2026-08-22T00:16:23.7524304Z 1.62.1-7edfbd9622e0: Pulling from vitest-dev/vitest/playwright-deps
+2026-08-22T00:16:23.7533391Z e4376313f4ed: Pulling fs layer
+2026-08-22T00:16:23.7534346Z a6144b671d9d: Pulling fs layer
+2026-08-22T00:16:23.7534962Z de581f349ca7: Pulling fs layer
+2026-08-22T00:16:23.7535379Z d46110e39e33: Pulling fs layer
+2026-08-22T00:16:23.7535936Z 9899b563237d: Pulling fs layer
+2026-08-22T00:16:23.7536319Z 6dda506293c9: Pulling fs layer
+2026-08-22T00:16:23.7536653Z 80d3bbfe7869: Pulling fs layer
+2026-08-22T00:16:23.7537059Z 9899b563237d: Waiting
+2026-08-22T00:16:23.7537384Z 6dda506293c9: Waiting
+2026-08-22T00:16:23.7538022Z d46110e39e33: Waiting
+2026-08-22T00:16:23.7538488Z 80d3bbfe7869: Waiting
+2026-08-22T00:16:24.4781972Z a6144b671d9d: Verifying Checksum
+2026-08-22T00:16:25.6038159Z a6144b671d9d: Download complete
+2026-08-22T00:16:25.6038968Z d46110e39e33: Verifying Checksum
+2026-08-22T00:16:25.6041390Z d46110e39e33: Download complete
+2026-08-22T00:16:25.9324346Z e4376313f4ed: Verifying Checksum
+2026-08-22T00:16:25.9325154Z e4376313f4ed: Download complete
+2026-08-22T00:16:26.3841347Z 9899b563237d: Verifying Checksum
+2026-08-22T00:16:26.3842301Z 9899b563237d: Download complete
+2026-08-22T00:16:26.9151285Z de581f349ca7: Verifying Checksum
+2026-08-22T00:16:26.9158155Z de581f349ca7: Download complete
+2026-08-22T00:16:27.1088757Z 80d3bbfe7869: Verifying Checksum
+2026-08-22T00:16:27.1089407Z 80d3bbfe7869: Download complete
+2026-08-22T00:16:27.1177822Z e4376313f4ed: Pull complete
+2026-08-22T00:16:29.9112849Z a6144b671d9d: Pull complete
+2026-08-22T00:16:31.6391099Z de581f349ca7: Pull complete
+2026-08-22T00:16:31.6985069Z d46110e39e33: Pull complete
+2026-08-22T00:16:31.7123123Z 9899b563237d: Pull complete
+2026-08-22T00:16:38.7008712Z 6dda506293c9: Verifying Checksum
+2026-08-22T00:16:38.7009340Z 6dda506293c9: Download complete
+2026-08-22T00:16:47.4697211Z 6dda506293c9: Pull complete
+2026-08-22T00:16:47.4857526Z 80d3bbfe7869: Pull complete
+2026-08-22T00:16:47.4892348Z Digest: sha256:ab3c463b158ccbb7a4eaf8e87c276c3552fd94c9eb4d1bdd2f5d66fdcad018fc
+2026-08-22T00:16:47.4901989Z Status: Downloaded newer image for ghcr.io/vitest-dev/vitest/playwright-deps:1.62.1-7edfbd9622e0
+2026-08-22T00:16:47.4917635Z ghcr.io/vitest-dev/vitest/playwright-deps:1.62.1-7edfbd9622e0
+2026-08-22T00:16:47.5005905Z ##[command]/usr/bin/docker create --name 8e6fab9dfee24e6d8a5c7aacbd23ebed_ghcriovitestdevvitestplaywrightdeps16217edfbd9622e0_f79c60 --label d7740f --workdir /__w/vitest/vitest --network github_network_0deeb39db0d0442da853a0c13d049f85 --user 1001 -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.336.0/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" ghcr.io/vitest-dev/vitest/playwright-deps:1.62.1-7edfbd9622e0 "-f" "/dev/null"
+2026-08-22T00:16:47.5308225Z 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:16:47.5332213Z ##[command]/usr/bin/docker start 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:16:47.7227068Z 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:16:47.7246404Z ##[command]/usr/bin/docker ps --all --filter id=85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-08-22T00:16:47.7370226Z 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 Up Less than a second
+2026-08-22T00:16:47.7388704Z ##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:16:47.7517772Z HOME=/github/home
+2026-08-22T00:16:47.7518484Z GITHUB_ACTIONS=true
+2026-08-22T00:16:47.7528202Z CI=true
+2026-08-22T00:16:47.7528751Z PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2026-08-22T00:16:47.7529405Z NODE_VERSION=24.19.0
+2026-08-22T00:16:47.7529917Z YARN_VERSION=1.22.22
+2026-08-22T00:16:47.7537604Z ##[endgroup]
+2026-08-22T00:16:47.7547238Z ##[group]Waiting for all services to be ready
+2026-08-22T00:16:47.7548972Z ##[endgroup]
+2026-08-22T00:16:47.7842741Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-08-22T00:16:47.7843447Z with:
+2026-08-22T00:16:47.7843682Z   persist-credentials: [REDACTED:assigned_secret]
+2026-08-22T00:16:47.7843951Z   repository: vitest-dev/vitest
+2026-08-22T00:16:47.7846798Z   token: ***
+2026-08-22T00:16:47.7847252Z   ssh-strict: true
+2026-08-22T00:16:47.7847479Z   ssh-user: git
+2026-08-22T00:16:47.7847700Z   clean: true
+2026-08-22T00:16:47.7847914Z   sparse-checkout-cone-mode: true
+2026-08-22T00:16:47.7848170Z   fetch-depth: 1
+2026-08-22T00:16:47.7848375Z   fetch-tags: false
+2026-08-22T00:16:47.7848584Z   show-progress: true
+2026-08-22T00:16:47.7848793Z   lfs: false
+2026-08-22T00:16:47.7848975Z   submodules: false
+2026-08-22T00:16:47.7849181Z   set-safe-directory: true
+2026-08-22T00:16:47.7849427Z   allow-unsafe-pr-checkout: false
+2026-08-22T00:16:47.7850256Z env:
+2026-08-22T00:16:47.7850621Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:16:47.7851108Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:16:47.7851371Z ##[endgroup]
+2026-08-22T00:16:47.7917998Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:16:48.0021177Z Syncing repository: vitest-dev/vitest
+2026-08-22T00:16:48.0022635Z ##[group]Getting Git version info
+2026-08-22T00:16:48.0023000Z Working directory is '/__w/vitest/vitest'
+2026-08-22T00:16:48.0023532Z [command]/usr/bin/git version
+2026-08-22T00:16:48.0023799Z git version 2.39.5
+2026-08-22T00:16:48.0033140Z ##[endgroup]
+2026-08-22T00:16:48.0045718Z Temporarily overriding HOME='/__w/_temp/ddf4027c-8eb7-44bc-a440-55b13e7b7ef7' before making global git config changes
+2026-08-22T00:16:48.0047002Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-22T00:16:48.0051456Z [command]/usr/bin/git config --global --add safe.directory /__w/vitest/vitest
+2026-08-22T00:16:48.0084298Z Deleting the contents of '/__w/vitest/vitest'
+2026-08-22T00:16:48.0088633Z ##[group]Determining repository object format
+2026-08-22T00:16:48.0090613Z ##[endgroup]
+2026-08-22T00:16:48.0091364Z ##[group]Initializing the repository
+2026-08-22T00:16:48.0094733Z [command]/usr/bin/git init /__w/vitest/vitest
+2026-08-22T00:16:48.0131634Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-08-22T00:16:48.0132664Z hint: is subject to change. To configure the initial branch name to use in all
+2026-08-22T00:16:48.0133207Z hint: of your new repositories, which will suppress this warning, call:
+2026-08-22T00:16:48.0133576Z hint: 
+2026-08-22T00:16:48.0134111Z hint: 	git config --global init.defaultBranch <name>
+2026-08-22T00:16:48.0134453Z hint: 
+2026-08-22T00:16:48.0134895Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-08-22T00:16:48.0135482Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-08-22T00:16:48.0135878Z hint: 
+2026-08-22T00:16:48.0136200Z hint: 	git branch -m <name>
+2026-08-22T00:16:48.0139165Z Initialized empty Git repository in /__w/vitest/vitest/.git/
+2026-08-22T00:16:48.0150020Z [command]/usr/bin/git remote add origin https://github.com/vitest-dev/vitest
+2026-08-22T00:16:48.0181121Z ##[endgroup]
+2026-08-22T00:16:48.0181904Z ##[group]Disabling automatic garbage collection
+2026-08-22T00:16:48.0184429Z [command]/usr/bin/git config --local gc.auto 0
+2026-08-22T00:16:48.0213366Z ##[endgroup]
+2026-08-22T00:16:48.0214428Z ##[group]Setting up auth
+2026-08-22T00:16:48.0214872Z Removing SSH command configuration
+2026-08-22T00:16:48.0219531Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-22T00:16:48.0250277Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-22T00:16:48.0478403Z Removing HTTP extra header
+2026-08-22T00:16:48.0484234Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-22T00:16:48.0515109Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-22T00:16:48.0742144Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-22T00:16:48.0748362Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-22T00:16:48.0780833Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-22T00:16:48.1024490Z [command]/usr/bin/git config --file /__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-08-22T00:16:48.1063648Z [command]/usr/bin/git config --local includeIf.gitdir:/__w/vitest/vitest/.git.path /__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:48.1101105Z [command]/usr/bin/git config --local includeIf.gitdir:/__w/vitest/vitest/.git/worktrees/*.path /__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:48.1130721Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:48.1160522Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:48.1187034Z ##[endgroup]
+2026-08-22T00:16:48.1187431Z ##[group]Fetching the repository
+2026-08-22T00:16:48.1194181Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +85d6b739cc41f9880b402104ba3fdada0c4456b4:refs/remotes/pull/11031/merge
+2026-08-22T00:16:50.5336412Z From https://github.com/vitest-dev/vitest
+2026-08-22T00:16:50.5337371Z  * [new ref]         85d6b739cc41f9880b402104ba3fdada0c4456b4 -> pull/11031/merge
+2026-08-22T00:16:50.5356894Z ##[endgroup]
+2026-08-22T00:16:50.5358219Z ##[group]Determining the checkout info
+2026-08-22T00:16:50.5359127Z ##[endgroup]
+2026-08-22T00:16:50.5363678Z [command]/usr/bin/git sparse-checkout disable
+2026-08-22T00:16:50.5401527Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-08-22T00:16:50.5428667Z ##[group]Checking out the ref
+2026-08-22T00:16:50.5432648Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/11031/merge
+2026-08-22T00:16:50.7944532Z Note: switching to 'refs/remotes/pull/11031/merge'.
+2026-08-22T00:16:50.7944895Z 
+2026-08-22T00:16:50.7945165Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-08-22T00:16:50.7945799Z changes and commit them, and you can discard any commits you make in this
+2026-08-22T00:16:50.7946428Z state without impacting any branches by switching back to a branch.
+2026-08-22T00:16:50.7946800Z 
+2026-08-22T00:16:50.7947373Z If you want to create a new branch to retain commits you create, you may
+2026-08-22T00:16:50.7948261Z do so (now or later) by using -c with the switch command. Example:
+2026-08-22T00:16:50.7948789Z 
+2026-08-22T00:16:50.7949039Z   git switch -c <new-branch-name>
+2026-08-22T00:16:50.7949431Z 
+2026-08-22T00:16:50.7949625Z Or undo this operation with:
+2026-08-22T00:16:50.7950424Z 
+2026-08-22T00:16:50.7950590Z   git switch -
+2026-08-22T00:16:50.7950858Z 
+2026-08-22T00:16:50.7951353Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-08-22T00:16:50.7952064Z 
+2026-08-22T00:16:50.7952731Z HEAD is now at 85d6b73 Merge 5afd240e2af498783ef64220ad2e88519d28640f into 3069e59279d14aab6612af92761ea1c8cbf8c18f
+2026-08-22T00:16:50.7961339Z ##[endgroup]
+2026-08-22T00:16:50.8002758Z [command]/usr/bin/git log -1 --format=%H
+2026-08-22T00:16:50.8036755Z 85d6b739cc41f9880b402104ba3fdada0c4456b4
+2026-08-22T00:16:50.8039184Z ##[group]Removing auth
+2026-08-22T00:16:50.8040906Z Removing SSH command configuration
+2026-08-22T00:16:50.8041763Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-22T00:16:50.8074655Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-22T00:16:50.8317335Z Removing HTTP extra header
+2026-08-22T00:16:50.8322843Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-22T00:16:50.8357668Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-22T00:16:50.8602294Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-22T00:16:50.8604943Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-22T00:16:50.8630600Z includeif.gitdir:/__w/vitest/vitest/.git.path
+2026-08-22T00:16:50.8631362Z includeif.gitdir:/__w/vitest/vitest/.git/worktrees/*.path
+2026-08-22T00:16:50.8632050Z includeif.gitdir:/github/workspace/.git.path
+2026-08-22T00:16:50.8632885Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-22T00:16:50.8647574Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/__w/vitest/vitest/.git.path
+2026-08-22T00:16:50.8665343Z /__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:50.8677141Z [command]/usr/bin/git config --local --unset includeif.gitdir:/__w/vitest/vitest/.git.path \/__w\/_temp\/git\-credentials\-2e517c9a\-106e\-4271\-ad67\-db9d4ec3cbf9\.config
+2026-08-22T00:16:50.8713299Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/__w/vitest/vitest/.git/worktrees/*.path
+2026-08-22T00:16:50.8737583Z /__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:50.8748270Z [command]/usr/bin/git config --local --unset includeif.gitdir:/__w/vitest/vitest/.git/worktrees/*.path \/__w\/_temp\/git\-credentials\-2e517c9a\-106e\-4271\-ad67\-db9d4ec3cbf9\.config
+2026-08-22T00:16:50.8782599Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-08-22T00:16:50.8805247Z /github/runner_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:50.8815071Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-2e517c9a\-106e\-4271\-ad67\-db9d4ec3cbf9\.config
+2026-08-22T00:16:50.8845940Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-08-22T00:16:50.8869194Z /github/runner_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config
+2026-08-22T00:16:50.8913676Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-2e517c9a\-106e\-4271\-ad67\-db9d4ec3cbf9\.config
+2026-08-22T00:16:50.8965346Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-22T00:16:50.9193969Z Removing credentials [REDACTED:assigned_secret] '/__w/_temp/git-credentials-2e517c9a-106e-4271-ad67-db9d4ec3cbf9.config'
+2026-08-22T00:16:50.9204527Z ##[endgroup]
+2026-08-22T00:16:50.9485279Z Prepare all required actions
+2026-08-22T00:16:50.9485858Z Getting action download info
+2026-08-22T00:16:51.1271160Z Download action repository 'pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320' (SHA:fc06bc1257f339d1d5d8b3a19a8cae5388b55320)
+2026-08-22T00:16:52.1225500Z Download action repository 'actions/setup-node@820762786026740c76f36085b0efc47a31fe5020' (SHA:820762786026740c76f36085b0efc47a31fe5020)
+2026-08-22T00:16:52.2167344Z ##[group]Run ./.github/actions/setup-and-cache
+2026-08-22T00:16:52.2167649Z with:
+2026-08-22T00:16:52.2167842Z   node-version: 24
+2026-08-22T00:16:52.2168037Z env:
+2026-08-22T00:16:52.2168366Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:16:52.2168787Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:16:52.2169030Z ##[endgroup]
+2026-08-22T00:16:52.2224850Z ##[start-action display=Install pnpm;id=__self.__pnpm_action-setup]
+2026-08-22T00:16:52.2275475Z ##[group]Run pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+2026-08-22T00:16:52.2275846Z with:
+2026-08-22T00:16:52.2276034Z   dest: ~/setup-pnpm
+2026-08-22T00:16:52.2276237Z   run_install: null
+2026-08-22T00:16:52.2276430Z   cache: false
+2026-08-22T00:16:52.2276650Z   cache_dependency_path: pnpm-lock.yaml
+2026-08-22T00:16:52.2276928Z   package_json_file: package.json
+2026-08-22T00:16:52.2277169Z   standalone: false
+2026-08-22T00:16:52.2277358Z env:
+2026-08-22T00:16:52.2277679Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:16:52.2278086Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:16:52.2278327Z ##[endgroup]
+2026-08-22T00:16:52.2282523Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:16:52.4934760Z ##[group]Running self-installer...
+2026-08-22T00:16:52.9066332Z (node:259) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-08-22T00:16:52.9067895Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-08-22T00:16:53.0553622Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-08-22T00:16:53.0647802Z Packages: +1
+2026-08-22T00:16:53.0648450Z +
+2026-08-22T00:16:53.5268976Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-08-22T00:16:53.5570184Z 
+2026-08-22T00:16:53.5570821Z dependencies:
+2026-08-22T00:16:53.5571361Z + pnpm 11.22.0
+2026-08-22T00:16:53.5571672Z 
+2026-08-22T00:16:53.5596667Z Done in 892ms
+2026-08-22T00:16:53.6606262Z ##[endgroup]
+2026-08-22T00:16:53.6606693Z Installation Completed!
+2026-08-22T00:16:53.6735589Z ##[end-action id=__self.__pnpm_action-setup;outcome=success;conclusion=success;duration_ms=1450]
+2026-08-22T00:16:53.6755488Z ##[start-action display=Set node version to 24;id=__self.__actions_setup-node]
+2026-08-22T00:16:53.6819580Z ##[group]Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+2026-08-22T00:16:53.6820158Z with:
+2026-08-22T00:16:53.6820350Z   node-version: 24
+2026-08-22T00:16:53.6820555Z   cache: pnpm
+2026-08-22T00:16:53.6820753Z   check-latest: false
+2026-08-22T00:16:53.6823481Z   token: ***
+2026-08-22T00:16:53.6823692Z   package-manager-cache: true
+2026-08-22T00:16:53.6823930Z env:
+2026-08-22T00:16:53.6824246Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:16:53.6824657Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:16:53.6824987Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:16:53.6825296Z ##[endgroup]
+2026-08-22T00:16:53.6833381Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:16:53.9277323Z Found in cache @ /__t/node/24.19.0/x64
+2026-08-22T00:16:53.9278107Z ##[group]Environment details
+2026-08-22T00:16:54.3192749Z node: v24.19.0
+2026-08-22T00:16:54.3193640Z npm: 11.17.0
+2026-08-22T00:16:54.3193943Z yarn: 1.22.22
+2026-08-22T00:16:54.3194954Z ##[endgroup]
+2026-08-22T00:16:54.3211935Z [command]/github/home/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-08-22T00:16:54.9274024Z /__w/.pnpm-store/v11
+2026-08-22T00:16:55.3554167Z Cache hit for: [REDACTED:high_entropy]
+2026-08-22T00:16:56.9243462Z Received 0 of 187608826 (0.0%), 0.0 MBs/sec
+2026-08-22T00:16:57.9248693Z Received 0 of 187608826 (0.0%), 0.0 MBs/sec
+2026-08-22T00:16:58.9248865Z Received 71303168 of 187608826 (38.0%), 22.7 MBs/sec
+2026-08-22T00:16:59.9273509Z Received 150994944 of 187608826 (80.5%), 36.0 MBs/sec
+2026-08-22T00:17:00.2780931Z Received 187608826 of 187608826 (100.0%), 41.1 MBs/sec
+2026-08-22T00:17:00.2781356Z Cache Size: ~179 MB (187608826 B)
+2026-08-22T00:17:00.2811308Z [command]/usr/bin/tar -xf /__w/_temp/880b502b-8521-4142-ae52-2e82768ac780/cache.tzst -P -C /__w/vitest/vitest --use-compress-program unzstd
+2026-08-22T00:17:03.2018116Z Cache restored successfully
+2026-08-22T00:17:03.2107941Z Cache restored from key: [REDACTED:high_entropy]
+2026-08-22T00:17:03.2305408Z ##[end-action id=__self.__actions_setup-node;outcome=success;conclusion=success;duration_ms=9554]
+2026-08-22T00:17:03.2357206Z ##[group]Run pnpm override-vite7
+2026-08-22T00:17:03.2357583Z [36;1mpnpm override-vite7[0m
+2026-08-22T00:17:03.2358177Z [36;1m# the container user does not own the workspace volume, and checkout's safe.directory entry does not survive into later steps[0m
+2026-08-22T00:17:03.2358866Z [36;1mgit config --global --add safe.directory "$GITHUB_WORKSPACE"[0m
+2026-08-22T00:17:03.2359375Z [36;1m# ubuntu runners have no default git identity; set one for this commit[0m
+2026-08-22T00:17:03.2360499Z [36;1mgit add . && git -c user.email=[REDACTED:email] -c user.name=vitest-ci commit -m "ci" && pnpm i --prefer-offline --no-frozen-lockfile --filter '!docs'[0m
+2026-08-22T00:17:03.2364132Z shell: sh -e {0}
+2026-08-22T00:17:03.2364354Z env:
+2026-08-22T00:17:03.2364709Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:03.2365138Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:03.2365494Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:03.2365815Z ##[endgroup]
+2026-08-22T00:17:04.5570594Z Scope: all 41 workspace projects
+2026-08-22T00:17:04.5771965Z [WARN] There are cyclic workspace dependencies: /__w/vitest/vitest/packages/browser, /__w/vitest/vitest/packages/vitest, /__w/vitest/vitest/packages/browser-playwright
+2026-08-22T00:17:04.6882571Z Lockfile is up to date, resolution step is skipped
+2026-08-22T00:17:04.8247839Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-08-22T00:17:05.0320985Z Packages: +1692
+2026-08-22T00:17:05.0321767Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-08-22T00:17:05.6558370Z Packages are hard linked from the content-addressable store to the virtual store.
+2026-08-22T00:17:05.6559461Z   Content-addressable store is at: /__w/.pnpm-store/v11
+2026-08-22T00:17:05.6568584Z   Virtual store is at:             node_modules/.pnpm
+2026-08-22T00:17:05.8261244Z Progress: resolved 1692, reused 1689, downloaded 0, added 109
+2026-08-22T00:17:06.8281418Z Progress: resolved 1692, reused 1689, downloaded 0, added 1125
+2026-08-22T00:17:07.0490579Z Progress: resolved 1692, reused 1689, downloaded 0, added 1692, done
+2026-08-22T00:17:08.3742556Z .../node_modules/@parcel/watcher install$ node scripts/build-from-source.js
+2026-08-22T00:17:08.5469684Z .../sharp@0.33.5/node_modules/sharp install$ node install/check
+2026-08-22T00:17:08.6025934Z .../node_modules/protobufjs postinstall$ node scripts/postinstall
+2026-08-22T00:17:08.6081867Z .../node_modules/@parcel/watcher install: Done
+2026-08-22T00:17:08.6301410Z .../node_modules/vue-demi postinstall$ node -e "try{require('./scripts/postinstall.js')}catch(e){}"
+2026-08-22T00:17:08.6583828Z .../sharp@0.33.5/node_modules/sharp install: Done
+2026-08-22T00:17:08.6751549Z .../node_modules/protobufjs postinstall: Done
+2026-08-22T00:17:08.7068804Z .../node_modules/msw postinstall$ node -e "import('./config/scripts/postinstall.js').catch(() => void 0)"
+2026-08-22T00:17:08.7476566Z .../node_modules/edgedriver install$ test -f ./dist/install.js && node ./dist/install.js || echo "Skipping install, project not build!"
+2026-08-22T00:17:08.7641393Z .../node_modules/geckodriver postinstall$ test -f ./dist/install.js && node ./dist/install.js || echo "Skipping install, project not built!"
+2026-08-22T00:17:08.8075781Z .../node_modules/msw postinstall: Done
+2026-08-22T00:17:08.8143621Z .../node_modules/vue-demi postinstall: Done
+2026-08-22T00:17:08.8827624Z .../node_modules/@swc/core postinstall$ node postinstall.js
+2026-08-22T00:17:09.0004639Z .../node_modules/geckodriver postinstall: Done
+2026-08-22T00:17:09.0325026Z .../node_modules/@swc/core postinstall: Done
+2026-08-22T00:17:09.0799490Z .../node_modules/edgedriver install: Done
+2026-08-22T00:17:09.4170629Z 
+2026-08-22T00:17:09.4171302Z devDependencies:
+2026-08-22T00:17:09.4172428Z + @antfu/eslint-config 9.3.0
+2026-08-22T00:17:09.4199215Z + @playwright/test 1.62.1
+2026-08-22T00:17:09.4200310Z + @rollup/plugin-commonjs 29.0.3
+2026-08-22T00:17:09.4201012Z + @rollup/plugin-json 6.1.0
+2026-08-22T00:17:09.4202943Z + @rollup/plugin-node-resolve 16.0.3
+2026-08-22T00:17:09.4203838Z + @types/node 24.13.3
+2026-08-22T00:17:09.4204594Z + @types/semver 7.8.0
+2026-08-22T00:17:09.4205239Z + @types/ws 8.18.1
+2026-08-22T00:17:09.4206040Z + @vitest/browser 5.0.0-rc.2 <- packages/browser
+2026-08-22T00:17:09.4207137Z + @vitest/coverage-istanbul 5.0.0-rc.2 <- packages/coverage-istanbul
+2026-08-22T00:17:09.4208416Z + @vitest/coverage-v8 5.0.0-rc.2 <- packages/coverage-v8
+2026-08-22T00:17:09.4209408Z + @vitest/ui 5.0.0-rc.2 <- packages/ui
+2026-08-22T00:17:09.4210552Z + bumpp 10.4.1
+2026-08-22T00:17:09.4211067Z + changelogithub 14.0.0
+2026-08-22T00:17:09.4211495Z + eslint 10.8.1
+2026-08-22T00:17:09.4211841Z + knip 6.32.2
+2026-08-22T00:17:09.4212222Z + magic-string 1.2.0
+2026-08-22T00:17:09.4212593Z + pathe 2.0.3
+2026-08-22T00:17:09.4212933Z + premove 4.0.0
+2026-08-22T00:17:09.4213272Z + rollup 4.62.4
+2026-08-22T00:17:09.4213670Z + rollup-plugin-dts 6.5.1
+2026-08-22T00:17:09.4214139Z + rollup-plugin-license 3.7.1
+2026-08-22T00:17:09.4214584Z + semver 7.8.5
+2026-08-22T00:17:09.4214960Z + tinyglobby 0.2.17
+2026-08-22T00:17:09.4215307Z + tsx 4.23.12
+2026-08-22T00:17:09.4215661Z + typescript 5.9.3
+2026-08-22T00:17:09.4216110Z + unplugin-isolated-decl 0.17.0
+2026-08-22T00:17:09.4216581Z + unplugin-oxc 0.6.1
+2026-08-22T00:17:09.4216946Z + vite 8.0.11
+2026-08-22T00:17:09.4217392Z + vitest 5.0.0-rc.2 <- packages/vitest
+2026-08-22T00:17:09.4217854Z + zx 8.8.5
+2026-08-22T00:17:09.4218038Z 
+2026-08-22T00:17:09.6549355Z Done in 5.7s using pnpm v11.22.0
+2026-08-22T00:17:09.7122529Z $ node scripts/override-vite7.ts
+2026-08-22T00:17:10.1112622Z [detached HEAD 04b0711] ci
+2026-08-22T00:17:10.1113274Z  1 file changed, 1 insertion(+), 1 deletion(-)
+2026-08-22T00:17:10.7584939Z Scope: 40 of 41 workspace projects
+2026-08-22T00:17:10.7724763Z .                                        | [WARN] There are cyclic workspace dependencies: /__w/vitest/vitest/packages/browser, /__w/vitest/vitest/packages/vitest, /__w/vitest/vitest/packages/browser-playwright
+2026-08-22T00:17:11.4391423Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-08-22T00:17:12.4423807Z Progress: resolved 117, reused 4, downloaded 0, added 0
+2026-08-22T00:17:13.5481696Z Progress: resolved 190, reused 21, downloaded 0, added 0
+2026-08-22T00:17:14.5478786Z Progress: resolved 194, reused 21, downloaded 0, added 0
+2026-08-22T00:17:15.5526613Z Progress: resolved 253, reused 21, downloaded 0, added 0
+2026-08-22T00:17:16.5638865Z Progress: resolved 454, reused 21, downloaded 0, added 0
+2026-08-22T00:17:17.5641348Z Progress: resolved 612, reused 22, downloaded 0, added 0
+2026-08-22T00:17:18.5868239Z Progress: resolved 648, reused 22, downloaded 0, added 0
+2026-08-22T00:17:19.6130843Z Progress: resolved 862, reused 22, downloaded 0, added 0
+2026-08-22T00:17:20.6193273Z Progress: resolved 1094, reused 22, downloaded 0, added 0
+2026-08-22T00:17:21.8080588Z Progress: resolved 1194, reused 22, downloaded 0, added 0
+2026-08-22T00:17:22.8120564Z Progress: resolved 1371, reused 22, downloaded 0, added 0
+2026-08-22T00:17:23.8185564Z Progress: resolved 1464, reused 22, downloaded 0, added 0
+2026-08-22T00:17:24.8562683Z Progress: resolved 1588, reused 22, downloaded 0, added 0
+2026-08-22T00:17:25.8693844Z Progress: resolved 1664, reused 22, downloaded 0, added 0
+2026-08-22T00:17:26.8699663Z Progress: resolved 1838, reused 22, downloaded 0, added 0
+2026-08-22T00:17:27.9101125Z Progress: resolved 1968, reused 22, downloaded 0, added 0
+2026-08-22T00:17:28.5128182Z [WARN] 5 deprecated subdependencies found: glob@10.4.1, glob@11.1.0, source-map@0.8.0-beta.0, tar@6.2.0, whatwg-encoding@3.1.1
+2026-08-22T00:17:28.7166333Z Progress: resolved 1982, reused 22, downloaded 0, added 0, done
+2026-08-22T00:17:28.7194232Z [WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+2026-08-22T00:17:29.0586636Z .                                        |  +33   -7 +++-
+2026-08-22T00:17:30.4868614Z Done in 20.3s using pnpm v11.22.0
+2026-08-22T00:17:30.6131206Z Prepare all required actions
+2026-08-22T00:17:30.6131726Z Getting action download info
+2026-08-22T00:17:30.8316371Z Download action repository 'actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9' (SHA:55cc8345863c7cc4c66a329aec7e433d2d1c52a9)
+2026-08-22T00:17:30.9575782Z ##[group]Run ./.github/actions/setup-playwright
+2026-08-22T00:17:30.9576110Z with:
+2026-08-22T00:17:30.9576306Z   browsers: all
+2026-08-22T00:17:30.9576505Z env:
+2026-08-22T00:17:30.9576834Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:30.9577264Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:30.9577578Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:30.9577900Z ##[endgroup]
+2026-08-22T00:17:30.9583355Z ##[start-action display=Resolve package versions;id=__self_2.resolve-package-versions]
+2026-08-22T00:17:30.9598924Z ##[group]Run echo "$(
+2026-08-22T00:17:30.9599169Z [36;1mecho "$([0m
+2026-08-22T00:17:30.9599420Z [36;1m  node -e "[0m
+2026-08-22T00:17:30.9599647Z [36;1m    const fs = require('fs');[0m
+2026-08-22T00:17:30.9600242Z [36;1m    const lockfile = fs.readFileSync('./pnpm-lock.yaml', 'utf8');[0m
+2026-08-22T00:17:30.9600866Z [36;1m    const pattern = (name) => new RegExp(name + ':\\\s+specifier: [\\\s\\\w\\\.^]+version: (\\\d+\\\.\\\d+\\\.\\\d+)');[0m
+2026-08-22T00:17:30.9601510Z [36;1m    const playwrightVersion = lockfile.match(pattern('playwright'))[1];[0m
+2026-08-22T00:17:30.9601996Z [36;1m    console.log('PLAYWRIGHT_VERSION=' + playwrightVersion);[0m
+2026-08-22T00:17:30.9602342Z [36;1m  "[0m
+2026-08-22T00:17:30.9602552Z [36;1m)" >> $GITHUB_OUTPUT[0m
+2026-08-22T00:17:30.9604729Z shell: bash --noprofile --norc -e -o pipefail {0}
+2026-08-22T00:17:30.9605071Z env:
+2026-08-22T00:17:30.9605413Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:30.9605845Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:30.9606162Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:30.9606467Z ##[endgroup]
+2026-08-22T00:17:31.0485325Z ##[end-action id=__self_2.resolve-package-versions;outcome=success;conclusion=success;duration_ms=90]
+2026-08-22T00:17:31.0488218Z ##[start-action display=Check resolved package versions;id=__self_2.__run]
+2026-08-22T00:17:31.0525822Z ##[end-action id=__self_2.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-22T00:17:31.0529406Z ##[start-action display=Cache Playwright v1.62.1;id=__self_2.playwright-cache]
+2026-08-22T00:17:31.0570424Z ##[group]Run actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+2026-08-22T00:17:31.0570789Z with:
+2026-08-22T00:17:31.0571073Z   path: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:31.0571449Z   key: Linux-playwright-all-1.62.1
+2026-08-22T00:17:31.0571745Z   restore-keys: Linux-playwright-all-
+
+2026-08-22T00:17:31.0572035Z   enableCrossOsArchive: false
+2026-08-22T00:17:31.0572295Z   fail-on-cache-miss: false
+2026-08-22T00:17:31.0572545Z   lookup-only: false
+2026-08-22T00:17:31.0572755Z   save-always: false
+2026-08-22T00:17:31.0572955Z env:
+2026-08-22T00:17:31.0573280Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:31.0573698Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:31.0574001Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:31.0574305Z ##[endgroup]
+2026-08-22T00:17:31.0578164Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:17:31.6805340Z Cache hit for: Linux-playwright-all-1.62.1
+2026-08-22T00:17:33.1751133Z Received 0 of 318271904 (0.0%), 0.0 MBs/sec
+2026-08-22T00:17:34.1751024Z Received 4194304 of 318271904 (1.3%), 2.0 MBs/sec
+2026-08-22T00:17:35.1762345Z Received 79691776 of 318271904 (25.0%), 25.3 MBs/sec
+2026-08-22T00:17:36.1764587Z Received 134217728 of 318271904 (42.2%), 32.0 MBs/sec
+2026-08-22T00:17:37.1811255Z Received 255852544 of 318271904 (80.4%), 48.8 MBs/sec
+2026-08-22T00:17:38.1475319Z Received 318271904 of 318271904 (100.0%), 50.8 MBs/sec
+2026-08-22T00:17:38.1476842Z Cache Size: ~304 MB (318271904 B)
+2026-08-22T00:17:38.1540350Z [command]/usr/bin/tar -xf /__w/_temp/9b2701b0-db2c-46c7-903b-a174d33862e1/cache.tzst -P -C /__w/vitest/vitest --use-compress-program unzstd
+2026-08-22T00:17:39.6006607Z Cache restored successfully
+2026-08-22T00:17:39.6229539Z Cache restored from key: Linux-playwright-all-1.62.1
+2026-08-22T00:17:39.6390051Z ##[end-action id=__self_2.playwright-cache;outcome=success;conclusion=success;duration_ms=8585]
+2026-08-22T00:17:39.6394106Z ##[start-action display=Install Playwright chromium (cache miss);id=__self_2.__run_2]
+2026-08-22T00:17:39.6407175Z ##[end-action id=__self_2.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-22T00:17:39.6423544Z ##[start-action display=Install Playwright browsers (cache miss);id=__self_2.__run_3]
+2026-08-22T00:17:39.6431349Z ##[end-action id=__self_2.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-22T00:17:39.6459244Z ##[group]Run pnpm run build
+2026-08-22T00:17:39.6459575Z [36;1mpnpm run build[0m
+2026-08-22T00:17:39.6460196Z shell: sh -e {0}
+2026-08-22T00:17:39.6460415Z env:
+2026-08-22T00:17:39.6460756Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:39.6461192Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:39.6461516Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:39.6461821Z ##[endgroup]
+2026-08-22T00:17:40.3302994Z $ pnpm -r --filter @vitest/ui --filter='./packages/**' run build
+2026-08-22T00:17:40.9943412Z Scope: 14 of 41 workspace projects
+2026-08-22T00:17:40.9978117Z packages/pretty-format build$ premove dist && rollup -c
+2026-08-22T00:17:40.9988010Z packages/spy build$ premove dist && rollup -c
+2026-08-22T00:17:41.3777194Z packages/spy build: [36m
+2026-08-22T00:17:41.3783077Z packages/spy build: [1msrc/index.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:41.4010494Z packages/pretty-format build: [36m
+2026-08-22T00:17:41.4012032Z packages/pretty-format build: [1msrc/index.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:41.5225544Z packages/spy build: [32mcreated [1mdist[22m in [1m142ms[22m[39m
+2026-08-22T00:17:41.5226621Z packages/spy build: [36m
+2026-08-22T00:17:41.5227796Z packages/spy build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:41.6487916Z packages/spy build: [32mcreated [1mdist[22m in [1m130ms[22m[39m
+2026-08-22T00:17:41.6739633Z packages/spy build: Done
+2026-08-22T00:17:41.6844166Z packages/pretty-format build: [32mcreated [1mdist[22m in [1m281ms[22m[39m
+2026-08-22T00:17:41.6845110Z packages/pretty-format build: [36m
+2026-08-22T00:17:41.6846178Z packages/pretty-format build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:41.7413813Z packages/pretty-format build: [32mcreated [1mdist[22m in [1m60ms[22m[39m
+2026-08-22T00:17:41.7534504Z packages/pretty-format build: Done
+2026-08-22T00:17:41.7538889Z packages/utils build$ premove dist && rollup -c
+2026-08-22T00:17:42.1190555Z packages/utils build: [36m
+2026-08-22T00:17:42.1193117Z packages/utils build: [1msrc/index.ts, src/helpers.ts, src/diff/index.ts, src/error.ts, src/source-map.ts, src/source-map/node.ts, src/types.ts, src/constants.ts, src/offset.ts, src/timers.ts, src/display.ts, src/resolver.ts, src/serialize.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:42.4976260Z packages/utils build: [32mcreated [1mdist[22m in [1m379ms[22m[39m
+2026-08-22T00:17:42.4980315Z packages/utils build: [36m
+2026-08-22T00:17:42.4983552Z packages/utils build: [1mdist/.types/index.d.ts, dist/.types/helpers.d.ts, dist/.types/diff.d.ts, dist/.types/error.d.ts, dist/.types/source-map.d.ts, dist/.types/source-map/node.d.ts, dist/.types/types.d.ts, dist/.types/constants.d.ts, dist/.types/offset.d.ts, dist/.types/timers.d.ts, dist/.types/display.d.ts, dist/.types/resolver.d.ts, dist/.types/serialize.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:42.6330295Z packages/utils build: [32mcreated [1mdist[22m in [1m136ms[22m[39m
+2026-08-22T00:17:42.6523802Z packages/utils build: Done
+2026-08-22T00:17:42.6528089Z packages/expect build$ premove dist && rollup -c
+2026-08-22T00:17:42.6537812Z packages/mocker build$ premove dist && rollup -c
+2026-08-22T00:17:42.6538717Z packages/snapshot build$ premove dist && rollup -c
+2026-08-22T00:17:43.0679277Z packages/expect build: [36m
+2026-08-22T00:17:43.0681265Z packages/expect build: [1msrc/index.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:43.1552287Z packages/snapshot build: [36m
+2026-08-22T00:17:43.1554044Z packages/snapshot build: [1msrc/index.ts, src/environment.ts, src/manager.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:43.1896864Z packages/mocker build: [36m
+2026-08-22T00:17:43.1900197Z packages/mocker build: [1msrc/index.ts, src/node/index.ts, src/node/redirect.ts, src/node/automock.ts, src/browser/index.ts, src/browser/register.ts, src/browser/auto-register.ts, src/node/transforms.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:43.4205666Z packages/expect build: [32mcreated [1mdist[22m in [1m353ms[22m[39m
+2026-08-22T00:17:43.4207242Z packages/expect build: [36m
+2026-08-22T00:17:43.4208781Z packages/expect build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:43.4868037Z packages/snapshot build: [32mcreated [1mdist[22m in [1m333ms[22m[39m
+2026-08-22T00:17:43.4875037Z packages/snapshot build: [36m
+2026-08-22T00:17:43.4883429Z packages/snapshot build: [1mdist/.types/index.d.ts, dist/.types/environment.d.ts, dist/.types/manager.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:43.6690689Z packages/expect build: [32mcreated [1mdist[22m in [1m249ms[22m[39m
+2026-08-22T00:17:43.6745483Z packages/snapshot build: {
+2026-08-22T00:17:43.6755943Z packages/snapshot build:   message: '[plugin dts] Entry "environment.d.ts" still references private shared type exports with no public re-export: SnapshotEnvironmentOptions. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.',
+2026-08-22T00:17:43.6765862Z packages/snapshot build:   code: 'PLUGIN_WARNING',
+2026-08-22T00:17:43.6773117Z packages/snapshot build:   plugin: 'dts',
+2026-08-22T00:17:43.6780177Z packages/snapshot build:   Symbol(augmented): true
+2026-08-22T00:17:43.6792044Z packages/snapshot build: }
+2026-08-22T00:17:43.6792656Z packages/snapshot build: {
+2026-08-22T00:17:43.6795679Z packages/snapshot build:   message: '[plugin dts] Entry "index.d.ts" still references private shared type exports with no public re-export: RawSnapshotInfo. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.',
+2026-08-22T00:17:43.6807644Z packages/snapshot build:   code: 'PLUGIN_WARNING',
+2026-08-22T00:17:43.6815217Z packages/snapshot build:   plugin: 'dts',
+2026-08-22T00:17:43.6823161Z packages/snapshot build:   Symbol(augmented): true
+2026-08-22T00:17:43.6831580Z packages/snapshot build: }
+2026-08-22T00:17:43.6845525Z packages/snapshot build: [32mcreated [1mdist[22m in [1m198ms[22m[39m
+2026-08-22T00:17:43.6896029Z packages/expect build: Done
+2026-08-22T00:17:43.7084239Z packages/snapshot build: Done
+2026-08-22T00:17:43.8615066Z packages/mocker build: [32mcreated [1mdist[22m in [1m672ms[22m[39m
+2026-08-22T00:17:43.8617354Z packages/mocker build: [36m
+2026-08-22T00:17:43.8619335Z packages/mocker build: [1mdist/.types/index.d.ts, dist/.types/node.d.ts, dist/.types/redirect.d.ts, dist/.types/automock.d.ts, dist/.types/browser.d.ts, dist/.types/register.d.ts, dist/.types/auto-register.d.ts, dist/.types/transforms.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:44.0299107Z packages/mocker build: {
+2026-08-22T00:17:44.0303864Z packages/mocker build:   message: '[plugin dts] Entry "node.d.ts" still references private shared type exports with no public re-export: HoistMocksOptions. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.',
+2026-08-22T00:17:44.0306216Z packages/mocker build:   code: 'PLUGIN_WARNING',
+2026-08-22T00:17:44.0306790Z packages/mocker build:   plugin: 'dts',
+2026-08-22T00:17:44.0307181Z packages/mocker build:   Symbol(augmented): true
+2026-08-22T00:17:44.0307541Z packages/mocker build: }
+2026-08-22T00:17:44.0315463Z packages/mocker build: [32mcreated [1mdist[22m in [1m171ms[22m[39m
+2026-08-22T00:17:44.0504240Z packages/mocker build: Done
+2026-08-22T00:17:44.0510612Z packages/ui build$ premove dist && pnpm build:node && pnpm build:client
+2026-08-22T00:17:44.0513042Z packages/browser-preview build$ premove dist && pnpm rollup -c
+2026-08-22T00:17:44.0520332Z packages/browser build$ premove dist && pnpm build:node && pnpm build:client
+2026-08-22T00:17:44.0521478Z packages/browser-playwright build$ premove dist && pnpm rollup -c
+2026-08-22T00:17:45.0486180Z packages/browser build: $ rollup -c
+2026-08-22T00:17:45.1011943Z packages/ui build: $ rollup -c
+2026-08-22T00:17:45.5953892Z packages/browser build: [36m
+2026-08-22T00:17:45.5976486Z packages/browser build: [1m./src/node/index.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:45.5979561Z packages/browser-preview build: [36m
+2026-08-22T00:17:45.5983697Z packages/browser-preview build: [1m./src/index.ts, ./src/locators.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:45.6393189Z packages/ui build: [36m
+2026-08-22T00:17:45.6400014Z packages/ui build: [1m./node/index.ts, ./node/reporter.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:45.6772475Z packages/browser-playwright build: [36m
+2026-08-22T00:17:45.6806780Z packages/browser-playwright build: [1m./src/index.ts, ./src/locators.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:45.8337267Z packages/browser-preview build: [32mcreated [1mdist[22m in [1m237ms[22m[39m
+2026-08-22T00:17:45.8345058Z packages/browser-preview build: [36m
+2026-08-22T00:17:45.8346209Z packages/browser-preview build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:45.9028754Z packages/browser-preview build: [32mcreated [1mdist[22m in [1m68ms[22m[39m
+2026-08-22T00:17:45.9584913Z packages/browser-preview build: Done
+2026-08-22T00:17:45.9616038Z packages/vitest build$ premove dist && rollup -c
+2026-08-22T00:17:45.9959175Z packages/ui build: [32mcreated [1mdist[22m in [1m356ms[22m[39m
+2026-08-22T00:17:45.9972860Z packages/ui build: [36m
+2026-08-22T00:17:45.9973877Z packages/ui build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:46.0501958Z packages/ui build: [32mcreated [1mdist[22m in [1m53ms[22m[39m
+2026-08-22T00:17:46.1704124Z packages/browser-playwright build: [32mcreated [1mdist[22m in [1m491ms[22m[39m
+2026-08-22T00:17:46.1705674Z packages/browser-playwright build: [36m
+2026-08-22T00:17:46.1707291Z packages/browser-playwright build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:46.2938685Z packages/browser-playwright build: [32mcreated [1mdist[22m in [1m125ms[22m[39m
+2026-08-22T00:17:46.3397484Z packages/browser-playwright build: Done
+2026-08-22T00:17:46.3402975Z packages/coverage-v8 build$ premove dist && rollup -c
+2026-08-22T00:17:46.5686627Z packages/browser build: [32mcreated [1mdist[22m in [1m974ms[22m[39m
+2026-08-22T00:17:46.5691954Z packages/browser build: [36m
+2026-08-22T00:17:46.5705202Z packages/browser build: [1m./src/client/tester/locators.ts, ./src/client/tester/expect-element.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:46.7038118Z packages/vitest build: [36m
+2026-08-22T00:17:46.7056152Z packages/vitest build: [1msrc/paths.ts, src/public/index.ts, src/node/cli.ts, src/public/config.ts, src/public/node.ts, src/public/browser.ts, src/integrations/spy.ts, src/public/runtime.ts, src/public/worker.ts, src/runtime/moduleRunner/moduleEvaluator.ts, src/runtime/nodejsWorkerLoader.ts, src/utils/traces.ts, src/utils/tasks.ts, src/runtime/workers/forks.ts, src/runtime/workers/threads.ts, src/runtime/workers/vmThreads.ts, src/runtime/workers/vmForks.ts, src/runtime/runVmTests.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:46.8926108Z packages/coverage-v8 build: [36m
+2026-08-22T00:17:46.8930223Z packages/coverage-v8 build: [1msrc/index.ts, src/browser.ts, src/provider.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.2315719Z packages/ui build: $ vite build
+2026-08-22T00:17:47.2787819Z packages/coverage-v8 build: [32mcreated [1mdist[22m in [1m386ms[22m[39m
+2026-08-22T00:17:47.2793875Z packages/coverage-v8 build: [36m
+2026-08-22T00:17:47.2798930Z packages/coverage-v8 build: [1mdist/.types/index.d.ts, dist/.types/browser.d.ts, dist/.types/provider.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.3687927Z packages/coverage-v8 build: [32mcreated [1mdist[22m in [1m91ms[22m[39m
+2026-08-22T00:17:47.3905850Z packages/coverage-v8 build: Done
+2026-08-22T00:17:47.4254288Z packages/browser build: [32mcreated [1mdist[22m in [1m857ms[22m[39m
+2026-08-22T00:17:47.4264867Z packages/browser build: [36m
+2026-08-22T00:17:47.4267378Z packages/browser build: [1m./src/client/tester/context.ts[22m → [1mdist/context.js[22m...[39m
+2026-08-22T00:17:47.4684816Z packages/browser build: [32mcreated [1mdist/context.js[22m in [1m43ms[22m[39m
+2026-08-22T00:17:47.4686558Z packages/browser build: [36m
+2026-08-22T00:17:47.4690729Z packages/browser build: [1m./src/client/client.ts[22m → [1mdist/client.js[22m...[39m
+2026-08-22T00:17:47.5078340Z packages/browser build: [32mcreated [1mdist/client.js[22m in [1m39ms[22m[39m
+2026-08-22T00:17:47.5090304Z packages/browser build: [36m
+2026-08-22T00:17:47.5095345Z packages/browser build: [1m./src/client/tester/state.ts[22m → [1mdist/state.js[22m...[39m
+2026-08-22T00:17:47.6032184Z packages/browser build: [32mcreated [1mdist/state.js[22m in [1m95ms[22m[39m
+2026-08-22T00:17:47.6035491Z packages/browser build: [36m
+2026-08-22T00:17:47.6037127Z packages/browser build: [1mdist/.types/index.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.6765836Z packages/browser build: [32mcreated [1mdist[22m in [1m73ms[22m[39m
+2026-08-22T00:17:47.6772764Z packages/browser build: [36m
+2026-08-22T00:17:47.6774251Z packages/browser build: [1mdist/.types-client/tester/locators.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.7938325Z packages/browser build: [1m[33m(!) Unresolved dependencies[39m[22m
+2026-08-22T00:17:47.7949736Z packages/browser build: [90mhttps://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency[39m
+2026-08-22T00:17:47.7959640Z packages/browser build: [1mivya/aria[22m (imported by "dist/.types-client/utils.d.ts")
+2026-08-22T00:17:47.7969326Z packages/browser build: [1m@rrweb/types[22m (imported by "../../node_modules/.pnpm/rrweb-snapshot@2.1.1_patch_hash=b66b30796877352a5f887f3f4115c4e7265ddc11772af2223da4bd92293716f6/node_modules/rrweb-snapshot/dist/index.d.ts")
+2026-08-22T00:17:47.7982891Z packages/browser build: [32mcreated [1mdist[22m in [1m118ms[22m[39m
+2026-08-22T00:17:47.7983922Z packages/browser build: [36m
+2026-08-22T00:17:47.7985169Z packages/browser build: [1m./src/vendor-types.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.8651266Z packages/browser build: [1m[33m(!) Generated an empty chunk[39m[22m
+2026-08-22T00:17:47.8652510Z packages/browser build: "vendor-types"
+2026-08-22T00:17:47.8653797Z packages/browser build: [32mcreated [1mdist[22m in [1m69ms[22m[39m
+2026-08-22T00:17:47.8654916Z packages/browser build: [36m
+2026-08-22T00:17:47.8656207Z packages/browser build: [1m./dist/.types/vendor-types.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:47.9456656Z packages/browser build: [32mcreated [1mdist[22m in [1m82ms[22m[39m
+2026-08-22T00:17:47.9554593Z packages/ui build: [36mvite v7.3.6 [32mbuilding client environment for production...[36m[39m
+2026-08-22T00:17:48.1083853Z packages/ui build: transforming...
+2026-08-22T00:17:49.0972192Z packages/browser build: $ vite build src/client
+2026-08-22T00:17:49.4087580Z packages/browser build: [36mvite v7.3.6 [32mbuilding client environment for production...[36m[39m
+2026-08-22T00:17:49.5397541Z packages/browser build: transforming...
+2026-08-22T00:17:50.6668333Z packages/browser build: [32m✓[39m 44 modules transformed.
+2026-08-22T00:17:50.7736669Z packages/browser build: rendering chunks...
+2026-08-22T00:17:50.8632503Z packages/browser build: computing gzip size...
+2026-08-22T00:17:50.8813141Z packages/browser build: [2m../../dist/client/[22m[32mtester/tester.html                             [39m[1m[2m  0.48 kB[22m[1m[22m[2m │ gzip:  0.32 kB[22m
+2026-08-22T00:17:50.8823757Z packages/browser build: [2m../../dist/client/[22m[32morchestrator.html                              [39m[1m[2m  0.90 kB[22m[1m[22m[2m │ gzip:  0.48 kB[22m
+2026-08-22T00:17:50.8826453Z packages/browser build: [2m../../dist/client/[22m[32m.vite/manifest.json                            [39m[1m[2m  1.26 kB[22m[1m[22m[2m │ gzip:  0.37 kB[22m
+2026-08-22T00:17:50.8830121Z packages/browser build: [2m../../dist/client/[22m[2m__vitest_browser__/[22m[36mutils-De5elR35.js           [39m[1m[2m  9.62 kB[22m[1m[22m[2m │ gzip:  3.08 kB[22m
+2026-08-22T00:17:50.8836005Z packages/browser build: [2m../../dist/client/[22m[2m__vitest_browser__/[22m[36morchestrator-p2v-I6Yr.js    [39m[1m[2m 16.67 kB[22m[1m[22m[2m │ gzip:  4.66 kB[22m
+2026-08-22T00:17:50.8838901Z packages/browser build: [2m../../dist/client/[22m[2m__vitest_browser__/[22m[36mtester-CNngoOUU.js          [39m[1m[2m 80.35 kB[22m[1m[22m[2m │ gzip: 21.19 kB[22m
+2026-08-22T00:17:50.8851567Z packages/browser build: [2m../../dist/client/[22m[2m__vitest_browser__/[22m[36mrrweb-snapshot-T7zth0bS.js  [39m[1m[2m176.53 kB[22m[1m[22m[2m │ gzip: 38.58 kB[22m
+2026-08-22T00:17:50.8853825Z packages/browser build: [32m✓ built in 1.44s[39m
+2026-08-22T00:17:50.9469664Z packages/browser build: Done
+2026-08-22T00:17:53.1774697Z packages/vitest build: [32mcreated [1mdist[22m in [1m6.4s[22m[39m
+2026-08-22T00:17:53.1790778Z packages/vitest build: [36m
+2026-08-22T00:17:53.1791974Z packages/vitest build: [1msrc/public/config.ts[22m → [1mdist/config.cjs[22m...[39m
+2026-08-22T00:17:53.1989944Z packages/vitest build: [32mcreated [1mdist/config.cjs[22m in [1m21ms[22m[39m
+2026-08-22T00:17:53.2000482Z packages/vitest build: [36m
+2026-08-22T00:17:53.2003191Z packages/vitest build: [1mdist/.types/index.d.ts, dist/.types/node.d.ts, dist/.types/browser.d.ts, dist/.types/runtime.d.ts, dist/.types/config.d.ts, dist/.types/worker.d.ts, dist/.types/module-evaluator.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:53.6978019Z packages/ui build: [32m✓[39m 439 modules transformed.
+2026-08-22T00:17:54.1613432Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "browser.d.ts" still references private shared type exports with no public re-export: RuntimeCoverageModuleLoader, SerializedDiffOptions. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1618702Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "config.d.ts" still references private shared type exports with no public re-export: Config, FieldsWithDefaultValues. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1627224Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "index.d.ts" still references private shared type exports with no public re-export: Awaitable, BirpcReturn, Config, MaybeMocked, MaybeMockedDeep, MaybePartiallyMocked, MaybePartiallyMockedDeep, ModuleDefinitionDiagnostic, ModuleDefinitionDurationsDiagnostic, ModuleDefinitionLocation, Procedure, RuntimeOptions, SourceModuleDiagnostic, SourceModuleLocations, SuiteHooks, TaskPopulated, Traces, UntrackedModuleDefinitionDiagnostic, VitestRunnerImportSource, createChainable, createFileTask, fn, spyOn. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1635483Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "module-evaluator.d.ts" still references private shared type exports with no public re-export: GetterTracker. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1641098Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "node.d.ts" still references private shared type exports with no public re-export: Awaitable, CoverageMap. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1646207Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "runtime.d.ts" still references private shared type exports with no public re-export: SnapshotEnvironmentOptions. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1652237Z packages/vitest build: [1m[33m(!) [plugin dts] Entry "worker.d.ts" still references private shared type exports with no public re-export: Awaitable, BirpcOptions, Traces, WorkerSetupContext. rollup-plugin-dts will not invent new public exports for these types. Re-export them from a public entry to avoid downstream TS2742 errors.[39m[22m
+2026-08-22T00:17:54.1655207Z packages/vitest build: [32mcreated [1mdist[22m in [1m961ms[22m[39m
+2026-08-22T00:17:54.2234688Z packages/vitest build: Done
+2026-08-22T00:17:55.0941294Z packages/ui build: rendering chunks...
+2026-08-22T00:17:55.1060936Z packages/ui build: computing gzip size...
+2026-08-22T00:17:55.1331145Z packages/ui build: [2mdist/client/[22m[32mindex.html                 [39m[1m[2m  1.21 kB[22m[1m[22m[2m │ gzip:   0.62 kB[22m
+2026-08-22T00:17:55.1333210Z packages/ui build: [2mdist/client/[22m[2massets/[22m[35mindex-CrsPT4T1.css  [39m[1m[2m 93.47 kB[22m[1m[22m[2m │ gzip:  18.85 kB[22m
+2026-08-22T00:17:55.1335584Z packages/ui build: [2mdist/client/[22m[2massets/[22m[36mindex-PyrffqcA.js   [39m[1m[33m799.66 kB[39m[22m[2m │ gzip: 279.98 kB[22m
+2026-08-22T00:17:55.1336867Z packages/ui build: [33m
+2026-08-22T00:17:55.1356764Z packages/ui build: (!) Some chunks are larger than 500 kB after minification. Consider:
+2026-08-22T00:17:55.1357646Z packages/ui build: - Using dynamic import() to code-split the application
+2026-08-22T00:17:55.1358637Z packages/ui build: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+2026-08-22T00:17:55.1360128Z packages/ui build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m
+2026-08-22T00:17:55.1360906Z packages/ui build: [32m✓ built in 7.15s[39m
+2026-08-22T00:17:55.2158356Z packages/ui build: Done
+2026-08-22T00:17:55.2163608Z packages/coverage-istanbul build$ premove dist && rollup -c
+2026-08-22T00:17:55.2166177Z packages/web-worker build$ premove dist && rollup -c
+2026-08-22T00:17:55.6063339Z packages/web-worker build: [36m
+2026-08-22T00:17:55.6064995Z packages/web-worker build: [1msrc/index.ts, src/pure.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:55.6066481Z packages/coverage-istanbul build: [36m
+2026-08-22T00:17:55.6068349Z packages/coverage-istanbul build: [1msrc/index.ts, src/browser.ts, src/provider.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:55.7946614Z packages/web-worker build: [32mcreated [1mdist[22m in [1m187ms[22m[39m
+2026-08-22T00:17:55.7948234Z packages/web-worker build: [36m
+2026-08-22T00:17:55.7963384Z packages/web-worker build: [1mdist/.types/pure.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:55.8352353Z packages/web-worker build: [32mcreated [1mdist[22m in [1m42ms[22m[39m
+2026-08-22T00:17:55.8517774Z packages/web-worker build: Done
+2026-08-22T00:17:56.0118072Z packages/coverage-istanbul build: [32mcreated [1mdist[22m in [1m406ms[22m[39m
+2026-08-22T00:17:56.0120473Z packages/coverage-istanbul build: [36m
+2026-08-22T00:17:56.0122081Z packages/coverage-istanbul build: [1mdist/.types/index.d.ts, dist/.types/browser.d.ts, dist/.types/provider.d.ts[22m → [1mdist[22m...[39m
+2026-08-22T00:17:56.2169390Z packages/coverage-istanbul build: [32mcreated [1mdist[22m in [1m205ms[22m[39m
+2026-08-22T00:17:56.2381795Z packages/coverage-istanbul build: Done
+2026-08-22T00:17:56.2765053Z ##[group]Run pnpm run test:browser:playwright runner.test.ts
+2026-08-22T00:17:56.2765570Z [36;1mpnpm run test:browser:playwright runner.test.ts[0m
+2026-08-22T00:17:56.2766048Z shell: sh -e {0}
+2026-08-22T00:17:56.2766255Z env:
+2026-08-22T00:17:56.2766603Z   PLAYWRIGHT_BROWSERS_PATH: /home/runner/work/vitest/vitest/.cache/ms-playwright
+2026-08-22T00:17:56.2767056Z   PNPM_CONFIG_TRUST_LOCKFILE: true
+2026-08-22T00:17:56.2767382Z   PNPM_HOME: /github/home/setup-pnpm/node_modules/.bin
+2026-08-22T00:17:56.2767692Z ##[endgroup]
+2026-08-22T00:17:56.9577371Z $ pnpm -C test/browser run test:playwright runner.test.ts
+2026-08-22T00:17:57.5582245Z $ PROVIDER=playwright pnpm run test:unit runner.test.ts
+2026-08-22T00:17:58.1558739Z $ vitest --no-watch --config=vitest.config.unit.mts runner.test.ts
+2026-08-22T00:17:58.4363073Z 
+2026-08-22T00:17:58.4365371Z [1m[30m[46m RUN [49m[39m[22m [36mv5.0.0-rc.2 [39m[90m/__w/vitest/vitest/test/browser[39m
+2026-08-22T00:17:58.4365844Z 
+2026-08-22T00:18:30.0972592Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mtests are actually running[32m 6[2mms[22m[39m
+2026-08-22T00:18:30.0975074Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mbenchmarks run in a dedicated `(bench)` project per browser instance[32m 0[2mms[22m[39m
+2026-08-22T00:18:30.0978203Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mperProject benchmarks emit tasks with the perProject flag in every browser[32m 1[2mms[22m[39m
+2026-08-22T00:18:30.0980988Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mbench.compare emits one benchmark with both registrations ranked[32m 0[2mms[22m[39m
+2026-08-22T00:18:30.0983371Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mwriteResult flows through the write-artifact RPC in every browser[32m 0[2mms[22m[39m
+2026-08-22T00:18:30.0985408Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mtags are collected[32m 5[2mms[22m[39m
+2026-08-22T00:18:30.0987108Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22mruns in-source tests[32m 0[2mms[22m[39m
+2026-08-22T00:18:30.0988978Z  [32m✓[39m specs/runner.test.ts[2m > [22mrunning browser tests[2m > [22munsubscribes cancel listeners after run[32m 1[2mms[22m[39m
+2026-08-22T00:18:33.5346832Z  [32m✓[39m specs/runner.test.ts[2m > [22mconsole logging tests[2m > [22mlogs are redirected to stdout[32m 1[2mms[22m[39m
+2026-08-22T00:18:33.5349294Z  [32m✓[39m specs/runner.test.ts[2m > [22mconsole logging tests[2m > [22mlogs are redirected to stderr[32m 1[2mms[22m[39m
+2026-08-22T00:18:33.5351615Z  [32m✓[39m specs/runner.test.ts[2m > [22mconsole logging tests[2m > [22mlogs have stack traces[32m 0[2mms[22m[39m
+2026-08-22T00:18:33.5353922Z  [32m✓[39m specs/runner.test.ts[2m > [22mconsole logging tests[2m > [22mpopup apis should log a warning[32m 0[2mms[22m[39m
+2026-08-22T00:18:34.4397430Z  [32m✓[39m specs/runner.test.ts[2m > [22mdisableConsoleIntercept[33m 1005[2mms[22m[39m
+2026-08-22T00:18:38.9702503Z  [32m✓[39m specs/runner.test.ts[2m > [22mstack trace points to correct file in every browser when failed[33m 4530[2mms[22m[39m
+2026-08-22T00:18:45.2203693Z  [32m✓[39m specs/runner.test.ts[2m > [22muser-event[33m 6250[2mms[22m[39m
+2026-08-22T00:18:49.4279696Z  [32m✓[39m specs/runner.test.ts[2m > [22mtimeout settings[33m 4208[2mms[22m[39m
+2026-08-22T00:18:52.4087045Z  [32m✓[39m specs/runner.test.ts[2m > [22mviewport[33m 2981[2mms[22m[39m
+2026-08-22T00:18:55.2699500Z  [32m✓[39m specs/runner.test.ts[2m > [22min-source tests don't run when the module is imported by the test[33m 2861[2mms[22m[39m
+2026-08-22T00:18:58.1582416Z  [32m✓[39m specs/runner.test.ts[2m > [22min-source tests run correctly when filtered[33m 2888[2mms[22m[39m
+2026-08-22T00:19:00.7650350Z  [32m✓[39m specs/runner.test.ts[2m > [22mre-evaluate setupFiles on each test run even when isolate is false[33m 2607[2mms[22m[39m
+2026-08-22T00:19:07.2478833Z [90mstderr[2m | specs/runner.test.ts[2m > [22m[2mtimeout hooks
+2026-08-22T00:19:07.2480267Z [22m[39m
+2026-08-22T00:19:07.2480949Z ⎯⎯⎯⎯⎯⎯ Failed Suites 6 ⎯⎯⎯⎯⎯⎯⎯
+2026-08-22T00:19:07.2481299Z 
+2026-08-22T00:19:07.2481852Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > beforeAll
+2026-08-22T00:19:07.2482981Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2483591Z Call log:
+2026-08-22T00:19:07.2484369Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2485065Z 
+2026-08-22T00:19:07.2485436Z  ❯ hooks-timeout.test.ts:31:46
+2026-08-22T00:19:07.2485995Z      29|   describe('beforeAll', () => {
+2026-08-22T00:19:07.2486594Z      30|     beforeAll(async () => {
+2026-08-22T00:19:07.2487292Z      31|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2488061Z        |                                              ^
+2026-08-22T00:19:07.2488607Z      32|     }, 500)
+2026-08-22T00:19:07.2489012Z      33|
+2026-08-22T00:19:07.2489220Z 
+2026-08-22T00:19:07.2489627Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/36]⎯
+2026-08-22T00:19:07.2490299Z 
+2026-08-22T00:19:07.2490865Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > afterAll
+2026-08-22T00:19:07.2491891Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2492487Z Call log:
+2026-08-22T00:19:07.2493243Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2493897Z 
+2026-08-22T00:19:07.2494244Z  ❯ hooks-timeout.test.ts:39:46
+2026-08-22T00:19:07.2494773Z      37|   describe('afterAll', () => {
+2026-08-22T00:19:07.2495287Z      38|     afterAll(async () => {
+2026-08-22T00:19:07.2495907Z      39|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2496578Z        |                                              ^
+2026-08-22T00:19:07.2497091Z      40|     }, 500)
+2026-08-22T00:19:07.2497446Z      41|
+2026-08-22T00:19:07.2497633Z 
+2026-08-22T00:19:07.2497963Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/36]⎯
+2026-08-22T00:19:07.2498241Z 
+2026-08-22T00:19:07.2498744Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > beforeAll
+2026-08-22T00:19:07.2499698Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2500492Z Call log:
+2026-08-22T00:19:07.2501221Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2501852Z 
+2026-08-22T00:19:07.2502146Z  ❯ hooks-timeout.test.ts:31:46
+2026-08-22T00:19:07.2502647Z      29|   describe('beforeAll', () => {
+2026-08-22T00:19:07.2503170Z      30|     beforeAll(async () => {
+2026-08-22T00:19:07.2503802Z      31|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2504445Z        |                                              ^
+2026-08-22T00:19:07.2504937Z      32|     }, 500)
+2026-08-22T00:19:07.2505299Z      33|
+2026-08-22T00:19:07.2505482Z 
+2026-08-22T00:19:07.2505798Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/36]⎯
+2026-08-22T00:19:07.2506074Z 
+2026-08-22T00:19:07.2506565Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > afterAll
+2026-08-22T00:19:07.2507500Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2508471Z Call log:
+2026-08-22T00:19:07.2509180Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2510025Z 
+2026-08-22T00:19:07.2510334Z  ❯ hooks-timeout.test.ts:39:46
+2026-08-22T00:19:07.2510850Z      37|   describe('afterAll', () => {
+2026-08-22T00:19:07.2511383Z      38|     afterAll(async () => {
+2026-08-22T00:19:07.2512008Z      39|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2512671Z        |                                              ^
+2026-08-22T00:19:07.2513157Z      40|     }, 500)
+2026-08-22T00:19:07.2513554Z      41|
+2026-08-22T00:19:07.2513754Z 
+2026-08-22T00:19:07.2514420Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/36]⎯
+2026-08-22T00:19:07.2514720Z 
+2026-08-22T00:19:07.2515223Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > beforeAll
+2026-08-22T00:19:07.2516162Z TimeoutError: locator.click: Timeout 248ms exceeded.
+2026-08-22T00:19:07.2516707Z Call log:
+2026-08-22T00:19:07.2517413Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2518054Z 
+2026-08-22T00:19:07.2518336Z  ❯ hooks-timeout.test.ts:31:46
+2026-08-22T00:19:07.2518842Z      29|   describe('beforeAll', () => {
+2026-08-22T00:19:07.2519364Z      30|     beforeAll(async () => {
+2026-08-22T00:19:07.2520210Z      31|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2520867Z        |                                              ^
+2026-08-22T00:19:07.2521348Z      32|     }, 500)
+2026-08-22T00:19:07.2521688Z      33|
+2026-08-22T00:19:07.2521865Z 
+2026-08-22T00:19:07.2522177Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/36]⎯
+2026-08-22T00:19:07.2522443Z 
+2026-08-22T00:19:07.2522939Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > afterAll
+2026-08-22T00:19:07.2523870Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2524561Z Call log:
+2026-08-22T00:19:07.2525322Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2525971Z 
+2026-08-22T00:19:07.2526266Z  ❯ hooks-timeout.test.ts:39:46
+2026-08-22T00:19:07.2526776Z      37|   describe('afterAll', () => {
+2026-08-22T00:19:07.2527431Z      38|     afterAll(async () => {
+2026-08-22T00:19:07.2528161Z      39|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2529343Z        |                                              ^
+2026-08-22T00:19:07.2530374Z      40|     }, 500)
+2026-08-22T00:19:07.2530979Z      41|
+2026-08-22T00:19:07.2531281Z 
+2026-08-22T00:19:07.2531798Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/36]⎯
+2026-08-22T00:19:07.2532219Z 
+2026-08-22T00:19:07.2532293Z 
+2026-08-22T00:19:07.2532685Z ⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
+2026-08-22T00:19:07.2533207Z 
+2026-08-22T00:19:07.2534009Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > click on non-existing element fails
+2026-08-22T00:19:07.2551151Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2551745Z Call log:
+2026-08-22T00:19:07.2552443Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByRole('code')
+2026-08-22T00:19:07.2553019Z 
+2026-08-22T00:19:07.2553317Z  ❯ hooks-timeout.test.ts:6:34
+2026-08-22T00:19:07.2554167Z       4| describe.runIf(server.provider === 'playwright')('timeouts are failing…
+2026-08-22T00:19:07.2555083Z       5|   it('click on non-existing element fails', async () => {
+2026-08-22T00:19:07.2555780Z       6|     await page.getByRole('code').click()
+2026-08-22T00:19:07.2556343Z        |                                  ^
+2026-08-22T00:19:07.2556806Z       7|   }, 500)
+2026-08-22T00:19:07.2557147Z       8|
+2026-08-22T00:19:07.2557331Z 
+2026-08-22T00:19:07.2557673Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/36]⎯
+2026-08-22T00:19:07.2557946Z 
+2026-08-22T00:19:07.2558711Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > expect.element on non-existing element fails
+2026-08-22T00:19:07.2560390Z VitestBrowserElementError: Cannot find element with locator: getByRole('code')
+2026-08-22T00:19:07.2561292Z 
+2026-08-22T00:19:07.2561451Z ARIA tree:
+2026-08-22T00:19:07.2561652Z 
+2026-08-22T00:19:07.2561661Z 
+2026-08-22T00:19:07.2561810Z HTML:
+2026-08-22T00:19:07.2562145Z <body>
+2026-08-22T00:19:07.2562460Z   
+2026-08-22T00:19:07.2562748Z   
+2026-08-22T00:19:07.2562919Z 
+2026-08-22T00:19:07.2562928Z 
+2026-08-22T00:19:07.2563068Z </body>
+2026-08-22T00:19:07.2563557Z  ❯ hooks-timeout.test.ts:10:50
+2026-08-22T00:19:07.2564021Z       8|
+2026-08-22T00:19:07.2564661Z       9|   it('expect.element on non-existing element fails', async () => {
+2026-08-22T00:19:07.2565565Z      10|     await expect.element(page.getByRole('code')).toBeVisible()
+2026-08-22T00:19:07.2566524Z        |                                                  ^
+2026-08-22T00:19:07.2567033Z      11|   }, 1000)
+2026-08-22T00:19:07.2567380Z      12|
+2026-08-22T00:19:07.2567562Z 
+2026-08-22T00:19:07.2567892Z Caused by: Error: Matcher did not succeed in time.
+2026-08-22T00:19:07.2568530Z  ❯ hooks-timeout.test.ts:10:5
+2026-08-22T00:19:07.2568824Z 
+2026-08-22T00:19:07.2569162Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/36]⎯
+2026-08-22T00:19:07.2569441Z 
+2026-08-22T00:19:07.2570294Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > beforeEach > skipped
+2026-08-22T00:19:07.2571419Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2571974Z Call log:
+2026-08-22T00:19:07.2572687Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2573320Z 
+2026-08-22T00:19:07.2573615Z  ❯ hooks-timeout.test.ts:15:46
+2026-08-22T00:19:07.2574127Z      13|   describe('beforeEach', () => {
+2026-08-22T00:19:07.2574671Z      14|     beforeEach(async () => {
+2026-08-22T00:19:07.2575315Z      15|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2575973Z        |                                              ^
+2026-08-22T00:19:07.2576459Z      16|     }, 500)
+2026-08-22T00:19:07.2576803Z      17|
+2026-08-22T00:19:07.2576982Z 
+2026-08-22T00:19:07.2577297Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/36]⎯
+2026-08-22T00:19:07.2577580Z 
+2026-08-22T00:19:07.2578143Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > afterEach > skipped
+2026-08-22T00:19:07.2579154Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2579693Z Call log:
+2026-08-22T00:19:07.2580587Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2581211Z 
+2026-08-22T00:19:07.2581486Z  ❯ hooks-timeout.test.ts:23:46
+2026-08-22T00:19:07.2581987Z      21|   describe('afterEach', () => {
+2026-08-22T00:19:07.2582509Z      22|     afterEach(async () => {
+2026-08-22T00:19:07.2583144Z      23|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2583784Z        |                                              ^
+2026-08-22T00:19:07.2584263Z      24|     }, 500)
+2026-08-22T00:19:07.2584604Z      25|
+2026-08-22T00:19:07.2584781Z 
+2026-08-22T00:19:07.2585085Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/36]⎯
+2026-08-22T00:19:07.2585346Z 
+2026-08-22T00:19:07.2585951Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails
+2026-08-22T00:19:07.2586968Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2587503Z Call log:
+2026-08-22T00:19:07.2588203Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2588817Z 
+2026-08-22T00:19:07.2589088Z  ❯ hooks-timeout.test.ts:48:48
+2026-08-22T00:19:07.2589678Z      46|     it('fails', ({ onTestFinished }) => {
+2026-08-22T00:19:07.2590544Z      47|       onTestFinished(async () => {
+2026-08-22T00:19:07.2591206Z      48|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2591862Z        |                                                ^
+2026-08-22T00:19:07.2592341Z      49|       }, 500)
+2026-08-22T00:19:07.2592707Z      50|     })
+2026-08-22T00:19:07.2592914Z 
+2026-08-22T00:19:07.2593252Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/36]⎯
+2026-08-22T00:19:07.2593532Z 
+2026-08-22T00:19:07.2594255Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails global
+2026-08-22T00:19:07.2595622Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2596191Z Call log:
+2026-08-22T00:19:07.2596910Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2597542Z 
+2026-08-22T00:19:07.2597834Z  ❯ hooks-timeout.test.ts:54:48
+2026-08-22T00:19:07.2598332Z      52|     it('fails global', () => {
+2026-08-22T00:19:07.2598877Z      53|       onTestFinished(async () => {
+2026-08-22T00:19:07.2599535Z      54|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2600805Z        |                                                ^
+2026-08-22T00:19:07.2601344Z      55|       }, 500)
+2026-08-22T00:19:07.2601748Z      56|     })
+2026-08-22T00:19:07.2601970Z 
+2026-08-22T00:19:07.2602344Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/36]⎯
+2026-08-22T00:19:07.2602648Z 
+2026-08-22T00:19:07.2603280Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2604301Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2605003Z  ❯ hooks-timeout.test.ts:65:14
+2026-08-22T00:19:07.2605476Z      63|       }, 500)
+2026-08-22T00:19:07.2605855Z      64|
+2026-08-22T00:19:07.2606279Z      65|       expect.unreachable()
+2026-08-22T00:19:07.2606786Z        |              ^
+2026-08-22T00:19:07.2607175Z      66|     })
+2026-08-22T00:19:07.2607496Z      67|
+2026-08-22T00:19:07.2607690Z 
+2026-08-22T00:19:07.2608032Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/36]⎯
+2026-08-22T00:19:07.2608297Z 
+2026-08-22T00:19:07.2608905Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2610214Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2610785Z Call log:
+2026-08-22T00:19:07.2611528Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2612160Z 
+2026-08-22T00:19:07.2612472Z  ❯ hooks-timeout.test.ts:62:48
+2026-08-22T00:19:07.2613011Z      60|     it('fails', ({ onTestFailed }) => {
+2026-08-22T00:19:07.2613587Z      61|       onTestFailed(async () => {
+2026-08-22T00:19:07.2614230Z      62|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2614895Z        |                                                ^
+2026-08-22T00:19:07.2615384Z      63|       }, 500)
+2026-08-22T00:19:07.2615741Z      64|
+2026-08-22T00:19:07.2615923Z 
+2026-08-22T00:19:07.2616235Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/36]⎯
+2026-08-22T00:19:07.2616509Z 
+2026-08-22T00:19:07.2617181Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2618169Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2618941Z  ❯ hooks-timeout.test.ts:73:14
+2026-08-22T00:19:07.2619423Z      71|       }, 500)
+2026-08-22T00:19:07.2620092Z      72|
+2026-08-22T00:19:07.2620427Z      73|       expect.unreachable()
+2026-08-22T00:19:07.2620726Z        |              ^
+2026-08-22T00:19:07.2620943Z      74|     })
+2026-08-22T00:19:07.2621143Z      75|   })
+2026-08-22T00:19:07.2621264Z 
+2026-08-22T00:19:07.2621491Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/36]⎯
+2026-08-22T00:19:07.2621655Z 
+2026-08-22T00:19:07.2622017Z  FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2622732Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2623307Z Call log:
+2026-08-22T00:19:07.2624043Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2624737Z 
+2026-08-22T00:19:07.2625123Z  ❯ hooks-timeout.test.ts:70:48
+2026-08-22T00:19:07.2625734Z      68|     it('fails global', () => {
+2026-08-22T00:19:07.2626341Z      69|       onTestFailed(async () => {
+2026-08-22T00:19:07.2627076Z      70|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2627745Z        |                                                ^
+2026-08-22T00:19:07.2628642Z      71|       }, 500)
+2026-08-22T00:19:07.2629046Z      72|
+2026-08-22T00:19:07.2629225Z 
+2026-08-22T00:19:07.2629583Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/36]⎯
+2026-08-22T00:19:07.2630263Z 
+2026-08-22T00:19:07.2630975Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > click on non-existing element fails
+2026-08-22T00:19:07.2632093Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2632639Z Call log:
+2026-08-22T00:19:07.2633282Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByRole('code')
+2026-08-22T00:19:07.2633867Z 
+2026-08-22T00:19:07.2634136Z  ❯ hooks-timeout.test.ts:6:34
+2026-08-22T00:19:07.2635203Z       4| describe.runIf(server.provider === 'playwright')('timeouts are failing…
+2026-08-22T00:19:07.2636131Z       5|   it('click on non-existing element fails', async () => {
+2026-08-22T00:19:07.2636815Z       6|     await page.getByRole('code').click()
+2026-08-22T00:19:07.2637375Z        |                                  ^
+2026-08-22T00:19:07.2637852Z       7|   }, 500)
+2026-08-22T00:19:07.2638186Z       8|
+2026-08-22T00:19:07.2638364Z 
+2026-08-22T00:19:07.2638682Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/36]⎯
+2026-08-22T00:19:07.2638954Z 
+2026-08-22T00:19:07.2639718Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > expect.element on non-existing element fails
+2026-08-22T00:19:07.2641347Z VitestBrowserElementError: Cannot find element with locator: getByRole('code')
+2026-08-22T00:19:07.2641956Z 
+2026-08-22T00:19:07.2642100Z ARIA tree:
+2026-08-22T00:19:07.2642293Z 
+2026-08-22T00:19:07.2642302Z 
+2026-08-22T00:19:07.2642441Z HTML:
+2026-08-22T00:19:07.2642742Z <body>
+2026-08-22T00:19:07.2643068Z   
+2026-08-22T00:19:07.2643358Z   
+2026-08-22T00:19:07.2643526Z 
+2026-08-22T00:19:07.2643534Z 
+2026-08-22T00:19:07.2643671Z </body>
+2026-08-22T00:19:07.2644134Z  ❯ hooks-timeout.test.ts:10:50
+2026-08-22T00:19:07.2644553Z       8|
+2026-08-22T00:19:07.2645124Z       9|   it('expect.element on non-existing element fails', async () => {
+2026-08-22T00:19:07.2646018Z      10|     await expect.element(page.getByRole('code')).toBeVisible()
+2026-08-22T00:19:07.2646742Z        |                                                  ^
+2026-08-22T00:19:07.2647229Z      11|   }, 1000)
+2026-08-22T00:19:07.2647569Z      12|
+2026-08-22T00:19:07.2647741Z 
+2026-08-22T00:19:07.2648069Z Caused by: Error: Matcher did not succeed in time.
+2026-08-22T00:19:07.2648831Z  ❯ promise callback* hooks-timeout.test.ts:10:50
+2026-08-22T00:19:07.2649217Z 
+2026-08-22T00:19:07.2649518Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/36]⎯
+2026-08-22T00:19:07.2650317Z 
+2026-08-22T00:19:07.2650791Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > beforeEach > skipped
+2026-08-22T00:19:07.2651456Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2651799Z Call log:
+2026-08-22T00:19:07.2652253Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2652643Z 
+2026-08-22T00:19:07.2652873Z  ❯ hooks-timeout.test.ts:15:46
+2026-08-22T00:19:07.2653459Z      13|   describe('beforeEach', () => {
+2026-08-22T00:19:07.2653801Z      14|     beforeEach(async () => {
+2026-08-22T00:19:07.2654180Z      15|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2654569Z        |                                              ^
+2026-08-22T00:19:07.2654863Z      16|     }, 500)
+2026-08-22T00:19:07.2655078Z      17|
+2026-08-22T00:19:07.2655188Z 
+2026-08-22T00:19:07.2655396Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/36]⎯
+2026-08-22T00:19:07.2655565Z 
+2026-08-22T00:19:07.2655898Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > afterEach > skipped
+2026-08-22T00:19:07.2656632Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2656958Z Call log:
+2026-08-22T00:19:07.2657376Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2657741Z 
+2026-08-22T00:19:07.2657904Z  ❯ hooks-timeout.test.ts:23:46
+2026-08-22T00:19:07.2658214Z      21|   describe('afterEach', () => {
+2026-08-22T00:19:07.2658521Z      22|     afterEach(async () => {
+2026-08-22T00:19:07.2658884Z      23|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2659257Z        |                                              ^
+2026-08-22T00:19:07.2659540Z      24|     }, 500)
+2026-08-22T00:19:07.2660015Z      25|
+2026-08-22T00:19:07.2660149Z 
+2026-08-22T00:19:07.2660348Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/36]⎯
+2026-08-22T00:19:07.2660507Z 
+2026-08-22T00:19:07.2660855Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails
+2026-08-22T00:19:07.2661453Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2661769Z Call log:
+2026-08-22T00:19:07.2662182Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2662550Z 
+2026-08-22T00:19:07.2662708Z  ❯ hooks-timeout.test.ts:48:48
+2026-08-22T00:19:07.2663027Z      46|     it('fails', ({ onTestFinished }) => {
+2026-08-22T00:19:07.2663386Z      47|       onTestFinished(async () => {
+2026-08-22T00:19:07.2663765Z      48|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2664145Z        |                                                ^
+2026-08-22T00:19:07.2664428Z      49|       }, 500)
+2026-08-22T00:19:07.2664640Z      50|     })
+2026-08-22T00:19:07.2664761Z 
+2026-08-22T00:19:07.2664936Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/36]⎯
+2026-08-22T00:19:07.2665094Z 
+2026-08-22T00:19:07.2665459Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails global
+2026-08-22T00:19:07.2666062Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2666371Z Call log:
+2026-08-22T00:19:07.2666774Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2667124Z 
+2026-08-22T00:19:07.2667283Z  ❯ hooks-timeout.test.ts:54:48
+2026-08-22T00:19:07.2667566Z      52|     it('fails global', () => {
+2026-08-22T00:19:07.2667888Z      53|       onTestFinished(async () => {
+2026-08-22T00:19:07.2668259Z      54|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2668636Z        |                                                ^
+2026-08-22T00:19:07.2668912Z      55|       }, 500)
+2026-08-22T00:19:07.2669118Z      56|     })
+2026-08-22T00:19:07.2669239Z 
+2026-08-22T00:19:07.2669410Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/36]⎯
+2026-08-22T00:19:07.2669561Z 
+2026-08-22T00:19:07.2670127Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2670668Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2671074Z  ❯ hooks-timeout.test.ts:65:14
+2026-08-22T00:19:07.2671333Z      63|       }, 500)
+2026-08-22T00:19:07.2671540Z      64|
+2026-08-22T00:19:07.2671767Z      65|       expect.unreachable()
+2026-08-22T00:19:07.2672026Z        |              ^
+2026-08-22T00:19:07.2672241Z      66|     })
+2026-08-22T00:19:07.2672440Z      67|
+2026-08-22T00:19:07.2672717Z 
+2026-08-22T00:19:07.2672895Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/36]⎯
+2026-08-22T00:19:07.2673045Z 
+2026-08-22T00:19:07.2673369Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2673937Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2674244Z Call log:
+2026-08-22T00:19:07.2674644Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2674997Z 
+2026-08-22T00:19:07.2675168Z  ❯ hooks-timeout.test.ts:62:48
+2026-08-22T00:19:07.2675478Z      60|     it('fails', ({ onTestFailed }) => {
+2026-08-22T00:19:07.2675921Z      61|       onTestFailed(async () => {
+2026-08-22T00:19:07.2676291Z      62|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2676671Z        |                                                ^
+2026-08-22T00:19:07.2676947Z      63|       }, 500)
+2026-08-22T00:19:07.2677156Z      64|
+2026-08-22T00:19:07.2677256Z 
+2026-08-22T00:19:07.2677443Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/36]⎯
+2026-08-22T00:19:07.2677599Z 
+2026-08-22T00:19:07.2677948Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2678490Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2678839Z  ❯ hooks-timeout.test.ts:73:14
+2026-08-22T00:19:07.2679083Z      71|       }, 500)
+2026-08-22T00:19:07.2679292Z      72|
+2026-08-22T00:19:07.2679511Z      73|       expect.unreachable()
+2026-08-22T00:19:07.2680017Z        |              ^
+2026-08-22T00:19:07.2680256Z      74|     })
+2026-08-22T00:19:07.2680451Z      75|   })
+2026-08-22T00:19:07.2680567Z 
+2026-08-22T00:19:07.2680760Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/36]⎯
+2026-08-22T00:19:07.2680913Z 
+2026-08-22T00:19:07.2681263Z  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2681795Z Error: Hook timed out in 500ms.
+2026-08-22T00:19:07.2682427Z If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+2026-08-22T00:19:07.2683018Z  ❯ hooks-timeout.test.ts:69:7
+2026-08-22T00:19:07.2683263Z      67|
+2026-08-22T00:19:07.2683493Z      68|     it('fails global', () => {
+2026-08-22T00:19:07.2683792Z      69|       onTestFailed(async () => {
+2026-08-22T00:19:07.2684062Z        |       ^
+2026-08-22T00:19:07.2684364Z      70|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2684684Z      71|       }, 500)
+2026-08-22T00:19:07.2684817Z 
+2026-08-22T00:19:07.2684995Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/36]⎯
+2026-08-22T00:19:07.2685151Z 
+2026-08-22T00:19:07.2685542Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > click on non-existing element fails
+2026-08-22T00:19:07.2686147Z TimeoutError: locator.click: Timeout 248ms exceeded.
+2026-08-22T00:19:07.2686457Z Call log:
+2026-08-22T00:19:07.2686822Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByRole('code')
+2026-08-22T00:19:07.2687137Z 
+2026-08-22T00:19:07.2687279Z  ❯ hooks-timeout.test.ts:6:34
+2026-08-22T00:19:07.2687758Z       4| describe.runIf(server.provider === 'playwright')('timeouts are failing…
+2026-08-22T00:19:07.2688276Z       5|   it('click on non-existing element fails', async () => {
+2026-08-22T00:19:07.2688677Z       6|     await page.getByRole('code').click()
+2026-08-22T00:19:07.2689000Z        |                                  ^
+2026-08-22T00:19:07.2689264Z       7|   }, 500)
+2026-08-22T00:19:07.2689464Z       8|
+2026-08-22T00:19:07.2689571Z 
+2026-08-22T00:19:07.2689980Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/36]⎯
+2026-08-22T00:19:07.2690152Z 
+2026-08-22T00:19:07.2690754Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > expect.element on non-existing element fails
+2026-08-22T00:19:07.2691975Z VitestBrowserElementError: Cannot find element with locator: getByRole('code')
+2026-08-22T00:19:07.2692338Z 
+2026-08-22T00:19:07.2692426Z ARIA tree:
+2026-08-22T00:19:07.2692543Z 
+2026-08-22T00:19:07.2692549Z 
+2026-08-22T00:19:07.2692913Z HTML:
+2026-08-22T00:19:07.2693108Z <body>
+2026-08-22T00:19:07.2693299Z   
+2026-08-22T00:19:07.2693468Z   
+2026-08-22T00:19:07.2693566Z 
+2026-08-22T00:19:07.2693572Z 
+2026-08-22T00:19:07.2693651Z </body>
+2026-08-22T00:19:07.2693950Z  ❯ hooks-timeout.test.ts:10:50
+2026-08-22T00:19:07.2694202Z       8|
+2026-08-22T00:19:07.2694543Z       9|   it('expect.element on non-existing element fails', async () => {
+2026-08-22T00:19:07.2695053Z      10|     await expect.element(page.getByRole('code')).toBeVisible()
+2026-08-22T00:19:07.2695475Z        |                                                  ^
+2026-08-22T00:19:07.2695761Z      11|   }, 1000)
+2026-08-22T00:19:07.2696082Z      12|
+2026-08-22T00:19:07.2696191Z 
+2026-08-22T00:19:07.2696379Z Caused by: Error: Matcher did not succeed in time.
+2026-08-22T00:19:07.2696778Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/36]⎯
+2026-08-22T00:19:07.2696934Z 
+2026-08-22T00:19:07.2697263Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > beforeEach > skipped
+2026-08-22T00:19:07.2697837Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2698142Z Call log:
+2026-08-22T00:19:07.2698544Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2698891Z 
+2026-08-22T00:19:07.2699051Z  ❯ hooks-timeout.test.ts:15:46
+2026-08-22T00:19:07.2699346Z      13|   describe('beforeEach', () => {
+2026-08-22T00:19:07.2699657Z      14|     beforeEach(async () => {
+2026-08-22T00:19:07.2700440Z      15|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2700819Z        |                                              ^
+2026-08-22T00:19:07.2701098Z      16|     }, 500)
+2026-08-22T00:19:07.2701344Z      17|
+2026-08-22T00:19:07.2701450Z 
+2026-08-22T00:19:07.2701646Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/36]⎯
+2026-08-22T00:19:07.2701797Z 
+2026-08-22T00:19:07.2702108Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > afterEach > skipped
+2026-08-22T00:19:07.2702657Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2702973Z Call log:
+2026-08-22T00:19:07.2703366Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2703715Z 
+2026-08-22T00:19:07.2703868Z  ❯ hooks-timeout.test.ts:23:46
+2026-08-22T00:19:07.2704149Z      21|   describe('afterEach', () => {
+2026-08-22T00:19:07.2704447Z      22|     afterEach(async () => {
+2026-08-22T00:19:07.2704796Z      23|       await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2705157Z        |                                              ^
+2026-08-22T00:19:07.2705431Z      24|     }, 500)
+2026-08-22T00:19:07.2705682Z      25|
+2026-08-22T00:19:07.2705870Z 
+2026-08-22T00:19:07.2706184Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/36]⎯
+2026-08-22T00:19:07.2706446Z 
+2026-08-22T00:19:07.2707020Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails
+2026-08-22T00:19:07.2708073Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2708710Z Call log:
+2026-08-22T00:19:07.2709462Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2710359Z 
+2026-08-22T00:19:07.2710698Z  ❯ hooks-timeout.test.ts:48:48
+2026-08-22T00:19:07.2711282Z      46|     it('fails', ({ onTestFinished }) => {
+2026-08-22T00:19:07.2711931Z      47|       onTestFinished(async () => {
+2026-08-22T00:19:07.2712647Z      48|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2713633Z        |                                                ^
+2026-08-22T00:19:07.2714165Z      49|       }, 500)
+2026-08-22T00:19:07.2714561Z      50|     })
+2026-08-22T00:19:07.2714788Z 
+2026-08-22T00:19:07.2715192Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/36]⎯
+2026-08-22T00:19:07.2715509Z 
+2026-08-22T00:19:07.2716140Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails global
+2026-08-22T00:19:07.2716959Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2717631Z Call log:
+2026-08-22T00:19:07.2718683Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2719309Z 
+2026-08-22T00:19:07.2719663Z  ❯ hooks-timeout.test.ts:54:48
+2026-08-22T00:19:07.2720503Z      52|     it('fails global', () => {
+2026-08-22T00:19:07.2721121Z      53|       onTestFinished(async () => {
+2026-08-22T00:19:07.2721860Z      54|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2722453Z        |                                                ^
+2026-08-22T00:19:07.2722754Z      55|       }, 500)
+2026-08-22T00:19:07.2722976Z      56|     })
+2026-08-22T00:19:07.2723095Z 
+2026-08-22T00:19:07.2723512Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/36]⎯
+2026-08-22T00:19:07.2723698Z 
+2026-08-22T00:19:07.2724038Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2724577Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2724962Z  ❯ hooks-timeout.test.ts:65:14
+2026-08-22T00:19:07.2725229Z      63|       }, 500)
+2026-08-22T00:19:07.2725438Z      64|
+2026-08-22T00:19:07.2725664Z      65|       expect.unreachable()
+2026-08-22T00:19:07.2725923Z        |              ^
+2026-08-22T00:19:07.2726344Z      66|     })
+2026-08-22T00:19:07.2726665Z      67|
+2026-08-22T00:19:07.2726861Z 
+2026-08-22T00:19:07.2727141Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/36]⎯
+2026-08-22T00:19:07.2727315Z 
+2026-08-22T00:19:07.2727641Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2728217Z TimeoutError: locator.click: Timeout 249ms exceeded.
+2026-08-22T00:19:07.2728528Z Call log:
+2026-08-22T00:19:07.2729211Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2730156Z 
+2026-08-22T00:19:07.2730533Z  ❯ hooks-timeout.test.ts:62:48
+2026-08-22T00:19:07.2731142Z      60|     it('fails', ({ onTestFailed }) => {
+2026-08-22T00:19:07.2731768Z      61|       onTestFailed(async () => {
+2026-08-22T00:19:07.2732491Z      62|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2733251Z        |                                                ^
+2026-08-22T00:19:07.2733816Z      63|       }, 500)
+2026-08-22T00:19:07.2734107Z      64|
+2026-08-22T00:19:07.2734229Z 
+2026-08-22T00:19:07.2734457Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/36]⎯
+2026-08-22T00:19:07.2734629Z 
+2026-08-22T00:19:07.2734989Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2735548Z AssertionError: expected not to be reached
+2026-08-22T00:19:07.2735916Z  ❯ hooks-timeout.test.ts:73:14
+2026-08-22T00:19:07.2736168Z      71|       }, 500)
+2026-08-22T00:19:07.2736394Z      72|
+2026-08-22T00:19:07.2736629Z      73|       expect.unreachable()
+2026-08-22T00:19:07.2736894Z        |              ^
+2026-08-22T00:19:07.2737105Z      74|     })
+2026-08-22T00:19:07.2737320Z      75|   })
+2026-08-22T00:19:07.2737579Z 
+2026-08-22T00:19:07.2737915Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/36]⎯
+2026-08-22T00:19:07.2738235Z 
+2026-08-22T00:19:07.2738901Z  FAIL  |webkit| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2739696Z TimeoutError: locator.click: Timeout 250ms exceeded.
+2026-08-22T00:19:07.2740328Z Call log:
+2026-08-22T00:19:07.2740964Z   - waiting for locator('[data-vitest="true"]').contentFrame().getByTestId('non-existing')
+2026-08-22T00:19:07.2741655Z 
+2026-08-22T00:19:07.2741914Z  ❯ hooks-timeout.test.ts:70:48
+2026-08-22T00:19:07.2742430Z      68|     it('fails global', () => {
+2026-08-22T00:19:07.2743007Z      69|       onTestFailed(async () => {
+2026-08-22T00:19:07.2743681Z      70|         await page.getByTestId('non-existing').click()
+2026-08-22T00:19:07.2744081Z        |                                                ^
+2026-08-22T00:19:07.2744369Z      71|       }, 500)
+2026-08-22T00:19:07.2744773Z      72|
+2026-08-22T00:19:07.2744975Z 
+2026-08-22T00:19:07.2745346Z ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/36]⎯
+2026-08-22T00:19:07.2745648Z 
+2026-08-22T00:19:07.2745898Z 
+2026-08-22T00:19:07.2745906Z 
+2026-08-22T00:19:07.2745938Z 
+2026-08-22T00:19:07.2746588Z [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+2026-08-22T00:19:07.2746938Z 
+2026-08-22T00:19:07.2747280Z [41m[1m FAIL [22m[49m specs/runner.test.ts[2m > [22mtimeout hooks
+2026-08-22T00:19:07.2747920Z  [31m×[39m specs/runner.test.ts[2m > [22mtimeout hooks[33m 6482[2mms[22m[39m
+2026-08-22T00:19:07.2748488Z [31m   → Snapshot `timeout hooks 1` mismatched[39m
+2026-08-22T00:19:07.2753636Z [31m[1mError[22m: Snapshot `timeout hooks 1` mismatched[39m
+2026-08-22T00:19:07.2754142Z 
+2026-08-22T00:19:07.2754299Z - Expected
+2026-08-22T00:19:07.2754910Z + Received
+2026-08-22T00:19:07.2755157Z 
+2026-08-22T00:19:07.2755359Z @@ -56,14 +56,10 @@
+2026-08-22T00:19:07.2755596Z 
+2026-08-22T00:19:07.2756147Z    FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails
+2026-08-22T00:19:07.2756952Z   TimeoutError: locator.click: Timeout <ms> exceeded.
+2026-08-22T00:19:07.2757420Z    ❯ hooks-timeout.test.ts:62:48
+2026-08-22T00:19:07.2757615Z 
+2026-08-22T00:19:07.2758048Z -  FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFailed > fails global
+2026-08-22T00:19:07.2758665Z - TimeoutError: locator.click: Timeout <ms> exceeded.
+2026-08-22T00:19:07.2759090Z -  ❯ hooks-timeout.test.ts:70:48
+2026-08-22T00:19:07.2759351Z -
+2026-08-22T00:19:07.2760085Z    FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails
+2026-08-22T00:19:07.2760680Z   TimeoutError: locator.click: Timeout <ms> exceeded.
+2026-08-22T00:19:07.2761090Z    ❯ hooks-timeout.test.ts:48:48
+2026-08-22T00:19:07.2761288Z 
+2026-08-22T00:19:07.2761653Z    FAIL  |firefox| hooks-timeout.test.ts > timeouts are failing correctly > onTestFinished > fails global
+2026-08-22T00:19:07.2762064Z 
+2026-08-22T00:19:07.2762355Z [36m [2m❯[22m specs/runner.test.ts:[2m434:20[22m[39m
+2026-08-22T00:19:07.2826744Z     [90m432|[39m   }).sort().join('\n\n')
+2026-08-22T00:19:07.2827426Z     [90m433|[39m
+2026-08-22T00:19:07.2828123Z     [90m434|[39m   expect(snapshot).toMatchInlineSnapshot(`
+2026-08-22T00:19:07.2828930Z     [90m   |[39m                    [31m^[39m
+2026-08-22T00:19:07.2830203Z     [90m435|[39m     " FAIL  |chromium| hooks-timeout.test.ts > timeouts are failing co…
+2026-08-22T00:19:07.2831350Z     [90m436|[39m     TimeoutError: locator.click: Timeout <ms> exceeded.
+2026-08-22T00:19:07.2831922Z 
+2026-08-22T00:19:07.2832376Z 
+2026-08-22T00:19:07.2832919Z [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+2026-08-22T00:19:07.2833315Z 
+2026-08-22T00:19:07.2835692Z [2m  Snapshots [22m [1m[31m1 failed[39m[22m
+2026-08-22T00:19:07.2838466Z [2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+2026-08-22T00:19:07.2840820Z [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m20 passed[39m[22m[90m (21)[39m
+2026-08-22T00:19:07.2842252Z [2m   Start at [22m 00:17:58
+2026-08-22T00:19:07.2845790Z [2m   Duration [22m 68.83s[2m (tests 99%)[22m
+2026-08-22T00:19:07.2858880Z 
+2026-08-22T00:19:07.3930995Z [ELIFECYCLE] Command failed with exit code 1.
+2026-08-22T00:19:07.4454086Z [ELIFECYCLE] Command failed with exit code 1.
+2026-08-22T00:19:07.4970574Z [ELIFECYCLE] Command failed with exit code 1.
+2026-08-22T00:19:07.5276477Z ##[error]Process completed with exit code 1.
+2026-08-22T00:19:07.5406663Z Post job cleanup.
+2026-08-22T00:19:07.5411618Z ##[start-action display=Cache Playwright v1.62.1;id=__d04bdfe9-c5d7-4ab5-b05c-f8ce675d5875.playwright-cache]
+2026-08-22T00:19:07.5414047Z ##[end-action id=__d04bdfe9-c5d7-4ab5-b05c-f8ce675d5875.playwright-cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-22T00:19:07.5454453Z Post job cleanup.
+2026-08-22T00:19:07.5458986Z ##[start-action display=Set node version to 24;id=__c9603e23-262e-4b82-8342-4ceb217a8401.__actions_setup-node]
+2026-08-22T00:19:07.5461950Z ##[end-action id=__c9603e23-262e-4b82-8342-4ceb217a8401.__actions_setup-node;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-08-22T00:19:07.5477917Z ##[start-action display=Install pnpm;id=__c9603e23-262e-4b82-8342-4ceb217a8401.__pnpm_action-setup]
+2026-08-22T00:19:07.5510949Z Post job cleanup.
+2026-08-22T00:19:07.5514464Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:19:07.8034848Z Pruning is unnecessary.
+2026-08-22T00:19:07.8141723Z ##[end-action id=__c9603e23-262e-4b82-8342-4ceb217a8401.__pnpm_action-setup;outcome=success;conclusion=success;duration_ms=266]
+2026-08-22T00:19:07.8213619Z Post job cleanup.
+2026-08-22T00:19:07.8222279Z ##[command]/usr/bin/docker exec  85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66 sh -c "cat /etc/*release | grep ^ID"
+2026-08-22T00:19:08.0144845Z [command]/usr/bin/git version
+2026-08-22T00:19:08.0184512Z git version 2.39.5
+2026-08-22T00:19:08.0226450Z Copying '/github/home/.gitconfig' to '/__w/_temp/6b9e06da-9188-4fe2-bc83-b329e81c60e7/.gitconfig'
+2026-08-22T00:19:08.0237755Z Temporarily overriding HOME='/__w/_temp/6b9e06da-9188-4fe2-bc83-b329e81c60e7' before making global git config changes
+2026-08-22T00:19:08.0238993Z Adding repository directory to the temporary git global config as a safe directory
+2026-08-22T00:19:08.0242991Z [command]/usr/bin/git config --global --add safe.directory /__w/vitest/vitest
+2026-08-22T00:19:08.0273130Z Removing SSH command configuration
+2026-08-22T00:19:08.0279184Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-08-22T00:19:08.0312864Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-08-22T00:19:08.0544214Z Removing HTTP extra header
+2026-08-22T00:19:08.0549324Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-08-22T00:19:08.0583858Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-08-22T00:19:08.0831935Z Removing includeIf entries pointing to credentials [REDACTED:assigned_secret] files
+2026-08-22T00:19:08.0833329Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-08-22T00:19:08.0871379Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-08-22T00:19:08.1263038Z Stop and remove container: 8e6fab9dfee24e6d8a5c7aacbd23ebed_ghcriovitestdevvitestplaywrightdeps16217edfbd9622e0_f79c60
+2026-08-22T00:19:08.1268158Z ##[command]/usr/bin/docker rm --force 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:19:08.2306687Z 85214aa9223ea35ef5cd871dc4e88f061dc07499fb419dfcf7b0999a1345ba66
+2026-08-22T00:19:08.2338014Z Remove container network: github_network_0deeb39db0d0442da853a0c13d049f85
+2026-08-22T00:19:08.2343006Z ##[command]/usr/bin/docker network rm github_network_0deeb39db0d0442da853a0c13d049f85
+2026-08-22T00:19:08.3556324Z github_network_0deeb39db0d0442da853a0c13d049f85
+2026-08-22T00:19:08.3635870Z Cleaning up orphan processes

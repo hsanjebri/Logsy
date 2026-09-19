@@ -1,0 +1,12 @@
+{
+  "source": "pandas-dev/pandas",
+  "ecosystem": "python",
+  "runId": 34134283457,
+  "jobId": 101781460260,
+  "workflowName": "Unit Tests",
+  "jobName": "Linux-Musl",
+  "stepName": "Run Tests",
+  "logChars": 319749,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

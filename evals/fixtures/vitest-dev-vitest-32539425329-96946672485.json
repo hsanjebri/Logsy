@@ -1,0 +1,12 @@
+{
+  "source": "vitest-dev/vitest",
+  "ecosystem": "node",
+  "runId": 32539425329,
+  "jobId": 96946672485,
+  "workflowName": "CI",
+  "jobName": "Test: vite@7, browser, node-24, ubuntu-latest",
+  "stepName": "Test Browser (playwright)",
+  "logChars": 108799,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}

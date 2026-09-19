@@ -1,0 +1,12 @@
+{
+  "source": "microsoft/TypeScript",
+  "ecosystem": "typescript",
+  "runId": 35408344993,
+  "jobId": 105802670044,
+  "workflowName": "CI",
+  "jobName": "test extra (windows-latest)",
+  "stepName": "Run git diff --staged --exit-code --stat",
+  "logChars": 192667,
+  "expected_category": null,
+  "expected_root_cause_keywords": []
+}
