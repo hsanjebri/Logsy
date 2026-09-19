@@ -1,7 +1,18 @@
 export { FAILURE_CATEGORIES, failureCategorySchema, isFailureCategory } from './categories.js';
 export type { FailureCategory } from './categories.js';
+export {
+  MIN_COMMENT_CONFIDENCE,
+  analysisResultSchema,
+  isConfident,
+  likelyFileSchema,
+} from './analysis.js';
+export type { AnalysisResult, LikelyFile } from './analysis.js';
 export { REDACTION_RULES, containsSecret, redactSecrets } from './redact.js';
 export type { RedactionRule } from './redact.js';
+export { fingerprint, isPlaceholderFingerprint } from './fingerprint.js';
+export type { FingerprintInput } from './fingerprint.js';
+export { RULES, matchRule, ruleToAnalysis } from './rules.js';
+export type { Rule, RuleMatch } from './rules.js';
 export { cleanLog, normalizeNewlines, stripAnsi, stripTimestamps } from './log/clean.js';
 export { findFailingStep, isRunnerStep, splitSteps } from './log/steps.js';
 export type { LogStep } from './log/steps.js';
