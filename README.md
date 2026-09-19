@@ -158,10 +158,18 @@ pnpm test        # Run unit & integration test suites via Vitest
 pnpm build       # Build all packages and apps via Turborepo
 ```
 
-### 5. Start Local Webhook Server
+### 5. Start Local Webhook Server & Worker
 
 ```bash
-pnpm dev:server
+pnpm dev:server   # Fastify webhook receiver
+pnpm dev:worker   # BullMQ worker: fetches logs, analyzes failures
+```
+
+### 6. Measure Analysis Accuracy
+
+```bash
+pnpm evals        # scores the pipeline against labeled real CI logs
+pnpm evals --llm  # also sends unmatched fixtures to the configured LLM
 ```
 
 > 📖 To connect a real repository with webhooks, follow the [GitHub App Setup Guide](./docs/github-app-setup.md).
@@ -179,19 +187,19 @@ pnpm dev:server
   - Delivery deduplication (`X-GitHub-Delivery`) and idempotency checks.
   - Drizzle ORM schema, migrations, and repository/installation persistence.
   - Complete [GitHub App Setup Guide](./docs/github-app-setup.md).
-- [ ] **Phase 2: Queues, Workers & Log Ingestion** _(In Progress)_
+- [x] **Phase 2: Queues, Workers & Log Ingestion**
   - BullMQ queue integration and worker service.
   - Secure download and staging of failed workflow logs.
-- [ ] **Phase 3: Log Processing Core**
+- [x] **Phase 3: Log Processing Core**
   - ANSI stripping, timestamp cleaning, error boundary detection.
   - Comprehensive high-entropy token & secret redaction engine.
-- [ ] **Phase 4: Error Fingerprinting & Deterministic Rules**
+- [x] **Phase 4: Error Fingerprinting & Deterministic Rules**
   - Error normalization, SHA-256 fingerprinting, deduplication cache.
   - Fast-path deterministic rule engine (20+ common failure modes).
-- [ ] **Phase 5: Hybrid LLM Engine & Evals**
+- [x] **Phase 5: Hybrid LLM Engine & Evals**
   - Adapters for Anthropic Claude, OpenAI, and local Ollama.
   - Accuracy eval harness against real-world CI logs.
-- [ ] **Phase 6: GitHub PR Commenting**
+- [ ] **Phase 6: GitHub PR Commenting** _(Next)_
   - Single, updatable comment with hidden markers.
   - State transitions ("Fix Suggested" ➔ "✅ Passing").
 - [ ] **Phase 7: Web Dashboard**
@@ -200,6 +208,29 @@ pnpm dev:server
   - Historical JUnit artifact tracking and flaky detection.
 - [ ] **Phase 9: Production Packaging**
   - Multi-stage Dockerfiles, Helm charts, and OpenTelemetry observability.
+
+---
+
+## 📊 Accuracy
+
+`pnpm evals` runs the real pipeline over the labeled CI logs in `evals/fixtures/` — collected from
+public failures in Maven, Gradle, pytest, pandas, vitest, ESLint, TypeScript, Docker Compose and
+pre-commit — and writes a dated report to `evals/results/`.
+
+Baseline (rules only, no LLM calls), 2026-09-19:
+
+| Metric                  | Value                          |
+| ----------------------- | ------------------------------ |
+| Fixtures                | 10                             |
+| Resolved without an LLM | 8                              |
+| Category accuracy       | 80% overall · 100% of answered |
+| Keyword hit rate        | 76%                            |
+| Average confidence      | 0.90                           |
+| Cost                    | $0.00                          |
+
+The two unanswered fixtures have no recognizable pattern (a custom script error and a bare
+`exit 1`) — exactly the cases the LLM layer exists for. A wrong answer costs more trust than no
+answer, so the rules stay silent rather than guess.
 
 ---
 

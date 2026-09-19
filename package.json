@@ -21,7 +21,8 @@
     "db:migrate": "turbo run build --filter=@logsy/db && pnpm --filter @logsy/db db:migrate",
     "dev:server": "turbo run build --filter=@logsy/server^... && pnpm --filter @logsy/server dev",
     "dev:worker": "turbo run build --filter=@logsy/worker^... && pnpm --filter @logsy/worker dev",
-    "fixture": "turbo run build --filter=@logsy/worker && pnpm --filter @logsy/worker fixture"
+    "fixture": "turbo run build --filter=@logsy/worker && pnpm --filter @logsy/worker fixture",
+    "evals": "turbo run build --filter=@logsy/llm && pnpm --filter @logsy/evals evals"
   },
   "devDependencies": {
     "@logsy/config": "workspace:*",
