@@ -63,12 +63,20 @@ export const REDACTION_RULES: readonly RedactionRule[] = [
     replace: (_match, scheme = '') => `${scheme} ${redact('bearer_token')}`,
   },
   {
-    // password=..., API_KEY: "...", --token ..., token => '...'
+    // password=..., API_KEY: "...", token => '...'
+    // Requires a real assignment operator (=, :, =>) — NOT a plain space.
     type: 'assigned_secret',
     pattern:
-      /\b([A-Za-z0-9_-]*(?:password|passwd|pwd|secret|token|api[_-]?key|access[_-]?key|auth[_-]?token|credentials?|private[_-]?key)[A-Za-z0-9_-]*)(\s*(?:=>|[:=])\s*|\s+)(["']?)(?!\[REDACTED:)([^\s"'`,;]{4,})\3/gi,
+      /\b([A-Za-z0-9_-]*(?:password|passwd|pwd|secret|token|api[_-]?key|access[_-]?key|auth[_-]?token|credentials?|private[_-]?key)[A-Za-z0-9_-]*)(\s*(?:=>|[:=])\s*)(["']?)(?!\[REDACTED:)([^\s"'`,;]{4,})\3/gi,
     replace: (_match, key = '', separator = '', quote = '') =>
       `${key}${separator}${quote}${redact('assigned_secret')}${quote}`,
+  },
+  {
+    // CLI flags: --token <value>, --password <value>, --secret <value>
+    type: 'cli_secret_flag',
+    pattern:
+      /(-{1,2}(?:password|passwd|pwd|secret|token|api[_-]?key|access[_-]?key|auth[_-]?token|credentials?|private[_-]?key))\s+(?!\[REDACTED:)([^\s"'`,;]{4,})/gi,
+    replace: (_match, flag = '') => `${flag} ${redact('cli_secret_flag')}`,
   },
   {
     type: 'email',

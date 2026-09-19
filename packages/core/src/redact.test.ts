@@ -74,6 +74,9 @@ describe('redactSecrets', () => {
       'FAIL src/server.test.ts > returns 401 for an invalid signature',
       'npm ERR! code ERESOLVE',
       'Version 22.13.1 (linux/amd64) at /home/runner/work/logsy/logsy',
+      '##[group]GITHUB_TOKEN Permissions',
+      'Secret source: Actions',
+      'Permissions: none',
     ].join('\n');
 
     expect(redactSecrets(log)).toBe(log);
@@ -82,5 +85,21 @@ describe('redactSecrets', () => {
   it('is idempotent', () => {
     const once = redactSecrets('token=abcd1234efgh5678 user@example.com');
     expect(redactSecrets(once)).toBe(once);
+  });
+
+  it('redacts CLI --password flags', () => {
+    const output = redactSecrets('mysql --password s3cr3tV4lue!xyz');
+    expect(output).toContain('[REDACTED:cli_secret_flag]');
+    expect(output).not.toContain('s3cr3tV4lue!xyz');
+  });
+
+  it('does not false-positive on "GITHUB_TOKEN Permissions"', () => {
+    const input = '##[group]GITHUB_TOKEN Permissions';
+    expect(redactSecrets(input)).toBe(input);
+  });
+
+  it('does not false-positive on "Secret source: Actions"', () => {
+    const input = 'Secret source: Actions';
+    expect(redactSecrets(input)).toBe(input);
   });
 });

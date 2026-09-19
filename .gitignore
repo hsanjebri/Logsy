@@ -10,3 +10,6 @@ coverage/
 *.log
 .DS_Store
 evals/results/*.json
+
+# CI log fixtures are test data and must be committed (already redacted).
+!evals/fixtures/*.log
