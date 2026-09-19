@@ -13,3 +13,9 @@ export {
 export type { InstallationInput, RepositoryInput } from './queries/installations.js';
 export { findRepositoryByGithubId, upsertFailure, upsertWorkflowRun } from './queries/runs.js';
 export type { FailureInput, WorkflowRunInput } from './queries/runs.js';
+export {
+  countFailuresByFingerprint,
+  findCachedAnalysis,
+  insertAnalysis,
+} from './queries/analyses.js';
+export type { AnalysisInput, CacheLookupOptions, CachedAnalysis } from './queries/analyses.js';
