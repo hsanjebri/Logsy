@@ -28,3 +28,10 @@ export type { Section, TrimOptions } from './log/trim.js';
 export { normalizeError } from './log/normalize.js';
 export { extractFailureContext } from './log/extract.js';
 export type { ExtractOptions, FailureContext } from './log/extract.js';
+export {
+  COMMENT_MARKER,
+  categoryLabel,
+  formatFailureComment,
+  formatPassingComment,
+} from './comment.js';
+export type { CommentContext } from './comment.js';

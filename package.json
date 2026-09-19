@@ -22,7 +22,8 @@
     "dev:server": "turbo run build --filter=@logsy/server^... && pnpm --filter @logsy/server dev",
     "dev:worker": "turbo run build --filter=@logsy/worker^... && pnpm --filter @logsy/worker dev",
     "fixture": "turbo run build --filter=@logsy/worker && pnpm --filter @logsy/worker fixture",
-    "evals": "turbo run build --filter=@logsy/llm && pnpm --filter @logsy/evals evals"
+    "evals": "turbo run build --filter=@logsy/llm && pnpm --filter @logsy/evals evals",
+    "demo": "turbo run build --filter=@logsy/core && pnpm --filter @logsy/evals demo"
   },
   "devDependencies": {
     "@logsy/config": "workspace:*",
