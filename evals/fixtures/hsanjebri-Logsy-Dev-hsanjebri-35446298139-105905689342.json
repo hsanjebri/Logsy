@@ -5,6 +5,6 @@
   "jobName": "fail-job",
   "stepName": "Fail Step",
   "logChars": 2078,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "unknown",
+  "expected_root_cause_keywords": ["exit code 1", "exit"]
 }

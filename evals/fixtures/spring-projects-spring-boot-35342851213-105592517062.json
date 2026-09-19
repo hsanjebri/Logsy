@@ -7,6 +7,6 @@
   "jobName": "Windows | Java 27",
   "stepName": "Build",
   "logChars": 433280,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "infrastructure",
+  "expected_root_cause_keywords": ["daemon", "gradle", "connection"]
 }

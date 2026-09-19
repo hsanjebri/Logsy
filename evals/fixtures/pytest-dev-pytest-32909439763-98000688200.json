@@ -7,6 +7,6 @@
   "jobName": "build (windows-py311)",
   "stepName": "Test without coverage",
   "logChars": 128105,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "test_failure",
+  "expected_root_cause_keywords": ["test", "failed", "assert"]
 }

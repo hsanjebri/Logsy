@@ -7,6 +7,6 @@
   "jobName": "e2e (standalone, stable, containerd)",
   "stepName": "Test standalone mode",
   "logChars": 756949,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "test_failure",
+  "expected_root_cause_keywords": ["e2e", "test", "fail"]
 }

@@ -9,7 +9,7 @@ coverage/
 *.pem
 *.log
 .DS_Store
-evals/results/*.json
+# Eval results are committed: they are the record of how accuracy changed over time.
 
 # CI log fixtures are test data and must be committed (already redacted).
 !evals/fixtures/*.log

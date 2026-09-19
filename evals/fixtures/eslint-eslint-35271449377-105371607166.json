@@ -7,6 +7,6 @@
   "jobName": "Test (ubuntu-latest, 26.x)",
   "stepName": "Test EMFILE Handling",
   "logChars": 25288,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "test_failure",
+  "expected_root_cause_keywords": ["EMFILE", "check", "error"]
 }

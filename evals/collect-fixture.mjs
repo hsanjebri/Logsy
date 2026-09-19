@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { containsSecret, redactSecrets } from '../packages/core/dist/index.js';
 
 const FIXTURES = fileURLToPath(new URL('./fixtures/', import.meta.url));
-const gh = (path, raw = false) =>
+const gh = (path) =>
   execFileSync('gh', ['api', path], { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 });
 
 const [slug, ecosystem = 'unknown'] = process.argv.slice(2);

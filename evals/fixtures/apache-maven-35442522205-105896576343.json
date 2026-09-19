@@ -7,6 +7,6 @@
   "jobName": "full-build (ubuntu-latest, 17)",
   "stepName": "Build with downloaded Maven",
   "logChars": 1536837,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "build_error",
+  "expected_root_cause_keywords": ["javadoc", "maven", "goal"]
 }

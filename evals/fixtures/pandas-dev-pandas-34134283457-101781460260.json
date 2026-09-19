@@ -7,6 +7,6 @@
   "jobName": "Linux-Musl",
   "stepName": "Run Tests",
   "logChars": 319749,
-  "expected_category": null,
-  "expected_root_cause_keywords": []
+  "expected_category": "test_failure",
+  "expected_root_cause_keywords": ["assertion", "dtype", "array"]
 }
