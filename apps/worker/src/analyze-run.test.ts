@@ -1,4 +1,5 @@
 import {
+  analyses,
   createDatabase,
   failures,
   upsertInstallation,
@@ -84,7 +85,8 @@ describe('processAnalyzeRun', () => {
       githubJobId: 102,
       jobName: 'test (22)',
       stepName: 'Run tests',
-      category: 'unknown',
+      // "FAIL src/server.test.ts" is recognized by the JS test rule.
+      category: 'test_failure',
       logCharsOriginal: failingLog.length,
       workflowRunId: run?.id,
     });
@@ -145,5 +147,89 @@ describe('processAnalyzeRun', () => {
     expect(result.retryAt).toEqual(resetAt);
     expect(github.downloadedJobIds).toEqual([]);
     expect(await db.select().from(failures)).toHaveLength(0);
+  });
+});
+
+describe('fingerprinting, cache and rules', () => {
+  const eresolveLog = [
+    '##[group]Run npm ci',
+    'npm ci',
+    '##[endgroup]',
+    'npm ERR! code ERESOLVE',
+    'npm ERR! ERESOLVE unable to resolve dependency tree',
+    'npm ERR! Found: react@18.2.0',
+    '##[error]Process completed with exit code 1.',
+  ].join('\n');
+
+  it('resolves a known pattern with a rule and no LLM call', async () => {
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: eresolveLog } });
+
+    const result = await processAnalyzeRun({ db, github, log }, job);
+
+    expect(result.analyses).toEqual(['rule']);
+    const [failure] = await db.select().from(failures);
+    expect(failure?.category).toBe('dependency_error');
+    expect(failure?.fingerprint).toMatch(/^v1:[0-9a-f]{32}$/);
+
+    const [analysis] = await db.select().from(analyses);
+    expect(analysis).toMatchObject({ source: 'rule', ruleId: 'npm-eresolve', model: null });
+    expect(analysis?.result).toMatchObject({ category: 'dependency_error' });
+  });
+
+  it('reuses the stored analysis when the same failure happens again', async () => {
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: eresolveLog } });
+    await processAnalyzeRun({ db, github, log }, job);
+
+    // A later run of the same failure: different run and job ids, same error.
+    const second = await processAnalyzeRun(
+      {
+        db,
+        github: githubStub({ jobs: [workflowJob({ id: 555 })], logs: { 555: eresolveLog } }),
+        log,
+      },
+      { ...job, runId: job.runId + 1, runAttempt: 1 },
+    );
+
+    expect(second.analyses).toEqual(['cache']);
+    const stored = await db.select().from(analyses).orderBy(analyses.id);
+    expect(stored.map((row) => row.source)).toEqual(['rule', 'cache']);
+    // Both rows describe the same failure.
+    const fingerprints = new Set(stored.map((row) => row.fingerprint));
+    expect(fingerprints.size).toBe(1);
+  });
+
+  it('gives the same fingerprint to the same error in different runs', async () => {
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: eresolveLog } });
+    await processAnalyzeRun({ db, github, log }, job);
+    await processAnalyzeRun(
+      {
+        db,
+        github: githubStub({ jobs: [workflowJob({ id: 777 })], logs: { 777: eresolveLog } }),
+        log,
+      },
+      { ...job, runId: job.runId + 2 },
+    );
+
+    const stored = await db.select().from(failures);
+    expect(new Set(stored.map((row) => row.fingerprint)).size).toBe(1);
+  });
+
+  it('leaves an unrecognized failure for the LLM', async () => {
+    const mystery = [
+      '##[group]Run ./deploy.sh',
+      './deploy.sh',
+      '##[endgroup]',
+      'Something unusual happened that no rule describes',
+      '##[error]Process completed with exit code 3.',
+    ].join('\n');
+    const github = githubStub({ jobs: [workflowJob({ id: 102 })], logs: { 102: mystery } });
+
+    const result = await processAnalyzeRun({ db, github, log }, job);
+
+    expect(result.analyses).toEqual(['none']);
+    expect(await db.select().from(analyses)).toHaveLength(0);
+    const [failure] = await db.select().from(failures);
+    expect(failure?.category).toBe('unknown');
+    expect(failure?.fingerprint).toMatch(/^v1:/);
   });
 });
