@@ -6,6 +6,7 @@ import { money, percent, relativeTime } from '@/lib/format';
 import {
   getCategoryBreakdown,
   getFailuresPerDay,
+  getFeedbackStats,
   getOverviewStats,
   getRecurringFailures,
   listRuns,
@@ -24,12 +25,13 @@ export default async function RepositoryOverview({
   const repository = await requireRepository(fullName, viewer.accessToken);
   if (!repository) notFound();
 
-  const [stats, days, categories, recurring, runs] = await Promise.all([
+  const [stats, days, categories, recurring, runs, votes] = await Promise.all([
     getOverviewStats(db, repository.id),
     getFailuresPerDay(db, repository.id),
     getCategoryBreakdown(db, repository.id),
     getRecurringFailures(db, repository.id, 5),
     listRuns(db, repository.id, 5),
+    getFeedbackStats(db, repository.id),
   ]);
 
   return (
@@ -83,6 +85,17 @@ export default async function RepositoryOverview({
                   {money(stats.costUsd)}
                 </span>
                 <span className="text-xs text-tertiary">{stats.bySource.llm} calls</span>
+              </div>
+              <div className="flex flex-col gap-1.5 border-l border-track px-8">
+                <span className="text-xs text-tertiary">Rated helpful</span>
+                <span className="text-2xl font-semibold tracking-[-0.025em] text-ink">
+                  {votes.helpful + votes.wrong === 0
+                    ? '—'
+                    : percent(votes.helpful, votes.helpful + votes.wrong)}
+                </span>
+                <span className="text-xs text-tertiary">
+                  {votes.helpful} helpful · {votes.wrong} wrong
+                </span>
               </div>
             </div>
           </section>

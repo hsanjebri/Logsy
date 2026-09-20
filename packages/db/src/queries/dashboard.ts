@@ -61,6 +61,11 @@ export async function listRepositories(
   }));
 }
 
+export async function findRepositoryById(db: Executor, id: number) {
+  const [row] = await db.select().from(repositories).where(eq(repositories.id, id)).limit(1);
+  return row;
+}
+
 export async function findRepositoryByFullName(db: Executor, fullName: string) {
   const [row] = await db
     .select()

@@ -27,6 +27,7 @@ export {
 } from './queries/comments.js';
 export type { FailureWithAnalysis, PrCommentInput } from './queries/comments.js';
 export {
+  findRepositoryById,
   findRepositoryByFullName,
   findRunByGithubId,
   getCategoryBreakdown,
@@ -59,3 +60,10 @@ export {
   recordFlakyTest,
 } from './queries/tests.js';
 export type { TestResultInput } from './queries/tests.js';
+export {
+  findAnalysisOwner,
+  findFeedback,
+  getFeedbackStats,
+  recordFeedback,
+} from './queries/feedback.js';
+export type { FeedbackInput, FeedbackStats, Verdict } from './queries/feedback.js';
