@@ -35,3 +35,7 @@ export {
   formatPassingComment,
 } from './comment.js';
 export type { CommentContext } from './comment.js';
+export { parseJUnitFiles, parseJUnitXml } from './junit.js';
+export type { TestResultRecord, TestStatus } from './junit.js';
+export { detectFlakyTests, flakyNote, testKey } from './flaky.js';
+export type { FlakyDetection, FlakyTestRef } from './flaky.js';
