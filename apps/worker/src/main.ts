@@ -16,13 +16,16 @@ import {
   createPostCommentQueue,
   createPostCommentWorker,
   createRedisConnection,
+  createTestReportWorker,
   postCommentJobSchema,
+  testReportJobSchema,
 } from '@logsy/queue';
 import { DelayedError, UnrecoverableError } from 'bullmq';
 import { pino } from 'pino';
 import { z } from 'zod';
 import { processAnalyzeRun } from './analyze-run.js';
 import { processPostComment } from './post-comment.js';
+import { processTestReport } from './test-report.js';
 
 const workerEnvSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(100).default(5),
@@ -129,6 +132,23 @@ commentWorker.on('failed', (job, error) => {
   log.error({ jobId: job?.id, err: error }, 'post-comment job failed');
 });
 
+const testWorker = createTestReportWorker(
+  redis,
+  async (job) => {
+    const parsed = testReportJobSchema.safeParse(job.data);
+    if (!parsed.success) {
+      throw new UnrecoverableError(`invalid test-report payload: ${parsed.error.message}`);
+    }
+    return await processTestReport({ db, github, log }, parsed.data);
+  },
+  // Artifact downloads are large; a couple at a time is plenty.
+  { concurrency: 2 },
+);
+
+testWorker.on('failed', (job, error) => {
+  log.error({ jobId: job?.id, err: error }, 'test-report job failed');
+});
+
 worker.on('failed', (job, error) => {
   log.error({ jobId: job?.id, attempts: job?.attemptsMade, err: error }, 'analyze-run job failed');
 });
@@ -145,6 +165,7 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   log.info({ signal }, 'shutting down');
   await worker.close();
   await commentWorker.close();
+  await testWorker.close();
   await comments.close();
   redis.disconnect();
   await pool.end();

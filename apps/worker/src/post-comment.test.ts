@@ -1,11 +1,16 @@
 import { COMMENT_MARKER } from '@logsy/core';
 import {
   createDatabase,
+  flakyTests,
+  insertTestResults,
   prComments,
+  recordFlakyTest,
   repositories,
   upsertInstallation,
   upsertRepositories,
+  workflowRuns,
 } from '@logsy/db';
+import { eq } from 'drizzle-orm';
 import { truncateAll } from '@logsy/db/testing';
 import type { AnalyzeRunJob, PostCommentJob } from '@logsy/queue';
 import { pino } from 'pino';
@@ -262,5 +267,41 @@ describe('analyze-run integration', () => {
     expect(queued).toEqual([
       expect.objectContaining({ runId: RUN_ID, runAttempt: 1, mode: 'failure', prNumbers: [7] }),
     ]);
+  });
+});
+
+describe('known flaky tests in the comment', () => {
+  it('names a flaky test that failed in this run', async () => {
+    const { github } = await analyzeThenComment();
+    const [repo] = await db.select().from(repositories);
+    const run = (await db.select().from(workflowRuns))[0];
+
+    // The test-report job recorded this test as flaky, and it failed in this run.
+    await recordFlakyTest(db, repo?.id ?? 0, { suite: 'suite.Api', testName: 'retries' });
+    await db
+      .update(flakyTests)
+      .set({ flipCount: 7 })
+      .where(eq(flakyTests.repositoryId, repo?.id ?? 0));
+    await insertTestResults(db, [
+      {
+        repositoryId: repo?.id ?? 0,
+        workflowRunId: run?.id ?? 0,
+        headSha: commentJob.headSha,
+        suite: 'suite.Api',
+        testName: 'retries',
+        status: 'failed',
+        durationMs: 10,
+      },
+    ]);
+
+    await processPostComment({ db, github, log }, commentJob);
+
+    const body = github.commentCalls.at(-1)?.body ?? '';
+    expect(body).toContain('`suite.Api.retries` is known flaky: 7 flips recorded');
+  });
+
+  it('says nothing about flakiness when the failed test is not known flaky', async () => {
+    const { github } = await analyzeThenComment();
+    expect(github.commentCalls[0]?.body).not.toContain('known flaky');
   });
 });

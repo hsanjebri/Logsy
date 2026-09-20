@@ -1,4 +1,5 @@
 import type {
+  Artifact,
   GitHubApp,
   InstallationClient,
   IssueComment,
@@ -20,6 +21,10 @@ export interface GitHubStubOptions {
   /** Comments already on the pull request. */
   comments?: IssueComment[];
   files?: PullRequestFile[];
+  /** Artifacts the run produced. */
+  artifacts?: Artifact[];
+  /** Artifact id to the zip bytes it downloads as; a missing id is an expired artifact. */
+  artifactZips?: Record<number, Uint8Array>;
 }
 
 export interface CommentCall {
@@ -63,6 +68,12 @@ export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
       return Promise.resolve();
     },
     listPullRequestFiles: () => Promise.resolve(options.files ?? []),
+    listRunArtifacts: () => Promise.resolve(options.artifacts ?? []),
+    downloadArtifact: ({ artifactId }) => {
+      const zip = options.artifactZips?.[artifactId];
+      if (!zip) return Promise.reject(new LogsUnavailableError(artifactId, 410));
+      return Promise.resolve(zip);
+    },
     rateLimit: () => options.rateLimit ?? null,
   };
 

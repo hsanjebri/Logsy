@@ -12,8 +12,10 @@ import {
   createAnalyzeRunQueue,
   createPostCommentQueue,
   createRedisConnection,
+  createTestReportQueue,
   type AnalyzeRunJob,
   type PostCommentJob,
+  type TestReportJob,
 } from '@logsy/queue';
 import { buildApp } from './app.js';
 
@@ -40,10 +42,12 @@ const { db, pool } = createDatabase(env.DATABASE_URL);
 const redis = createRedisConnection(env.REDIS_URL);
 const analyzeQueue = createAnalyzeRunQueue(redis);
 const commentQueue = createPostCommentQueue(redis);
+const testQueue = createTestReportQueue(redis);
 // The handlers need both; one object keeps the app's surface small.
 const queue = {
   enqueueAnalyzeRun: (job: AnalyzeRunJob) => analyzeQueue.enqueueAnalyzeRun(job),
   enqueuePostComment: (job: PostCommentJob) => commentQueue.enqueuePostComment(job),
+  enqueueTestReport: (job: TestReportJob) => testQueue.enqueueTestReport(job),
 };
 const app = buildApp({
   db,
@@ -60,6 +64,7 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   await app.close();
   await analyzeQueue.close();
   await commentQueue.close();
+  await testQueue.close();
   redis.disconnect();
   await pool.end();
   process.exit(0);

@@ -1,6 +1,6 @@
 import { createDatabase, installations, repositories, webhookDeliveries } from '@logsy/db';
 import { truncateAll } from '@logsy/db/testing';
-import type { AnalyzeRunJob, PostCommentJob } from '@logsy/queue';
+import type { AnalyzeRunJob, PostCommentJob, TestReportJob } from '@logsy/queue';
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeEach, describe, expect, inject, it } from 'vitest';
 import { buildApp } from './app.js';
@@ -20,6 +20,7 @@ const SECRET = 'test-webhook-secret-0123456789';
 const { db, pool } = createDatabase(inject('databaseUrl'));
 const enqueued: AnalyzeRunJob[] = [];
 const commentJobs: PostCommentJob[] = [];
+const testJobs: TestReportJob[] = [];
 const queue = {
   enqueueAnalyzeRun: (job: AnalyzeRunJob) => {
     enqueued.push(job);
@@ -27,6 +28,10 @@ const queue = {
   },
   enqueuePostComment: (job: PostCommentJob) => {
     commentJobs.push(job);
+    return Promise.resolve();
+  },
+  enqueueTestReport: (job: TestReportJob) => {
+    testJobs.push(job);
     return Promise.resolve();
   },
 };
@@ -39,6 +44,7 @@ afterAll(async () => {
 beforeEach(async () => {
   enqueued.length = 0;
   commentJobs.length = 0;
+  testJobs.length = 0;
   await truncateAll(db);
 });
 
@@ -338,5 +344,26 @@ describe('POST /webhooks/github — successful runs', () => {
     await send('workflow_run', workflowRunCompleted({ conclusion: 'success', runAttempt: 2 }));
 
     expect(commentJobs).toEqual([]);
+  });
+});
+
+describe('POST /webhooks/github — test reports', () => {
+  it('collects reports from failed and successful runs alike', async () => {
+    await send('workflow_run', workflowRunCompleted());
+    await send('workflow_run', workflowRunCompleted({ conclusion: 'success', runAttempt: 2 }));
+
+    expect(testJobs.map((job) => job.runAttempt)).toEqual([1, 2]);
+    expect(testJobs[0]).toMatchObject({
+      githubRepoId: REPO_ID,
+      owner: 'hsanjebri',
+      repo: 'api',
+      runId: RUN_ID,
+      headSha: '9f2c1ab5d4e3f60718293a4b5c6d7e8f90123456',
+    });
+  });
+
+  it('collects nothing for a cancelled run', async () => {
+    await send('workflow_run', workflowRunCompleted({ conclusion: 'cancelled' }));
+    expect(testJobs).toEqual([]);
   });
 });

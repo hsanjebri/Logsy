@@ -9,7 +9,7 @@ import {
   type InstallationInput,
   type RepositoryInput,
 } from '@logsy/db';
-import type { AnalyzeRunQueue, PostCommentQueue } from '@logsy/queue';
+import type { AnalyzeRunQueue, PostCommentQueue, TestReportQueue } from '@logsy/queue';
 import type { FastifyBaseLogger } from 'fastify';
 import {
   installationEventSchema,
@@ -26,7 +26,9 @@ export type HandlerOutcome = 'processed' | 'ignored';
 
 export interface WebhookDeps {
   db: Database;
-  queue: Pick<AnalyzeRunQueue, 'enqueueAnalyzeRun'> & Pick<PostCommentQueue, 'enqueuePostComment'>;
+  queue: Pick<AnalyzeRunQueue, 'enqueueAnalyzeRun'> &
+    Pick<PostCommentQueue, 'enqueuePostComment'> &
+    Pick<TestReportQueue, 'enqueueTestReport'>;
 }
 
 /** Dispatches a verified, deduplicated webhook. Throws ZodError on unexpected payloads. */
@@ -109,6 +111,18 @@ async function handleWorkflowRun(
     htmlUrl: run.html_url,
     prNumbers: (run.pull_requests ?? []).map((pr) => pr.number),
   };
+
+  // Test reports are collected from every completed run: flakiness can only be seen
+  // by comparing a passing attempt with a failing one on the same commit.
+  await queue.enqueueTestReport({
+    installationId: installation.id,
+    githubRepoId: payload.repository.id,
+    owner: common.owner,
+    repo: common.repo,
+    runId: run.id,
+    runAttempt: run.run_attempt,
+    headSha: run.head_sha,
+  });
 
   if (run.conclusion === 'success') {
     // Nothing to analyze; an earlier failure comment on this PR is switched to passing.

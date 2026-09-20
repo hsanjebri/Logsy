@@ -1,5 +1,6 @@
 import {
   COMMENT_MARKER,
+  flakyNote,
   formatFailureComment,
   formatPassingComment,
   type AnalysisResult,
@@ -7,6 +8,7 @@ import {
 } from '@logsy/core';
 import {
   countFailuresByFingerprint,
+  findKnownFlakyFailures,
   findRepositoryByGithubId,
   findRunFailures,
   findWorkflowRun,
@@ -119,6 +121,9 @@ export async function processPostComment(
   // One comment per pull request: the worst failure leads, the rest are listed under it.
   const primary = pickPrimary([firstFailure, ...restFailures]);
   const seenCount = await countFailuresByFingerprint(db, repository.id, primary.fingerprint);
+  // A known flaky test that failed here is worth saying out loud: it saves the
+  // developer hunting for a bug in their own change.
+  const [knownFlaky] = await findKnownFlakyFailures(db, repository.id, run.id);
 
   const context: CommentContext = {
     analysis: primary.result ?? unexplained(primary),
@@ -133,6 +138,7 @@ export async function processPostComment(
     headSha: job.headSha,
     prNumber,
     model: primary.model,
+    ...(knownFlaky ? { flakyNote: flakyNote(knownFlaky) } : {}),
     ...(deps.feedbackBaseUrl !== undefined && primary.analysisId !== null
       ? { feedbackBaseUrl: deps.feedbackBaseUrl, analysisId: primary.analysisId }
       : {}),
