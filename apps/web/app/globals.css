@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+/*
+ * The design system from the approved preview: true neutrals, one ink colour for
+ * chart marks, colour reserved for meaning. Dark mode is its own set of steps.
+ */
+@theme {
+  --color-canvas: #f6f6f7;
+  --color-surface: #ffffff;
+  --color-ink: #0d0d0f;
+  --color-mark: #18181b;
+  --color-secondary: #6c6f76;
+  --color-tertiary: #8d9098;
+  --color-hairline: #e6e6e9;
+  --color-track: #f1f1f3;
+  --color-success: #157a4a;
+  --color-warning: #a96412;
+  --color-danger: #b3261e;
+
+  --radius-card: 18px;
+  --shadow-card: 0 1px 2px rgba(13, 13, 15, 0.04), 0 0 0 1px rgba(13, 13, 15, 0.045);
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-canvas: #0a0a0b;
+    --color-surface: #131316;
+    --color-ink: #fafafa;
+    --color-mark: #fafafa;
+    --color-secondary: #a1a2a9;
+    --color-tertiary: #8b8c93;
+    --color-hairline: #242428;
+    --color-track: #1e1e22;
+    --color-success: #4ade80;
+    --color-warning: #f0b429;
+    --color-danger: #f87171;
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.07);
+  }
+}
+
+html,
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: -0.006em;
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-tertiary);
+}

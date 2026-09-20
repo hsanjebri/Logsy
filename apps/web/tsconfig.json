@@ -1,0 +1,20 @@
+{
+  "extends": "@logsy/config/tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": false,
+    "declaration": false,
+    "declarationMap": false,
+    "jsx": "preserve",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "types": ["node", "react", "react-dom"],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": { "@/*": ["./*"] }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", ".next"]
+}
