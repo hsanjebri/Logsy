@@ -4,6 +4,7 @@ import type { AnalyzeRunJob, PostCommentJob, TestReportJob } from '@logsy/queue'
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeEach, describe, expect, inject, it } from 'vitest';
 import { buildApp } from './app.js';
+import { createRateLimiter } from './rate-limit.js';
 import { signPayload } from './signature.js';
 import {
   INSTALLATION_ID,
@@ -365,5 +366,81 @@ describe('POST /webhooks/github — test reports', () => {
   it('collects nothing for a cancelled run', async () => {
     await send('workflow_run', workflowRunCompleted({ conclusion: 'cancelled' }));
     expect(testJobs).toEqual([]);
+  });
+});
+
+describe('POST /webhooks/github — per-installation rate limiting', () => {
+  it('refuses a flood from one installation without touching the others', async () => {
+    let now = 0;
+    const limited = buildApp({
+      db,
+      queue,
+      webhookSecret: SECRET,
+      rateLimiter: createRateLimiter({ max: 2, windowMs: 60_000, now: () => now }),
+    });
+    const post = (payload: unknown) =>
+      limited.inject({
+        method: 'POST',
+        url: '/webhooks/github',
+        headers: {
+          'content-type': 'application/json',
+          'x-github-event': 'ping',
+          'x-github-delivery': randomUUID(),
+          'x-hub-signature-256': signPayload(SECRET, JSON.stringify(payload)),
+        },
+        payload: JSON.stringify(payload),
+      });
+    const noisy = { installation: { id: INSTALLATION_ID } };
+    const quiet = { installation: { id: INSTALLATION_ID + 1 } };
+
+    try {
+      expect((await post(noisy)).statusCode).toBe(202);
+      expect((await post(noisy)).statusCode).toBe(202);
+
+      const blocked = await post(noisy);
+      expect(blocked.statusCode).toBe(429);
+      expect(blocked.headers['retry-after']).toBe('60');
+
+      // Another installation is unaffected, ...
+      expect((await post(quiet)).statusCode).toBe(202);
+      // ... and the window eventually reopens.
+      now = 60_000;
+      expect((await post(noisy)).statusCode).toBe(202);
+    } finally {
+      await limited.close();
+    }
+  });
+
+  it('stores nothing for a delivery it refused', async () => {
+    const limited = buildApp({
+      db,
+      queue,
+      webhookSecret: SECRET,
+      rateLimiter: {
+        check: () => ({ allowed: false, retryAfterSeconds: 30, remaining: 0 }),
+        size: () => 1,
+      },
+    });
+    const payload = JSON.stringify({ installation: { id: INSTALLATION_ID } });
+
+    try {
+      const response = await limited.inject({
+        method: 'POST',
+        url: '/webhooks/github',
+        headers: {
+          'content-type': 'application/json',
+          'x-github-event': 'ping',
+          'x-github-delivery': randomUUID(),
+          'x-hub-signature-256': signPayload(SECRET, payload),
+        },
+        payload,
+      });
+
+      expect(response.statusCode).toBe(429);
+      // A refused delivery is not claimed, so GitHub's redelivery still gets a chance.
+      expect(await db.select().from(webhookDeliveries)).toHaveLength(0);
+    } finally {
+      await limited.close();
+    }
   });
 });

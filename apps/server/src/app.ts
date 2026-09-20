@@ -1,4 +1,5 @@
 import Fastify, { type FastifyInstance, type FastifyServerOptions } from 'fastify';
+import type { RateLimiter } from './rate-limit.js';
 import { healthRoutes } from './routes/health.js';
 import { webhookRoutes } from './routes/webhooks.js';
 import type { WebhookDeps } from './webhooks/handlers.js';
@@ -6,6 +7,8 @@ import type { WebhookDeps } from './webhooks/handlers.js';
 export interface AppOptions extends WebhookDeps {
   webhookSecret: string;
   logger?: FastifyServerOptions['logger'];
+  /** Defaults to the per-installation limiter in {@link ./rate-limit.js}. */
+  rateLimiter?: RateLimiter;
 }
 
 /** GitHub caps webhook payloads at 25 MB. */
@@ -16,6 +19,7 @@ export function buildApp({
   queue,
   webhookSecret,
   logger = false,
+  rateLimiter,
 }: AppOptions): FastifyInstance {
   const app = Fastify({ logger, bodyLimit: MAX_BODY_BYTES });
 
@@ -36,7 +40,12 @@ export function buildApp({
   });
 
   void app.register(healthRoutes, { db });
-  void app.register(webhookRoutes, { db, queue, webhookSecret });
+  void app.register(webhookRoutes, {
+    db,
+    queue,
+    webhookSecret,
+    ...(rateLimiter ? { rateLimiter } : {}),
+  });
 
   return app;
 }

@@ -1,12 +1,15 @@
 import { claimDelivery, completeDelivery } from '@logsy/db';
 import type { FastifyPluginCallback } from 'fastify';
 import { z } from 'zod';
+import { createRateLimiter, installationIdOf, type RateLimiter } from '../rate-limit.js';
 import { verifySignature } from '../signature.js';
 import { handleWebhookEvent, type WebhookDeps } from '../webhooks/handlers.js';
 import { readAction } from '../webhooks/payloads.js';
 
 export interface WebhookRoutesOptions extends WebhookDeps {
   webhookSecret: string;
+  /** Defaults to 300 deliveries per installation per minute. */
+  rateLimiter?: RateLimiter;
 }
 
 const headersSchema = z.object({
@@ -20,7 +23,7 @@ const headersSchema = z.object({
  */
 export const webhookRoutes: FastifyPluginCallback<WebhookRoutesOptions> = (
   app,
-  { db, queue, webhookSecret },
+  { db, queue, webhookSecret, rateLimiter = createRateLimiter() },
   done,
 ) => {
   app.removeContentTypeParser('application/json');
@@ -56,6 +59,20 @@ export const webhookRoutes: FastifyPluginCallback<WebhookRoutesOptions> = (
     }
 
     const log = request.log.child({ deliveryId, event });
+
+    // One installation cannot crowd out the others, however busy it gets.
+    const installationId = installationIdOf(payload);
+    if (installationId !== null) {
+      const decision = rateLimiter.check(installationId);
+      if (!decision.allowed) {
+        log.warn({ installationId }, 'installation rate limit exceeded');
+        return reply
+          .code(429)
+          .header('retry-after', String(decision.retryAfterSeconds))
+          .send({ error: 'too many deliveries' });
+      }
+    }
+
     const claimed = await claimDelivery(db, { deliveryId, event, action: readAction(payload) });
     if (!claimed) {
       log.info('duplicate delivery skipped');
