@@ -19,7 +19,7 @@ import {
   type TestReportJob,
 } from '@logsy/queue';
 import { buildApp } from './app.js';
-import { startTelemetry } from './telemetry.js';
+import { captureError, startTelemetry } from './telemetry.js';
 
 function readEnv() {
   try {
@@ -63,6 +63,15 @@ const app = buildApp({
   queue,
   webhookSecret: env.GITHUB_WEBHOOK_SECRET,
   logger: { level: env.LOG_LEVEL },
+});
+
+// Only genuine failures are reported: a 401 from a bad signature is the caller's
+// problem, not an incident.
+app.addHook('onError', (_request, _reply, error, done) => {
+  const statusCode =
+    'statusCode' in error && typeof error.statusCode === 'number' ? error.statusCode : 500;
+  if (statusCode >= 500) void captureError(error);
+  done();
 });
 
 let shuttingDown = false;
