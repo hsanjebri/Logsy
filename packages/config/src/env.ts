@@ -136,3 +136,9 @@ export function loadEnv<const T extends readonly EnvSchema[]>(
   // Safe: `merged` is the union of every schema's validated output.
   return merged as MergedEnv<T>;
 }
+
+/** Both are optional: absent means the corresponding SDK is never loaded. */
+export const telemetryEnvSchema = z.object({
+  SENTRY_DSN: z.string().min(1).optional(),
+  OTEL_EXPORTER_OTLP_ENDPOINT: z.url().optional(),
+});

@@ -6,6 +6,7 @@ import {
   loadEnv,
   redisEnvSchema,
   serverEnvSchema,
+  telemetryEnvSchema,
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
 import {
@@ -18,6 +19,7 @@ import {
   type TestReportJob,
 } from '@logsy/queue';
 import { buildApp } from './app.js';
+import { startTelemetry } from './telemetry.js';
 
 function readEnv() {
   try {
@@ -27,6 +29,7 @@ function readEnv() {
       databaseEnvSchema,
       redisEnvSchema,
       githubWebhookEnvSchema,
+      telemetryEnvSchema,
     ]);
   } catch (error) {
     if (error instanceof EnvValidationError) {
@@ -38,6 +41,12 @@ function readEnv() {
 }
 
 const env = readEnv();
+const telemetry = await startTelemetry({
+  serviceName: 'logsy-server',
+  sentryDsn: env.SENTRY_DSN,
+  otlpEndpoint: env.OTEL_EXPORTER_OTLP_ENDPOINT,
+  environment: env.NODE_ENV,
+});
 const { db, pool } = createDatabase(env.DATABASE_URL);
 const redis = createRedisConnection(env.REDIS_URL);
 const analyzeQueue = createAnalyzeRunQueue(redis);
@@ -65,6 +74,7 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   await analyzeQueue.close();
   await commentQueue.close();
   await testQueue.close();
+  await telemetry.shutdown();
   redis.disconnect();
   await pool.end();
   process.exit(0);

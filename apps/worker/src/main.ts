@@ -6,6 +6,7 @@ import {
   llmEnvSchema,
   loadEnv,
   redisEnvSchema,
+  telemetryEnvSchema,
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
 import { createGitHubApp } from '@logsy/github';
@@ -26,6 +27,7 @@ import { z } from 'zod';
 import { processAnalyzeRun } from './analyze-run.js';
 import { processPostComment } from './post-comment.js';
 import { processTestReport } from './test-report.js';
+import { captureError, startTelemetry } from './telemetry.js';
 
 const workerEnvSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(100).default(5),
@@ -52,11 +54,24 @@ function readEnv<T>(read: () => T): T {
 }
 
 const env = readEnv(() =>
-  loadEnv([baseEnvSchema, databaseEnvSchema, redisEnvSchema, githubAppEnvSchema, workerEnvSchema]),
+  loadEnv([
+    baseEnvSchema,
+    databaseEnvSchema,
+    redisEnvSchema,
+    githubAppEnvSchema,
+    workerEnvSchema,
+    telemetryEnvSchema,
+  ]),
 );
 // LLM settings are only required when the LLM is actually enabled.
 const llmEnv = env.LLM_ENABLED ? readEnv(() => loadEnv([llmEnvSchema])) : undefined;
 const log = pino({ level: env.LOG_LEVEL });
+const telemetry = await startTelemetry({
+  serviceName: 'logsy-worker',
+  sentryDsn: env.SENTRY_DSN,
+  otlpEndpoint: env.OTEL_EXPORTER_OTLP_ENDPOINT,
+  environment: env.NODE_ENV,
+});
 const { db, pool } = createDatabase(env.DATABASE_URL);
 const redis = createRedisConnection(env.REDIS_URL);
 const github = createGitHubApp({
@@ -151,6 +166,7 @@ testWorker.on('failed', (job, error) => {
 
 worker.on('failed', (job, error) => {
   log.error({ jobId: job?.id, attempts: job?.attemptsMade, err: error }, 'analyze-run job failed');
+  void captureError(error);
 });
 worker.on('completed', (job) => {
   log.info({ jobId: job.id }, 'analyze-run job completed');
@@ -167,6 +183,7 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   await commentWorker.close();
   await testWorker.close();
   await comments.close();
+  await telemetry.shutdown();
   redis.disconnect();
   await pool.end();
   process.exit(0);

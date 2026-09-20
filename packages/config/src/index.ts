@@ -8,5 +8,6 @@ export {
   loadEnv,
   redisEnvSchema,
   serverEnvSchema,
+  telemetryEnvSchema,
 } from './env.js';
 export type { EnvIssue, EnvSource } from './env.js';
