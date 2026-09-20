@@ -9,7 +9,7 @@ import {
   type InstallationInput,
   type RepositoryInput,
 } from '@logsy/db';
-import type { AnalyzeRunQueue } from '@logsy/queue';
+import type { AnalyzeRunQueue, PostCommentQueue } from '@logsy/queue';
 import type { FastifyBaseLogger } from 'fastify';
 import {
   installationEventSchema,
@@ -26,7 +26,7 @@ export type HandlerOutcome = 'processed' | 'ignored';
 
 export interface WebhookDeps {
   db: Database;
-  queue: Pick<AnalyzeRunQueue, 'enqueueAnalyzeRun'>;
+  queue: Pick<AnalyzeRunQueue, 'enqueueAnalyzeRun'> & Pick<PostCommentQueue, 'enqueuePostComment'>;
 }
 
 /** Dispatches a verified, deduplicated webhook. Throws ZodError on unexpected payloads. */
@@ -64,9 +64,9 @@ async function handleWorkflowRun(
 ): Promise<HandlerOutcome> {
   const run = payload.workflow_run;
   if (payload.action !== 'completed') return 'ignored';
-  if (run.conclusion !== 'failure') {
-    // Successful runs feed flaky-test history and comment resolution in later phases.
-    log.debug({ conclusion: run.conclusion }, 'run did not fail');
+  if (run.conclusion !== 'failure' && run.conclusion !== 'success') {
+    // Cancelled, skipped, timed out: nothing to explain and nothing to resolve.
+    log.debug({ conclusion: run.conclusion }, 'run neither failed nor succeeded');
     return 'ignored';
   }
   const installation = payload.installation;
@@ -97,7 +97,7 @@ async function handleWorkflowRun(
   }
 
   const [owner, repo] = payload.repository.full_name.split('/');
-  await queue.enqueueAnalyzeRun({
+  const common = {
     installationId: installation.id,
     githubRepoId: payload.repository.id,
     owner: owner ?? payload.repository.owner.login,
@@ -106,11 +106,22 @@ async function handleWorkflowRun(
     runAttempt: run.run_attempt,
     workflowName: run.name ?? 'workflow',
     headSha: run.head_sha,
+    htmlUrl: run.html_url,
+    prNumbers: (run.pull_requests ?? []).map((pr) => pr.number),
+  };
+
+  if (run.conclusion === 'success') {
+    // Nothing to analyze; an earlier failure comment on this PR is switched to passing.
+    await queue.enqueuePostComment({ ...common, mode: 'resolved' });
+    log.info({ runId: run.id, repo: payload.repository.full_name }, 'queued comment resolution');
+    return 'processed';
+  }
+
+  await queue.enqueueAnalyzeRun({
+    ...common,
     headBranch: run.head_branch,
     event: run.event,
     conclusion: run.conclusion,
-    htmlUrl: run.html_url,
-    prNumbers: (run.pull_requests ?? []).map((pr) => pr.number),
   });
 
   log.info(

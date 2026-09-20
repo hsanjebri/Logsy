@@ -1,6 +1,6 @@
 import { createDatabase, installations, repositories, webhookDeliveries } from '@logsy/db';
 import { truncateAll } from '@logsy/db/testing';
-import type { AnalyzeRunJob } from '@logsy/queue';
+import type { AnalyzeRunJob, PostCommentJob } from '@logsy/queue';
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeEach, describe, expect, inject, it } from 'vitest';
 import { buildApp } from './app.js';
@@ -19,9 +19,14 @@ const SECRET = 'test-webhook-secret-0123456789';
 
 const { db, pool } = createDatabase(inject('databaseUrl'));
 const enqueued: AnalyzeRunJob[] = [];
+const commentJobs: PostCommentJob[] = [];
 const queue = {
   enqueueAnalyzeRun: (job: AnalyzeRunJob) => {
     enqueued.push(job);
+    return Promise.resolve();
+  },
+  enqueuePostComment: (job: PostCommentJob) => {
+    commentJobs.push(job);
     return Promise.resolve();
   },
 };
@@ -33,6 +38,7 @@ afterAll(async () => {
 });
 beforeEach(async () => {
   enqueued.length = 0;
+  commentJobs.length = 0;
   await truncateAll(db);
 });
 
@@ -269,7 +275,6 @@ describe('POST /webhooks/github — workflow_run events', () => {
   });
 
   it.each([
-    ['a successful run', { conclusion: 'success' }],
     ['a cancelled run', { conclusion: 'cancelled' }],
     ['an unfinished run', { action: 'in_progress', conclusion: null }],
   ])('ignores %s', async (_name, overrides) => {
@@ -297,5 +302,41 @@ describe('POST /webhooks/github — workflow_run events', () => {
     await send('workflow_run', workflowRunCompleted({ runAttempt: 2 }));
 
     expect(enqueued.map((job) => job.runAttempt)).toEqual([1, 2]);
+  });
+});
+
+describe('POST /webhooks/github — successful runs', () => {
+  it('queues a comment resolution instead of an analysis', async () => {
+    const response = await send('workflow_run', workflowRunCompleted({ conclusion: 'success' }));
+
+    expect(response.json()).toEqual({ status: 'processed' });
+    expect(enqueued).toEqual([]);
+    expect(commentJobs).toEqual([
+      {
+        installationId: INSTALLATION_ID,
+        githubRepoId: REPO_ID,
+        owner: 'hsanjebri',
+        repo: 'api',
+        runId: RUN_ID,
+        runAttempt: 1,
+        workflowName: 'CI',
+        headSha: '9f2c1ab5d4e3f60718293a4b5c6d7e8f90123456',
+        htmlUrl: `https://github.com/hsanjebri/api/actions/runs/${RUN_ID}`,
+        prNumbers: [7],
+        mode: 'resolved',
+      },
+    ]);
+  });
+
+  it('does not resolve anything for a repository with analysis disabled', async () => {
+    await send('workflow_run', workflowRunCompleted());
+    await db
+      .update(repositories)
+      .set({ settings: { enabled: false, commentMode: 'single', llmEnabled: true } });
+    commentJobs.length = 0;
+
+    await send('workflow_run', workflowRunCompleted({ conclusion: 'success', runAttempt: 2 }));
+
+    expect(commentJobs).toEqual([]);
   });
 });

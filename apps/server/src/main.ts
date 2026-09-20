@@ -8,7 +8,13 @@ import {
   serverEnvSchema,
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
-import { createAnalyzeRunQueue, createRedisConnection } from '@logsy/queue';
+import {
+  createAnalyzeRunQueue,
+  createPostCommentQueue,
+  createRedisConnection,
+  type AnalyzeRunJob,
+  type PostCommentJob,
+} from '@logsy/queue';
 import { buildApp } from './app.js';
 
 function readEnv() {
@@ -32,7 +38,13 @@ function readEnv() {
 const env = readEnv();
 const { db, pool } = createDatabase(env.DATABASE_URL);
 const redis = createRedisConnection(env.REDIS_URL);
-const queue = createAnalyzeRunQueue(redis);
+const analyzeQueue = createAnalyzeRunQueue(redis);
+const commentQueue = createPostCommentQueue(redis);
+// The handlers need both; one object keeps the app's surface small.
+const queue = {
+  enqueueAnalyzeRun: (job: AnalyzeRunJob) => analyzeQueue.enqueueAnalyzeRun(job),
+  enqueuePostComment: (job: PostCommentJob) => commentQueue.enqueuePostComment(job),
+};
 const app = buildApp({
   db,
   queue,
@@ -46,7 +58,8 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   shuttingDown = true;
   app.log.info({ signal }, 'shutting down');
   await app.close();
-  await queue.close();
+  await analyzeQueue.close();
+  await commentQueue.close();
   redis.disconnect();
   await pool.end();
   process.exit(0);
