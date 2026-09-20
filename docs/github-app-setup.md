@@ -214,6 +214,37 @@ You see exactly the repositories your own GitHub account can reach through a Log
 installation. That list is read from GitHub on each visit and never stored, so revoking
 access takes effect immediately.
 
+## 11. Flaky test detection (optional)
+
+Logsy reads JUnit XML from a run’s **artifacts**. A test counts as flaky when the same
+commit both passed and failed it — across attempts or jobs — so your change cannot be
+the difference.
+
+Make your workflow upload its reports, with a name containing `test`, `junit`, `report`
+or `result`:
+
+```yaml
+- name: Run tests
+  run: pytest --junitxml=reports/junit.xml # or: vitest --reporter=junit, mvn test, …
+
+- name: Upload test results
+  if: always() # the reports matter most when the tests failed
+  uses: actions/upload-artifact@v4
+  with:
+    name: test-results
+    path: reports/*.xml
+```
+
+Then, to see a flip: let a run fail, and press **Re-run failed jobs** until it passes.
+Both attempts share the commit, so the test contradicts itself and is flagged.
+
+```bash
+docker exec -it logsy-postgres-1 psql -U logsy -d logsy -c "select suite, test_name, flip_count, status from flaky_tests order by flip_count desc;"
+```
+
+The dashboard lists them under **Flaky tests**, and the PR comment names one when it
+failed in that run.
+
 ## Troubleshooting
 
 | Symptom                                        | Cause and fix                                                                                                                                                     |

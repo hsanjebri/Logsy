@@ -213,9 +213,9 @@ pnpm dev:web      # http://localhost:3002
   - State transitions ("Fix Suggested" ➔ "✅ Passing").
 - [x] **Phase 7: Web Dashboard**
   - Next.js dashboard with GitHub OAuth and analytics.
-- [ ] **Phase 8: Flaky Test Intelligence** _(Next)_
+- [x] **Phase 8: Flaky Test Intelligence**
   - Historical JUnit artifact tracking and flaky detection.
-- [ ] **Phase 9: Production Packaging**
+- [ ] **Phase 9: Production Packaging** _(Next)_
   - Multi-stage Dockerfiles, Helm charts, and OpenTelemetry observability.
 
 ---
