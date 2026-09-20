@@ -21,13 +21,16 @@
     "@logsy/github": "workspace:*",
     "@logsy/llm": "workspace:*",
     "@logsy/queue": "workspace:*",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.222.0",
+    "@opentelemetry/resources": "^2.11.0",
+    "@opentelemetry/sdk-node": "^0.222.0",
+    "@sentry/node": "^10.75.0",
     "bullmq": "^6.3.7",
     "pino": "^10.3.1",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^22.20.3",
-    "drizzle-orm": "^0.45.2",
     "eslint": "^10.10.0",
     "fflate": "^0.8.3",
     "tsx": "^4.23.13",

@@ -1,7 +1,6 @@
 import { COMMENT_MARKER } from '@logsy/core';
 import {
   createDatabase,
-  flakyTests,
   insertTestResults,
   prComments,
   recordFlakyTest,
@@ -10,7 +9,6 @@ import {
   upsertRepositories,
   workflowRuns,
 } from '@logsy/db';
-import { eq } from 'drizzle-orm';
 import { truncateAll } from '@logsy/db/testing';
 import type { AnalyzeRunJob, PostCommentJob } from '@logsy/queue';
 import { pino } from 'pino';
@@ -277,11 +275,7 @@ describe('known flaky tests in the comment', () => {
     const run = (await db.select().from(workflowRuns))[0];
 
     // The test-report job recorded this test as flaky, and it failed in this run.
-    await recordFlakyTest(db, repo?.id ?? 0, { suite: 'suite.Api', testName: 'retries' });
-    await db
-      .update(flakyTests)
-      .set({ flipCount: 7 })
-      .where(eq(flakyTests.repositoryId, repo?.id ?? 0));
+    await recordFlakyTest(db, repo?.id ?? 0, { suite: 'suite.Api', testName: 'retries' }, 7);
     await insertTestResults(db, [
       {
         repositoryId: repo?.id ?? 0,

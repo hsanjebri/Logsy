@@ -26,6 +26,11 @@
     "demo": "turbo run build --filter=@logsy/core && pnpm --filter @logsy/evals demo",
     "dev:web": "turbo run build --filter=@logsy/web^... && pnpm --filter @logsy/web dev"
   },
+  "pnpm": {
+    "overrides": {
+      "esbuild@<0.25.0": ">=0.25.0"
+    }
+  },
   "devDependencies": {
     "@logsy/config": "workspace:*",
     "@types/node": "^22.20.3",
