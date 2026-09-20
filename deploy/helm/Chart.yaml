@@ -1,0 +1,13 @@
+apiVersion: v2
+name: logsy
+description: AI CI failure analyzer for GitHub Actions — webhook server, worker and dashboard.
+type: application
+version: 0.1.0
+appVersion: '0.1.0'
+home: https://github.com/hsanjebri/Logsy
+sources:
+  - https://github.com/hsanjebri/Logsy
+keywords:
+  - github-actions
+  - ci
+  - observability

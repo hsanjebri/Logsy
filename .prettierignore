@@ -4,3 +4,6 @@ coverage
 .turbo
 pnpm-lock.yaml
 CLAUDE.md
+
+# Helm templates are Go templates, not YAML Prettier can parse.
+deploy/helm/templates/

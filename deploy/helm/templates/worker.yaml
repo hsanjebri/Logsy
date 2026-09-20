@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "logsy.fullname" . }}-worker
+  labels: {{- include "logsy.labels" . | nindent 4 }}
+    app.kubernetes.io/component: worker
+spec:
+  replicas: {{ .Values.worker.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: worker
+  template:
+    metadata:
+      labels: {{- include "logsy.labels" . | nindent 8 }}
+        app.kubernetes.io/component: worker
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}{{- toYaml . | nindent 8 }}{{- end }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      # Jobs are retried by BullMQ, but a graceful stop lets the current one finish.
+      terminationGracePeriodSeconds: 60
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: worker
+          image: {{ include "logsy.image" (dict "root" $ "component" "worker") }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- include "logsy.commonEnv" . | nindent 12 }}
+            {{- include "logsy.secretEnv" . | nindent 12 }}
+            - name: WORKER_CONCURRENCY
+              value: {{ .Values.worker.concurrency | quote }}
+            {{- with .Values.config.publicUrl }}
+            - name: PUBLIC_URL
+              value: {{ . | quote }}
+            {{- end }}
+            - name: LLM_ENABLED
+              value: {{ .Values.config.llm.enabled | quote }}
+            - name: LLM_PROVIDER
+              value: {{ .Values.config.llm.provider | quote }}
+            - name: LLM_MODEL
+              value: {{ .Values.config.llm.model | quote }}
+            {{- with .Values.config.llm.modelFast }}
+            - name: LLM_MODEL_FAST
+              value: {{ . | quote }}
+            {{- end }}
+            {{- with .Values.config.llm.ollamaBaseUrl }}
+            - name: OLLAMA_BASE_URL
+              value: {{ . | quote }}
+            {{- end }}
+          resources: {{- toYaml .Values.worker.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+      {{- with .Values.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}

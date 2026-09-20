@@ -1,0 +1,28 @@
+Logsy {{ .Chart.AppVersion }} is installed as {{ .Release.Name }}.
+
+{{ if .Values.ingress.enabled -}}
+Webhook URL for the GitHub App:
+
+    https://{{ .Values.ingress.host }}/webhooks/github
+
+{{- if .Values.web.enabled }}
+Dashboard: https://{{ .Values.ingress.host }}
+{{- end }}
+{{- else -}}
+No ingress is enabled, so the webhook receiver is not reachable from GitHub yet.
+Expose it, then point the GitHub App's webhook URL at /webhooks/github. To check
+it locally first:
+
+    kubectl port-forward svc/{{ include "logsy.fullname" . }}-server 3000:{{ .Values.server.service.port }}
+    curl localhost:3000/healthz
+{{- end }}
+
+{{ if and (not .Values.existingSecret) .Values.secrets -}}
+NOTE: the GitHub App key and API keys came from `secrets` in values, so they are
+stored in this release's history. For anything but a trial, put them in a Secret
+you manage and set `existingSecret` instead.
+{{- else if not .Values.existingSecret -}}
+NOTE: no secrets are configured. Until GITHUB_WEBHOOK_SECRET, GITHUB_APP_ID and
+GITHUB_PRIVATE_KEY are supplied, the pods will exit at startup naming what is
+missing. Set `existingSecret` to a Secret holding them.
+{{- end }}
