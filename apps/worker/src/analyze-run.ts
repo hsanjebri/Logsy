@@ -16,7 +16,7 @@ import {
 } from '@logsy/db';
 import { LogsUnavailableError, failedStep, isFailedJob, type GitHubApp } from '@logsy/github';
 import type { AnalysisInput, LlmProvider } from '@logsy/llm';
-import type { AnalyzeRunJob } from '@logsy/queue';
+import type { AnalyzeRunJob, PostCommentQueue } from '@logsy/queue';
 import type { Logger } from 'pino';
 
 export interface AnalyzeRunDeps {
@@ -25,6 +25,8 @@ export interface AnalyzeRunDeps {
   log: Logger;
   /** Optional: when absent, failures with no rule are left unexplained. */
   llm?: LlmProvider;
+  /** Optional: when absent, analyses are stored but no comment is queued. */
+  comments?: Pick<PostCommentQueue, 'enqueuePostComment'>;
   /** Defer the job when fewer than this many API requests remain. */
   rateLimitFloor?: number;
 }
@@ -164,6 +166,24 @@ export async function processAnalyzeRun(
       },
       'stored failure',
     );
+  }
+
+  // Commenting is its own job: a GitHub outage retries the comment, never the analysis.
+  if (deps.comments) {
+    await deps.comments.enqueuePostComment({
+      installationId: job.installationId,
+      githubRepoId: job.githubRepoId,
+      owner: job.owner,
+      repo: job.repo,
+      runId: job.runId,
+      runAttempt: job.runAttempt,
+      workflowName: job.workflowName,
+      headSha: job.headSha,
+      htmlUrl: job.htmlUrl,
+      prNumbers: job.prNumbers,
+      mode: 'failure',
+    });
+    log.info('queued post-comment');
   }
 
   return { status: 'analyzed', failedJobs: failedJobs.length, logChars, analyses };

@@ -10,14 +10,24 @@ import {
 import { createDatabase } from '@logsy/db';
 import { createGitHubApp } from '@logsy/github';
 import { createProvider, createRoutingProvider, type LlmProvider } from '@logsy/llm';
-import { analyzeRunJobSchema, createAnalyzeRunWorker, createRedisConnection } from '@logsy/queue';
+import {
+  analyzeRunJobSchema,
+  createAnalyzeRunWorker,
+  createPostCommentQueue,
+  createPostCommentWorker,
+  createRedisConnection,
+  postCommentJobSchema,
+} from '@logsy/queue';
 import { DelayedError, UnrecoverableError } from 'bullmq';
 import { pino } from 'pino';
 import { z } from 'zod';
 import { processAnalyzeRun } from './analyze-run.js';
+import { processPostComment } from './post-comment.js';
 
 const workerEnvSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().int().min(1).max(100).default(5),
+  /** Public URL of this Logsy instance; enables the feedback links in comments. */
+  PUBLIC_URL: z.url().optional(),
   /** Set to false to run on rules alone, with no LLM configured. */
   LLM_ENABLED: z
     .enum(['true', 'false'])
@@ -75,6 +85,8 @@ const llm = buildLlm();
 if (llm) log.info({ provider: llm.name, model: llm.model }, 'llm enabled');
 else log.warn('llm disabled; only cached and rule-based analyses will be produced');
 
+const comments = createPostCommentQueue(redis);
+
 const worker = createAnalyzeRunWorker(
   redis,
   async (job, token) => {
@@ -85,7 +97,7 @@ const worker = createAnalyzeRunWorker(
     }
 
     const result = await processAnalyzeRun(
-      { db, github, log, ...(llm ? { llm } : {}) },
+      { db, github, log, comments, ...(llm ? { llm } : {}) },
       parsed.data,
     );
     if (result.retryAt) {
@@ -96,6 +108,26 @@ const worker = createAnalyzeRunWorker(
   },
   { concurrency: env.WORKER_CONCURRENCY },
 );
+
+const commentWorker = createPostCommentWorker(
+  redis,
+  async (job) => {
+    const parsed = postCommentJobSchema.safeParse(job.data);
+    if (!parsed.success) {
+      throw new UnrecoverableError(`invalid post-comment payload: ${parsed.error.message}`);
+    }
+    return await processPostComment(
+      { db, github, log, ...(env.PUBLIC_URL ? { feedbackBaseUrl: env.PUBLIC_URL } : {}) },
+      parsed.data,
+    );
+  },
+  // GitHub is stricter about writes than reads, so comments go out one at a time.
+  { concurrency: 1 },
+);
+
+commentWorker.on('failed', (job, error) => {
+  log.error({ jobId: job?.id, err: error }, 'post-comment job failed');
+});
 
 worker.on('failed', (job, error) => {
   log.error({ jobId: job?.id, attempts: job?.attemptsMade, err: error }, 'analyze-run job failed');
@@ -112,6 +144,8 @@ async function shutdown(signal: NodeJS.Signals): Promise<void> {
   shuttingDown = true;
   log.info({ signal }, 'shutting down');
   await worker.close();
+  await commentWorker.close();
+  await comments.close();
   redis.disconnect();
   await pool.end();
   process.exit(0);
