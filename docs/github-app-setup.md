@@ -42,7 +42,7 @@ Open <https://github.com/settings/apps/new> (for an organization, go to **Organi
 | ------------------------------------------------------ | --------------------------------------------------------- |
 | GitHub App name                                        | `Logsy Dev (<your-username>)`. Names are globally unique. |
 | Homepage URL                                           | `https://github.com/hsanjebri/Logsy`                      |
-| Callback URL                                           | Leave empty (the dashboard login is added in Phase 7).    |
+| Callback URL                                           | `http://localhost:3002/api/auth/callback/github`          |
 | Expire user authorization tokens                       | Leave the default.                                        |
 | Request user authorization (OAuth) during installation | Unchecked                                                 |
 | Webhook → Active                                       | ✅ Checked                                                |
@@ -184,6 +184,35 @@ pnpm fixture hsanjebri/<test-repo> <runId> <installationId>
 ```
 
 The logs of that run's failed jobs are redacted and written to `evals/fixtures/`. The command refuses to write a file if anything that looks like a secret survives redaction. The installation id appears in the URL of the app's installation settings page.
+
+## 10. Sign in to the dashboard
+
+The dashboard signs people in with this same GitHub App, so it needs the app's OAuth
+credentials.
+
+1. On the app’s settings page, copy the **Client ID** and **Generate a new client secret**.
+2. Put both in `.env`, with a session secret:
+
+   ```dotenv
+   AUTH_GITHUB_ID=Iv1.xxxxxxxxxxxx
+   AUTH_GITHUB_SECRET=the-client-secret
+   AUTH_SECRET=generate-with-the-command-below
+   ```
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+   ```
+
+3. Check the app’s **Callback URL** is `http://localhost:3002/api/auth/callback/github`.
+4. Start it:
+
+   ```bash
+   pnpm dev:web   # http://localhost:3002
+   ```
+
+You see exactly the repositories your own GitHub account can reach through a Logsy
+installation. That list is read from GitHub on each visit and never stored, so revoking
+access takes effect immediately.
 
 ## Troubleshooting
 

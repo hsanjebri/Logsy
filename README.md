@@ -172,6 +172,15 @@ pnpm evals        # scores the pipeline against labeled real CI logs
 pnpm evals --llm  # also sends unmatched fixtures to the configured LLM
 ```
 
+### 7. Open the Dashboard
+
+```bash
+pnpm dev:web      # http://localhost:3002
+```
+
+> Needs `AUTH_SECRET`, `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET` — see step 10 of the
+> [GitHub App Setup Guide](./docs/github-app-setup.md).
+
 > 📖 To connect a real repository with webhooks, follow the [GitHub App Setup Guide](./docs/github-app-setup.md).
 
 ---
@@ -202,9 +211,9 @@ pnpm evals --llm  # also sends unmatched fixtures to the configured LLM
 - [x] **Phase 6: GitHub PR Commenting**
   - Single, updatable comment with hidden markers.
   - State transitions ("Fix Suggested" ➔ "✅ Passing").
-- [ ] **Phase 7: Web Dashboard** _(Next)_
+- [x] **Phase 7: Web Dashboard**
   - Next.js dashboard with GitHub OAuth and analytics.
-- [ ] **Phase 8: Flaky Test Intelligence**
+- [ ] **Phase 8: Flaky Test Intelligence** _(Next)_
   - Historical JUnit artifact tracking and flaky detection.
 - [ ] **Phase 9: Production Packaging**
   - Multi-stage Dockerfiles, Helm charts, and OpenTelemetry observability.
