@@ -4,8 +4,10 @@ import {
   QUEUE_NAMES,
   analyzeRunJobId,
   postCommentJobId,
+  testReportJobId,
   type AnalyzeRunJob,
   type PostCommentJob,
+  type TestReportJob,
 } from './jobs.js';
 
 /**
@@ -78,4 +80,31 @@ export function createAnalyzeRunWorker(
   options: Omit<WorkerOptions, 'connection'> = {},
 ): Worker<AnalyzeRunJob> {
   return new Worker<AnalyzeRunJob>(QUEUE_NAMES.analyzeRun, processor, { connection, ...options });
+}
+
+export interface TestReportQueue {
+  enqueueTestReport(job: TestReportJob): Promise<void>;
+  close(): Promise<void>;
+}
+
+export function createTestReportQueue(connection: Redis): TestReportQueue {
+  const queue = new Queue<TestReportJob>(QUEUE_NAMES.testReport, {
+    connection,
+    defaultJobOptions: DEFAULT_JOB_OPTIONS,
+  });
+
+  return {
+    async enqueueTestReport(job) {
+      await queue.add(QUEUE_NAMES.testReport, job, { jobId: testReportJobId(job) });
+    },
+    close: () => queue.close(),
+  };
+}
+
+export function createTestReportWorker(
+  connection: Redis,
+  processor: Processor<TestReportJob>,
+  options: Omit<WorkerOptions, 'connection'> = {},
+): Worker<TestReportJob> {
+  return new Worker<TestReportJob>(QUEUE_NAMES.testReport, processor, { connection, ...options });
 }

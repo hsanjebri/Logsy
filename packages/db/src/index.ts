@@ -46,3 +46,16 @@ export type {
   RepositorySummary,
   RunSummary,
 } from './queries/dashboard.js';
+export {
+  countFailuresForRun,
+  countFlakyCommits,
+  deleteResultsForRuns,
+  findFlakyTest,
+  findKnownFlakyFailures,
+  findResultsForSha,
+  findRunIdsForSha,
+  hasStoredResults,
+  insertTestResults,
+  recordFlakyTest,
+} from './queries/tests.js';
+export type { TestResultInput } from './queries/tests.js';

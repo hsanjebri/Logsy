@@ -58,3 +58,21 @@ export type PostCommentJob = z.infer<typeof postCommentJobSchema>;
 export function postCommentJobId(job: PostCommentJob): string {
   return `comment-${job.runId}-attempt-${job.runAttempt}-${job.mode}`;
 }
+
+/** Collecting a run's JUnit reports, for test history and flaky detection. */
+export const testReportJobSchema = z.object({
+  installationId: z.number().int().positive(),
+  githubRepoId: z.number().int().positive(),
+  owner: z.string().min(1),
+  repo: z.string().min(1),
+  runId: z.number().int().positive(),
+  runAttempt: z.number().int().positive(),
+  headSha: z.string().min(1),
+});
+
+export type TestReportJob = z.infer<typeof testReportJobSchema>;
+
+/** One collection per run attempt. */
+export function testReportJobId(job: TestReportJob): string {
+  return `tests-${job.runId}-attempt-${job.runAttempt}`;
+}

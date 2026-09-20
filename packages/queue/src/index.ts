@@ -4,8 +4,10 @@ export {
   analyzeRunJobSchema,
   postCommentJobId,
   postCommentJobSchema,
+  testReportJobId,
+  testReportJobSchema,
 } from './jobs.js';
-export type { AnalyzeRunJob, PostCommentJob, QueueName } from './jobs.js';
+export type { AnalyzeRunJob, PostCommentJob, QueueName, TestReportJob } from './jobs.js';
 export {
   DEFAULT_JOB_OPTIONS,
   createAnalyzeRunQueue,
@@ -13,5 +15,7 @@ export {
   createPostCommentQueue,
   createPostCommentWorker,
   createRedisConnection,
+  createTestReportQueue,
+  createTestReportWorker,
 } from './connection.js';
-export type { AnalyzeRunQueue, PostCommentQueue } from './connection.js';
+export type { AnalyzeRunQueue, PostCommentQueue, TestReportQueue } from './connection.js';

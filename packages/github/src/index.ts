@@ -27,3 +27,10 @@ export {
   pullRequestRefSchema,
 } from './schemas.js';
 export type { IssueComment, PullRequestFile, PullRequestRef } from './schemas.js';
+export {
+  artifactSchema,
+  extractXmlFiles,
+  listArtifactsResponseSchema,
+  looksLikeTestReport,
+} from './artifacts.js';
+export type { Artifact, ExtractOptions, ExtractedFile } from './artifacts.js';

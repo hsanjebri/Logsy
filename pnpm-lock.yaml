@@ -149,9 +149,15 @@ importers:
       '@types/node':
         specifier: ^22.20.3
         version: 22.20.3
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(@types/pg@8.23.1)(pg@8.23.0)
       eslint:
         specifier: ^10.10.0
         version: 10.10.0(jiti@2.7.0)
+      fflate:
+        specifier: ^0.8.3
+        version: 0.8.3
       tsx:
         specifier: ^4.23.13
         version: 4.23.13
@@ -220,6 +226,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@rgrove/parse-xml':
+        specifier: ^5.0.0
+        version: 5.0.0
       zod:
         specifier: ^4.6.5
         version: 4.6.5
@@ -288,6 +297,9 @@ importers:
       '@octokit/plugin-throttling':
         specifier: ^11.0.5
         version: 11.0.5(@octokit/core@7.0.8)
+      fflate:
+        specifier: ^0.8.3
+        version: 0.8.3
       zod:
         specifier: ^4.6.5
         version: 4.6.5
@@ -1329,6 +1341,10 @@ packages:
   '@pinojs/redact@0.4.0':
     resolution: {integrity: sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg==}
 
+  '@rgrove/parse-xml@5.0.0':
+    resolution: {integrity: sha512-SgHFyisNAkS2ZbM8SCriUm1N0bxLiz0POKvpDeAtrnLrXaYG1PawNwu1rSjmE/vcVHbZzYWNgVP6xkep6R4uXg==}
+    engines: {node: '>=22.12.0'}
+
   '@rolldown/binding-android-arm-eabi@1.2.9':
     resolution: {integrity: sha512-tNISae1QEf/vkb3xkRcjV5SEdzPE97We5IVaa2Z8jSszQPZ8U60B/YCYpw4QI7VidYsBtKavczXf+DyDs9WGxw==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2017,6 +2033,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
 
   file-entry-cache@11.1.5:
     resolution: {integrity: sha512-+PFTHITI08JIGhnNpGNI8T8inUpgZfk3GNEqfT9R2zZV2iFXg3CvqzSl/uEhs7TSGujYRELEANyDvS8Fj7+S7Q==}
@@ -3512,6 +3531,8 @@ snapshots:
 
   '@pinojs/redact@0.4.0': {}
 
+  '@rgrove/parse-xml@5.0.0': {}
+
   '@rolldown/binding-android-arm-eabi@1.2.9':
     optional: true
 
@@ -4123,6 +4144,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
+
+  fflate@0.8.3: {}
 
   file-entry-cache@11.1.5:
     dependencies:

@@ -3,6 +3,7 @@ import { Octokit } from '@octokit/core';
 import { retry } from '@octokit/plugin-retry';
 import { throttling } from '@octokit/plugin-throttling';
 import { z } from 'zod';
+import { listArtifactsResponseSchema, type Artifact } from './artifacts.js';
 import { LogsUnavailableError, statusOf } from './errors.js';
 import {
   listCommentsResponseSchema,
@@ -48,6 +49,10 @@ export interface InstallationClient {
   updateIssueComment(params: RepoRef & { commentId: number; body: string }): Promise<void>;
   /** Changed files of a pull request, for context. Never the full patch. */
   listPullRequestFiles(params: RepoRef & { pullNumber: number }): Promise<PullRequestFile[]>;
+  /** Artifacts a run produced, including expired ones. */
+  listRunArtifacts(params: RepoRef & { runId: number }): Promise<Artifact[]>;
+  /** The artifact's zip. Throws {@link LogsUnavailableError} when it is gone. */
+  downloadArtifact(params: RepoRef & { artifactId: number }): Promise<Uint8Array>;
   /** Rate limit reported by the most recent response, or null before the first call. */
   rateLimit(): RateLimitSnapshot | null;
 }
@@ -142,6 +147,47 @@ export function createGitHubApp(options: GitHubAppOptions): GitHubApp {
             { owner, repo, pull_number: pullNumber, per_page: 100 },
           );
           return listPullFilesResponseSchema.parse(response.data);
+        },
+
+        async listRunArtifacts({ owner, repo, runId }) {
+          const response = await octokit.request(
+            'GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts',
+            { owner, repo, run_id: runId, per_page: 100 },
+          );
+          return listArtifactsResponseSchema.parse(response.data).artifacts;
+        },
+
+        async downloadArtifact({ owner, repo, artifactId }) {
+          // Same redirect-to-storage shape as job logs: follow it without the
+          // Authorization header, which storage rejects.
+          let location: string | undefined;
+          try {
+            const response = await octokit.request(
+              'GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}',
+              {
+                owner,
+                repo,
+                artifact_id: artifactId,
+                archive_format: 'zip',
+                request: { redirect: 'manual' },
+              },
+            );
+            if (response.data instanceof ArrayBuffer) return new Uint8Array(response.data);
+            location = headerValue(response.headers, 'location');
+          } catch (error) {
+            const status = statusOf(error);
+            if (status === undefined || status < 300 || status >= 400) {
+              throw status === undefined ? error : new LogsUnavailableError(artifactId, status);
+            }
+            location = redirectLocation(error);
+          }
+
+          if (location === undefined) throw new LogsUnavailableError(artifactId, 302);
+
+          const fetchImpl = options.fetch ?? globalThis.fetch;
+          const archive = await fetchImpl(location);
+          if (!archive.ok) throw new LogsUnavailableError(artifactId, archive.status);
+          return new Uint8Array(await archive.arrayBuffer());
         },
 
         async downloadJobLogs({ owner, repo, jobId }) {
