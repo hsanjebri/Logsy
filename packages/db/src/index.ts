@@ -1,4 +1,4 @@
-export { MIGRATIONS_FOLDER, createDatabase, pingDatabase, runMigrations } from './client.js';
+export { createDatabase, pingDatabase } from './client.js';
 export type { Database, DatabaseOptions, Executor, Transaction } from './client.js';
 export * from './schema.js';
 export { claimDelivery, completeDelivery } from './queries/deliveries.js';
@@ -26,3 +26,23 @@ export {
   upsertPrComment,
 } from './queries/comments.js';
 export type { FailureWithAnalysis, PrCommentInput } from './queries/comments.js';
+export {
+  findRepositoryByFullName,
+  findRunByGithubId,
+  getCategoryBreakdown,
+  getFailuresPerDay,
+  getOverviewStats,
+  getRecurringFailures,
+  listFlakyTests,
+  listRepositories,
+  listRuns,
+  updateRepositorySettings,
+} from './queries/dashboard.js';
+export type {
+  CategoryCount,
+  DailyCount,
+  OverviewStats,
+  RecurringFailure,
+  RepositorySummary,
+  RunSummary,
+} from './queries/dashboard.js';

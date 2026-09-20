@@ -1,8 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import pg from 'pg';
-import { fileURLToPath } from 'node:url';
 import * as schema from './schema.js';
 
 export type Database = ReturnType<typeof createDatabase>['db'];
@@ -24,16 +22,4 @@ export function createDatabase(url: string, options: DatabaseOptions = {}) {
 /** Throws if the database is unreachable. */
 export async function pingDatabase(db: Database): Promise<void> {
   await db.execute(sql`select 1`);
-}
-
-/** Works from both `src/` (tests) and `dist/` (runtime): the folder sits next to both. */
-export const MIGRATIONS_FOLDER = fileURLToPath(new URL('../drizzle', import.meta.url));
-
-export async function runMigrations(url: string): Promise<void> {
-  const { db, pool } = createDatabase(url, { max: 1 });
-  try {
-    await migrate(db, { migrationsFolder: MIGRATIONS_FOLDER });
-  } finally {
-    await pool.end();
-  }
 }

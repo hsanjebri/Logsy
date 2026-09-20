@@ -4,7 +4,8 @@ import pg from 'pg';
 import { existsSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { fileURLToPath } from 'node:url';
-import { runMigrations, type Executor } from './client.js';
+import type { Executor } from './client.js';
+import { runMigrations } from './migrate.js';
 import * as schema from './schema.js';
 
 /** Test-only helpers, exported as `@logsy/db/testing`. Never import from application code. */
@@ -36,17 +37,10 @@ export async function createTestDatabase(name: string): Promise<string> {
   const admin = new pg.Client({ connectionString: adminUrl });
   await admin.connect();
   try {
-    await admin.query(`DROP DATABASE IF EXISTS ${name} WITH (FORCE)`);
-    // CREATE DATABASE fails while another session is copying template1 concurrently.
-    for (let attempt = 1; ; attempt++) {
-      try {
-        await admin.query(`CREATE DATABASE ${name}`);
-        break;
-      } catch (error) {
-        if (attempt >= 10) throw error;
-        await delay(200 * attempt);
-      }
-    }
+    // Both statements fail transiently while another package's suite is copying
+    // template1 or still holds a connection, so both are retried.
+    await withRetry(() => admin.query(`DROP DATABASE IF EXISTS ${name} WITH (FORCE)`));
+    await withRetry(() => admin.query(`CREATE DATABASE ${name}`));
   } finally {
     await admin.end();
   }
@@ -55,6 +49,18 @@ export async function createTestDatabase(name: string): Promise<string> {
   url.pathname = `/${name}`;
   await runMigrations(url.toString());
   return url.toString();
+}
+
+async function withRetry(run: () => Promise<unknown>, attempts = 10): Promise<void> {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      await run();
+      return;
+    } catch (error) {
+      if (attempt >= attempts) throw error;
+      await delay(200 * attempt);
+    }
+  }
 }
 
 const tableNames = (Object.values(schema) as unknown[])
