@@ -19,3 +19,10 @@ export {
   insertAnalysis,
 } from './queries/analyses.js';
 export type { AnalysisInput, CacheLookupOptions, CachedAnalysis } from './queries/analyses.js';
+export {
+  findPrComment,
+  findRunFailures,
+  findWorkflowRun,
+  upsertPrComment,
+} from './queries/comments.js';
+export type { FailureWithAnalysis, PrCommentInput } from './queries/comments.js';

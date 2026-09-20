@@ -243,6 +243,9 @@ importers:
       '@logsy/config':
         specifier: workspace:*
         version: link:../config
+      '@logsy/core':
+        specifier: workspace:*
+        version: link:../core
       '@types/node':
         specifier: ^22
         version: 22.20.3

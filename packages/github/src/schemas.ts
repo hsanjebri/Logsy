@@ -30,6 +30,35 @@ export const listJobsResponseSchema = z.object({
 export type WorkflowStep = z.infer<typeof workflowStepSchema>;
 export type WorkflowJob = z.infer<typeof workflowJobSchema>;
 
+export const pullRequestRefSchema = z.object({
+  number: z.number().int().positive(),
+  state: z.string().optional(),
+  draft: z.boolean().optional(),
+});
+
+export const listPullsResponseSchema = z.array(pullRequestRefSchema);
+
+export const issueCommentSchema = z.object({
+  id: z.number().int().positive(),
+  body: z.string().nullable(),
+  user: z.object({ login: z.string(), type: z.string().optional() }).nullable(),
+});
+
+export const listCommentsResponseSchema = z.array(issueCommentSchema);
+
+export const pullRequestFileSchema = z.object({
+  filename: z.string(),
+  status: z.string(),
+  additions: z.number().int().nonnegative(),
+  deletions: z.number().int().nonnegative(),
+});
+
+export const listPullFilesResponseSchema = z.array(pullRequestFileSchema);
+
+export type PullRequestRef = z.infer<typeof pullRequestRefSchema>;
+export type IssueComment = z.infer<typeof issueCommentSchema>;
+export type PullRequestFile = z.infer<typeof pullRequestFileSchema>;
+
 /** The step that failed, if GitHub reported one. */
 export function failedStep(job: WorkflowJob): WorkflowStep | undefined {
   return job.steps?.find((step) => step.conclusion === 'failure');

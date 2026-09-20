@@ -1,6 +1,12 @@
 import { Queue, Worker, type JobsOptions, type Processor, type WorkerOptions } from 'bullmq';
 import { Redis } from 'ioredis';
-import { QUEUE_NAMES, analyzeRunJobId, type AnalyzeRunJob } from './jobs.js';
+import {
+  QUEUE_NAMES,
+  analyzeRunJobId,
+  postCommentJobId,
+  type AnalyzeRunJob,
+  type PostCommentJob,
+} from './jobs.js';
 
 /**
  * BullMQ requires `maxRetriesPerRequest: null`: blocking commands must not time out.
@@ -34,6 +40,36 @@ export function createAnalyzeRunQueue(connection: Redis): AnalyzeRunQueue {
     },
     close: () => queue.close(),
   };
+}
+
+export interface PostCommentQueue {
+  enqueuePostComment(job: PostCommentJob): Promise<void>;
+  close(): Promise<void>;
+}
+
+export function createPostCommentQueue(connection: Redis): PostCommentQueue {
+  const queue = new Queue<PostCommentJob>(QUEUE_NAMES.postComment, {
+    connection,
+    defaultJobOptions: DEFAULT_JOB_OPTIONS,
+  });
+
+  return {
+    async enqueuePostComment(job) {
+      await queue.add(QUEUE_NAMES.postComment, job, { jobId: postCommentJobId(job) });
+    },
+    close: () => queue.close(),
+  };
+}
+
+export function createPostCommentWorker(
+  connection: Redis,
+  processor: Processor<PostCommentJob>,
+  options: Omit<WorkerOptions, 'connection'> = {},
+): Worker<PostCommentJob> {
+  return new Worker<PostCommentJob>(QUEUE_NAMES.postComment, processor, {
+    connection,
+    ...options,
+  });
 }
 
 export function createAnalyzeRunWorker(

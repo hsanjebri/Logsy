@@ -2,8 +2,18 @@ import { App } from '@octokit/app';
 import { Octokit } from '@octokit/core';
 import { retry } from '@octokit/plugin-retry';
 import { throttling } from '@octokit/plugin-throttling';
+import { z } from 'zod';
 import { LogsUnavailableError, statusOf } from './errors.js';
-import { listJobsResponseSchema, type WorkflowJob } from './schemas.js';
+import {
+  listCommentsResponseSchema,
+  listJobsResponseSchema,
+  listPullFilesResponseSchema,
+  listPullsResponseSchema,
+  type IssueComment,
+  type PullRequestFile,
+  type PullRequestRef,
+  type WorkflowJob,
+} from './schemas.js';
 
 export interface RateLimitSnapshot {
   limit: number;
@@ -30,6 +40,14 @@ export interface InstallationClient {
   listRunJobs(params: RepoRef & { runId: number }): Promise<WorkflowJob[]>;
   /** Plain-text logs of one job. Throws {@link LogsUnavailableError} when GitHub has none. */
   downloadJobLogs(params: RepoRef & { jobId: number }): Promise<string>;
+  /** Open pull requests whose head is this commit. Used when the webhook has none. */
+  listPullRequestsForCommit(params: RepoRef & { sha: string }): Promise<PullRequestRef[]>;
+  /** Comments on a pull request's conversation. */
+  listIssueComments(params: RepoRef & { issueNumber: number }): Promise<IssueComment[]>;
+  createIssueComment(params: RepoRef & { issueNumber: number; body: string }): Promise<number>;
+  updateIssueComment(params: RepoRef & { commentId: number; body: string }): Promise<void>;
+  /** Changed files of a pull request, for context. Never the full patch. */
+  listPullRequestFiles(params: RepoRef & { pullNumber: number }): Promise<PullRequestFile[]>;
   /** Rate limit reported by the most recent response, or null before the first call. */
   rateLimit(): RateLimitSnapshot | null;
 }
@@ -83,6 +101,47 @@ export function createGitHubApp(options: GitHubAppOptions): GitHubApp {
             { owner, repo, run_id: runId, filter: 'latest', per_page: 100 },
           );
           return listJobsResponseSchema.parse(response.data).jobs;
+        },
+
+        async listPullRequestsForCommit({ owner, repo, sha }) {
+          const response = await octokit.request(
+            'GET /repos/{owner}/{repo}/commits/{commit_sha}/pulls',
+            { owner, repo, commit_sha: sha, per_page: 10 },
+          );
+          return listPullsResponseSchema.parse(response.data);
+        },
+
+        async listIssueComments({ owner, repo, issueNumber }) {
+          const response = await octokit.request(
+            'GET /repos/{owner}/{repo}/issues/{issue_number}/comments',
+            { owner, repo, issue_number: issueNumber, per_page: 100 },
+          );
+          return listCommentsResponseSchema.parse(response.data);
+        },
+
+        async createIssueComment({ owner, repo, issueNumber, body }) {
+          const response = await octokit.request(
+            'POST /repos/{owner}/{repo}/issues/{issue_number}/comments',
+            { owner, repo, issue_number: issueNumber, body },
+          );
+          return z.object({ id: z.number().int().positive() }).parse(response.data).id;
+        },
+
+        async updateIssueComment({ owner, repo, commentId, body }) {
+          await octokit.request('PATCH /repos/{owner}/{repo}/issues/comments/{comment_id}', {
+            owner,
+            repo,
+            comment_id: commentId,
+            body,
+          });
+        },
+
+        async listPullRequestFiles({ owner, repo, pullNumber }) {
+          const response = await octokit.request(
+            'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
+            { owner, repo, pull_number: pullNumber, per_page: 100 },
+          );
+          return listPullFilesResponseSchema.parse(response.data);
         },
 
         async downloadJobLogs({ owner, repo, jobId }) {
