@@ -199,10 +199,10 @@ pnpm evals --llm  # also sends unmatched fixtures to the configured LLM
 - [x] **Phase 5: Hybrid LLM Engine & Evals**
   - Adapters for Anthropic Claude, OpenAI, and local Ollama.
   - Accuracy eval harness against real-world CI logs.
-- [ ] **Phase 6: GitHub PR Commenting** _(Next)_
+- [x] **Phase 6: GitHub PR Commenting**
   - Single, updatable comment with hidden markers.
   - State transitions ("Fix Suggested" ➔ "✅ Passing").
-- [ ] **Phase 7: Web Dashboard**
+- [ ] **Phase 7: Web Dashboard** _(Next)_
   - Next.js dashboard with GitHub OAuth and analytics.
 - [ ] **Phase 8: Flaky Test Intelligence**
   - Historical JUnit artifact tracking and flaky detection.
