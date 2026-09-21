@@ -31,7 +31,7 @@ pnpm test
 pnpm format:check
 ```
 
-CI runs exactly these. Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
+CI runs these plus `pnpm build`, and builds the three Docker images. Commits follow [Conventional Commits](https://www.conventionalcommits.org/)
 (`feat:`, `fix:`, `test:`, `chore:`, `docs:`), and small focused commits are easier to review
 than one large one.
 

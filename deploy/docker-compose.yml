@@ -1,5 +1,25 @@
-# Local infrastructure for Logsy. App services (server, worker, web) are added in later phases.
+# The whole of Logsy, for self-hosting and for local development.
+#
+# Missing configuration is reported by each app at startup, listing every variable
+# it needs, so compose itself stays permissive.
+#
+#   docker compose --env-file .env -f deploy/docker-compose.yml up -d
+#
+# Postgres and Redis start on their own. The three application services are in the
+# `apps` profile, so day-to-day development can run just the databases:
+#
+#   docker compose ... up -d                 # postgres + redis only
+#   docker compose ... --profile apps up -d  # everything
 name: logsy
+
+x-app-env: &app-env
+  NODE_ENV: production
+  LOG_LEVEL: ${LOG_LEVEL:-info}
+  DATABASE_URL: postgres://${POSTGRES_USER:-logsy}:${POSTGRES_PASSWORD:-logsy}@postgres:5432/${POSTGRES_DB:-logsy}
+  REDIS_URL: redis://redis:6379
+  # Both optional: unset means the SDK is never loaded.
+  SENTRY_DSN: ${SENTRY_DSN:-}
+  OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT:-}
 
 services:
   postgres:
@@ -33,6 +53,82 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  # Applies pending migrations, then exits. Everything else waits for it.
+  migrate:
+    profiles: ['apps']
+    build:
+      context: ..
+      dockerfile: apps/worker/Dockerfile
+    environment: *app-env
+    command: ['node', '../../packages/db/dist/migrate-cli.js']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+
+  server:
+    profiles: ['apps']
+    build:
+      context: ..
+      dockerfile: apps/server/Dockerfile
+    environment:
+      <<: *app-env
+      HOST: 0.0.0.0
+      PORT: 3000
+      GITHUB_WEBHOOK_SECRET: ${GITHUB_WEBHOOK_SECRET:-}
+    ports:
+      - '${PORT:-3000}:3000'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  worker:
+    profiles: ['apps']
+    build:
+      context: ..
+      dockerfile: apps/worker/Dockerfile
+    environment:
+      <<: *app-env
+      GITHUB_APP_ID: ${GITHUB_APP_ID:-}
+      GITHUB_PRIVATE_KEY: ${GITHUB_PRIVATE_KEY:-}
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-5}
+      PUBLIC_URL: ${PUBLIC_URL:-}
+      LLM_ENABLED: ${LLM_ENABLED:-true}
+      LLM_PROVIDER: ${LLM_PROVIDER:-anthropic}
+      LLM_MODEL: ${LLM_MODEL:-claude-opus-5}
+      LLM_MODEL_FAST: ${LLM_MODEL_FAST:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://localhost:11434}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    profiles: ['apps']
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    environment:
+      <<: *app-env
+      AUTH_SECRET: ${AUTH_SECRET:-}
+      AUTH_GITHUB_ID: ${AUTH_GITHUB_ID:-}
+      AUTH_GITHUB_SECRET: ${AUTH_GITHUB_SECRET:-}
+      AUTH_URL: ${AUTH_URL:-http://localhost:3002}
+      AUTH_TRUST_HOST: 'true'
+    ports:
+      - '${WEB_PORT:-3002}:3002'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
 
 volumes:
   postgres-data:
