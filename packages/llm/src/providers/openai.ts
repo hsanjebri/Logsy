@@ -2,7 +2,13 @@ import { analysisResultSchema } from '@logsy/core';
 import OpenAI from 'openai';
 import { z } from 'zod';
 import { analyzeWithProvider } from '../analyze.js';
-import type { AnalysisInput, CompletionFn, LlmAnalysis, LlmProvider } from '../types.js';
+import type {
+  AnalysisInput,
+  CompletionFn,
+  LlmAnalysis,
+  LlmProvider,
+  SingleProviderName,
+} from '../types.js';
 
 export interface OpenAiProviderOptions {
   apiKey: string;
@@ -10,6 +16,8 @@ export interface OpenAiProviderOptions {
   baseUrl?: string;
   fetch?: typeof globalThis.fetch;
   maxTokens?: number;
+  /** Groq and Gemini speak the same protocol; this is what they are recorded as. */
+  name?: SingleProviderName;
 }
 
 // OpenAI's strict mode requires every property to be listed as required and no
@@ -47,11 +55,12 @@ export function createOpenAiProvider(options: OpenAiProviderOptions): LlmProvide
     };
   };
 
+  const name = options.name ?? 'openai';
   return {
-    name: 'openai',
+    name,
     model: options.model,
     analyze: (input: AnalysisInput): Promise<LlmAnalysis> =>
-      analyzeWithProvider(complete, input, { provider: 'openai', model: options.model }),
+      analyzeWithProvider(complete, input, { provider: name, model: options.model }),
   };
 }
 

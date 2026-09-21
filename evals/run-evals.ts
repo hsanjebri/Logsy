@@ -15,7 +15,8 @@ import {
   type AnalysisResult,
   type FailureCategory,
 } from '@logsy/core';
-import { PROMPT_VERSION, createProvider, type LlmProvider } from '@logsy/llm';
+import { llmEnvSchema, loadEnv } from '@logsy/config';
+import { PROMPT_VERSION, createConfiguredProvider, type LlmProvider } from '@logsy/llm';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
@@ -91,17 +92,17 @@ function keywordHits(result: AnalysisResult, keywords: string[]): string[] {
 
 function buildProvider(): LlmProvider | undefined {
   if (!process.argv.includes('--llm')) return undefined;
-  const provider = (process.env.LLM_PROVIDER ?? 'anthropic') as 'anthropic' | 'openai' | 'ollama';
-  const model = process.env.LLM_MODEL;
-  if (!model) {
-    throw new Error('LLM_MODEL must be set to run with --llm');
-  }
-  return createProvider({
-    provider,
-    model,
-    anthropicApiKey: process.env.ANTHROPIC_API_KEY,
-    openaiApiKey: process.env.OPENAI_API_KEY,
-    ollamaBaseUrl: process.env.OLLAMA_BASE_URL,
+  // Same validation and wiring as the worker, so evals measure what production runs.
+  const env = loadEnv([llmEnvSchema]);
+  return createConfiguredProvider({
+    provider: env.LLM_PROVIDER,
+    model: env.LLM_MODEL,
+    panel: env.LLM_PANEL,
+    anthropicApiKey: env.ANTHROPIC_API_KEY,
+    openaiApiKey: env.OPENAI_API_KEY,
+    groqApiKey: env.GROQ_API_KEY,
+    geminiApiKey: env.GEMINI_API_KEY,
+    ollamaBaseUrl: env.OLLAMA_BASE_URL,
   });
 }
 

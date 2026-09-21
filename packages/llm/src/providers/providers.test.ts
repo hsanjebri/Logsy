@@ -157,6 +157,57 @@ describe('openai provider', () => {
   });
 });
 
+describe('openai-compatible providers', () => {
+  const completion = () =>
+    Response.json({
+      id: 'chatcmpl-1',
+      object: 'chat.completion',
+      created: 0,
+      model: 'm',
+      choices: [
+        {
+          index: 0,
+          message: { role: 'assistant', content: JSON.stringify(result) },
+          finish_reason: 'stop',
+        },
+      ],
+      usage: { prompt_tokens: 700, completion_tokens: 300 },
+    });
+
+  it.each([
+    ['groq', 'openai/gpt-oss-120b', 'https://api.groq.com/openai/v1/chat/completions'],
+    [
+      'gemini',
+      'gemini-flash-latest',
+      'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
+    ],
+  ] as const)(
+    '%s calls its own endpoint and is recorded under its name',
+    async (name, model, url) => {
+      const { fetchImpl, calls } = capturingFetch(completion);
+      const provider = createProvider({
+        provider: name,
+        model,
+        groqApiKey: 'gsk-test',
+        geminiApiKey: 'gemini-test',
+        fetch: fetchImpl,
+      });
+      const analysis = await provider.analyze(input);
+
+      expect(calls[0]?.url).toBe(url);
+      expect(provider.name).toBe(name);
+      expect(analysis.result).toEqual(result);
+      // No published price for free tiers: unknown, not zero.
+      expect(analysis.usage.costUsd).toBeNull();
+    },
+  );
+
+  it('refuses to start without the key', () => {
+    expect(() => createProvider({ provider: 'groq', model: 'm' })).toThrow('GROQ_API_KEY');
+    expect(() => createProvider({ provider: 'gemini', model: 'm' })).toThrow('GEMINI_API_KEY');
+  });
+});
+
 describe('ollama provider', () => {
   it('posts to the local server and costs nothing', async () => {
     const { fetchImpl, calls } = capturingFetch(() =>

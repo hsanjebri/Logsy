@@ -42,30 +42,90 @@ export const serverEnvSchema = z.object({
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
 });
 
+const LLM_PROVIDERS = ['anthropic', 'openai', 'ollama', 'groq', 'gemini'] as const;
+type LlmProviderName = (typeof LLM_PROVIDERS)[number];
+
+/** Which key each provider needs; Ollama runs locally and needs none. */
+const PROVIDER_KEYS = {
+  anthropic: 'ANTHROPIC_API_KEY',
+  openai: 'OPENAI_API_KEY',
+  groq: 'GROQ_API_KEY',
+  gemini: 'GEMINI_API_KEY',
+  ollama: undefined,
+} as const satisfies Record<LlmProviderName, string | undefined>;
+
+/**
+ * `LLM_PANEL=groq:openai/gpt-oss-120b,gemini:gemini-flash-latest` — every member
+ * analyzes each failure. Split on the first colon only: model ids contain slashes
+ * and sometimes colons (`llama3:8b`).
+ */
+const llmPanelSchema = z
+  .string()
+  .min(1)
+  .transform((value, ctx) => {
+    const members: { provider: LlmProviderName; model: string }[] = [];
+    for (const entry of value.split(',').map((part) => part.trim())) {
+      const separator = entry.indexOf(':');
+      const provider = entry.slice(0, separator);
+      const model = entry.slice(separator + 1).trim();
+      if (separator <= 0 || model === '' || !isLlmProvider(provider)) {
+        ctx.addIssue({
+          code: 'custom',
+          message: `"${entry}" is not provider:model (providers: ${LLM_PROVIDERS.join(', ')})`,
+        });
+        return z.NEVER;
+      }
+      members.push({ provider, model });
+    }
+    if (members.length < 2) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'a panel needs at least two provider:model entries',
+      });
+      return z.NEVER;
+    }
+    return members;
+  });
+
+function isLlmProvider(value: string): value is LlmProviderName {
+  return (LLM_PROVIDERS as readonly string[]).includes(value);
+}
+
 export const llmEnvSchema = z
   .object({
-    LLM_PROVIDER: z.enum(['anthropic', 'openai', 'ollama']).default('anthropic'),
-    LLM_MODEL: z.string().min(1),
+    LLM_PROVIDER: z.enum(LLM_PROVIDERS).default('anthropic'),
+    LLM_MODEL: z.string().min(1).optional(),
     LLM_MODEL_FAST: z.string().min(1).optional(),
+    LLM_PANEL: llmPanelSchema.optional(),
     ANTHROPIC_API_KEY: z.string().min(1).optional(),
     OPENAI_API_KEY: z.string().min(1).optional(),
+    GROQ_API_KEY: z.string().min(1).optional(),
+    GEMINI_API_KEY: z.string().min(1).optional(),
     OLLAMA_BASE_URL: z.url().default('http://localhost:11434'),
   })
   .superRefine((env, ctx) => {
-    if (env.LLM_PROVIDER === 'anthropic' && env.ANTHROPIC_API_KEY === undefined) {
+    const requireKey = (provider: LlmProviderName, reason: string) => {
+      const key = PROVIDER_KEYS[provider];
+      if (key !== undefined && env[key] === undefined) {
+        ctx.addIssue({ code: 'custom', path: [key], message: `required when ${reason}` });
+      }
+    };
+
+    if (env.LLM_PANEL) {
+      // The panel replaces LLM_PROVIDER/LLM_MODEL, so only its members need keys.
+      for (const provider of new Set(env.LLM_PANEL.map((member) => member.provider))) {
+        requireKey(provider, `LLM_PANEL uses ${provider}`);
+      }
+      return;
+    }
+    if (env.LLM_MODEL === undefined) {
       ctx.addIssue({
         code: 'custom',
-        path: ['ANTHROPIC_API_KEY'],
-        message: 'required when LLM_PROVIDER=anthropic',
+        path: ['LLM_MODEL'],
+        message: 'required unless LLM_PANEL is set',
       });
     }
-    if (env.LLM_PROVIDER === 'openai' && env.OPENAI_API_KEY === undefined) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['OPENAI_API_KEY'],
-        message: 'required when LLM_PROVIDER=openai',
-      });
-    }
+    requireKey(env.LLM_PROVIDER, `LLM_PROVIDER=${env.LLM_PROVIDER}`);
   });
 
 export interface EnvIssue {

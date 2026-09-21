@@ -105,6 +105,44 @@ describe('llmEnvSchema', () => {
     expect(env.LLM_PROVIDER).toBe('anthropic');
   });
 
+  it('requires LLM_MODEL unless a panel is configured', () => {
+    const error = captureError(() => loadEnv([llmEnvSchema], { ANTHROPIC_API_KEY: 'sk-test' }));
+    expect(error.issues).toEqual([
+      { variable: 'LLM_MODEL', message: 'required unless LLM_PANEL is set' },
+    ]);
+  });
+
+  it('parses a panel, splitting each entry on its first colon only', () => {
+    const env = loadEnv([llmEnvSchema], {
+      LLM_PANEL: 'groq:openai/gpt-oss-120b, ollama:llama3:8b',
+      GROQ_API_KEY: 'gsk-test',
+    });
+    expect(env.LLM_PANEL).toEqual([
+      { provider: 'groq', model: 'openai/gpt-oss-120b' },
+      { provider: 'ollama', model: 'llama3:8b' },
+    ]);
+  });
+
+  it('requires the key of every panel member, and not the default provider', () => {
+    const error = captureError(() =>
+      loadEnv([llmEnvSchema], { LLM_PANEL: 'groq:a,gemini:b', GROQ_API_KEY: 'gsk-test' }),
+    );
+    expect(error.issues).toEqual([
+      { variable: 'GEMINI_API_KEY', message: 'required when LLM_PANEL uses gemini' },
+    ]);
+  });
+
+  it.each([
+    ['a single member', 'groq:a'],
+    ['an unknown provider', 'groq:a,grok:b'],
+    ['a missing model', 'groq:a,gemini:'],
+  ])('rejects a panel with %s', (_label, value) => {
+    const error = captureError(() =>
+      loadEnv([llmEnvSchema], { LLM_PANEL: value, GROQ_API_KEY: 'k', GEMINI_API_KEY: 'k' }),
+    );
+    expect(error.issues[0]?.variable).toBe('LLM_PANEL');
+  });
+
   it('does not need a key for ollama', () => {
     const env = loadEnv([llmEnvSchema], { LLM_PROVIDER: 'ollama', LLM_MODEL: 'llama3' });
     expect(env.OLLAMA_BASE_URL).toBe('http://localhost:11434');

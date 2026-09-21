@@ -10,7 +10,7 @@ import {
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
 import { createGitHubApp } from '@logsy/github';
-import { createProvider, createRoutingProvider, type LlmProvider } from '@logsy/llm';
+import { createConfiguredProvider, type LlmProvider } from '@logsy/llm';
 import {
   analyzeRunJobSchema,
   createAnalyzeRunWorker,
@@ -84,18 +84,16 @@ const github = createGitHubApp({
 
 function buildLlm(): LlmProvider | undefined {
   if (!llmEnv) return undefined;
-  const common = {
+  return createConfiguredProvider({
     provider: llmEnv.LLM_PROVIDER,
+    model: llmEnv.LLM_MODEL,
+    modelFast: llmEnv.LLM_MODEL_FAST,
+    panel: llmEnv.LLM_PANEL,
     anthropicApiKey: llmEnv.ANTHROPIC_API_KEY,
     openaiApiKey: llmEnv.OPENAI_API_KEY,
+    groqApiKey: llmEnv.GROQ_API_KEY,
+    geminiApiKey: llmEnv.GEMINI_API_KEY,
     ollamaBaseUrl: llmEnv.OLLAMA_BASE_URL,
-  };
-  const primary = createProvider({ ...common, model: llmEnv.LLM_MODEL });
-  if (!llmEnv.LLM_MODEL_FAST) return primary;
-  // Short logs rarely need the expensive model.
-  return createRoutingProvider({
-    primary,
-    fast: createProvider({ ...common, model: llmEnv.LLM_MODEL_FAST }),
   });
 }
 

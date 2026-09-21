@@ -35,7 +35,11 @@ export interface LlmAnalysis {
   fellBack: boolean;
 }
 
-export type ProviderName = 'anthropic' | 'openai' | 'ollama';
+/** A single model backend. */
+export type SingleProviderName = 'anthropic' | 'openai' | 'ollama' | 'groq' | 'gemini';
+
+/** `panel` is several single providers asked the same question; see panel.ts. */
+export type ProviderName = SingleProviderName | 'panel';
 
 export interface LlmProvider {
   readonly name: ProviderName;
