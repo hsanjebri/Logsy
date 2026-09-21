@@ -52,6 +52,10 @@ spec:
             - name: OLLAMA_BASE_URL
               value: {{ . | quote }}
             {{- end }}
+            {{- with .Values.config.llm.panel }}
+            - name: LLM_PANEL
+              value: {{ . | quote }}
+            {{- end }}
           resources: {{- toYaml .Values.worker.resources | nindent 12 }}
           securityContext:
             allowPrivilegeEscalation: false

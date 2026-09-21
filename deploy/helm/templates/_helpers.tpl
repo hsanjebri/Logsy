@@ -63,7 +63,7 @@ absent simply leaves the variable unset, and the app reports what it is missing.
 {{- end -}}
 
 {{- define "logsy.secretEnv" -}}
-{{- $keys := list "GITHUB_WEBHOOK_SECRET" "GITHUB_APP_ID" "GITHUB_PRIVATE_KEY" "AUTH_SECRET" "AUTH_GITHUB_ID" "AUTH_GITHUB_SECRET" "ANTHROPIC_API_KEY" "OPENAI_API_KEY" -}}
+{{- $keys := list "GITHUB_WEBHOOK_SECRET" "GITHUB_APP_ID" "GITHUB_PRIVATE_KEY" "AUTH_SECRET" "AUTH_GITHUB_ID" "AUTH_GITHUB_SECRET" "ANTHROPIC_API_KEY" "OPENAI_API_KEY" "GROQ_API_KEY" "GEMINI_API_KEY" -}}
 {{- range $keys }}
 - name: {{ . }}
   valueFrom:

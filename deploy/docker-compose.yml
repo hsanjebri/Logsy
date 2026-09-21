@@ -103,6 +103,9 @@ services:
       LLM_MODEL_FAST: ${LLM_MODEL_FAST:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      LLM_PANEL: ${LLM_PANEL:-}
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://localhost:11434}
     depends_on:
       migrate:

@@ -88,6 +88,9 @@ That is the whole product. One comment, updated in place on every re-run, replac
   per-repo settings, and how often the analyses were judged helpful.
 - 🔒 **Yours.** Self-hosted in one `docker compose up`, bring your own key, or run entirely
   offline against a local Ollama model.
+- 🤝 **Models that check each other.** Optionally, a panel of models (for example Groq and
+  Gemini, both on free tiers) analyzes each failure in parallel; when they disagree, Logsy
+  stays quiet instead of guessing.
 
 ---
 
@@ -125,7 +128,7 @@ sequenceDiagram
     else A rule matches
         Engine-->>Worker: Deterministic diagnosis
     else Neither
-        Engine->>Engine: Ask the LLM (Claude / OpenAI / Ollama)
+        Engine->>Engine: Ask the LLM or a panel (Claude / OpenAI / Groq / Gemini / Ollama)
         Engine-->>Worker: Structured result, validated by Zod
     end
 
@@ -149,7 +152,7 @@ logsy/
 │   ├── core/            # Pure, zero-I/O: cleaning, error location, redaction,
 │   │                    #   fingerprinting, rules, JUnit parsing, comment markdown
 │   ├── github/          # Octokit app, typed helpers for jobs, logs, artifacts, PRs
-│   ├── llm/             # Provider interface + Anthropic / OpenAI / Ollama adapters
+│   ├── llm/             # Providers (Anthropic, OpenAI, Groq, Gemini, Ollama) + panel voting
 │   ├── db/              # Drizzle schema, migrations, query helpers
 │   ├── queue/           # Queue names, Zod job payloads, Redis connection
 │   └── config/          # Zod-validated env, shared tsconfig and ESLint config

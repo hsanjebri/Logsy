@@ -32,6 +32,8 @@ Fill in `.env`. The minimum for analysis to work:
 | `GITHUB_PRIVATE_KEY`    | The generated `.pem`, on one line with `\n` escapes |
 | `GITHUB_WEBHOOK_SECRET` | What you set when creating the app                  |
 | `ANTHROPIC_API_KEY`     | Only if `LLM_PROVIDER=anthropic`                    |
+| `GROQ_API_KEY`          | Only if Groq is used (free tier available)          |
+| `GEMINI_API_KEY`        | Only if Gemini is used (free tier available)        |
 
 The dashboard additionally needs `AUTH_SECRET`, `AUTH_GITHUB_ID` and `AUTH_GITHUB_SECRET`.
 Then:
@@ -80,6 +82,23 @@ OLLAMA_BASE_URL=http://host.docker.internal:11434
 ```
 
 Nothing then leaves your network.
+
+### Running on free tiers, with a panel of models
+
+Groq and Google AI Studio both offer free API keys. Instead of trusting one model, let
+several analyze each failure in parallel:
+
+```bash
+LLM_PANEL=groq:openai/gpt-oss-120b,gemini:gemini-flash-latest
+GROQ_API_KEY=gsk_...
+GEMINI_API_KEY=...
+```
+
+The panel votes on the failure category. When the models agree, the most confident
+answer is posted with both models' evidence merged. When they disagree, confidence is
+capped below the comment threshold, so the PR gets the error excerpt instead of a guess.
+If one member errors (a free-tier rate limit, say), the others still answer. Latency is
+the slowest member's, not the sum: about 3 seconds on the eval set.
 
 ---
 

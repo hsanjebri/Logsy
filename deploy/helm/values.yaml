@@ -27,6 +27,8 @@ config:
     model: claude-opus-5
     modelFast: ''
     ollamaBaseUrl: ''
+    # e.g. groq:openai/gpt-oss-120b,gemini:gemini-flash-latest (see docs/self-hosting.md)
+    panel: ''
   # Both optional: unset means the SDK is never loaded.
   sentryDsn: ''
   otlpEndpoint: ''
@@ -37,7 +39,7 @@ existingSecret: ''
 # ... or let the chart create one from these. Keys used from either source:
 #   GITHUB_WEBHOOK_SECRET, GITHUB_APP_ID, GITHUB_PRIVATE_KEY,
 #   AUTH_SECRET, AUTH_GITHUB_ID, AUTH_GITHUB_SECRET,
-#   ANTHROPIC_API_KEY / OPENAI_API_KEY
+#   ANTHROPIC_API_KEY / OPENAI_API_KEY / GROQ_API_KEY / GEMINI_API_KEY
 secrets: {}
 
 # Applies pending migrations before each upgrade, as a Helm hook.
