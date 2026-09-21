@@ -23,9 +23,11 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm turbo run build --filter=@logsy/server...
 
-# Only production dependencies travel into the final image. CI=1 because pnpm
-# refuses to remove a modules directory without a TTY unless it knows it is automated.
-RUN CI=1 pnpm prune --prod
+# Only production dependencies travel into the final image. `pnpm prune` empties
+# every workspace package's node_modules, so reinstall instead: production only,
+# scoped to this app and the workspace packages it uses, from the store filled above.
+# CI=1 because pnpm refuses to remove a modules directory without a TTY otherwise.
+RUN rm -rf node_modules apps/*/node_modules packages/*/node_modules evals/node_modules  && CI=1 pnpm install --frozen-lockfile --prod --offline --filter=@logsy/server...
 
 FROM base AS runtime
 ENV NODE_ENV=production
