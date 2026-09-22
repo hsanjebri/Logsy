@@ -1,4 +1,5 @@
 import { auth, signIn } from '@/auth';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function SignInPage() {
@@ -40,6 +41,13 @@ export default async function SignInPage() {
             Continue with GitHub
           </button>
         </form>
+
+        <Link
+          href="/playground"
+          className="text-center text-[13px] text-secondary no-underline hover:text-ink"
+        >
+          Or try it on a log without signing in →
+        </Link>
       </div>
     </main>
   );

@@ -195,6 +195,11 @@ free-tier panel, see [self-hosting](./docs/self-hosting.md)), unmatched failures
 model; `--llm-only` skips the rules to see what the model says, and `--json` prints the
 full result.
 
+Prefer a page? `pnpm dev:web` and open <http://localhost:3002/playground>: paste a log (or
+pick an example) and see the verdict and the rendered PR comment. It needs no login. It
+uses the LLM only when `PLAYGROUND_LLM=true`, since anyone who can reach it could
+otherwise spend your quota.
+
 ### Local development
 
 ```bash

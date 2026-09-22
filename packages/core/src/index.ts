@@ -35,6 +35,8 @@ export {
   formatPassingComment,
 } from './comment.js';
 export type { CommentContext } from './comment.js';
+export { parseCommentMarkdown, parseInline } from './comment-markdown.js';
+export type { MarkdownBlock, MarkdownInline } from './comment-markdown.js';
 export { parseJUnitFiles, parseJUnitXml } from './junit.js';
 export type { TestResultRecord, TestStatus } from './junit.js';
 export { detectFlakyTests, flakyNote, testKey } from './flaky.js';
