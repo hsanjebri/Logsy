@@ -8,3 +8,4 @@ CLAUDE.md
 # Helm templates are Go templates, not YAML Prettier can parse.
 deploy/helm/templates/
 .next
+next-env.d.ts
