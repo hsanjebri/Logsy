@@ -1,12 +1,16 @@
 import {
   COMMENT_MARKER,
+  categoryLabel,
   extractFailureContext,
   fingerprint,
   formatFailureComment,
+  isConfident,
   matchRule,
+  parseCommentMarkdown,
   ruleToAnalysis,
   type AnalysisResult,
   type FailureContext,
+  type MarkdownBlock,
 } from '@logsy/core';
 import type { LlmProvider, Usage } from './types.js';
 
@@ -112,5 +116,50 @@ export async function analyzeLog(
     analysis,
     llm,
     comment,
+  };
+}
+
+/**
+ * What a user interface needs from an analysis, in plain data: the comment arrives
+ * as a parsed tree, so a page or a window renders it without an HTML string.
+ */
+export interface LogAnalysisSummary {
+  stepName: string | null;
+  charsOriginal: number;
+  charsExcerpt: number;
+  redactions: number;
+  fingerprint: string;
+  source: LogAnalysis['source'];
+  ruleId: string | null;
+  category: string;
+  confidence: number;
+  confident: boolean;
+  title: string;
+  llm: { model: string; latencyMs: number; tokens: number; fellBack: boolean } | null;
+  markdown: string;
+  blocks: MarkdownBlock[];
+}
+
+export function summarizeLogAnalysis(result: LogAnalysis): LogAnalysisSummary {
+  return {
+    stepName: result.context.stepName,
+    charsOriginal: result.context.charsOriginal,
+    charsExcerpt: result.context.charsExcerpt,
+    redactions: result.redactions,
+    fingerprint: result.fingerprint,
+    source: result.source,
+    ruleId: result.ruleId,
+    category: categoryLabel(result.analysis.category),
+    confidence: result.analysis.confidence,
+    confident: isConfident(result.analysis),
+    title: result.analysis.title,
+    llm: result.llm && {
+      model: result.llm.model,
+      latencyMs: result.llm.latencyMs,
+      tokens: result.llm.usage.inputTokens + result.llm.usage.outputTokens,
+      fellBack: result.llm.fellBack,
+    },
+    markdown: result.comment,
+    blocks: parseCommentMarkdown(result.comment),
   };
 }

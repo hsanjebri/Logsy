@@ -1,36 +1,39 @@
 {
-  "name": "@logsy/web",
+  "name": "@logsy/desktop",
   "version": "0.0.0",
   "private": true,
-  "description": "Next.js dashboard: failures, recurring errors and flaky tests",
+  "description": "Logsy as a desktop app: drop a CI log in, see why it failed",
   "license": "MIT",
+  "type": "module",
+  "main": "dist/main/main.mjs",
   "scripts": {
-    "dev": "next dev --port 3002",
-    "build": "next build",
-    "start": "next start --port 3002",
+    "build": "node build.mjs",
+    "start": "electron .",
+    "dev": "node build.mjs && electron .",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run",
+    "smoke": "node build.mjs && electron dist/main/smoke.mjs"
   },
   "dependencies": {
     "@logsy/config": "workspace:*",
     "@logsy/core": "workspace:*",
-    "@logsy/db": "workspace:*",
     "@logsy/llm": "workspace:*",
     "@logsy/ui": "workspace:*",
-    "next": "^16.3.5",
-    "next-auth": "5.0.0-beta.32",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/cli": "^4.3.3",
     "@types/node": "^22.20.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "electron": "^40.4.0",
+    "esbuild": "^0.25.12",
     "eslint": "^10.10.0",
-    "postcss": "^8.5.28",
     "tailwindcss": "^4.3.3",
-    "typescript": "~6.0.3"
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
   }
 }

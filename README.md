@@ -146,9 +146,11 @@ milliseconds. Everything expensive happens in the worker, where it can be retrie
 logsy/
 ├── apps/
 │   ├── cli/             # `logsy analyze`: run the analysis on any log from the terminal
+│   ├── desktop/         # Electron app: drop a log in, read the verdict and the comment
 │   ├── server/          # Fastify: webhook receiver, health, signature verification
 │   ├── worker/          # BullMQ jobs: analyze-run, post-comment, test-report
 │   └── web/             # Next.js dashboard (App Router, Tailwind, Auth.js)
+├── packages/ui/         # React components shared by the dashboard and the desktop app
 ├── packages/
 │   ├── core/            # Pure, zero-I/O: cleaning, error location, redaction,
 │   │                    #   fingerprinting, rules, JUnit parsing, comment markdown
@@ -194,6 +196,10 @@ and the PR comment it would post. With an LLM configured in `.env` (a single mod
 free-tier panel, see [self-hosting](./docs/self-hosting.md)), unmatched failures go to the
 model; `--llm-only` skips the rules to see what the model says, and `--json` prints the
 full result.
+
+Prefer a window? `pnpm desktop` opens the desktop app: drop a log on it, or pick one of
+the real failed builds it ships with, and read the verdict and comment side by side. It
+is Electron, so the first run downloads its runtime.
 
 Prefer a page? `pnpm dev:web` and open <http://localhost:3002/playground>: paste a log (or
 pick an example) and see the verdict and the rendered PR comment. It needs no login. It

@@ -10,7 +10,7 @@ if (existsSync(rootEnv)) process.loadEnvFile(rootEnv);
 
 const config: NextConfig = {
   // The dashboard reads the database directly through the workspace packages.
-  transpilePackages: ['@logsy/core', '@logsy/db', '@logsy/llm'],
+  transpilePackages: ['@logsy/core', '@logsy/db', '@logsy/llm', '@logsy/ui'],
   typedRoutes: true,
 };
 

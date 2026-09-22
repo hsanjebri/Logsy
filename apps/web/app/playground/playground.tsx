@@ -1,6 +1,6 @@
 'use client';
 
-import { CommentPreview } from '@/components/comment-preview';
+import { CommentPreview } from '@logsy/ui';
 import { useActionState, useState, type ChangeEvent } from 'react';
 import { analyzePlaygroundLog } from './actions';
 import { SAMPLES } from './samples';

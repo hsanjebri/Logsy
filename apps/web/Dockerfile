@@ -8,16 +8,20 @@ WORKDIR /app
 FROM base AS build
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json ./
 COPY packages/config/package.json packages/config/
+COPY packages/ui/package.json packages/ui/
 COPY packages/core/package.json packages/core/
 COPY packages/db/package.json packages/db/
 COPY packages/github/package.json packages/github/
 COPY packages/llm/package.json packages/llm/
 COPY packages/queue/package.json packages/queue/
 COPY apps/cli/package.json apps/cli/
+COPY apps/desktop/package.json apps/desktop/
 COPY apps/server/package.json apps/server/
 COPY apps/worker/package.json apps/worker/
 COPY apps/web/package.json apps/web/
 COPY evals/package.json evals/
+# The desktop app is in this workspace but never runs in a container.
+ENV ELECTRON_SKIP_BINARY_DOWNLOAD=1
 RUN pnpm install --frozen-lockfile
 
 COPY . .

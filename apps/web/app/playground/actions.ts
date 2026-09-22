@@ -1,7 +1,6 @@
 'use server';
 
-import { categoryLabel, isConfident, parseCommentMarkdown } from '@logsy/core';
-import { analyzeLog } from '@logsy/llm';
+import { analyzeLog, summarizeLogAnalysis } from '@logsy/llm';
 import { z } from 'zod';
 import { playgroundLlm } from './llm';
 import { MAX_LOG_CHARS, type PlaygroundState } from './shared';
@@ -38,30 +37,7 @@ export async function analyzePlaygroundLog(
       skipRules: parsed.data.skipRules,
       repoFullName: 'playground/example',
     });
-    return {
-      status: 'done',
-      result: {
-        stepName: result.context.stepName,
-        charsOriginal: result.context.charsOriginal,
-        charsExcerpt: result.context.charsExcerpt,
-        redactions: result.redactions,
-        fingerprint: result.fingerprint,
-        source: result.source,
-        ruleId: result.ruleId,
-        category: categoryLabel(result.analysis.category),
-        confidence: result.analysis.confidence,
-        confident: isConfident(result.analysis),
-        title: result.analysis.title,
-        llm: result.llm && {
-          model: result.llm.model,
-          latencyMs: result.llm.latencyMs,
-          tokens: result.llm.usage.inputTokens + result.llm.usage.outputTokens,
-          fellBack: result.llm.fellBack,
-        },
-        markdown: result.comment,
-        blocks: parseCommentMarkdown(result.comment),
-      },
-    };
+    return { status: 'done', result: summarizeLogAnalysis(result) };
   } catch (error) {
     // Provider errors (rate limits, outages) are worth showing; the log itself is not echoed.
     const message = error instanceof Error ? error.message : 'unknown error';
