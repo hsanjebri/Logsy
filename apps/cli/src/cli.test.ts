@@ -13,8 +13,8 @@ const plain: Theme = createTheme({ level: 'none', interactive: false, width: 80 
 const colored: Theme = createTheme({ level: 'truecolor', interactive: true, width: 80 });
 
 describe('parseCliArgs', () => {
-  it('shows help with no command', () => {
-    expect(parseCliArgs([])).toEqual({ kind: 'help' });
+  it('shows help with no command, noting the menus needed a terminal', () => {
+    expect(parseCliArgs([])).toEqual({ kind: 'help', noTerminal: true });
     expect(parseCliArgs(['analyze', '--help'])).toEqual({ kind: 'help' });
   });
 

@@ -75,6 +75,13 @@ function buildLlm(required: boolean): LlmProvider | undefined {
 async function main(): Promise<void> {
   const command = parseCliArgs(process.argv.slice(2), interactive && process.stdin.isTTY);
   if (command.kind === 'help') {
+    if (command.noTerminal === true) {
+      // Asked for the menus from a pipe, a CI job or an editor's task runner.
+      process.stdout.write(
+        `${theme.warning('The menus need a terminal to type into, and this output is not one.')}\n` +
+          `${theme.dim('Run `pnpm -s logsy` in your own terminal window, or `pnpm demo` for a report here.')}\n\n`,
+      );
+    }
     process.stdout.write(`${USAGE}\n`);
     return;
   }

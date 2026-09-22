@@ -184,8 +184,9 @@ describe('examples', () => {
 describe('command line', () => {
   it('opens the menus only when a terminal is attached', () => {
     expect(parseCliArgs([], true)).toEqual({ kind: 'interactive' });
-    expect(parseCliArgs([], false)).toEqual({ kind: 'help' });
+    expect(parseCliArgs([], false)).toEqual({ kind: 'help', noTerminal: true });
     expect(parseCliArgs(['interactive'], false)).toEqual({ kind: 'interactive' });
-    expect(parseCliArgs(['--json'], true)).toEqual({ kind: 'help' });
+    // --json is for scripts, so a missing terminal is expected, not worth a warning.
+    expect(parseCliArgs(['--json'], true)).toEqual({ kind: 'help', noTerminal: false });
   });
 });

@@ -24,7 +24,8 @@ The model is configured in .env (LLM_PROVIDER and LLM_MODEL, or LLM_PANEL for
 several at once). Colour follows the terminal; NO_COLOR turns it off.`;
 
 export type CliCommand =
-  | { kind: 'help' }
+  /** `noTerminal` when the menus were wanted but nothing is attached to type into. */
+  | { kind: 'help'; noTerminal?: boolean }
   | { kind: 'interactive' }
   | {
       kind: 'analyze';
@@ -54,7 +55,8 @@ export function parseCliArgs(argv: readonly string[], interactive = false): CliC
   if (values.help || command === 'help') return { kind: 'help' };
   if (command === undefined) {
     // Bare `logsy` in a terminal opens the menus; piped, it prints the help.
-    return interactive && !values.json ? { kind: 'interactive' } : { kind: 'help' };
+    if (interactive && !values.json) return { kind: 'interactive' };
+    return { kind: 'help', noTerminal: !values.json };
   }
   if (command === 'interactive') return { kind: 'interactive' };
   if (command !== 'analyze') throw new Error(`unknown command "${command}"`);
