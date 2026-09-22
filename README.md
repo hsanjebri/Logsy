@@ -187,9 +187,14 @@ No GitHub App, database or API key needed:
 git clone https://github.com/hsanjebri/Logsy.git && cd Logsy
 pnpm install
 
-pnpm demo                                # rules only, on a bundled real CI log
+pnpm -s logsy                            # menus: pick a log, read the report, repeat
+pnpm demo                                # straight to a report, rules only
 pnpm logsy analyze path/to/ci.log        # your own log (or - for stdin)
 ```
+
+Run with no arguments and Logsy opens its menus: ten real failed builds to try, a file
+path, or a pasted log, with the models switchable from the same place and the finished
+comment one keypress from your clipboard. Piped or scripted, it stays a plain command.
 
 It prints what Logsy found (failing step, secrets redacted, fingerprint, how it decided)
 and the PR comment it would post. With an LLM configured in `.env` (a single model or a

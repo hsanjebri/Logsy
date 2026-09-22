@@ -6,6 +6,8 @@ import { readFile, readdir } from 'node:fs/promises';
 import { basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { USAGE, parseCliArgs } from './args.js';
+import { runInteractive } from './tui/app.js';
+import { openTerminal } from './tui/terminal.js';
 import { renderReport } from './render.js';
 import { startSpinner } from './spinner.js';
 import { colorLevel, createTheme } from './theme.js';
@@ -71,9 +73,25 @@ function buildLlm(required: boolean): LlmProvider | undefined {
 }
 
 async function main(): Promise<void> {
-  const command = parseCliArgs(process.argv.slice(2));
+  const command = parseCliArgs(process.argv.slice(2), interactive && process.stdin.isTTY);
   if (command.kind === 'help') {
     process.stdout.write(`${USAGE}\n`);
+    return;
+  }
+
+  if (command.kind === 'interactive') {
+    const terminal = openTerminal();
+    try {
+      await runInteractive({
+        terminal,
+        theme,
+        examplesDir: FIXTURES_DIR,
+        llm: buildLlm(false),
+        llmNote: 'no model configured; see .env',
+      });
+    } finally {
+      terminal.close();
+    }
     return;
   }
 

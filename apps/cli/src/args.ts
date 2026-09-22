@@ -2,6 +2,7 @@ import { parseArgs } from 'node:util';
 
 export const USAGE = `Logsy · why your CI failed, explained.
 
+  logsy                       menus: pick a log, read the report, pick another
   logsy analyze [file] [options]
 
 Runs Logsy's analysis on a CI log and prints the pull request comment it would post.
@@ -24,6 +25,7 @@ several at once). Colour follows the terminal; NO_COLOR turns it off.`;
 
 export type CliCommand =
   | { kind: 'help' }
+  | { kind: 'interactive' }
   | {
       kind: 'analyze';
       file: string | undefined;
@@ -34,7 +36,7 @@ export type CliCommand =
     };
 
 /** Throws with a message fit for the terminal when the arguments make no sense. */
-export function parseCliArgs(argv: readonly string[]): CliCommand {
+export function parseCliArgs(argv: readonly string[], interactive = false): CliCommand {
   const { values, positionals } = parseArgs({
     args: [...argv],
     allowPositionals: true,
@@ -49,7 +51,12 @@ export function parseCliArgs(argv: readonly string[]): CliCommand {
   });
 
   const [command, file, ...extra] = positionals;
-  if (values.help || command === undefined || command === 'help') return { kind: 'help' };
+  if (values.help || command === 'help') return { kind: 'help' };
+  if (command === undefined) {
+    // Bare `logsy` in a terminal opens the menus; piped, it prints the help.
+    return interactive && !values.json ? { kind: 'interactive' } : { kind: 'help' };
+  }
+  if (command === 'interactive') return { kind: 'interactive' };
   if (command !== 'analyze') throw new Error(`unknown command "${command}"`);
   if (extra.length > 0) throw new Error('analyze takes a single log file');
   if (!values.llm && values['llm-only']) {
