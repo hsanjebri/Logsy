@@ -23,7 +23,7 @@
     "dev:worker": "turbo run build --filter=@logsy/worker^... && pnpm --filter @logsy/worker dev",
     "fixture": "turbo run build --filter=@logsy/worker && pnpm --filter @logsy/worker fixture",
     "evals": "turbo run build --filter=@logsy/llm && pnpm --filter @logsy/evals evals",
-    "logsy": "turbo run build --filter=@logsy/cli... --output-logs=errors-only && node --env-file-if-exists=.env apps/cli/dist/main.js",
+    "logsy": "node scripts/logsy.mjs",
     "demo": "pnpm logsy analyze --no-llm",
     "desktop": "turbo run build --filter=@logsy/desktop... --output-logs=errors-only && pnpm --filter @logsy/desktop start",
     "dev:web": "turbo run build --filter=@logsy/web^... && pnpm --filter @logsy/web dev"
