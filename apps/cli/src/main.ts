@@ -6,9 +6,17 @@ import { readFile, readdir } from 'node:fs/promises';
 import { basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { USAGE, parseCliArgs } from './args.js';
-import { COLOR, PLAIN, renderComment, renderSummary } from './render.js';
+import { renderReport } from './render.js';
+import { startSpinner } from './spinner.js';
+import { colorLevel, createTheme } from './theme.js';
 
-const style = process.stdout.isTTY && !process.env.NO_COLOR ? COLOR : PLAIN;
+const interactive = process.stdout.isTTY;
+const theme = createTheme({
+  level: colorLevel(process.env, interactive),
+  interactive,
+  // Not a terminal: a width that reads well when piped into a file or a pager.
+  width: interactive ? process.stdout.columns : 92,
+});
 
 /** Real logs from public projects, bundled with the evals; present in a clone of the repo. */
 const FIXTURES_DIR = fileURLToPath(new URL('../../../evals/fixtures/', import.meta.url));
@@ -20,14 +28,14 @@ async function readInput(file: string | undefined): Promise<{ label: string; tex
     return { label: 'stdin', text: Buffer.concat(chunks).toString('utf8') };
   }
   if (file !== undefined) {
-    return { label: file, text: await readFile(file, 'utf8') };
+    return { label: basename(file), text: await readFile(file, 'utf8') };
   }
   if (!existsSync(FIXTURES_DIR)) throw new Error('pass a log file: logsy analyze <file>');
   const names = (await readdir(FIXTURES_DIR)).filter((name) => name.endsWith('.log')).sort();
   const pick = names.find((name) => name.includes('vitest')) ?? names[0];
   if (!pick) throw new Error('pass a log file: logsy analyze <file>');
   return {
-    label: `example log ${style.dim(`(${basename(pick)})`)}`,
+    label: `${basename(pick)} (example)`,
     text: await readFile(`${FIXTURES_DIR}${pick}`, 'utf8'),
   };
 }
@@ -54,9 +62,9 @@ function buildLlm(required: boolean): LlmProvider | undefined {
   } catch (error) {
     if (required || !(error instanceof EnvValidationError)) throw error;
     process.stderr.write(
-      style.yellow('LLM not configured, using rules only:\n') +
-        style.dim(error.issues.map((issue) => `  ${issue.variable}: ${issue.message}`).join('\n')) +
-        '\n',
+      `${theme.warning('LLM not configured, using rules only:')}\n${theme.dim(
+        error.issues.map((issue) => `  ${issue.variable}: ${issue.message}`).join('\n'),
+      )}\n`,
     );
     return undefined;
   }
@@ -71,26 +79,31 @@ async function main(): Promise<void> {
 
   const input = await readInput(command.file);
   const llm = command.llm ? buildLlm(command.llmOnly) : undefined;
-  if (llm && !command.json) {
-    process.stderr.write(style.dim(`analyzing with ${llm.model}...\n`));
-  }
+  // Rules answer instantly; only a model call is worth a spinner.
+  const spinner =
+    llm && !command.json ? startSpinner(`Analyzing with ${llm.model}`, theme) : undefined;
 
-  const result = await analyzeLog(input.text, {
-    llm,
-    skipRules: command.llmOnly,
-    jobName: command.jobName,
-  });
+  try {
+    const result = await analyzeLog(input.text, {
+      ...(llm ? { llm } : {}),
+      skipRules: command.llmOnly,
+      jobName: command.jobName,
+    });
+    spinner?.stop();
 
-  if (command.json) {
-    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
-    return;
+    process.stdout.write(
+      command.json
+        ? `${JSON.stringify(result, null, 2)}\n`
+        : renderReport(input.label, result, theme),
+    );
+  } catch (error) {
+    spinner?.stop();
+    throw error;
   }
-  process.stdout.write(renderSummary(input.label, result, style));
-  process.stdout.write(renderComment(result, style));
 }
 
 main().catch((error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
-  process.stderr.write(`${style.red('error:')} ${message}\n\n${USAGE}\n`);
+  process.stderr.write(`${theme.danger('error:')} ${message}\n\n${USAGE}\n`);
   process.exitCode = 1;
 });

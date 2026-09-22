@@ -1,18 +1,26 @@
 import { parseArgs } from 'node:util';
 
-export const USAGE = `Usage: logsy analyze [file] [options]
+export const USAGE = `Logsy · why your CI failed, explained.
 
-Runs Logsy's analysis on a CI log and prints the PR comment it would post.
+  logsy analyze [file] [options]
+
+Runs Logsy's analysis on a CI log and prints the pull request comment it would post.
 Reads stdin when the file is "-", and a bundled example log when it is omitted.
 
-Options:
+Options
   --no-llm        rules only: no API calls, no key needed
   --llm-only      skip the rules, to see what the model (or panel) says
   --job <name>    job name shown in the comment (default: build)
-  --json          print the full result as JSON
+  --json          print the full result as JSON, for scripts
   -h, --help      show this help
 
-The LLM is configured from .env (LLM_PROVIDER / LLM_MODEL, or LLM_PANEL).`;
+Examples
+  logsy analyze ci.log
+  kubectl logs job/ci | logsy analyze -
+  logsy analyze ci.log --llm-only --job "test (3.12)"
+
+The model is configured in .env (LLM_PROVIDER and LLM_MODEL, or LLM_PANEL for
+several at once). Colour follows the terminal; NO_COLOR turns it off.`;
 
 export type CliCommand =
   | { kind: 'help' }
