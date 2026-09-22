@@ -8,8 +8,7 @@
   "scripts": {
     "evals": "node --env-file-if-exists=../.env --import tsx run-evals.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint .",
-    "demo": "node --import tsx demo.ts"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@logsy/core": "workspace:*",

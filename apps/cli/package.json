@@ -1,0 +1,28 @@
+{
+  "name": "@logsy/cli",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Analyze a CI log from the terminal and preview the PR comment",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "logsy": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@logsy/config": "workspace:*",
+    "@logsy/core": "workspace:*",
+    "@logsy/llm": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "eslint": "^10.10.0",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.1"
+  }
+}

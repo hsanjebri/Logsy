@@ -145,6 +145,7 @@ milliseconds. Everything expensive happens in the worker, where it can be retrie
 ```text
 logsy/
 ├── apps/
+│   ├── cli/             # `logsy analyze`: run the analysis on any log from the terminal
 │   ├── server/          # Fastify: webhook receiver, health, signature verification
 │   ├── worker/          # BullMQ jobs: analyze-run, post-comment, test-report
 │   └── web/             # Next.js dashboard (App Router, Tailwind, Auth.js)
@@ -175,6 +176,24 @@ what makes the interesting half of this project testable with plain strings.
 ### Prerequisites
 
 - Node.js 22.12+ · pnpm 10 · Docker
+
+### Try it on a log, no setup
+
+No GitHub App, database or API key needed:
+
+```bash
+git clone https://github.com/hsanjebri/Logsy.git && cd Logsy
+pnpm install
+
+pnpm demo                                # rules only, on a bundled real CI log
+pnpm logsy analyze path/to/ci.log        # your own log (or - for stdin)
+```
+
+It prints what Logsy found (failing step, secrets redacted, fingerprint, how it decided)
+and the PR comment it would post. With an LLM configured in `.env` (a single model or a
+free-tier panel, see [self-hosting](./docs/self-hosting.md)), unmatched failures go to the
+model; `--llm-only` skips the rules to see what the model says, and `--json` prints the
+full result.
 
 ### Local development
 

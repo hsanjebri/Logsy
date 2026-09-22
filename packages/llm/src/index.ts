@@ -122,5 +122,7 @@ export type {
 } from './types.js';
 export { combinePanel, createPanelProvider, DISAGREEMENT_CONFIDENCE } from './panel.js';
 export type { PanelOptions } from './panel.js';
+export { analyzeLog } from './pipeline.js';
+export type { AnalyzeLogOptions, LogAnalysis } from './pipeline.js';
 export { createRoutingProvider } from './routing.js';
 export type { RoutingOptions } from './routing.js';
