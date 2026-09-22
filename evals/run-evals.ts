@@ -4,12 +4,14 @@
  *
  *   pnpm evals              # rules only (free, no API calls)
  *   pnpm evals --llm        # also send unmatched fixtures to the configured LLM
+ *   pnpm evals --llm-only   # skip the rules: every fixture goes to the LLM (or panel)
  *
- * Results are written to evals/results/<date>.json so runs can be compared.
+ * Results are written to evals/results/<date>.json (<date>-llm-only.json) so runs can be compared.
  */
 import {
   extractFailureContext,
   fingerprint,
+  isConfident,
   matchRule,
   ruleToAnalysis,
   type AnalysisResult,
@@ -22,6 +24,8 @@ import { fileURLToPath } from 'node:url';
 
 const FIXTURES_DIR = fileURLToPath(new URL('./fixtures/', import.meta.url));
 const RESULTS_DIR = fileURLToPath(new URL('./results/', import.meta.url));
+// Measures the model on its own; with rules first, most fixtures never reach it.
+const LLM_ONLY = process.argv.includes('--llm-only');
 const MAX_CHARS = 12_000;
 
 interface FixtureLabels {
@@ -64,6 +68,10 @@ interface Summary {
   categoryAccuracyOfAnswered: number;
   keywordHitRate: number;
   averageConfidence: number;
+  /** Would post a cause, and the cause is wrong: the costliest mistake. */
+  confidentlyWrong: number;
+  /** Below the comment threshold: the PR gets the excerpt, not a cause. */
+  silenced: number;
   averageInputTokens: number;
   averageOutputTokens: number;
   totalCostUsd: number;
@@ -91,7 +99,7 @@ function keywordHits(result: AnalysisResult, keywords: string[]): string[] {
 }
 
 function buildProvider(): LlmProvider | undefined {
-  if (!process.argv.includes('--llm')) return undefined;
+  if (!process.argv.includes('--llm') && !LLM_ONLY) return undefined;
   // Same validation and wiring as the worker, so evals measure what production runs.
   const env = loadEnv([llmEnvSchema]);
   return createConfiguredProvider({
@@ -113,7 +121,7 @@ async function main(): Promise<void> {
 
   for (const fixture of fixtures) {
     const context = extractFailureContext(fixture.log, { maxChars: MAX_CHARS });
-    const match = matchRule(context.excerpt);
+    const match = LLM_ONLY ? undefined : matchRule(context.excerpt);
     const started = Date.now();
 
     let result: AnalysisResult | null = null;
@@ -173,7 +181,7 @@ async function main(): Promise<void> {
   const summary: Summary = {
     ranAt: new Date().toISOString(),
     promptVersion: PROMPT_VERSION,
-    mode: llm ? `rules + ${llm.name}/${llm.model}` : 'rules only',
+    mode: llm ? `${LLM_ONLY ? '' : 'rules + '}${llm.name}/${llm.model}` : 'rules only',
     fixtures: cases.length,
     answered: answered.length,
     resolvedByRule: cases.filter((entry) => entry.source === 'rule').length,
@@ -192,6 +200,11 @@ async function main(): Promise<void> {
       sum(answered, (entry) => entry.confidence ?? 0),
       answered.length,
     ),
+    confidentlyWrong: answered.filter(
+      (entry) => !entry.categoryCorrect && isConfident({ confidence: entry.confidence ?? 0 }),
+    ).length,
+    silenced: answered.filter((entry) => !isConfident({ confidence: entry.confidence ?? 0 }))
+      .length,
     averageInputTokens: Math.round(
       ratio(
         sum(cases, (e) => e.inputTokens),
@@ -216,7 +229,7 @@ async function main(): Promise<void> {
   print(summary, cases);
 
   await mkdir(RESULTS_DIR, { recursive: true });
-  const file = `${RESULTS_DIR}${new Date().toISOString().slice(0, 10)}.json`;
+  const file = `${RESULTS_DIR}${new Date().toISOString().slice(0, 10)}${LLM_ONLY ? '-llm-only' : ''}.json`;
   await writeFile(file, `${JSON.stringify({ summary, cases }, null, 2)}\n`, 'utf8');
   process.stdout.write(`\nSaved ${file}\n`);
 }
@@ -256,6 +269,8 @@ function print(summary: Summary, cases: CaseResult[]): void {
     `Category accuracy     ${percent(summary.categoryAccuracy)} overall, ${percent(summary.categoryAccuracyOfAnswered)} of answered`,
     `Keyword hit rate      ${percent(summary.keywordHitRate)}`,
     `Average confidence    ${summary.averageConfidence.toFixed(2)}`,
+    `Confidently wrong     ${summary.confidentlyWrong} (a wrong cause would be posted)`,
+    `Silenced              ${summary.silenced} (excerpt only, no cause)`,
     `Average tokens        ${summary.averageInputTokens} in, ${summary.averageOutputTokens} out`,
     `Total cost            $${summary.totalCostUsd}`,
     `Average latency       ${summary.averageLatencyMs} ms`,

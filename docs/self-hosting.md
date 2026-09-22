@@ -89,16 +89,35 @@ Groq and Google AI Studio both offer free API keys. Instead of trusting one mode
 several analyze each failure in parallel:
 
 ```bash
-LLM_PANEL=groq:openai/gpt-oss-120b,gemini:gemini-flash-latest
+LLM_PANEL=groq:openai/gpt-oss-120b,gemini:gemini-flash-latest,groq:qwen/qwen3.8-27b
 GROQ_API_KEY=gsk_...
 GEMINI_API_KEY=...
 ```
 
-The panel votes on the failure category. When the models agree, the most confident
-answer is posted with both models' evidence merged. When they disagree, confidence is
-capped below the comment threshold, so the PR gets the error excerpt instead of a guess.
-If one member errors (a free-tier rate limit, say), the others still answer. Latency is
-the slowest member's, not the sum: about 3 seconds on the eval set.
+The panel votes on the failure category. When a majority agrees, its most confident
+answer is posted with the other members' evidence merged in. With no majority,
+confidence is capped below the comment threshold, so the PR gets the error excerpt
+instead of a guess. If a member errors (a free-tier rate limit, a `503` at peak hours),
+the others still answer.
+
+Measured with `pnpm evals --llm-only`, which skips the rules and sends all ten fixtures
+to the models:
+
+| Setup                          | Category accuracy | Confidently wrong | Silenced |
+| ------------------------------ | ----------------- | ----------------- | -------- |
+| Groq `gpt-oss-120b` alone      | 70%               | —                 | —        |
+| Groq `qwen3.8-27b` alone       | 60%               | —                 | —        |
+| Gemini Flash alone             | crashed on a 503  | —                 | —        |
+| Panel of two (GPT-OSS, Gemini) | 80%               | 2                 | 0        |
+| Panel of three (+ Qwen)        | 70–80%            | **0**             | 5        |
+
+"Confidently wrong" is the mistake that matters: a wrong cause posted on someone's PR.
+The panel of three never did that, at the price of staying quiet on some failures it
+had right. Two models answer more often; three are safer. In production the rules
+resolve most failures first, so the panel only sees what they cannot.
+
+Latency is the slowest member's. On free tiers expect a few seconds per analysis, more
+when back-to-back runs hit rate limits and the SDK retries.
 
 ---
 
