@@ -133,6 +133,21 @@ export async function processPostComment(
   // developer hunting for a bug in their own change.
   const [knownFlaky] = await findKnownFlakyFailures(db, repository.id, run.id);
 
+  // A flaky failure is worth re-running once, before a person goes looking for a bug
+  // in their own change. Only on the first attempt: the re-run is attempt two, so this
+  // can never loop, whatever the second attempt concludes.
+  const rerunNote = await maybeRerun(
+    { client, log },
+    {
+      owner: job.owner,
+      repo: job.repo,
+      runId: job.runId,
+      enabled: repository.settings.autoRerun === true,
+      firstAttempt: run.runAttempt === 1,
+      looksFlaky: primary.result?.isLikelyFlaky === true || knownFlaky !== undefined,
+    },
+  );
+
   const context: CommentContext = {
     analysis: primary.result ?? unexplained(primary),
     source: primary.source ?? 'rule',
@@ -147,6 +162,7 @@ export async function processPostComment(
     prNumber,
     model: primary.model,
     ...(knownFlaky ? { flakyNote: flakyNote(knownFlaky) } : {}),
+    ...(rerunNote === null ? {} : { rerunNote }),
     ...(deps.feedbackBaseUrl !== undefined && primary.analysisId !== null
       ? { feedbackBaseUrl: deps.feedbackBaseUrl, analysisId: primary.analysisId }
       : {}),
@@ -299,5 +315,39 @@ async function publishCheckRun(
   } catch (error) {
     // A missing checks:write permission must not cost the comment that already posted.
     log.warn({ err: error }, 'could not publish the check run');
+  }
+}
+
+interface RerunRequest {
+  owner: string;
+  repo: string;
+  runId: number;
+  enabled: boolean;
+  firstAttempt: boolean;
+  looksFlaky: boolean;
+}
+
+/**
+ * Re-runs the failed jobs when every guard agrees, and returns the line for the
+ * comment. Returns null when nothing was re-run, including when GitHub refused.
+ */
+async function maybeRerun(
+  deps: { client: InstallationClient; log: Logger },
+  request: RerunRequest,
+): Promise<string | null> {
+  if (!request.enabled || !request.firstAttempt || !request.looksFlaky) return null;
+
+  try {
+    await deps.client.rerunFailedJobs({
+      owner: request.owner,
+      repo: request.repo,
+      runId: request.runId,
+    });
+    deps.log.info({ runId: request.runId }, 'failed jobs re-run: the failure looks flaky');
+    return 'This looks flaky, so Logsy re-ran the failed jobs once. Watch the new attempt before digging in.';
+  } catch (error) {
+    // Usually a missing Actions write permission; the comment simply omits the line.
+    deps.log.warn({ err: error }, 'could not re-run the failed jobs');
+    return null;
   }
 }

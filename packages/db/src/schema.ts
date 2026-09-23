@@ -40,6 +40,11 @@ export interface RepositorySettings {
   llmEnabled: boolean;
   /** Also publish a check run, which puts the explanation on the diff itself. */
   checksEnabled?: boolean;
+  /**
+   * Re-run the failed jobs once when the failure looks flaky. Off by default: it
+   * spends the repository's CI minutes.
+   */
+  autoRerun?: boolean;
 }
 
 export const DEFAULT_REPOSITORY_SETTINGS: RepositorySettings = {

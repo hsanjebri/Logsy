@@ -55,6 +55,8 @@ export interface InstallationClient {
   findCheckRun(params: RepoRef & { headSha: string; name: string }): Promise<number | null>;
   /** Creates or updates a check run; the id is returned so the next run reuses it. */
   writeCheckRun(params: RepoRef & CheckRunInput): Promise<number>;
+  /** Re-runs only the failed jobs of a run. Needs the Actions write permission. */
+  rerunFailedJobs(params: RepoRef & { runId: number }): Promise<void>;
   /** Artifacts a run produced, including expired ones. */
   listRunArtifacts(params: RepoRef & { runId: number }): Promise<Artifact[]>;
   /** The artifact's zip. Throws {@link LogsUnavailableError} when it is gone. */
@@ -136,6 +138,13 @@ export function createGitHubApp(options: GitHubAppOptions): GitHubApp {
             { owner, repo, issue_number: issueNumber, body },
           );
           return z.object({ id: z.number().int().positive() }).parse(response.data).id;
+        },
+
+        async rerunFailedJobs({ owner, repo, runId }) {
+          await octokit.request(
+            'POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun-failed-jobs',
+            { owner, repo, run_id: runId },
+          );
         },
 
         async findCheckRun({ owner, repo, headSha, name }) {

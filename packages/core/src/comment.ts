@@ -45,6 +45,8 @@ export interface CommentContext {
   model?: string | null;
   /** e.g. "`OrderServiceTest.retries` is known flaky: 7 flips in 30 days" (Phase 8). */
   flakyNote?: string;
+  /** Set when Logsy re-ran the failed jobs because the failure looked flaky. */
+  rerunNote?: string;
 }
 
 export function categoryLabel(category: FailureCategory): string {
@@ -79,6 +81,10 @@ export function formatFailureComment(context: CommentContext): string {
 
   if (context.flakyNote) {
     lines.push(`🎲 ${context.flakyNote}`, '');
+  }
+
+  if (context.rerunNote) {
+    lines.push(`🔁 ${context.rerunNote}`, '');
   }
 
   const evidence = confident && analysis.evidence.length > 0 ? analysis.evidence : [];

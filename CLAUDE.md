@@ -141,7 +141,7 @@ worker: test-report job → download JUnit artifacts → store results → flaky
 ## 5. GitHub integration details
 
 **App permissions (minimum):**
-- Actions: **read**
+- Actions: **write** (only to re-run failed jobs when `autoRerun` is on; read is enough otherwise)
 - Checks: **write** (the check run carrying inline annotations; read-only degrades to comment only)
 - Contents: **read** (workflow files, diff context)
 - Pull requests: **write** (comments)
@@ -158,6 +158,8 @@ worker: test-report job → download JUnit artifacts → store results → flaky
 - Comments: create or update issue comments on the PR
 
 **Single comment rule:** every comment includes the hidden marker `<!-- logsy:comment -->`. Find the existing comment containing the marker and update it; create one only if none exists.
+
+**Auto re-run:** when a repository sets `autoRerun` and a failure looks flaky (the analysis says so, or a test in the run is already known flaky), re-run the failed jobs once with `POST /repos/{owner}/{repo}/actions/runs/{run_id}/rerun-failed-jobs`, and say so in the comment. Only on `run_attempt === 1`, so a re-run can never trigger another. Off by default: it spends the repository's CI minutes.
 
 **Check run:** alongside the comment, publish one check run named `Logsy` per commit (update it on a re-run, found by name and head SHA). Its conclusion is always `neutral` — Logsy explains failures, it never adds one. Annotations go on the likely files that the pull request actually changed and whose line is known; everything else stays in the comment. Per-repository setting: `checksEnabled`.
 

@@ -83,7 +83,8 @@ That is the whole product. One comment, updated in place on every re-run, replac
   Below 0.5 confidence it shows the error excerpt and says nothing more — a wrong answer
   costs more trust than no answer.
 - 🎲 **Knows your flaky tests.** Parses JUnit artifacts and flags any test that both passed
-  and failed on the same commit.
+  and failed on the same commit, and can re-run the failed jobs once instead of making you
+  notice (`autoRerun`, off by default).
 - 📊 **Dashboard.** Failure trends, recurring fingerprints, category breakdown, flaky tests,
   per-repo settings, and how often the analyses were judged helpful.
 - 🔒 **Yours.** Self-hosted in one `docker compose up`, bring your own key, or run entirely
@@ -289,7 +290,8 @@ the assumption that yours should stay yours.
   strings, email addresses and high-entropy strings. It has its own test suite.
 - **Minimum permissions.** Actions: read · Checks: write · Contents: read · Pull requests:
   write · Metadata: read. Logsy can never push code. Checks may stay read-only; the
-  inline annotations are then skipped.
+  inline annotations are then skipped. Actions write is needed only for the optional
+  re-run of flaky jobs.
 - **Bring your own key**, or no key at all: `LLM_ENABLED=false` runs on rules and cache
   alone. `LLM_PROVIDER=ollama` keeps every byte on your own hardware.
 - **Diffs are summarized, not shipped.** The PR context sent to a model is capped in both

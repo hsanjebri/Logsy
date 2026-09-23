@@ -28,6 +28,8 @@ export interface GitHubStubOptions {
   existingCheckRunId?: number;
   /** Makes the check run calls fail, as a missing checks:write permission would. */
   checksForbidden?: boolean;
+  /** Makes the re-run call fail, as a missing actions:write permission would. */
+  rerunForbidden?: boolean;
   /** Artifact id to the zip bytes it downloads as; a missing id is an expired artifact. */
   artifactZips?: Record<number, Uint8Array>;
 }
@@ -42,12 +44,14 @@ export interface GitHubStub extends GitHubApp {
   downloadedJobIds: number[];
   commentCalls: CommentCall[];
   checkRunCalls: (CheckRunInput & { owner: string; repo: string })[];
+  rerunCalls: number[];
 }
 
 export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
   const downloadedJobIds: number[] = [];
   const commentCalls: CommentCall[] = [];
   const checkRunCalls: (CheckRunInput & { owner: string; repo: string })[] = [];
+  const rerunCalls: number[] = [];
   const comments = [...(options.comments ?? [])];
   let nextCommentId = 9_000;
 
@@ -86,6 +90,13 @@ export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
       checkRunCalls.push(params);
       return Promise.resolve(params.checkRunId ?? 7_100);
     },
+    rerunFailedJobs: ({ runId }) => {
+      if (options.rerunForbidden === true) {
+        return Promise.reject(new Error('Resource not accessible by integration'));
+      }
+      rerunCalls.push(runId);
+      return Promise.resolve();
+    },
     listRunArtifacts: () => Promise.resolve(options.artifacts ?? []),
     downloadArtifact: ({ artifactId }) => {
       const zip = options.artifactZips?.[artifactId];
@@ -99,6 +110,7 @@ export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
     downloadedJobIds,
     commentCalls,
     checkRunCalls,
+    rerunCalls,
     forInstallation: () => Promise.resolve(client),
   };
 }

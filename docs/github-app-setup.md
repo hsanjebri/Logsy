@@ -55,11 +55,14 @@ Set these and leave everything else at **No access**:
 
 | Permission    | Access                             |
 | ------------- | ---------------------------------- |
-| Actions       | Read-only                          |
+| Actions       | Read and write                     |
 | Checks        | Read and write                     |
 | Contents      | Read-only                          |
 | Metadata      | Read-only (selected automatically) |
 | Pull requests | Read and write                     |
+
+Actions needs **write** only for `autoRerun`, the per-repository setting that re-runs
+failed jobs once when the failure looks flaky. Read-only is enough for everything else.
 
 Checks needs **write** so Logsy can publish its analysis as a check run, which is what
 puts the explanation on the lines of the diff. Read-only still works: the check run is

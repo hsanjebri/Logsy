@@ -209,6 +209,80 @@ describe('processPostComment', () => {
   });
 });
 
+describe('processPostComment — re-running a flaky failure', () => {
+  const optedIn = {
+    settings: { enabled: true, commentMode: 'single' as const, llmEnabled: true, autoRerun: true },
+  };
+
+  /** Analyzes a run, then marks the test that failed in it as a known flaky one. */
+  async function analyzeAndMarkFlaky(options: GitHubStubOptions = {}) {
+    const github = githubStub({
+      jobs: [workflowJob({ id: 102, name: 'build (22)' })],
+      logs: { 102: eresolveLog },
+      ...options,
+    });
+    await processAnalyzeRun({ db, github, log }, analyzeJob);
+
+    const [repo] = await db.select().from(repositories);
+    const [run] = await db.select().from(workflowRuns);
+    await recordFlakyTest(db, repo?.id ?? 0, { suite: 'cart', testName: 'discount' }, 7);
+    await insertTestResults(db, [
+      {
+        repositoryId: repo?.id ?? 0,
+        workflowRunId: run?.id ?? 0,
+        headSha: commentJob.headSha,
+        suite: 'cart',
+        testName: 'discount',
+        status: 'failed',
+        durationMs: 10,
+      },
+    ]);
+    return github;
+  }
+
+  it('does nothing unless the repository opted in', async () => {
+    const github = await analyzeAndMarkFlaky();
+    await processPostComment({ db, github, log }, commentJob);
+    expect(github.rerunCalls).toEqual([]);
+  });
+
+  it('does nothing when the failure does not look flaky', async () => {
+    await db.update(repositories).set(optedIn);
+    const { github } = await analyzeThenComment();
+    expect(github.rerunCalls).toEqual([]);
+  });
+
+  it('re-runs the failed jobs and says so in the comment', async () => {
+    const github = await analyzeAndMarkFlaky();
+    await db.update(repositories).set(optedIn);
+
+    const result = await processPostComment({ db, github, log }, commentJob);
+
+    expect(github.rerunCalls).toEqual([RUN_ID]);
+    expect(result).toMatchObject({ status: 'created' });
+    expect(github.commentCalls.at(-1)?.body).toContain('Logsy re-ran the failed jobs once');
+  });
+
+  it('never re-runs a second attempt, so it cannot loop', async () => {
+    const github = await analyzeAndMarkFlaky();
+    await db.update(repositories).set(optedIn);
+
+    await processPostComment({ db, github, log }, { ...commentJob, runAttempt: 2 });
+    expect(github.rerunCalls).toEqual([]);
+  });
+
+  it('still comments when the app lacks the actions permission', async () => {
+    const github = await analyzeAndMarkFlaky({ rerunForbidden: true });
+    await db.update(repositories).set(optedIn);
+
+    const result = await processPostComment({ db, github, log }, commentJob);
+
+    expect(result).toMatchObject({ status: 'created' });
+    expect(github.rerunCalls).toEqual([]);
+    expect(github.commentCalls.at(-1)?.body).not.toContain('re-ran');
+  });
+});
+
 describe('processPostComment — check run', () => {
   const changed = [
     { filename: 'package.json', status: 'modified', additions: 2, deletions: 1, changes: 3 },
