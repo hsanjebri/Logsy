@@ -142,7 +142,7 @@ worker: test-report job → download JUnit artifacts → store results → flaky
 
 **App permissions (minimum):**
 - Actions: **read**
-- Checks: **read**
+- Checks: **write** (the check run carrying inline annotations; read-only degrades to comment only)
 - Contents: **read** (workflow files, diff context)
 - Pull requests: **write** (comments)
 - Metadata: **read**
@@ -158,6 +158,8 @@ worker: test-report job → download JUnit artifacts → store results → flaky
 - Comments: create or update issue comments on the PR
 
 **Single comment rule:** every comment includes the hidden marker `<!-- logsy:comment -->`. Find the existing comment containing the marker and update it; create one only if none exists.
+
+**Check run:** alongside the comment, publish one check run named `Logsy` per commit (update it on a re-run, found by name and head SHA). Its conclusion is always `neutral` — Logsy explains failures, it never adds one. Annotations go on the likely files that the pull request actually changed and whose line is known; everything else stays in the comment. Per-repository setting: `checksEnabled`.
 
 **Local development:** document how to create the GitHub App manually (I'll do the clicks), where to put the App ID, private key, and webhook secret in `.env`, and how to forward webhooks with smee.
 

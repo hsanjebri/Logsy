@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { listArtifactsResponseSchema, type Artifact } from './artifacts.js';
 import { LogsUnavailableError, statusOf } from './errors.js';
 import {
+  checkRunsResponseSchema,
   listCommentsResponseSchema,
   listJobsResponseSchema,
   listPullFilesResponseSchema,
@@ -14,6 +15,7 @@ import {
   type PullRequestFile,
   type PullRequestRef,
   type WorkflowJob,
+  type CheckRunInput,
 } from './schemas.js';
 
 export interface RateLimitSnapshot {
@@ -49,6 +51,10 @@ export interface InstallationClient {
   updateIssueComment(params: RepoRef & { commentId: number; body: string }): Promise<void>;
   /** Changed files of a pull request, for context. Never the full patch. */
   listPullRequestFiles(params: RepoRef & { pullNumber: number }): Promise<PullRequestFile[]>;
+  /** Logsy's own check run for a commit, when it already made one. */
+  findCheckRun(params: RepoRef & { headSha: string; name: string }): Promise<number | null>;
+  /** Creates or updates a check run; the id is returned so the next run reuses it. */
+  writeCheckRun(params: RepoRef & CheckRunInput): Promise<number>;
   /** Artifacts a run produced, including expired ones. */
   listRunArtifacts(params: RepoRef & { runId: number }): Promise<Artifact[]>;
   /** The artifact's zip. Throws {@link LogsUnavailableError} when it is gone. */
@@ -129,6 +135,37 @@ export function createGitHubApp(options: GitHubAppOptions): GitHubApp {
             'POST /repos/{owner}/{repo}/issues/{issue_number}/comments',
             { owner, repo, issue_number: issueNumber, body },
           );
+          return z.object({ id: z.number().int().positive() }).parse(response.data).id;
+        },
+
+        async findCheckRun({ owner, repo, headSha, name }) {
+          const response = await octokit.request(
+            'GET /repos/{owner}/{repo}/commits/{ref}/check-runs',
+            { owner, repo, ref: headSha, check_name: name, per_page: 100 },
+          );
+          const parsed = checkRunsResponseSchema.parse(response.data);
+          // Newest first: a re-analysis updates the check people are already looking at.
+          return parsed.check_runs[0]?.id ?? null;
+        },
+
+        async writeCheckRun({ owner, repo, checkRunId, name, headSha, conclusion, output }) {
+          const body = {
+            owner,
+            repo,
+            name,
+            head_sha: headSha,
+            status: 'completed' as const,
+            conclusion,
+            completed_at: new Date().toISOString(),
+            output,
+          };
+          const response =
+            checkRunId === undefined
+              ? await octokit.request('POST /repos/{owner}/{repo}/check-runs', body)
+              : await octokit.request('PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}', {
+                  ...body,
+                  check_run_id: checkRunId,
+                });
           return z.object({ id: z.number().int().positive() }).parse(response.data).id;
         },
 

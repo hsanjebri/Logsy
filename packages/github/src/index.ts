@@ -19,6 +19,8 @@ export { COMMENT_MARKER_FALLBACK } from './constants.js';
 export { findMarkedComment, resolvePullRequest, summarizeDiff } from './pull-requests.js';
 export type { DiffSummaryOptions } from './pull-requests.js';
 export {
+  checkRunOutputSchema,
+  checkRunsResponseSchema,
   issueCommentSchema,
   listCommentsResponseSchema,
   listPullFilesResponseSchema,
@@ -26,7 +28,13 @@ export {
   pullRequestFileSchema,
   pullRequestRefSchema,
 } from './schemas.js';
-export type { IssueComment, PullRequestFile, PullRequestRef } from './schemas.js';
+export type {
+  CheckRunInput,
+  CheckRunOutput,
+  IssueComment,
+  PullRequestFile,
+  PullRequestRef,
+} from './schemas.js';
 export {
   artifactSchema,
   extractXmlFiles,

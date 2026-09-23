@@ -1,5 +1,8 @@
 import {
   COMMENT_MARKER,
+  buildAnnotations,
+  checkRunSummary,
+  checkRunTitle,
   flakyNote,
   formatFailureComment,
   formatPassingComment,
@@ -16,7 +19,12 @@ import {
   type Database,
   type FailureWithAnalysis,
 } from '@logsy/db';
-import { findMarkedComment, resolvePullRequest, type GitHubApp } from '@logsy/github';
+import {
+  findMarkedComment,
+  resolvePullRequest,
+  type GitHubApp,
+  type InstallationClient,
+} from '@logsy/github';
 import type { PostCommentJob } from '@logsy/queue';
 import type { Logger } from 'pino';
 
@@ -146,6 +154,22 @@ export async function processPostComment(
 
   const body = formatFailureComment(context) + otherFailures(failures, primary);
 
+  // The check run puts the same explanation on the lines of the diff. It never fails
+  // the pull request: Logsy explains failures, it does not add new ones.
+  if (repository.settings.checksEnabled !== false) {
+    await publishCheckRun(
+      { client, log },
+      {
+        owner: job.owner,
+        repo: job.repo,
+        headSha: job.headSha,
+        prNumber,
+        context,
+        body,
+      },
+    );
+  }
+
   if (existing) {
     await client.updateIssueComment({
       owner: job.owner,
@@ -221,4 +245,59 @@ function unexplained(failure: FailureWithAnalysis): AnalysisResult {
     isLikelyFlaky: false,
     confidence: 0,
   };
+}
+
+const CHECK_RUN_NAME = 'Logsy';
+
+interface CheckRunRequest {
+  owner: string;
+  repo: string;
+  headSha: string;
+  prNumber: number;
+  context: CommentContext;
+  body: string;
+}
+
+/** Publishes the analysis as a check run, annotating the files the PR changed. */
+async function publishCheckRun(
+  deps: { client: InstallationClient; log: Logger },
+  request: CheckRunRequest,
+): Promise<void> {
+  const { client, log } = deps;
+  const { owner, repo, headSha } = request;
+
+  try {
+    const files = await client.listPullRequestFiles({
+      owner,
+      repo,
+      pullNumber: request.prNumber,
+    });
+    const annotationContext = {
+      analysis: request.context.analysis,
+      changedFiles: files.map((file) => file.filename),
+      jobName: request.context.jobName,
+      stepName: request.context.stepName,
+    };
+    const existing = await client.findCheckRun({ owner, repo, headSha, name: CHECK_RUN_NAME });
+    const annotations = buildAnnotations(annotationContext);
+
+    const checkRunId = await client.writeCheckRun({
+      owner,
+      repo,
+      ...(existing === null ? {} : { checkRunId: existing }),
+      name: CHECK_RUN_NAME,
+      headSha,
+      conclusion: 'neutral',
+      output: {
+        title: checkRunTitle(request.context.analysis),
+        summary: checkRunSummary(annotationContext),
+        text: request.body,
+        ...(annotations.length > 0 ? { annotations } : {}),
+      },
+    });
+    log.info({ checkRunId, annotations: annotations.length }, 'check run published');
+  } catch (error) {
+    // A missing checks:write permission must not cost the comment that already posted.
+    log.warn({ err: error }, 'could not publish the check run');
+  }
 }

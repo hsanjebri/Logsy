@@ -56,10 +56,15 @@ Set these and leave everything else at **No access**:
 | Permission    | Access                             |
 | ------------- | ---------------------------------- |
 | Actions       | Read-only                          |
-| Checks        | Read-only                          |
+| Checks        | Read and write                     |
 | Contents      | Read-only                          |
 | Metadata      | Read-only (selected automatically) |
 | Pull requests | Read and write                     |
+
+Checks needs **write** so Logsy can publish its analysis as a check run, which is what
+puts the explanation on the lines of the diff. Read-only still works: the check run is
+skipped and the pull request comment is unaffected. Changing a permission on an existing
+app asks each installation to approve it, under the repository's settings.
 
 ### Subscribe to events
 

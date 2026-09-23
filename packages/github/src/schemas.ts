@@ -67,3 +67,40 @@ export function failedStep(job: WorkflowJob): WorkflowStep | undefined {
 export function isFailedJob(job: WorkflowJob): boolean {
   return job.conclusion === 'failure';
 }
+
+/** Only the field Logsy needs: which check run to update. */
+export const checkRunsResponseSchema = z.object({
+  check_runs: z.array(z.object({ id: z.number().int().positive() })),
+});
+
+/** What a check run carries: the heading people see, and the inline annotations. */
+export const checkRunOutputSchema = z.object({
+  title: z.string().min(1).max(255),
+  summary: z.string().min(1).max(65_535),
+  text: z.string().max(65_535).optional(),
+  annotations: z
+    .array(
+      z.object({
+        path: z.string().min(1),
+        start_line: z.number().int().positive(),
+        end_line: z.number().int().positive(),
+        annotation_level: z.enum(['notice', 'warning', 'failure']),
+        title: z.string().min(1).max(255),
+        message: z.string().min(1),
+      }),
+    )
+    .max(50)
+    .optional(),
+});
+
+export type CheckRunOutput = z.infer<typeof checkRunOutputSchema>;
+
+export interface CheckRunInput {
+  /** Omitted to create one, given to update the existing one. */
+  checkRunId?: number;
+  name: string;
+  headSha: string;
+  /** Logsy explains, it never blocks: `neutral` keeps the check from failing a PR. */
+  conclusion: 'neutral' | 'success' | 'failure';
+  output: CheckRunOutput;
+}

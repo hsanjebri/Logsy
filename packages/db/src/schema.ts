@@ -38,12 +38,15 @@ export interface RepositorySettings {
   /** `single`: upsert one comment per PR. `off`: analyze and store, never comment. */
   commentMode: 'single' | 'off';
   llmEnabled: boolean;
+  /** Also publish a check run, which puts the explanation on the diff itself. */
+  checksEnabled?: boolean;
 }
 
 export const DEFAULT_REPOSITORY_SETTINGS: RepositorySettings = {
   enabled: true,
   commentMode: 'single',
   llmEnabled: true,
+  checksEnabled: true,
 };
 
 export const installations = pgTable('installations', {

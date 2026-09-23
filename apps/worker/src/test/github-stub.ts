@@ -1,5 +1,6 @@
 import type {
   Artifact,
+  CheckRunInput,
   GitHubApp,
   InstallationClient,
   IssueComment,
@@ -23,6 +24,10 @@ export interface GitHubStubOptions {
   files?: PullRequestFile[];
   /** Artifacts the run produced. */
   artifacts?: Artifact[];
+  /** Id of a check run Logsy already published for this commit. */
+  existingCheckRunId?: number;
+  /** Makes the check run calls fail, as a missing checks:write permission would. */
+  checksForbidden?: boolean;
   /** Artifact id to the zip bytes it downloads as; a missing id is an expired artifact. */
   artifactZips?: Record<number, Uint8Array>;
 }
@@ -36,11 +41,13 @@ export interface CommentCall {
 export interface GitHubStub extends GitHubApp {
   downloadedJobIds: number[];
   commentCalls: CommentCall[];
+  checkRunCalls: (CheckRunInput & { owner: string; repo: string })[];
 }
 
 export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
   const downloadedJobIds: number[] = [];
   const commentCalls: CommentCall[] = [];
+  const checkRunCalls: (CheckRunInput & { owner: string; repo: string })[] = [];
   const comments = [...(options.comments ?? [])];
   let nextCommentId = 9_000;
 
@@ -68,6 +75,17 @@ export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
       return Promise.resolve();
     },
     listPullRequestFiles: () => Promise.resolve(options.files ?? []),
+    findCheckRun: () =>
+      options.checksForbidden === true
+        ? Promise.reject(new Error('Resource not accessible by integration'))
+        : Promise.resolve(options.existingCheckRunId ?? null),
+    writeCheckRun: (params) => {
+      if (options.checksForbidden === true) {
+        return Promise.reject(new Error('Resource not accessible by integration'));
+      }
+      checkRunCalls.push(params);
+      return Promise.resolve(params.checkRunId ?? 7_100);
+    },
     listRunArtifacts: () => Promise.resolve(options.artifacts ?? []),
     downloadArtifact: ({ artifactId }) => {
       const zip = options.artifactZips?.[artifactId];
@@ -80,6 +98,7 @@ export function githubStub(options: GitHubStubOptions = {}): GitHubStub {
   return {
     downloadedJobIds,
     commentCalls,
+    checkRunCalls,
     forInstallation: () => Promise.resolve(client),
   };
 }

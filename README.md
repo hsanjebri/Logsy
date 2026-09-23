@@ -287,8 +287,9 @@ the assumption that yours should stay yours.
   (`ghp_`, `gho_`, `ghs_`, `github_pat_`), AWS keys, private key blocks, JWTs, bearer
   tokens, assigned `password=` / `secret=` / `token=` values, credentials in connection
   strings, email addresses and high-entropy strings. It has its own test suite.
-- **Minimum permissions.** Actions: read · Checks: read · Contents: read · Pull requests:
-  write · Metadata: read. Logsy can never push code.
+- **Minimum permissions.** Actions: read · Checks: write · Contents: read · Pull requests:
+  write · Metadata: read. Logsy can never push code. Checks may stay read-only; the
+  inline annotations are then skipped.
 - **Bring your own key**, or no key at all: `LLM_ENABLED=false` runs on rules and cache
   alone. `LLM_PROVIDER=ollama` keeps every byte on your own hardware.
 - **Diffs are summarized, not shipped.** The PR context sent to a model is capped in both

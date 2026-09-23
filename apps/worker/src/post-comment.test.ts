@@ -209,6 +209,50 @@ describe('processPostComment', () => {
   });
 });
 
+describe('processPostComment — check run', () => {
+  const changed = [
+    { filename: 'package.json', status: 'modified', additions: 2, deletions: 1, changes: 3 },
+  ];
+
+  it('publishes a check run that never fails the pull request', async () => {
+    const { github } = await analyzeThenComment({ files: changed });
+
+    expect(github.checkRunCalls).toHaveLength(1);
+    const [call] = github.checkRunCalls;
+    expect(call).toMatchObject({ name: 'Logsy', conclusion: 'neutral' });
+    // No id means "create": there was no earlier check run for this commit.
+    expect(call).not.toHaveProperty('checkRunId');
+    expect(call?.output.title).toContain('dependency');
+    expect(call?.output.summary).toContain('build (22)');
+    // The full comment travels as the body, so the check page shows everything.
+    expect(call?.output.text).toContain('Suggested fix');
+  });
+
+  it('updates the check run it published earlier for the same commit', async () => {
+    const { github } = await analyzeThenComment({ files: changed, existingCheckRunId: 4_242 });
+    expect(github.checkRunCalls[0]).toMatchObject({ checkRunId: 4_242 });
+  });
+
+  it('stays quiet when the repository turned checks off', async () => {
+    await db.update(repositories).set({
+      settings: { enabled: true, commentMode: 'single', llmEnabled: true, checksEnabled: false },
+    });
+
+    const { github, result } = await analyzeThenComment({ files: changed });
+
+    expect(result).toMatchObject({ status: 'created' });
+    expect(github.checkRunCalls).toEqual([]);
+  });
+
+  it('still comments when the app lacks the checks permission', async () => {
+    const { github, result } = await analyzeThenComment({ files: changed, checksForbidden: true });
+
+    expect(result).toMatchObject({ status: 'created' });
+    expect(github.commentCalls).toHaveLength(1);
+    expect(github.checkRunCalls).toEqual([]);
+  });
+});
+
 describe('processPostComment — resolved mode', () => {
   it('switches the existing comment to passing', async () => {
     const { github } = await analyzeThenComment();
