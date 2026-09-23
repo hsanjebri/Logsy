@@ -6,8 +6,8 @@ import { readFile, readdir } from 'node:fs/promises';
 import { basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { USAGE, parseCliArgs } from './args.js';
-import { runInteractive } from './tui/app.js';
-import { openTerminal } from './tui/terminal.js';
+import { openScreen } from './ui/screen.js';
+import { runApp } from './ui/run.js';
 import { renderReport } from './render.js';
 import { startSpinner } from './spinner.js';
 import { colorLevel, createTheme } from './theme.js';
@@ -87,17 +87,23 @@ async function main(): Promise<void> {
   }
 
   if (command.kind === 'interactive') {
-    const terminal = openTerminal();
+    const llm = buildLlm(false);
+    const screen = openScreen();
+    // Put the terminal back even if the app throws, or the shell is left unusable.
+    const restore = () => {
+      screen.close();
+    };
+    process.on('exit', restore);
     try {
-      await runInteractive({
-        terminal,
-        theme,
+      await runApp({
+        screen,
         examplesDir: FIXTURES_DIR,
-        llm: buildLlm(false),
-        llmNote: 'no model configured; see .env',
+        llm,
+        modelLabel: llm?.model ?? null,
       });
     } finally {
-      terminal.close();
+      restore();
+      process.off('exit', restore);
     }
     return;
   }
