@@ -12,7 +12,8 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "screenshots": "node --import tsx src/ui/screenshot.mts"
   },
   "dependencies": {
     "@logsy/config": "workspace:*",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^22.20.3",
     "eslint": "^10.10.0",
+    "tsx": "^4.23.13",
     "typescript": "~6.0.3",
     "vitest": "^5.0.1"
   }

@@ -15,7 +15,7 @@ export interface Style {
 
 export type Rgb = readonly [number, number, number];
 
-interface Cell {
+export interface Cell {
   ch: string;
   style: Style;
   /** A wide character owns the following cell, which renders as nothing. */
@@ -124,6 +124,11 @@ export class Canvas {
         };
       }
     }
+  }
+
+  /** The grid itself, for a renderer that is not a terminal (the SVG screenshots). */
+  rows(): readonly (readonly Cell[])[] {
+    return this.cells;
   }
 
   /** Turns the grid into one string of escape sequences, ready to paint. */

@@ -28,8 +28,8 @@ only to discover it was the same flaky test as last Tuesday.
 Logsy installs as a GitHub App. On the next failure it reads the logs, finds the root error,
 and leaves one comment on the pull request:
 
-<!-- Demo recording goes here: docs/assets/demo.gif -->
-<p align="center"><em>📽️ Demo recording — coming soon.</em></p>
+<p align="center"><em>Screenshots of the terminal and desktop apps are further down, in
+<a href="#see-it">See it</a>.</em></p>
 
 Real output, from `pnpm demo` over a fixture in this repository:
 
@@ -68,32 +68,97 @@ That is the whole product. One comment, updated in place on every re-run, replac
 
 ## What it does
 
+**On the pull request**
+
 - 🎯 **Finds the real error.** Strips ANSI codes and timestamps, splits the log into steps,
   locates the failing one, and prefers the first root error over the cascade of follow-up
-  errors it caused.
+  errors it caused. A 108,000-character log becomes a 4,000-character excerpt.
 - 🛡️ **Redacts before anything else.** GitHub tokens, AWS keys, JWTs, private key blocks,
-  connection strings, bearer tokens and high-entropy strings are replaced with
-  `[REDACTED:type]` **before** any log is stored, logged or sent to a model.
-- ⚡ **Rules first, LLM second.** 26 deterministic rules cover the common failures across
+  connection strings, bearer tokens and high-entropy strings become `[REDACTED:type]`
+  **before** any log is stored, logged or sent to a model.
+- ⚡ **Rules first, models second.** 26 deterministic rules cover the common failures across
   Node, Java/Maven, Gradle, Python, Go and Docker — instant, free, and never wrong about a
-  pattern they match. The model is only asked about what the rules cannot answer.
-- 🔁 **Remembers.** Errors are normalized and fingerprinted, so a failure that has been
-  explained once is never paid for twice, and recurring breakages are counted.
-- 💬 **One comment. Ever.** Found by a hidden marker and updated in place, never re-posted.
-  Below 0.5 confidence it shows the error excerpt and says nothing more — a wrong answer
-  costs more trust than no answer.
-- 🎲 **Knows your flaky tests.** Parses JUnit artifacts and flags any test that both passed
-  and failed on the same commit, and can re-run the failed jobs once instead of making you
-  notice (`autoRerun`, off by default).
-- 📊 **Dashboard.** Failure trends, recurring fingerprints, category breakdown, flaky tests,
-  per-repo settings, and how often the analyses were judged helpful.
-- 🔒 **Yours.** Self-hosted in one `docker compose up`, bring your own key, or run entirely
-  offline against a local Ollama model.
-- 🧠 **Remembers.** Optional embeddings link a new failure to the older one that meant
-  the same thing, even when the wording differs, with the pull request it happened in.
-- 🤝 **Models that check each other.** Optionally, a panel of models (for example Groq and
-  Gemini, both on free tiers) analyzes each failure in parallel; when they disagree, Logsy
-  stays quiet instead of guessing.
+  pattern they match. A model is asked only about what the rules cannot answer.
+- 💬 **One comment. Ever.** Found by a hidden marker and updated in place, never re-posted,
+  and switched to "✅ now passing" when the run goes green. Below 0.5 confidence it shows
+  the error excerpt and says nothing more: a wrong answer costs more trust than no answer.
+- 📍 **On the diff itself.** A check run puts the explanation on the exact lines in _Files
+  changed_, on the files your pull request actually touched. Its conclusion is always
+  `neutral` — Logsy explains failures, it never adds one.
+- 🎲 **Knows your flaky tests.** Parses JUnit artifacts, flags any test that both passed and
+  failed on the same commit, and can re-run the failed jobs once instead of making you
+  notice (`autoRerun`, off by default, never more than once per run).
+- 🧠 **Remembers what it has seen.** Fingerprints catch the identical error; optional
+  embeddings catch _the same problem worded differently_, and link the pull request it
+  happened in: _"Seen something like this before: the same conflict, in another package,
+  in #4, 91% alike."_
+
+**How it decides**
+
+- 🤝 **A panel of models that check each other.** Two or three models analyze each failure in
+  parallel and vote. Agreement is kept; disagreement caps the confidence below the comment
+  threshold, so Logsy shows the excerpt rather than guessing. A rate-limited or failing
+  member is simply outvoted. Measured on the eval set: each model alone reaches 60–70%
+  accuracy, the panel 80%, and a panel of three posted **no confidently wrong answer at
+  all**.
+- 💸 **Free to run.** Groq and Google both give away enough for this: the panel in the
+  screenshots costs nothing. Or bring an Anthropic or OpenAI key, or point it at Ollama and
+  keep every byte on your own hardware.
+- 📊 **Measurable.** `pnpm evals` scores the analysis against labelled real CI logs and
+  reports accuracy, keyword hit rate, tokens, cost, and how often it would have posted a
+  wrong cause.
+
+**Four ways to use it**
+
+|                 |                                                                                  |
+| --------------- | -------------------------------------------------------------------------------- |
+| **GitHub App**  | The product: install it, and the next failed run gets a comment and a check run. |
+| **`logsy` CLI** | A full-screen terminal app for any log on your machine.                          |
+| **Desktop app** | The same analysis in a window: drop a log on it.                                 |
+| **Playground**  | A page in the dashboard: paste a log, see the comment. No login.                 |
+
+---
+
+## See it
+
+### The terminal app
+
+`pnpm -s logsy` opens a full-screen app: pick one of the ten real CI failures it ships
+with, drop in your own log, or paste one. Rules answer instantly; when the models are
+asked, the bar shimmers while they think.
+
+<p align="center">
+  <img src="./docs/assets/cli-home.svg" alt="The Logsy CLI home screen: the wordmark, buttons for Examples, Open file, Paste, Models and Quit, and a panel describing the five steps of the analysis" width="100%" />
+</p>
+
+The ten bundled failures are real logs from public projects — Maven, pytest, pandas,
+TypeScript, Vitest, Docker Compose and more — listed by repository and failing job:
+
+<p align="center">
+  <img src="./docs/assets/cli-examples.svg" alt="The Logsy CLI example list: real failures from apache/maven, docker/compose, microsoft/TypeScript, pandas-dev/pandas, pytest-dev/pytest and vitest-dev/vitest, each with the job that failed" width="100%" />
+</p>
+
+The report shows what was found and how it was decided, then the exact comment it would
+post, scrollable, with `c` to copy the Markdown:
+
+<p align="center">
+  <img src="./docs/assets/cli-report.svg" alt="The Logsy CLI report: a Test failure badge, a 90% confidence gauge, the failing step, and the pull request comment below" width="100%" />
+</p>
+
+### The desktop app
+
+`pnpm desktop` opens the same analysis in a window, with the logs you have analyzed on the
+left and the comment rendered as GitHub would show it on the right:
+
+<p align="center">
+  <img src="./docs/assets/desktop.png" alt="The Logsy desktop app: a sidebar listing analyzed logs and bundled example failures, and a report with the verdict and the rendered pull request comment" width="100%" />
+</p>
+
+### The playground
+
+`pnpm dev:web`, then <http://localhost:3002/playground>: paste a log or pick an example and
+see the verdict and the rendered comment. It needs no login, and it only spends model quota
+when `PLAYGROUND_LLM=true`.
 
 ---
 
@@ -131,13 +196,21 @@ sequenceDiagram
     else A rule matches
         Engine-->>Worker: Deterministic diagnosis
     else Neither
-        Engine->>Engine: Ask the LLM or a panel (Claude / OpenAI / Groq / Gemini / Ollama)
+        Engine->>Engine: Ask a model, or a panel that votes
+        Note over Engine: Claude / OpenAI / Groq / Gemini / Ollama
         Engine-->>Worker: Structured result, validated by Zod
     end
 
     Worker->>DB: Store failure + analysis (tokens, cost, latency)
+    opt Embeddings configured
+        Worker->>DB: Store the vector, ask for older failures that mean the same
+    end
+    opt Looks flaky and the repo opted in
+        Worker->>GH: Re-run the failed jobs, once
+    end
     Worker->>GH: Upsert the single PR comment
-    Worker-->>Dev: Root cause, in the pull request
+    Worker->>GH: Publish the check run, annotating the changed files
+    Worker-->>Dev: Root cause, in the pull request and on the diff
 ```
 
 The receiver does no heavy work: it verifies, dedupes, enqueues and returns `202` in
@@ -153,13 +226,14 @@ logsy/
 │   ├── server/          # Fastify: webhook receiver, health, signature verification
 │   ├── worker/          # BullMQ jobs: analyze-run, post-comment, test-report
 │   └── web/             # Next.js dashboard (App Router, Tailwind, Auth.js)
-├── packages/ui/         # React components shared by the dashboard and the desktop app
 ├── packages/
 │   ├── core/            # Pure, zero-I/O: cleaning, error location, redaction,
 │   │                    #   fingerprinting, rules, JUnit parsing, comment markdown
 │   ├── github/          # Octokit app, typed helpers for jobs, logs, artifacts, PRs
-│   ├── llm/             # Providers (Anthropic, OpenAI, Groq, Gemini, Ollama) + panel voting
-│   ├── db/              # Drizzle schema, migrations, query helpers
+│   ├── llm/             # Providers (Anthropic, OpenAI, Groq, Gemini, Ollama),
+│   │                    #   panel voting, embeddings, the shared analysis pipeline
+│   ├── ui/              # React components shared by the dashboard and the desktop app
+│   ├── db/              # Drizzle schema (pgvector), migrations, query helpers
 │   ├── queue/           # Queue names, Zod job payloads, Redis connection
 │   └── config/          # Zod-validated env, shared tsconfig and ESLint config
 ├── evals/               # Labeled real CI logs + accuracy harness
@@ -273,9 +347,29 @@ The two unanswered fixtures have no recognizable pattern (a custom script error 
 `exit 1`) — exactly the cases the LLM layer exists for. A wrong answer costs more trust than
 no answer, so the rules stay silent rather than guess.
 
+### What the models add
+
+`pnpm evals --llm-only` skips the rules so every fixture reaches the models. Measured on
+the same ten fixtures, with free-tier providers:
+
+| Setup                           | Category accuracy | Wrong cause posted | Excerpt only |
+| ------------------------------- | ----------------- | ------------------ | ------------ |
+| Groq `gpt-oss-120b` alone       | 70%               | —                  | —            |
+| Groq `qwen3.8-27b` alone        | 60%               | —                  | —            |
+| Gemini Flash alone              | crashed on a 503  | —                  | —            |
+| Panel of two (GPT-OSS + Gemini) | 80%               | 2                  | 0            |
+| **Panel of three (+ Qwen)**     | 70–80%            | **0**              | 5            |
+
+Both panels beat every single model, and Gemini's outage never showed: the others answered.
+"Wrong cause posted" is the number that matters — a confident, wrong explanation on
+someone's pull request. The panel of three never produced one, at the price of staying
+quiet more often. In production the rules answer most failures first, so the panel only
+sees what they cannot.
+
 ```bash
-pnpm evals          # rules only, free
-pnpm evals --llm    # also sends unmatched fixtures to the configured model
+pnpm evals             # rules only, free
+pnpm evals --llm       # send the unmatched fixtures to the configured model
+pnpm evals --llm-only  # skip the rules: measure the models themselves
 ```
 
 ---
@@ -317,6 +411,11 @@ the assumption that yours should stay yours.
 - [x] **Phase 7** — Dashboard
 - [x] **Phase 8** — Flaky test detection from JUnit artifacts
 - [x] **Phase 9** — Feedback, Docker images, Helm chart, observability, security pass
+- [x] **Panel of models** — several models vote; disagreement means silence
+- [x] **`logsy` CLI and desktop app** — the same analysis without a GitHub App
+- [x] **Check run annotations** — the explanation on the lines of the diff
+- [x] **Auto re-run** — one re-run when a failure looks flaky
+- [x] **Semantic recall** — pgvector links a failure to the older one that meant the same
 - [ ] Auto-fix pull requests for the failures a rule can repair
 - [ ] GitLab CI and CircleCI
 - [ ] Slack notifications for recurring breakages
