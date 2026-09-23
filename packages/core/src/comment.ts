@@ -47,6 +47,18 @@ export interface CommentContext {
   flakyNote?: string;
   /** Set when Logsy re-ran the failed jobs because the failure looked flaky. */
   rerunNote?: string;
+  /** Older failures that mean the same thing, most alike first. */
+  similar?: SimilarFailureRef[];
+}
+
+/** An older failure worth pointing at, found by meaning rather than by fingerprint. */
+export interface SimilarFailureRef {
+  title: string;
+  runUrl: string;
+  /** 0 to 1; shown so nobody mistakes a loose match for the same failure. */
+  similarity: number;
+  prNumber?: number | null;
+  seenAt?: Date;
 }
 
 export function categoryLabel(category: FailureCategory): string {
@@ -115,6 +127,22 @@ export function formatFailureComment(context: CommentContext): string {
   }
   if (notes.length > 0) {
     lines.push(notes.map((note) => `> ${note}`).join('\n> '), '');
+  }
+
+  const similar = context.similar ?? [];
+  if (similar.length > 0) {
+    lines.push('**Seen something like this before**', '');
+    for (const entry of similar) {
+      const when = entry.seenAt ? `, ${entry.seenAt.toISOString().slice(0, 10)}` : '';
+      const pull =
+        entry.prNumber === undefined || entry.prNumber === null
+          ? ''
+          : ` in #${String(entry.prNumber)}`;
+      lines.push(
+        `- [${entry.title}](${entry.runUrl})${pull}${when} · ${String(Math.round(entry.similarity * 100))}% alike`,
+      );
+    }
+    lines.push('');
   }
 
   lines.push('---', '', footer(context, confident));

@@ -34,7 +34,7 @@ export {
   formatFailureComment,
   formatPassingComment,
 } from './comment.js';
-export type { CommentContext } from './comment.js';
+export type { CommentContext, SimilarFailureRef } from './comment.js';
 export { buildAnnotations, checkRunSummary, checkRunTitle } from './annotations.js';
 export type { AnnotationContext, CheckAnnotation } from './annotations.js';
 export { parseCommentMarkdown, parseInline } from './comment-markdown.js';

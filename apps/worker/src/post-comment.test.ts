@@ -1,12 +1,16 @@
 import { COMMENT_MARKER } from '@logsy/core';
 import {
   createDatabase,
+  insertAnalysis,
   insertTestResults,
   prComments,
   recordFlakyTest,
   repositories,
+  upsertFailure,
+  upsertFailureEmbedding,
   upsertInstallation,
   upsertRepositories,
+  upsertWorkflowRun,
   workflowRuns,
 } from '@logsy/db';
 import { truncateAll } from '@logsy/db/testing';
@@ -280,6 +284,110 @@ describe('processPostComment — re-running a flaky failure', () => {
     expect(result).toMatchObject({ status: 'created' });
     expect(github.rerunCalls).toEqual([]);
     expect(github.commentCalls.at(-1)?.body).not.toContain('re-ran');
+  });
+});
+
+describe('processPostComment — seen something like this before', () => {
+  /** A stand-in for a real model: the same text always gives the same direction. */
+  function embedder(axis: number) {
+    return {
+      name: 'openai' as const,
+      model: 'test-embed',
+      dimensions: 768,
+      embed: () => {
+        const vector = Array.from({ length: 768 }, () => 0);
+        vector[axis] = 1;
+        return Promise.resolve(vector);
+      },
+    };
+  }
+
+  it('links an older failure that means the same thing', async () => {
+    // An earlier failure, with a different fingerprint but the same meaning.
+    const [repo] = await db.select().from(repositories);
+    const earlierRunId = await upsertWorkflowRun(db, {
+      repositoryId: repo?.id ?? 0,
+      githubRunId: 900,
+      runAttempt: 1,
+      workflowName: 'CI',
+      headSha: 'older',
+      headBranch: 'main',
+      event: 'pull_request',
+      conclusion: 'failure',
+      prNumber: 4,
+      htmlUrl: 'https://github.com/acme/api/actions/runs/900',
+    });
+    const earlierFailureId = await upsertFailure(db, {
+      workflowRunId: earlierRunId,
+      githubJobId: 9_000,
+      jobName: 'build (20)',
+      stepName: 'npm ci',
+      category: 'dependency_error',
+      fingerprint: 'v1:earlier',
+      errorExcerpt: 'npm ERR! peer dependency conflict',
+      logCharsOriginal: 100,
+      logCharsTrimmed: 50,
+    });
+    await insertAnalysis(db, {
+      failureId: earlierFailureId,
+      fingerprint: 'v1:earlier',
+      source: 'rule',
+      result: {
+        category: 'dependency_error',
+        title: 'The same conflict, in another package',
+        rootCause: 'Peer dependency conflict.',
+        evidence: [],
+        likelyFiles: [],
+        suggestedFix: 'Align the versions.',
+        isLikelyFlaky: false,
+        confidence: 0.9,
+      },
+      confidence: 0.9,
+    });
+    await upsertFailureEmbedding(db, {
+      failureId: earlierFailureId,
+      repositoryId: repo?.id ?? 0,
+      fingerprint: 'v1:earlier',
+      embedding: Array.from({ length: 768 }, (_unused, index) => (index === 0 ? 1 : 0)),
+      model: 'test-embed',
+    });
+
+    const github = githubStub({
+      jobs: [workflowJob({ id: 102, name: 'build (22)' })],
+      logs: { 102: eresolveLog },
+    });
+    await processAnalyzeRun({ db, github, log }, analyzeJob);
+    await processPostComment({ db, github, log, embeddings: embedder(0) }, commentJob);
+
+    const body = github.commentCalls.at(-1)?.body ?? '';
+    expect(body).toContain('Seen something like this before');
+    expect(body).toContain('The same conflict, in another package');
+    expect(body).toContain('in #4');
+    expect(body).toContain('100% alike');
+  });
+
+  it('says nothing when no embedding provider is configured', async () => {
+    const { github } = await analyzeThenComment();
+    expect(github.commentCalls.at(-1)?.body).not.toContain('Seen something like this');
+  });
+
+  it('still comments when the embedding provider is down', async () => {
+    const broken = {
+      name: 'openai' as const,
+      model: 'test-embed',
+      dimensions: 768,
+      embed: () => Promise.reject(new Error('503 unavailable')),
+    };
+    const github = githubStub({
+      jobs: [workflowJob({ id: 102, name: 'build (22)' })],
+      logs: { 102: eresolveLog },
+    });
+    await processAnalyzeRun({ db, github, log }, analyzeJob);
+
+    const result = await processPostComment({ db, github, log, embeddings: broken }, commentJob);
+
+    expect(result).toMatchObject({ status: 'created' });
+    expect(github.commentCalls.at(-1)?.body).not.toContain('Seen something like this');
   });
 });
 

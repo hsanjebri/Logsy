@@ -128,6 +128,29 @@ export const llmEnvSchema = z
     requireKey(env.LLM_PROVIDER, `LLM_PROVIDER=${env.LLM_PROVIDER}`);
   });
 
+/**
+ * Embeddings are what let Logsy recall a failure that means the same thing as an
+ * older one. Off unless EMBEDDINGS_PROVIDER is set; the width must match the database
+ * column, which is 768.
+ */
+export const embeddingsEnvSchema = z
+  .object({
+    EMBEDDINGS_PROVIDER: z.enum(['openai', 'gemini', 'ollama']).optional(),
+    EMBEDDINGS_MODEL: z.string().min(1).optional(),
+    EMBEDDINGS_DIMENSIONS: z.coerce.number().int().positive().default(768),
+    /** Raise it for fewer, closer matches; lower it for more. */
+    EMBEDDINGS_MIN_SIMILARITY: z.coerce.number().min(0).max(1).default(0.72),
+  })
+  .superRefine((env, ctx) => {
+    if (env.EMBEDDINGS_PROVIDER !== undefined && env.EMBEDDINGS_MODEL === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['EMBEDDINGS_MODEL'],
+        message: `required when EMBEDDINGS_PROVIDER=${env.EMBEDDINGS_PROVIDER}`,
+      });
+    }
+  });
+
 export interface EnvIssue {
   variable: string;
   message: string;

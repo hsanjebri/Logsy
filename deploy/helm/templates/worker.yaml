@@ -56,6 +56,14 @@ spec:
             - name: LLM_PANEL
               value: {{ . | quote }}
             {{- end }}
+            {{- with .Values.config.embeddings.provider }}
+            - name: EMBEDDINGS_PROVIDER
+              value: {{ . | quote }}
+            - name: EMBEDDINGS_MODEL
+              value: {{ $.Values.config.embeddings.model | quote }}
+            - name: EMBEDDINGS_DIMENSIONS
+              value: {{ $.Values.config.embeddings.dimensions | quote }}
+            {{- end }}
           resources: {{- toYaml .Values.worker.resources | nindent 12 }}
           securityContext:
             allowPrivilegeEscalation: false

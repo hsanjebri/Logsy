@@ -1,13 +1,10 @@
 import { createPanelProvider } from './panel.js';
+import { GEMINI_BASE_URL, GROQ_BASE_URL } from './urls.js';
 import { createAnthropicProvider } from './providers/anthropic.js';
 import { createOllamaProvider } from './providers/ollama.js';
 import { createOpenAiProvider } from './providers/openai.js';
 import { createRoutingProvider } from './routing.js';
 import type { LlmProvider, SingleProviderName } from './types.js';
-
-/** OpenAI-compatible endpoints, so both reuse the OpenAI adapter. */
-export const GROQ_BASE_URL = 'https://api.groq.com/openai/v1';
-export const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/openai/';
 
 export interface ProviderKeys {
   anthropicApiKey?: string | undefined;
@@ -122,6 +119,9 @@ export type {
 } from './types.js';
 export { combinePanel, createPanelProvider, DISAGREEMENT_CONFIDENCE } from './panel.js';
 export type { PanelOptions } from './panel.js';
+export { GEMINI_BASE_URL, GROQ_BASE_URL } from './urls.js';
+export { createEmbeddingProvider } from './embeddings.js';
+export type { EmbeddingOptions, EmbeddingProvider, EmbeddingProviderName } from './embeddings.js';
 export { analyzeLog, summarizeLogAnalysis } from './pipeline.js';
 export type { AnalyzeLogOptions, LogAnalysis, LogAnalysisSummary } from './pipeline.js';
 export { createRoutingProvider } from './routing.js';

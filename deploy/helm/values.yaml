@@ -29,6 +29,12 @@ config:
     ollamaBaseUrl: ''
     # e.g. groq:openai/gpt-oss-120b,gemini:gemini-flash-latest (see docs/self-hosting.md)
     panel: ''
+  # Links a failure to older ones that mean the same thing. Needs pgvector on the
+  # database and an embedding model; leave the provider empty to turn it off.
+  embeddings:
+    provider: ''
+    model: ''
+    dimensions: 768
   # Both optional: unset means the SDK is never loaded.
   sentryDsn: ''
   otlpEndpoint: ''

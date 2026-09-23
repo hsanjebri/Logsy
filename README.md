@@ -89,6 +89,8 @@ That is the whole product. One comment, updated in place on every re-run, replac
   per-repo settings, and how often the analyses were judged helpful.
 - 🔒 **Yours.** Self-hosted in one `docker compose up`, bring your own key, or run entirely
   offline against a local Ollama model.
+- 🧠 **Remembers.** Optional embeddings link a new failure to the older one that meant
+  the same thing, even when the wording differs, with the pull request it happened in.
 - 🤝 **Models that check each other.** Optionally, a panel of models (for example Groq and
   Gemini, both on free tiers) analyzes each failure in parallel; when they disagree, Logsy
   stays quiet instead of guessing.

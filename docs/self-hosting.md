@@ -83,6 +83,22 @@ OLLAMA_BASE_URL=http://host.docker.internal:11434
 
 Nothing then leaves your network.
 
+### Remembering failures that only look alike
+
+Fingerprints match identical errors. To also catch the same problem worded differently,
+give Logsy an embedding model:
+
+```bash
+EMBEDDINGS_PROVIDER=gemini
+EMBEDDINGS_MODEL=gemini-embedding-001
+```
+
+Each failure is then stored as a vector, and a new one links to the older failures that
+mean the same thing: _"Seen something like this before: The same conflict, in another
+package, in #4, 91% alike."_ It needs pgvector, which the compose Postgres image
+(`pgvector/pgvector:pg16`) ships with; on a managed database, enable the `vector`
+extension first. `EMBEDDINGS_PROVIDER=ollama` with `nomic-embed-text` keeps it local.
+
 ### Running on free tiers, with a panel of models
 
 Groq and Google AI Studio both offer free API keys. Instead of trusting one model, let

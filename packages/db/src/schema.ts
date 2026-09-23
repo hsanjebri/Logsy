@@ -2,6 +2,7 @@ import { FAILURE_CATEGORIES } from '@logsy/core';
 import {
   bigint,
   boolean,
+  customType,
   index,
   integer,
   jsonb,
@@ -16,6 +17,18 @@ import {
 
 // Column names are camelCase here and snake_case in Postgres (`casing: 'snake_case'`).
 // GitHub IDs exceed 2^31, so they are bigint; `mode: 'number'` is safe up to 2^53.
+
+/**
+ * pgvector's `vector` type. Drizzle has no native column for it, and the dimension is
+ * fixed in the column, so every embedding Logsy stores must be this long.
+ */
+export const EMBEDDING_DIMENSIONS = 768;
+
+const vector = customType<{ data: number[]; driverData: string }>({
+  dataType: () => `vector(${String(EMBEDDING_DIMENSIONS)})`,
+  toDriver: (value) => `[${value.join(',')}]`,
+  fromDriver: (value) => JSON.parse(value) as number[],
+});
 
 const id = () => integer().primaryKey().generatedAlwaysAsIdentity();
 const githubId = () => bigint({ mode: 'number' });
@@ -237,4 +250,26 @@ export const feedback = pgTable(
   },
   // One vote per user per analysis; a second vote replaces the first.
   (table) => [unique().on(table.analysisId, table.githubUser)],
+);
+
+/**
+ * One embedding per failure, so a new failure can find older ones that mean the same
+ * thing even when the text differs. Fingerprints already catch identical errors.
+ */
+export const failureEmbeddings = pgTable(
+  'failure_embeddings',
+  {
+    failureId: integer()
+      .primaryKey()
+      .references(() => failures.id, { onDelete: 'cascade' }),
+    repositoryId: integer()
+      .notNull()
+      .references(() => repositories.id, { onDelete: 'cascade' }),
+    /** Copied from the failure so similarity search can skip the same error. */
+    fingerprint: text().notNull(),
+    embedding: vector().notNull(),
+    model: text().notNull(),
+    createdAt: createdAt(),
+  },
+  (table) => [index().on(table.repositoryId)],
 );

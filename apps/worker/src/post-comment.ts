@@ -1,6 +1,7 @@
 import {
   COMMENT_MARKER,
   buildAnnotations,
+  categoryLabel,
   checkRunSummary,
   checkRunTitle,
   flakyNote,
@@ -8,10 +9,13 @@ import {
   formatPassingComment,
   type AnalysisResult,
   type CommentContext,
+  type FailureCategory,
+  type SimilarFailureRef,
 } from '@logsy/core';
 import {
   countFailuresByFingerprint,
   findKnownFlakyFailures,
+  findSimilarFailures,
   findRepositoryByGithubId,
   findRunFailures,
   findWorkflowRun,
@@ -25,6 +29,7 @@ import {
   type GitHubApp,
   type InstallationClient,
 } from '@logsy/github';
+import type { EmbeddingProvider } from '@logsy/llm';
 import type { PostCommentJob } from '@logsy/queue';
 import type { Logger } from 'pino';
 
@@ -34,6 +39,10 @@ export interface PostCommentDeps {
   log: Logger;
   /** Base URL of this Logsy instance, used for the feedback links. */
   feedbackBaseUrl?: string;
+  /** Optional: without it, the comment cannot recall failures that only look alike. */
+  embeddings?: EmbeddingProvider;
+  /** Cosine similarity an older failure must reach to be mentioned. */
+  minSimilarity?: number;
 }
 
 export interface PostCommentResult {
@@ -148,6 +157,13 @@ export async function processPostComment(
     },
   );
 
+  // Older failures that mean the same thing, which fingerprints alone never match.
+  const similar = await findSimilar(deps, {
+    repositoryId: repository.id,
+    fingerprint: primary.fingerprint,
+    excerpt: primary.errorExcerpt,
+  });
+
   const context: CommentContext = {
     analysis: primary.result ?? unexplained(primary),
     source: primary.source ?? 'rule',
@@ -163,6 +179,7 @@ export async function processPostComment(
     model: primary.model,
     ...(knownFlaky ? { flakyNote: flakyNote(knownFlaky) } : {}),
     ...(rerunNote === null ? {} : { rerunNote }),
+    ...(similar.length > 0 ? { similar } : {}),
     ...(deps.feedbackBaseUrl !== undefined && primary.analysisId !== null
       ? { feedbackBaseUrl: deps.feedbackBaseUrl, analysisId: primary.analysisId }
       : {}),
@@ -349,5 +366,36 @@ async function maybeRerun(
     // Usually a missing Actions write permission; the comment simply omits the line.
     deps.log.warn({ err: error }, 'could not re-run the failed jobs');
     return null;
+  }
+}
+
+/**
+ * Asks the vector store for failures that mean the same thing as this one. Anything
+ * that goes wrong here is worth a line in the log and nothing more: the comment is
+ * complete without it.
+ */
+async function findSimilar(
+  deps: PostCommentDeps,
+  request: { repositoryId: number; fingerprint: string; excerpt: string },
+): Promise<SimilarFailureRef[]> {
+  if (!deps.embeddings || request.excerpt.trim() === '') return [];
+
+  try {
+    const matches = await findSimilarFailures(deps.db, {
+      repositoryId: request.repositoryId,
+      fingerprint: request.fingerprint,
+      embedding: await deps.embeddings.embed(request.excerpt),
+      ...(deps.minSimilarity === undefined ? {} : { minSimilarity: deps.minSimilarity }),
+    });
+    return matches.map((match) => ({
+      title: match.title ?? categoryLabel(match.category as FailureCategory),
+      runUrl: match.runUrl,
+      similarity: match.similarity,
+      prNumber: match.prNumber,
+      seenAt: match.lastSeenAt,
+    }));
+  } catch (error) {
+    deps.log.warn({ err: error }, 'could not look for similar failures');
+    return [];
   }
 }

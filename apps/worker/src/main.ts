@@ -3,6 +3,7 @@ import {
   baseEnvSchema,
   databaseEnvSchema,
   githubAppEnvSchema,
+  embeddingsEnvSchema,
   llmEnvSchema,
   loadEnv,
   redisEnvSchema,
@@ -10,7 +11,12 @@ import {
 } from '@logsy/config';
 import { createDatabase } from '@logsy/db';
 import { createGitHubApp } from '@logsy/github';
-import { createConfiguredProvider, type LlmProvider } from '@logsy/llm';
+import {
+  createConfiguredProvider,
+  createEmbeddingProvider,
+  type EmbeddingProvider,
+  type LlmProvider,
+} from '@logsy/llm';
 import {
   analyzeRunJobSchema,
   createAnalyzeRunWorker,
@@ -101,6 +107,27 @@ const llm = buildLlm();
 if (llm) log.info({ provider: llm.name, model: llm.model }, 'llm enabled');
 else log.warn('llm disabled; only cached and rule-based analyses will be produced');
 
+const embeddingsConfig = readEnv(() => loadEnv([embeddingsEnvSchema]));
+
+/** Embeddings are what let a comment say "we have seen something like this before". */
+function buildEmbeddings(): EmbeddingProvider | undefined {
+  const config = embeddingsConfig;
+  if (config.EMBEDDINGS_PROVIDER === undefined || config.EMBEDDINGS_MODEL === undefined) {
+    return undefined;
+  }
+  return createEmbeddingProvider({
+    provider: config.EMBEDDINGS_PROVIDER,
+    model: config.EMBEDDINGS_MODEL,
+    dimensions: config.EMBEDDINGS_DIMENSIONS,
+    apiKey:
+      config.EMBEDDINGS_PROVIDER === 'gemini' ? llmEnv?.GEMINI_API_KEY : llmEnv?.OPENAI_API_KEY,
+    ...(llmEnv?.OLLAMA_BASE_URL === undefined ? {} : { baseUrl: llmEnv.OLLAMA_BASE_URL }),
+  });
+}
+
+const embeddings = buildEmbeddings();
+if (embeddings) log.info({ model: embeddings.model }, 'semantic recall enabled');
+
 const comments = createPostCommentQueue(redis);
 
 const worker = createAnalyzeRunWorker(
@@ -113,7 +140,14 @@ const worker = createAnalyzeRunWorker(
     }
 
     const result = await processAnalyzeRun(
-      { db, github, log, comments, ...(llm ? { llm } : {}) },
+      {
+        db,
+        github,
+        log,
+        comments,
+        ...(llm ? { llm } : {}),
+        ...(embeddings ? { embeddings } : {}),
+      },
       parsed.data,
     );
     if (result.retryAt) {
@@ -133,7 +167,15 @@ const commentWorker = createPostCommentWorker(
       throw new UnrecoverableError(`invalid post-comment payload: ${parsed.error.message}`);
     }
     return await processPostComment(
-      { db, github, log, ...(env.PUBLIC_URL ? { feedbackBaseUrl: env.PUBLIC_URL } : {}) },
+      {
+        db,
+        github,
+        log,
+        ...(env.PUBLIC_URL ? { feedbackBaseUrl: env.PUBLIC_URL } : {}),
+        ...(embeddings
+          ? { embeddings, minSimilarity: embeddingsConfig.EMBEDDINGS_MIN_SIMILARITY }
+          : {}),
+      },
       parsed.data,
     );
   },

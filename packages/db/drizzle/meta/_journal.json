@@ -15,6 +15,13 @@
       "when": 1789758567223,
       "tag": "0001_failure_per_job",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790200000000,
+      "tag": "0002_failure_embeddings",
+      "breakpoints": true
     }
   ]
 }

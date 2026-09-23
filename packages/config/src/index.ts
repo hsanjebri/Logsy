@@ -4,6 +4,7 @@ export {
   databaseEnvSchema,
   githubAppEnvSchema,
   githubWebhookEnvSchema,
+  embeddingsEnvSchema,
   llmEnvSchema,
   loadEnv,
   redisEnvSchema,

@@ -10,12 +10,13 @@ import {
   findCachedAnalysis,
   findRepositoryByGithubId,
   insertAnalysis,
+  upsertFailureEmbedding,
   upsertFailure,
   upsertWorkflowRun,
   type Database,
 } from '@logsy/db';
 import { LogsUnavailableError, failedStep, isFailedJob, type GitHubApp } from '@logsy/github';
-import type { AnalysisInput, LlmProvider } from '@logsy/llm';
+import type { AnalysisInput, EmbeddingProvider, LlmProvider } from '@logsy/llm';
 import type { AnalyzeRunJob, PostCommentQueue } from '@logsy/queue';
 import type { Logger } from 'pino';
 
@@ -25,6 +26,8 @@ export interface AnalyzeRunDeps {
   log: Logger;
   /** Optional: when absent, failures with no rule are left unexplained. */
   llm?: LlmProvider;
+  /** Optional: when absent, Logsy cannot recall failures that only look alike. */
+  embeddings?: EmbeddingProvider;
   /** Optional: when absent, analyses are stored but no comment is queued. */
   comments?: Pick<PostCommentQueue, 'enqueuePostComment'>;
   /** Defer the job when fewer than this many API requests remain. */
@@ -150,6 +153,22 @@ export async function processAnalyzeRun(
       },
     );
     analyses.push(source);
+
+    // Remember what this failure looked like, so a later one worded differently can
+    // still find it. A failed embedding must never cost the analysis.
+    if (deps.embeddings) {
+      try {
+        await upsertFailureEmbedding(db, {
+          failureId,
+          repositoryId: repository.id,
+          fingerprint: errorFingerprint,
+          embedding: await deps.embeddings.embed(excerpt),
+          model: deps.embeddings.model,
+        });
+      } catch (error) {
+        log.warn({ err: error }, 'could not store the embedding for this failure');
+      }
+    }
 
     log.info(
       {

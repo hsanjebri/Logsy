@@ -230,6 +230,9 @@ Tables (add indexes and foreign keys as appropriate):
 - `test_results` — id, repository_id, workflow_run_id, head_sha, suite, test_name, status (`passed` | `failed` | `skipped`), duration_ms, created_at
 - `flaky_tests` — id, repository_id, suite, test_name, flip_count, last_flipped_at, first_detected_at, status (`active` | `resolved`)
 - `feedback` — id, analysis_id, github_user, verdict (`helpful` | `wrong`), note, created_at
+- `failure_embeddings` — failure_id (PK), repository_id, fingerprint, embedding (pgvector `vector(768)`), model, created_at; ivfflat index on the embedding for cosine distance
+
+**Semantic recall:** with `EMBEDDINGS_PROVIDER` set, every failure's redacted excerpt is embedded and stored. A new failure looks for older ones in the same repository above a cosine similarity of 0.72 (`EMBEDDINGS_MIN_SIMILARITY`, measured on real failures: same problem worded differently scores 0.77-0.89, unrelated ones 0.52-0.64), excluding its own fingerprint (identical errors are already counted as recurrences), and the comment links the closest three. Needs the `vector` extension; the compose image is `pgvector/pgvector:pg16`.
 
 **Flaky detection rule:** a test is flaky if, for the same `head_sha`, it has both `passed` and `failed` results (across run attempts or jobs). Also flag tests with a high pass/fail flip rate on the default branch over the last N runs.
 

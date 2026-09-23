@@ -11,6 +11,12 @@ export {
   upsertRepositories,
 } from './queries/installations.js';
 export type { InstallationInput, RepositoryInput } from './queries/installations.js';
+export {
+  DEFAULT_MIN_SIMILARITY,
+  findSimilarFailures,
+  upsertFailureEmbedding,
+} from './queries/embeddings.js';
+export type { EmbeddingInput, SimilarFailure, SimilarSearch } from './queries/embeddings.js';
 export { findRepositoryByGithubId, upsertFailure, upsertWorkflowRun } from './queries/runs.js';
 export type { FailureInput, WorkflowRunInput } from './queries/runs.js';
 export {
